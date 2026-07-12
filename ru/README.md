@@ -1,16 +1,13 @@
 # Security Baseline: Практическое руководство по десктопной безопасности Ubuntu
 ### by EugeXo
-
-<br>
-<br>
+#
 <br>
 
 <p align="center">
   <img src="../_assets/covers/russian/cover_ru.png" alt="Project Banner" width="400">
 </p>
 
-<br>
-<br>
+#
 <br>
 
 **Автор проекта:** EugeXo  
