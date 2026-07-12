@@ -11,7 +11,7 @@
 ---
 
 <p align="center">
-  <img src="../_assets/covers/russian/cover_ru.png" alt="Project Banner" width="500">
+  <img src="../_assets/covers/russian/cover_ru.png" alt="Project Banner" width="600">
 </p>
 
 --- 
