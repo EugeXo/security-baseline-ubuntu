@@ -8,7 +8,7 @@ An enterprise-grade, comprehensive guide dedicated to host-level hardening, oper
 
 | Language | Code | Quick Access |
 | :--- | :---: | :--- |
-| **العربية (Arabic)** | `AR` | [📖 اقرأ باللغة العربية](./ar/README.md) \| [📘 كِتَاب](./ar/security-baseline-ar.md) |
+| **العربية (Arabic)** | `AR` | [📖 اقرأ باللغة العربية](ar/README.md) \| [📘 كِتَاب](ar/security-baseline-ar.md) |
 | **বাংলা (Bengali)** | `BN` | [📖 বাংলায় গাইড পড়ুন](./bn/README.md) \| [📘 বই](./bn/security-baseline-bn.md) |
 | **中文 (Chinese)** | `ZH` | [📖 閱讀中文版](./zh/README.md) \| [📘 書籍](./zh/security-baseline-zh.md) |
 | **Deutsch** | `DE` | [📖 Auf Deutsch lesen](./de/README.md) \| [📘 Buch](./de/security-baseline-de.md) |
