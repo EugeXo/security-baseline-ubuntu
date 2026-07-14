@@ -1470,6 +1470,8 @@ user_pref("network.trr.custom_uri", "https://dns.mullvad.net/dns-query"); // И�
 chmod 0400 user.js
 ```
 
+После этого ни одна сторонняя программа и даже сам браузер Firefox не смогут изменить, переписать или затереть наши эталонные настройки безопасности.
+
 4. Если будет необходимо удалить файл user.js с нашими настройками:
 ```bash
 rm ~/.config/mozilla/firefox/*.default/user.js
@@ -1819,8 +1821,6 @@ user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
 user_pref("browser.newtabpage.activity-stream.feeds.discoverystreamfeed", false);
 user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 ```
-
-После этого ни одна сторонняя программа и даже сам браузер Firefox не смогут изменить, переписать или затереть наши эталонные настройки безопасности.
 
 Итак, мы детально рассмотрели экстремальные инженерные настройки браузера Firefox, которые гарантируют, что вы не будете делиться своими персональными данными ни с кем в глобальной сети. Без проведения данных манипуляций любой современный браузер фактически ведет непрерывную скрытую слежку за каждым шагом пользователя и собирает огромный массив цифровой телеметрии.
 
