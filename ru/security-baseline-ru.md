@@ -1599,7 +1599,7 @@ rm ~/.config/mozilla/firefox/*.default/user.js
     * `network.dns.disableIPv6 = true`
     * `network.dns.echconfig.enabled = true`
     * `network.trr.mode = 3`
-    * `network.trr.custom_uri = "https://mullvad.net"`
+    * `network.trr.custom_uri = "https://dns.mullvad.net/dns-query"`
 
 
 
