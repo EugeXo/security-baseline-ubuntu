@@ -1455,7 +1455,7 @@ user_pref("browser.urlbar.speculativeConnect.enabled", false);
 // 15. Запрет на скачивание браузером скриптов и модулей с помощью специальных тегов в коде страницы
 user_pref("network.modulepreload", false);
 
-// 16.
+// 16.  Защита DNS, запрет IPv6 критический режим DoH
 user_pref("network.dns.disableIPv6", true);
 user_pref("network.dns.echconfig.enabled", true);
 user_pref("network.trr.mode", 3);
@@ -1762,7 +1762,7 @@ user_pref("network.captive-portal-service.enabled", false);
 user_pref("network.dns.disableIPv6", true);
 user_pref("network.dns.echconfig.enabled", true);
 user_pref("network.trr.mode", 3);
-user_pref("network.trr.custom_uri", "https://base.dns.mullvad.net/dns-query");
+user_pref("network.trr.custom_uri", "https://base.dns.mullvad.net/dns-query"); // Или любой другой из списка выше!
 
 // 17. ВЫРЕЗАНИЕ СЛИВА ХЭШЕЙ В GOOGLE SAFE BROWSING И DRM-МОДУЛЕЙ
 user_pref("browser.safebrowsing.malware.enabled", false);
