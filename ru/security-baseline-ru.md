@@ -162,7 +162,7 @@ Hello, World, камрад!
 9. **Регулярно проводим внутренний аудит хоста.** Систему периодически (желательно 2–3 раза в неделю) инспектируем на наличие руткитов, вирусов и проверяем целостность системных файлов.
 10. **Никогда не запускаем сомнительные исполняемые файлы в основной системе.** Для их безопасного тестирования всегда используем изолированную песочницу `Firejail` или виртуальные машины.
 11. **При малейшем покидании рабочего места (даже на одну минуту) принудительно блокируем сессию, а при уходе на долгий срок — полностью выключаем компьютер.**
-12. **Обеспечиваем жесткую защиту от опасных DMA-атак (Direct Memory Access):** В настройках BIOS/UEFI принудительно переводим в режим максимальной авторизации (*Kernel DMA Protection*) порты Thunderbolt / USB4, чтобы полностью исключить прямое чтение содержимого оперативной памяти устройства через внешне подключенные девайсы, либо намертво отсекаем этот вектор на уровне загрузчика GRUB [^13]. Дополнительно полностью отключаем режим сна (*Sleep Mode*), так как в этом состоянии ключи шифрования диска остаются в RAM в открытом виде.
+12. **Обеспечиваем жесткую защиту от опасных DMA-атак (Direct Memory Access):** В настройках BIOS/UEFI принудительно переводим в режим максимальной авторизации (*Kernel DMA Protection*) порты Thunderbolt / USB4, чтобы полностью исключить прямое чтение содержимого оперативной памяти устройства через внешне подключенные девайсы, либо намертво отсекаем этот вектор на уровне загрузчика GRUB. Дополнительно полностью отключаем режим сна (*Sleep Mode*), так как в этом состоянии ключи шифрования диска остаются в RAM в открытом виде.
 
 <br>
 
@@ -1286,57 +1286,193 @@ sudo systemctl stop NetworkManager
 
 Теперь, когда хост находится в абсолютном и безопасном стерильном вакууме, мы спокойно запускаем Firefox и переходим к его пошаговому тюнингу.
 
-
 ### Первичная графическая настройка приватности (Обязательно для всех):
 
 Открываем браузер и в адресной строке вводим следующий прямой путь: `about:preferences#privacy`. Последовательно изменяем параметры:
 
-* В блоке **Enhanced Tracking Protection** (Улучшенная защита от отслеживания) переводим переключатель в жесткий режим **«Strict»** (Строгий) и нажимаем появившуюся кнопку **«Reload All Tabs»**. Это действие автоматически активирует механизм динамической изоляции куки-файлов (*dFPI*), намертво запрещая рекламным трекерам шпионить за вашими перемещениями по сети.
-* Современные браузеры способны совершать скрытые фоновые DNS-запросы. Чтобы пресечь это, в разделе **DNS over HTTPS** переводим ползунок в положение **«Max Protection»**. В графе выбора провайдера выставляем **«Custom»** (Кастомный) и вручную прописываем адреса тех самых безопасных, не ведущих логов серверов (*Mullvad DNS* или *Quad9*), которые мы детально разбирали в сетевом блоке книги.
-* В подразделе **«Cookies and Site Data»** обязательно активируем галочку **«Delete cookies and site data when Firefox is closed»** (Удалять куки и данные сайтов при закрытии Firefox).
-* Прокручиваем страницу вниз до раздела **«Firefox Data Collection and Use»** (Сбор и использование данных Firefox) и принудительно снимаем все установленные галочки телеметрии. Браузер больше не будет отправлять технические отчеты в Mozilla.
-* В самом низу страницы, в блоке **«HTTPS-Only Mode»**, переводим тумблер в активное положение **«Enable HTTPS-Only Mode in all windows»** (Включить режим HTTPS-Only во всех окнах). Это обеспечит принудительное шифрование любого незащищенного HTTP-трафика.
-* Переходим во вкладку **«Search»** (Поиск) в левом навигационном меню и изменяем поисковую систему по умолчанию со шпионского движка Google на приватный, не собирающий логи **DuckDuckGo**.
+* В блоке **«Enhanced Tracking Protection»** переходим в **«Advanced settings»** и переводим переключатель в жесткий режим **«Strict»** и нажимаем появившуюся кнопку **«Reload All Tabs»**. Это действие автоматически активирует механизм динамической изоляции куки-файлов (*dFPI*), намертво запрещая рекламным трекерам шпионить за вашими перемещениями по сети.
+* В блоке **«Browsing Data»** обязательно активируем галочку **«Clear cookies and site data every time you close Firefox»**.
+* Современные браузеры способны совершать скрытые фоновые DNS-запросы. Чтобы пресечь это, ниже в блоке **DNS over HTTPS»** заходим в **«Advanced settings»**. В графе выбора провайдера выставляем **«Custom»** и вручную прописываем URL адреса безопасных, не ведущих логов серверов (*Mullvad DNS*  или *Quad9*).
+
+> [!NOTE]
+> 1. **Mullvad (от создателей самого приватного VPN)**
+> Шведский сервис, ориентированный на радикальную анонимность. Они не собирают логи, не просят почту при регистрации, принимают наличные и криптовалюту, а их DNS-инфраструктура полностью принадлежит им и работает без сторонних посредников.
+> * Чистый DNS (без блокировок): `https://dns.mullvad.net/dns-query`
+> * Блокировка рекламы и трекеров (Adblock + Trackers): `https://adblock.dns.mullvad.net/dns-query`
+> * Максимальная защита (Реклама + Трекеры + Вредоносные сайты): `https://base.dns.mullvad.net/dns-query`
+>
+> 2. **Quad9 (Некоммерческий альянс кибербезопасности)**
+> Проект, созданный при поддержке IBM Security и ведущих мировых экспертов по защите данных. Сервис базируется в Швейцарии (под строгой защитой законов о приватности), использует огромную базу угроз и технологию Anycast для мгновенного отклика.
+> * Защищенный (Основной). Включает валидацию DNSSEC: `https://dns.quad9.net/dns-query`
+> * Нефильтруемый (Чистый DNS): `https://dns10.quad9.net/dns-query`
+>
+> 3. **Control D (от создателей Windscribe VPN)**
+> Один из лучших современных сервисов. Они принципиально не ведут логи и используют технологию Anycast (запрос идет к ближайшему к тебе серверу).
+> * Чистый DNS (без блокировок): `https://freedns.controld.com/p0`
+> * Блокировка рекламы, трекеров и фишинга: `https://freedns.controld.com/p1`
+> * Максимальный блок (Реклама + Вирусы + Новые домены): `https://freedns.controld.com/p2`
+>
+> 4. **NextDNS (Облачный аналог Pi-hole)**
+> Максимально ориентированный на приватность сервис. По умолчанию работает как мощный защитный щит, а при создании бесплатного аккаунта на их сайте позволяет гибко настраивать списки блокировок под себя.
+> * Стандартная защита (Реклама + Трекеры + Вирусы): `https://dns.nextdns.io`
+> * Чистый DNS (только приватность, без фильтров): `https://unfiltered.nextdns.io`
+>
+> 5. **AdGuard DNS (С акцентом на блокировку рекламы)**
+> Популярный и надежный сервис от известных разработчиков блокировщиков. Отлично вырезает баннеры, трекеры и аналитические скрипты еще на этапе DNS-запроса.
+> * Базовая защита (Реклама + Трекеры): `https://dns.adguard-dns.com/dns-query`
+> * Нефильтруемый (Чистый DNS без логирования): `https://unfiltered.adguard-dns.com/dns-query`
+>
+> 6. **Cloudflare (1.1.1.1 — Самый быстрый в мире)**
+> Обладает огромной сетью серверов, что гарантирует минимальную задержку при открытии сайтов. С точки зрения приватности компания обещает полностью удалять все логи запросов в течение 24 часов.
+> * Чистый DNS (ультра-быстрый): `https://cloudflare-dns.com/dns-query`
+> * Защита от вредоносного ПО (Вместо Safe Browsing): `https://security.cloudflare-dns.com/dns-query`
+
+
+* В самом низу страницы, в блоке **«Connection and software security»** заходим в **«Advanced settings»** в разделе **«HTTPS-Only Mode»**, переводим тумблер в активное положение **«Enable HTTPS-Only Mode in all windows»**. Это обеспечит принудительное шифрование любого незащищенного HTTP-трафика.
+* В разделе **«Permissions and data»** Прокручиваем страницу вниз до блока **«Firefox Data Collection and Use»** и принудительно снимаем все установленные галочки телеметрии. Браузер больше не будет отправлять технические отчеты в Mozilla.
+* Переходим в раздел **«Search»** в левом навигационном меню и изменяем поисковую систему по умолчанию со шпионского движка Google на приватный, не собирающий логи **DuckDuckGo**.
 
 ### Простой режим: Базовый харднинг ядра браузера (about:config):
 
 В адресной строке Firefox вводим команду `about:config` и принимаем предупреждение о рисках изменения системных конфигураций. В строке поиска поочередно находим и переводим в указанные состояния следующие параметры безопасности:
 ```ini
 # Блокировка протокола WebRTC для исключения утечки реального IP-адреса в обход VPN
-media.peerconnection.enabled=false
+media.peerconnection.enabled = false
 
 # Включение встроенной защиты Tor Browser от снятия цифрового отпечатка (Fingerprinting)
-privacy.resistFingerprinting=true
+privacy.resistFingerprinting = true
 
 # Тотальное отключение встроенных гео-сервисов и служб определения местоположения
-geo.enabled=false
+geo.enabled = false
 
 # Запрет сайтам отслеживать статус подключения аудио- и видеоустройств компьютера
-media.navigator.enabled=false
+media.navigator.enabled = false
 
 # Отключение фонового упреждающего DNS-запроса ссылок на веб-страницах
-network.dns.disablePrefetch=true
+network.dns.disablePrefetch = true
 
 # Запрет скрытой фоновой предзагрузки страниц, которые вы еще не открыли
-network.prefetch-next=false
+network.prefetch-next = false
 
 # Полное отключение 3D-графики WebGL для защиты от снятия "железного" отпечатка видеокарты
-webgl.disabled=true
+webgl.disabled = true
 
 # Запрет сайтам скрытно перехватывать, блокировать или модифицировать ваш буфер обмена
-dom.event.clipboardevents.enabled=false
+dom.event.clipboardevents.enabled = false
 
 # Отключение модулей проприетарной DRM-защиты цифрового контента (закрытый код)
-media.eme.enabled=false
+media.eme.enabled = false
 
 # Полное вырезание встроенного коммерческого рекламного сервиса Pocket
-extensions.pocket.enabled=false
+extensions.pocket.enabled = false
 
 # Запрет передачи адреса предыдущего сайта (Referer) на сторонние веб-ресурсы
-network.http.referer.XOriginPolicy=2
+network.http.referer.XOriginPolicy = 2
 
 # Принудительное очищение отслеживающих трекинг-хвостов в URL-ссылках страниц в приватном режиме
-privacy.query_stripping.enabled.pbmode=true
+privacy.query_stripping.enabled.pbmode = true
+
+# Запрет на установку фоновых соединений с серверами
+network.http.speculative-parallel-limit = 0
+
+# Запрет браузеру подключений к сайтам до полного ввода URL
+browser.urlbar.speculativeConnect.enabled = false
+
+# Запрет на скачивание браузером скриптов и модулей с помощью специальных тегов в коде страницы (например, <link rel="modulepreload">)
+network.modulepreload = false
+```
+> [!WARNING]
+> **Внимание!** Необходимо перенести эти настройки в файл user.js (чтобы настройки не слетали при обновлении), либо придется постоянно перепроверять их в ручную!
+
+### Автоматизация харднинга: Создание конфигурационного файла user.js
+
+Чтобы не вводить все эти многочисленные радикальные параметры вручную через интерфейс `about:config`, мы можем создать единый автоматизированный текстовый файл с именем `user.js` и скопировать все настройки туда в системном формате `user_pref("параметр", значение);`.
+
+Нам необходимо поместить этот файл непосредственно в скрытую папку текущего активного профиля Firefox в Ubuntu. При каждом старте браузер будет автоматически считывать этот файл и применять все наши жесткие настройки, а в инженерном меню `about:config` эти параметры будут подсвечены жирным шрифтом, блокируя ручные изменения.
+
+Найти точный путь к профилю, создать там файл `user.js`, наполнить его содержимым и жестко разграничить права доступа можно с помощью следующих шагов в терминале от имени обычного пользователя:
+
+1. Переходим в директорию профиля (в чистой и последней`.deb`-версии Firefox дефолтный профиль практически всегда имеет окончание `.default-release`) создаем пустой файл конфигурации:
+```bash
+cd ~/.config/mozilla/firefox/*-release/ && touch user.js
+```
+
+Если мы вдруг решим написать скрипт автоматизации для разных машин и хотим, чтобы user.js гарантированно создался в актуальном рабочем профиле (независимо от его имени и количества папок), лучше использовать этот однострочник:
+```bash
+PROFILE_DIR=$(awk -F= '/^\[Install/ {p=1} p && /^Default=/ {print $2; exit}' ~/.config/mozilla/firefox/profiles.ini) && cd "$HOME/.config/mozilla/firefox/$PROFILE_DIR" && touch user.js
+```
+
+2. Открываем созданный файл через текстовый редактор `nano`:
+```bash
+nano user.js
+```
+
+В открывшийся редактор вставляем массив настроек безопасности:
+
+```javascript
+// 1. Блокировка протокола WebRTC для исключения утечки реального IP-адреса в обход VPN
+user_pref("media.peerconnection.enabled", false);
+
+// 2. Включение встроенной защиты Tor Browser от снятия цифрового отпечатка (Fingerprinting)
+user_pref("privacy.resistFingerprinting", true);
+
+// 3. Тотальное отключение встроенных гео-сервисов и служб определения местоположения
+user_pref("geo.enabled", false);
+
+// 4. Запрет сайтам отслеживать статус подключения аудио- и видеоустройств компьютера
+user_pref("media.navigator.enabled", false);
+
+// 5. Отключение фонового упреждающего DNS-запроса ссылок на веб-страницах
+user_pref("network.dns.disablePrefetch", true);
+
+// 6. Запрет скрытой фоновой предзагрузки страниц, которые вы еще не открыли
+user_pref("network.prefetch-next", false);
+
+// 7. Полное отключение 3D-графики WebGL для защиты от снятия "железного" отпечатка видеокарты
+user_pref("webgl.disabled", true);
+
+// 8. Запрет сайтам скрытно перехватывать, блокировать или модифицировать ваш буфер обмена
+user_pref("dom.event.clipboardevents.enabled", false);
+
+// 9. Отключение модулей проприетарной DRM-защиты цифрового контента (закрытый код)
+user_pref("media.eme.enabled", false);
+
+// 10. Полное вырезание встроенного коммерческого рекламного сервиса Pocket
+user_pref("extensions.pocket.enabled", false);
+
+// 11. Запрет передачи адреса предыдущего сайта (Referer) на сторонние веб-ресурсы
+user_pref("network.http.referer.XOriginPolicy", 2);
+
+// 12. Принудительное очищение отслеживающих трекинг-хвостов в URL-ссылках страниц в приватном режиме
+user_pref("privacy.query_stripping.enabled.pbmode", true);
+
+// 13. Запрет на установку фоновых соединений с серверами
+user_pref("network.http.speculative-parallel-limit", 0);
+
+// 14. Запрет браузеру подключений к сайтам до полного ввода URL
+user_pref("browser.urlbar.speculativeConnect.enabled", false);
+
+// 15. Запрет на скачивание браузером скриптов и модулей с помощью специальных тегов в коде страницы
+user_pref("network.modulepreload", false);
+
+// 16.
+user_pref("network.dns.disableIPv6", true);
+user_pref("network.dns.echconfig.enabled", true);
+user_pref("network.trr.mode", 3);
+user_pref("network.trr.custom_uri", "https://dns.mullvad.net/dns-query"); // Или любой другой из списка выше!
+```
+Чтобы сохранить конфигурацию в редакторе `nano`, нажимаем комбинацию клавиш **Ctrl + O** -> **Enter**, а затем **Ctrl + X** для выхода обратно в консоль.
+
+Если злоумышленник или скрытый вредоносный скрипт всё же проникнет в учетную запись пользователя, он сможет отредактировать файл `user.js`, чтобы тайно вернуть обратно WebRTC или активировать телеметрию. Защитим конфигурационный файл, выставив на него права «только для чтения» сразу после наполнения:
+
+3. Выставляем права «только чтение для владельца» внутри текущей папки профиля:
+```bash
+chmod 0400 user.js
+```
+
+4. Удаление пользовательского профиля
+```bash
+rm ~/.config/mozilla/firefox/*.default/user.js
 ```
 
 ### Экстремальный режим: Низкоуровневый харднинг ядра (about:config)
@@ -1442,6 +1578,7 @@ privacy.query_stripping.enabled.pbmode=true
     * `security.ssl.errorReporting.automatic = false`
     * `network.allow-experiments = false`
 
+
 14. **Стирание регионального следа и изоляция поиска:** Запрещаем поисковым алгоритмам подстраивать результаты выдачи под ваш текущий IP-адрес или геопозицию хост-машины, принудительно выставляя нейтральный регион и отключая фоновые сетевые запросы гео-определения:
     * `browser.search.geoSpecificDefaults = false`
     * `browser.search.geoSpecificDefaults.url = ""`
@@ -1495,26 +1632,8 @@ privacy.query_stripping.enabled.pbmode=true
     * `security.OCSP.enabled = 0`
     * `security.OCSP.require = false`
 
+В user.js вставляем монолитный и расширенный массив настроек безопасности (как это сделать я рассказывал в разделе главы Автоматизация харднинга: Создание конфигурационного файла user.js ):
 
-### Автоматизация харднинга: Создание конфигурационного файла user.js
-
-Чтобы не вводить все эти многочисленные радикальные параметры вручную через интерфейс `about:config`, мы можем создать единый автоматизированный текстовый файл с именем `user.js` и скопировать все настройки туда в системном формате `user_pref("параметр", значение);`.
-
-Нам необходимо поместить этот файл непосредственно в скрытую папку текущего активного профиля Firefox в Ubuntu. При каждом старте браузер будет автоматически считывать этот файл и применять все наши жесткие настройки, а в инженерном меню `about:config` эти параметры будут подсвечены жирным шрифтом, блокируя ручные изменения.
-
-Найти точный путь к профилю, создать там файл `user.js`, наполнить его содержимым и жестко разграничить права доступа можно с помощью следующих шагов в терминале от имени обычного пользователя:
-
-1. Переходим в директорию профиля (в чистой `.deb`-версии Firefox дефолтный профиль практически всегда имеет окончание `.default-release`, поэтому маска звездочки `*` сработает безошибочно) и создаем пустой файл конфигурации:
-```bash
-cd ~/.mozilla/firefox/*.default-release/ && touch user.js
-```
-
-2. Открываем созданный файл через текстовый редактор `nano`:
-```bash
-nano user.js
-```
-
-В открывшийся редактор вставляем монолитный массив эталонных настроек безопасности:
 ```javascript
 // ============================================================================
 // HARDENING CONFIG FOR MOZILLA FIREFOX (USER.JS)
@@ -1552,6 +1671,8 @@ user_pref("geo.enabled", false);
 user_pref("geo.provider.use_geoclue", false);
 user_pref("geo.provider.network.url", "");
 user_pref("geo.provider.msgeolocate", false);
+// user_pref("geo.provider.ms-windows-location", false); // Для Windows
+//user_pref("geo.provider.use_corelocation", false);    // Для macOS
 
 // 6. БЛОКИРОВКА АСИНХРОННЫХ ЗАПРОСОВ (BEACONS / PINGS)
 user_pref("beacon.enabled", false);
@@ -1614,6 +1735,14 @@ user_pref("toolkit.crashreporter.enabled", false);
 user_pref("breakpad.reportURL", "");
 user_pref("security.ssl.errorReporting.automatic", false);
 user_pref("network.allow-experiments", false);
+user_pref("toolkit.telemetry.cachedClientID", "");
+user_pref("toolkit.telemetry.cachedProfileGroupID", "");
+user_pref("browser.newtabpage.activity-stream.feeds.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.telemetry", false);
+user_pref("browser.newtabpage.activity-stream.telemetry.privatePing.enabled", false);
+user_pref("browser.search.serpEventTelemetryCategorization.enabled", false);
+user_pref("identity.fxaccounts.telemetry.clientAssociationPing.enabled", false);
+user_pref("nimbus.telemetry.targetingContextEnabled", false);
 
 // 14. СТИРАНИЕ РЕГИОНАЛЬНОГО СЛЕДА И ИЗОЛЯЦИЯ ПОИСКА
 user_pref("browser.search.geoSpecificDefaults", false);
@@ -1633,7 +1762,7 @@ user_pref("network.captive-portal-service.enabled", false);
 user_pref("network.dns.disableIPv6", true);
 user_pref("network.dns.echconfig.enabled", true);
 user_pref("network.trr.mode", 3);
-user_pref("network.trr.custom_uri", "https://mullvad.net");
+user_pref("network.trr.custom_uri", "https://base.dns.mullvad.net/dns-query");
 
 // 17. ВЫРЕЗАНИЕ СЛИВА ХЭШЕЙ В GOOGLE SAFE BROWSING И DRM-МОДУЛЕЙ
 user_pref("browser.safebrowsing.malware.enabled", false);
@@ -1644,6 +1773,11 @@ user_pref("browser.safebrowsing.downloads.remote.block_as_unencrypted", false);
 user_pref("browser.safebrowsing.downloads.remote.url", "");
 user_pref("media.eme.enabled", false);
 user_pref("browser.eme.ui.enabled", false);
+user_pref("browser.safebrowsing.provider.google4.dataSharing.enabled", false);
+user_pref("browser.safebrowsing.provider.google4.updateURL", "");
+user_pref("browser.safebrowsing.provider.google4.gethashURL", "");
+user_pref("browser.safebrowsing.provider.mozilla.updateURL", "");
+user_pref("browser.safebrowsing.provider.mozilla.gethashURL", "");
 
 // 18. ПОЛНЫЙ ПЕРЕНОС КЭША В ОПЕРАТИВНУЮ ПАМЯТЬ (ЗАЩИТА СРОКА СЛУЖБЫ SSD)
 user_pref("browser.cache.disk.enabled", false);
@@ -1665,17 +1799,25 @@ user_pref("network.http.referer.XOriginPolicy", 2);
 user_pref("security.tls.enable_post_handshake_auth", false);
 user_pref("security.OCSP.enabled", 0);
 user_pref("security.OCSP.require", false);
-```
 
-Чтобы сохранить конфигурацию в редакторе `nano`, нажимаем комбинацию клавиш **Ctrl + O** -> **Enter**, а затем **Ctrl + X** для выхода обратно в консоль.
+// 22. ОТКЛЮЧЕНИЕ СКРЫТЫХ ИССЛЕДОВАНИЙ (MOZILLA STUDIES / EXPERIMENTS)
+user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("app.normandy.enabled", false);
+user_pref("app.normandy.api_url", "");
 
-### Блокировка конфигурации на уровне прав доступа операционной системы
+// 23. БОЛЕЕ ПЛАВНЫЙ СКРОЛЛИНГ СТРАНИЦ
+user_pref("general.smoothScroll", true);
+user_pref("mousewheel.min_line_scroll_amount", 20);
 
-Если злоумышленник или скрытый вредоносный скрипт всё же проникнет в учетную запись пользователя, он сможет отредактировать файл `user.js`, чтобы тайно вернуть обратно WebRTC или активировать телеметрию. Защитим конфигурационный файл, выставив на него права «только для чтения» сразу после наполнения:
+// 24. ВКЛЮЧЕНИЕ АППАРАТНОГО УСКОРЕНИЯ WEBRENDER (разгружает процессор за счет видеокарты)
+user_pref("gfx.webrender.all", true);
 
-3. Выставляем права «только чтение для владельца» внутри текущей папки профиля:
-```bash
-chmod 0400 user.js
+// 25. ОТКЛЮЧЕНИЕ РЕКЛАМЫ И СПОНСОРСКОГО КОНТЕНТА НА ДОМАШНЕЙ СТРАНИЦЕ
+user_pref("browser.newtabpage.activity-stream.telemetry.structuredIngestion.endpoint", "");
+user_pref("browser.newtabpage.activity-stream.showSponsored", false);
+user_pref("browser.newtabpage.activity-stream.showSponsoredTopSites", false);
+user_pref("browser.newtabpage.activity-stream.feeds.discoverystreamfeed", false);
+user_pref("browser.newtabpage.activity-stream.feeds.section.topstories", false);
 ```
 
 После этого ни одна сторонняя программа и даже сам браузер Firefox не смогут изменить, переписать или затереть наши эталонные настройки безопасности.
