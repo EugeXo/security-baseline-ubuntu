@@ -1470,7 +1470,7 @@ user_pref("network.trr.custom_uri", "https://dns.mullvad.net/dns-query"); // И�
 chmod 0400 user.js
 ```
 
-4. Удаление пользовательского профиля
+4. Если будет необходимо удалить файл user.js с нашими настройками:
 ```bash
 rm ~/.config/mozilla/firefox/*.default/user.js
 ```
