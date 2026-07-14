@@ -4,7 +4,7 @@
 <br>
 
 <p align="center">
-  <img src="../_assets/covers/russian/cover_ru.png" alt="Project Banner" width="400">
+  <img src="../_assets/covers/ru/cover_ru.png" alt="Project Banner" width="400">
 </p>
 
 #
