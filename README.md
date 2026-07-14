@@ -8,7 +8,7 @@ An enterprise-grade, comprehensive guide dedicated to host-level hardening, oper
 
 | Language | Code | Quick Access |
 | :--- | :---: | :--- |
-| **العربية (Arabic)** | `AR` | [📖 اقرأ باللغة العربية](./ar/README.md) \| [📘 كِتَاب](./ar/security-baseline-ar.md) |
+| **العربية (Arabic)** | `AR` | [📖 اقرأ باللغة العربية](ar/README.md) \| [📘 كِتَاب](ar/security-baseline-ar.md) |
 | **বাংলা (Bengali)** | `BN` | [📖 বাংলায় গাইড পড়ুন](./bn/README.md) \| [📘 বই](./bn/security-baseline-bn.md) |
 | **中文 (Chinese)** | `ZH` | [📖 閱讀中文版](./zh/README.md) \| [📘 書籍](./zh/security-baseline-zh.md) |
 | **Deutsch** | `DE` | [📖 Auf Deutsch lesen](./de/README.md) \| [📘 Buch](./de/security-baseline-de.md) |
@@ -20,11 +20,11 @@ An enterprise-grade, comprehensive guide dedicated to host-level hardening, oper
 | **Bahasa Indonesia (Indonesian)** | `ID` | [📖 Baca Panduan Indonesia](./id/README.md) \| [📘 Buku](./id/security-baseline-id.md) |
 | **日本語 (Japanese)** | `JA` | [📖 日本語でガイドを読む](./ja/README.md) \| [📘 本](./ja/security-baseline-ja.md) |
 | **한국어 (Korean)** | `KO` | [📖 한국어로 읽기](./ko/README.md) \| [📘 책](./ko/security-baseline-ko.md) |
-| **فارسی (Persian)** | `FA` | [📖 به زبان فارسی بخوانید](./fa/README.md) \| [📘 کتاب](./fa/security-baseline-fa.md) |
+| **فارسی (Persian)** | `FA` | [📖 به زبان فارسی بخوانید](fa/README.md) \| [📘 کتاب](fa/security-baseline-fa.md) |
 | **Português (Brasil)** | `PT-BR` | [📖 Ler em Português](./pt-br/README.md) \| [📘 Livro](./pt-br/security-baseline-pt-br.md) |
 | **Русский** | `RU` | [📖 Читать руководство на русском](./ru/README.md) \| [📘 Книга](./ru/security-baseline-ru.md) |
 | **Türkçe (Turkish)** | `TR` | [📖 Kılavuzu Türkçe olarak okuyun](./tr/README.md) \| [📘 Kitap](./tr/security-baseline-tr.md) |
-| **اردو (Urdu)** | `UR` | [📖 اردو میں گائیڈ پڑھیں](./ur/README.md) \| [📘 کتاب](./ur/security-baseline-ur.md) |
+| **اردو (Urdu)** | `UR` | [📖 اردو میں گائیڈ پڑھیں](ur/README.md) \| [📘 کتاب](ur/security-baseline-ur.md) |
 
 ---
 
