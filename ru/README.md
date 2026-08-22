@@ -50,7 +50,7 @@
 
 ### 🔑 Контакты и ресурсы сообщества
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@paranoici.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
