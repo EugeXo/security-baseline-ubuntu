@@ -50,7 +50,7 @@ Alle grafischen Materialien, Installations-Screenshots und GUI-Einstellungen wur
 
 ### 🔑 Kontakte und Community-Ressourcen
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
