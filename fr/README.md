@@ -38,9 +38,9 @@ L'ensemble du livre est divisé en blocs logiques formant une architecture de d�
 
 ---
 
-### 📸 Graphiques et Illustrations
+### 📸 Graphismes & Illustrations
 
-Tous les matériels visuels, captures d'écran de l'installation, configurations pas à pas du terminal et paramètres de l'IHM ont été déplacés en dehors du texte principal vers un répertoire isolé `/images`. Les graphiques sont structurés dans des sous-dossiers, ce qui exclut totalement leur rendu automatique en mémoire lors de la lecture du livre.
+Tous los documents graphiques, captures d'écran d'installation et configurations GUI ont été déplacés en dehors du texte principal dans un répertoire isolé : `_assets/images`. Les graphismes sont structurés en sous-dossiers, ce qui exclut totalement leur rendu automatique en mémoire lors de la lecture du livre. Des icônes stylisées ont été ajoutées dans le répertoire `_assets/icons`, qui contient les sous-dossiers `256x256` y `256x256@2x`, ainsi qu'un sous-dossier `Trash` (qui contient lui-même des sous-dossiers pour les icônes stylisées de la corbeille). De plus, des fonds d'écran stylisés sont répartis dans des sous-dossiers au sein de `_assets/wallpapers`.
 
 ---
 
