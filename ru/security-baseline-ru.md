@@ -4970,7 +4970,7 @@ sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
 
 **3.b2-1.** Скачиваем .deb пакет из авторского репозитория `github.com/eugexo`:
 ```bash
-wget https://github.com/eugexo/software/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 ```
 > [!IMPORTANT]
 > Перед установкой готового `.deb` не будем просто безоговорочно доверять полученному файлу. Сначала проверим его контрольную сумму и содержимое. Это не доказывает отсутствие вредоносного кода, но позволяет убедиться в целостности файла и понять, что именно мы собираемся установить. **Эта процедура должна применяться к любым недоверенным источникам (особенно неофициальным).**
