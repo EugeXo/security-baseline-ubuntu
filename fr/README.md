@@ -50,7 +50,7 @@ Tous los documents graphiques, captures d'écran d'installation et configuration
 
 ### 🔑 Contacts et Ressources de la Communauté
 * **Telegram :** `@EugeXo_Security`
-* **Jabber :** `eugexo@jabber.com`
+* **Jabber :** `eugexo@paranoici.org`
 * **Email :** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
