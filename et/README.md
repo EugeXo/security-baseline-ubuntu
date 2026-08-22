@@ -50,7 +50,7 @@ Kõik graafilised materjalid, paigalduse ekraanipildid ja GUI seadistused on vii
 
 ### 🔑 Kontaktid ja Kogukonna Ressursid
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
