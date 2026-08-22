@@ -50,7 +50,7 @@ Kitabın okunması sırasında grafiklerin bellekte otomatik olarak işlenmesini
 
 ### 🔑 İletişim ve Topluluk Kaynakları
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
