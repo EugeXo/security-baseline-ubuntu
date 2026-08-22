@@ -2,7 +2,7 @@
 
 If this practical guide has saved your host from compromise, helped you configure your security baseline, or saved you hours of debugging AppArmor and Firejail profiles, you can support the author and further development of this open-source initiative.
 
-> ⚠️ **OPSEC Warning:** Double-check the wallet addresses in your crypto-client.
+> ⚠️  **OPSEC Warning:** Double-check the addresses before sending any funds.
 
 | Coin | Address |
 | :--- | :--- |
