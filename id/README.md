@@ -38,9 +38,9 @@ Seluruh buku dibagi menjadi blok-blok logis yang membentuk arsitektur defense-in
 
 ---
 
-### 📸 Grafis dan Ilustrasi
+### 📸 Grafis & Ilustrasi
 
-Semua materi visual, tangkapan layar instalasi, konfigurasi terminal langkah-demi-langkah, dan pengaturan GUI telah dipindahkan ke luar teks utama ke dalam direktori terisolasi `/images`. Grafis disusun dalam subfolder, yang sepenuhnya mencegah rendering otomatis di memori saat membaca buku.
+Semua materi grafis, tangkapan layar instalasi, dan konfigurasi GUI telah dipindahkan dari teks utama ke direktori terisolasi: `_assets/images`. Grafis tersebut distrukturkan ke dalam subfolder, yang sepenuhnya mencegah proses rendering otomatis di dalam memori saat buku sedang dibaca. Ikon-ikon bergaya (stylistic) telah ditambahkan ke direktori `_assets/icons`, yang berisi subfolder `256x256` dan `256x256@2x`, serta subfolder `Trash` (di mana di dalamnya juga terdapat subfolder untuk ikon bergaya keranjang sampah). Selain itu, di dalam `_assets/wallpapers` terdapat juga wallpaper bergaya yang dibagi ke dalam subfolder.
 
 ---
 
