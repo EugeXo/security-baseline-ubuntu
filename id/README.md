@@ -50,7 +50,7 @@ Semua materi grafis, tangkapan layar instalasi, dan konfigurasi GUI telah dipind
 
 ### 🔑 Kontak dan Sumber Daya Komunitas
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
