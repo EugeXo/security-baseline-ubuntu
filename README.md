@@ -1,3 +1,17 @@
+### ☕ Support the Project
+
+If this practical guide has saved your host from compromise, helped you configure your security baseline, or saved you hours of debugging AppArmor and Firejail profiles, you can support the author and further development of this open-source initiative.
+
+> ⚠️ **OPSEC Warning:** Double-check the wallet addresses in your crypto-client.
+
+| Coin | Address |
+| :--- | :--- |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/xmr.png" width="20" align="center"> **Monero (XMR)** | `41iZ3BCmeDHJMqoWKYqkmWBM9WNFgMmBvhgt9iYRV6DZQHD5sjc5z2ubjMtdmie7vH3KatF8Qyg1bRsbtEJ5aAYHCZYQCwF` |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/btc.png" width="20" align="center"> **Bitcoin (BTC)** | `bc1q02qe2dujga6dw7d8m0m9s4ntngjq8ynrydxcwk` | 
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/sol.png" width="20" align="center"> **Solana (SOL)** | `H974LELMFSLw8f2M9hACc1vDxXRfHgQcBoL1Ef4AuYRw` |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/xrp.png" width="20" align="center"> **Ripple (XRP)** | `rULyw4LQXiVV6ecciJPndq7SHHi2hc2tHv` |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdt.png" width="20" align="center"> **USDT (TRC-20)** | `TKzQieJ7RjGeRHU8bi6wiuFruP9uYpuexL` |
+
 # 🛡️ Advanced OS Hardening: Security, Privacy & Anonymity Guide
 
 An enterprise-grade, comprehensive guide dedicated to host-level hardening, operational security (OpSec), and digital self-defense. This project is localized into 17 languages to empower journalists, human rights defenders, and infosec professionals globally.
