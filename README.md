@@ -52,13 +52,13 @@ This guide provides step-by-step instructions to transform a standard Linux dist
 
 * **DMA & Memory Protection:** Kernel-level IOMMU programming (`iommu.passthrough=0`) to block malicious Direct Memory Access via Thunderbolt/USB4/PCIe interfaces, combined with low-level kernel tuning to eliminate memory data remanence.
 
-* **Telemetry & Component Purging:** Complete sanitization of the host via automated Bash scripting—purging built-in Canonical telemetry, completely disabling the Snapd ecosystem, and removing vulnerable print/discovery services (Avahi/CUPS).
+* **Telemetry & Component Purging:** Sanitizing the host completely via automated Bash scripting—purging built-in Canonical telemetry, completely disabling the Snapd ecosystem, and removing vulnerable print/discovery services (Avahi/CUPS).
 
-* **System Integrity & Automation Auditing:** Deploying a cryptographic baseline for system files via AIDE (File Integrity Monitoring) and validating the overall defensive posture using automated compliance stress-tests via Lynis.
+* **System Integrity & Security Auditing:** Deploying a cryptographic baseline for system files via AIDE (File Integrity Monitoring) and validating the overall defensive posture using automated compliance stress-tests via Lynis.
 
 * **Sandboxing & Mandatory Access Control (MAC):** Enforcing granular application containment by deploying strict AppArmor security policies and isolation chambers using the Firejail sandbox framework.
 
-* **Network Perimeter Isolation:** Engineering bulletproof MAC address spoofing, disabling the IPv6 stack, and building an uncompromising UFW firewall architecture with a strict Kill Switch to completely eliminate traffic leaks outside the `tun0` VPN interface virtual boundary.
+* **Network Perimeter Isolation:** Engineering bulletproof MAC address spoofing, disabling the IPv6 stack, and building an uncompromising UFW firewall architecture with a strict Kill Switch to completely eliminate traffic leaks outside the virtual boundary of the tun0 VPN interface.
 
 * **Browser Hardening:** Extreme browser core modification via `about:config` and deployment of specialized `user.js` files to neutralize WebRTC leaks, browser fingerprinting, and advanced cross-site tracking.
 
