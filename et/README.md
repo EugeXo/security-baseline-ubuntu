@@ -38,9 +38,9 @@ Kogu raamat on jagatud loogilisteks blokkideks, mis moodustavad süvakaitse arhi
 
 ---
 
-### 📸 Graafika ja Illustratsioonid
+### 📸 Graafika ja illustratsioonid
 
-Kõik visuaalsed materjalid, paigaldamise ekraanipildid, terminali samm-sammulised konfiguratsioonid ja GUI seaded on viidud väljapoole põhiteksti isoleeritud kataloogi `/images`. Graafika on struktureeritud alamkaustadesse, mis välistab täielikult selle automaatse renderdamise mälus raamatu lugemise ajal.
+Kõik graafilised materjalid, paigalduse ekraanipildid ja GUI seadistused on viidud väljapoole põhiteksti isoleeritud kataloogi `_assets/images`. Graafika on struktureeritud alamkaustadesse, mis välistab täielikult selle automaatse mälus renderdamise raamatu lugemise ajal. Kataloogi `_assets/icons` on lisatud stiiliikoonid, mis sisaldavad alamkaustu `256x256` ja `256x256@2x` ning alamkausta `Trash`, mille sees on omakorda alamkaustad prügikasti stiiliikoonide jaoks. Samuti on kataloogis `_assets/wallpapers` stiilsed taustapildid jaotatud alamkaustadesse.
 
 ---
 
