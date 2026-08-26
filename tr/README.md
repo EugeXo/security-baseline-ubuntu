@@ -40,7 +40,7 @@ Kitabın tamamı, derinlemesine savunma (defense-in-depth) mimarisi oluşturan m
 
 📸 Grafikler ve Görseller
 
-Kitabın okunması sırasında grafiklerin bellekte otomatik olarak işlenmesini (rendering) tamamen engellemek amacıyla tüm grafik materyalleri, kurulum ekran görüntüleri ve GUI ayarları ana metnin dışındaki yalıtılmış bir dizine (_assets/images) taşınmıştır. Grafikler alt klasörler halinde yapılandırılmıştır. Ayrıca _assets/icons dizinine stilize ikonlar eklenmiştir; bu dizin 256x256 ve 256x256@2x alt klasörlerinin yanı sıra, içinde çöp kutusu ikonları için alt klasörler barındıran bir Trash alt klasörü içermektedir. Aynı şekilde, _assets/wallpapers dizininde de alt klasörlere ayrılmış stilize duvar kağıtları yer almaktadır.
+Kitabın okunması sırasında grafiklerin bellekte otomatik olarak işlenmesini (rendering) tamamen engellemek amacıyla tüm grafik materyalleri, kurulum ekran görüntüleri ve GUI ayarları ana metnin dışındaki yalıtılmış bir dizine (`_assets/images`) taşınmıştır. Grafikler alt klasörler halinde yapılandırılmıştır. Ayrıca `_assets/icons` dizinine stilize ikonlar eklenmiştir; bu dizin `256x256` ve `256x256@2x` alt klasörlerinin yanı sıra, içinde çöp kutusu ikonları için alt klasörler barındıran bir `Trash` alt klasörü içermektedir. Aynı şekilde, `_assets/wallpapers` dizininde de alt klasörlere ayrılmış stilize duvar kağıtları yer almaktadır.
 
 ---
 
@@ -50,7 +50,7 @@ Kitabın okunması sırasında grafiklerin bellekte otomatik olarak işlenmesini
 
 ### 🔑 İletişim ve Topluluk Kaynakları
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**

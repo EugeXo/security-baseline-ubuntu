@@ -40,7 +40,7 @@
 
 📸 图形与插图
 
-所有图形材料、安装截图和 GUI 配置均已移出正文，存放在隔离目录 _assets/images 中。图形按子文件夹进行结构化管理，这完全排除了在阅读本书过程中将其自动渲染到内存中的可能性。在 _assets/icons 目录中添加了样式图标，其中包含 256x256 和 256x256@2x 子文件夹，以及一个 Trash 子文件夹（其内部同样包含回收站样式图标的子文件夹）。此外，在 _assets/wallpapers 中还按子文件夹存放了样式壁纸。
+所有图形材料、安装截图和 GUI 配置均已移出正文，存放在隔离目录 `_assets/images` 中。图形按子文件夹进行结构化管理，这完全排除了在阅读本书过程中将其自动渲染到内存中的可能性。在 `_assets/icons` 目录中添加了样式图标，其中包含 `256x256` 和 `256x256@2x` 子文件夹，以及一个 `Trash` 子文件夹（其内部同样包含回收站样式图标的子文件夹）。此外，在 `_assets/wallpapers` 中还按子文件夹存放了样式壁纸。
 
 ---
 
@@ -50,7 +50,7 @@
 
 ### 🔑 联系方式与社区资源
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**

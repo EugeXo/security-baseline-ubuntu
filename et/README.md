@@ -38,9 +38,9 @@ Kogu raamat on jagatud loogilisteks blokkideks, mis moodustavad süvakaitse arhi
 
 ---
 
- Graafika ja illustratsioonid
+### 📸 Graafika ja illustratsioonid
 
-Kõik graafilised materjalid, paigalduse ekraanipildid ja GUI seadistused on viidud väljapoole põhiteksti isoleeritud kataloogi _assets/images. Graafika on struktureeritud alamkaustadesse, mis välistab täielikult selle automaatse mälus renderdamise raamatu lugemise ajal. Kataloogi _assets/icons on lisatud stiiliikoonid, mis sisaldavad alamkaustu 256x256 ja 256x256@2x ning alamkausta Trash, mille sees on omakorda alamkaustad prügikasti stiiliikoonide jaoks. Samuti on kataloogis _assets/wallpapers stiilsed taustapildid jaotatud alamkaustadesse.
+Kõik graafilised materjalid, paigalduse ekraanipildid ja GUI seadistused on viidud väljapoole põhiteksti isoleeritud kataloogi `_assets/images`. Graafika on struktureeritud alamkaustadesse, mis välistab täielikult selle automaatse mälus renderdamise raamatu lugemise ajal. Kataloogi `_assets/icons` on lisatud stiiliikoonid, mis sisaldavad alamkaustu `256x256` ja `256x256@2x` ning alamkausta `Trash`, mille sees on omakorda alamkaustad prügikasti stiiliikoonide jaoks. Samuti on kataloogis `_assets/wallpapers` stiilsed taustapildid jaotatud alamkaustadesse.
 
 ---
 
@@ -50,7 +50,7 @@ Kõik graafilised materjalid, paigalduse ekraanipildid ja GUI seadistused on vii
 
 ### 🔑 Kontaktid ja Kogukonna Ressursid
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**

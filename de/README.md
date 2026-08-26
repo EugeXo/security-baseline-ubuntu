@@ -38,9 +38,9 @@ Das gesamte Buch ist in logische Blöcke unterteilt, die eine tiefgestaffelte Ve
 
 ---
 
-📸 Grafiken & Illustrationen
+### 📸 Grafiken & Illustrationen
 
-Alle grafischen Materialien, Installations-Screenshots und GUI-Einstellungen wurden aus dem Haupttext in ein isoliertes Verzeichnis _assets/images ausgelagert. Die Grafiken sind in Unterordnern strukturiert, was deren automatisches Rendern im Speicher während des Lesens des Buches vollständig ausschließt. Es wurden stilistische Icons im Verzeichnis _assets/icons hinzugefügt, das die Unterordner 256x256 und 256x256@2x sowie den Unterordner Trash enthält, in dem sich wiederum Unterordner für stilistische Papierkorb-Icons befinden. Ebenso sind stilistische Hintergrundbilder in Unterordnern innerhalb von _assets/wallpapers abgelegt.
+Alle grafischen Materialien, Installations-Screenshots und GUI-Einstellungen wurden aus dem Haupttext in ein isoliertes Verzeichnis `_assets/images` ausgelagert. Die Grafiken sind in Unterordnern strukturiert, was deren automatisches Rendern im Speicher während des Lesens des Buches vollständig ausschließt. Es wurden stilistische Icons im Verzeichnis `_assets/icons` hinzugefügt, das die Unterordner `256x256` und `256x256@2x` sowie den Unterordner `Trash` enthält, in dem sich wiederum Unterordner für stilistische Papierkorb-Icons befinden. Ebenso sind stilistische Hintergrundbilder in Unterordnern innerhalb von `_assets/wallpapers` abgelegt.
 
 ---
 
@@ -50,7 +50,7 @@ Alle grafischen Materialien, Installations-Screenshots und GUI-Einstellungen wur
 
 ### 🔑 Kontakte und Community-Ressourcen
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**

@@ -40,7 +40,7 @@ Todo el libro está dividido en bloques lógicos que forman una arquitectura de 
 
 📸 Gráficos e Ilustraciones
 
-Todos los materiales gráficos, capturas de pantalla de la instalación y configuraciones de la GUI se han extraído del texto principal a un directorio aislado: _assets/images. Los gráficos están estructurados en subcarpetas, lo que excluye por completo su renderizado automático en la memoria durante la lectura del libro. Se han añadido iconos estilizados en el directorio _assets/icons, que contiene las subcarpetas 256x256 y 256x256@2x, así como una subcarpeta Trash (dentro de la cual también hay subcarpetas para los iconos estilizados de la papelera de reciclaje). Asimismo, en _assets/wallpapers se encuentran fondos de pantalla estilizados organizados por subcarpetas.
+Todos los materiales gráficos, capturas de pantalla de la instalación y configuraciones de la GUI se han extraído del texto principal a un directorio aislado: `_assets/images`. Los gráficos están estructurados en subcarpetas, lo que excluye por completo su renderizado automático en la memoria durante la lectura del libro. Se han añadido iconos estilizados en el directorio `_assets/icons`, que contiene las subcarpetas `256x256` y `256x256@2x`, así como una subcarpeta `Trash` (dentro de la cual también hay subcarpetas para los iconos estilizados de la papelera de reciclaje). Asimismo, en `_assets/wallpapers` se encuentran fondos de pantalla estilizados organizados por subcarpetas.
 
 ---
 
@@ -50,7 +50,7 @@ Todos los materiales gráficos, capturas de pantalla de la instalación y config
 
 ### 🔑 Contactos y Recursos de la Comunidad
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**

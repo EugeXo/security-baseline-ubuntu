@@ -38,9 +38,9 @@ The entire book is divided into logical blocks that form a defense-in-depth arch
 
 ---
 
-📸 Graphics & Illustrations
+### 📸 Graphics & Illustrations
 
-All graphical materials, installation screenshots, and GUI configurations are moved outside the main text into an isolated directory: _assets/images. The graphics are structured into subfolders, completely preventing their automatic rendering in memory while reading the book. Stylistic icons have been added to the _assets/icons directory, which contains 256x256 and 256x256@2x subfolders, as well as a Trash subfolder containing dedicated directories for stylistic recycle bin icons. Additionally, stylistic wallpapers are sorted into subfolders within _assets/wallpapers.
+All graphical materials, installation screenshots, and GUI configurations are moved outside the main text into an isolated directory: `_assets/images`. The graphics are structured into subfolders, completely preventing their automatic rendering in memory while reading the book. Stylistic icons have been added to the `_assets/icons` directory, which contains `256x256` and `256x256@2x` subfolders, as well as a `Trash` subfolder containing dedicated directories for stylistic recycle bin icons. Additionally, stylistic wallpapers are sorted into subfolders within `_assets/wallpapers`.
 
 ---
 
@@ -50,7 +50,7 @@ All graphical materials, installation screenshots, and GUI configurations are mo
 
 ### 🔑 Contacts and Community Resources
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**
