@@ -38,9 +38,9 @@ Das gesamte Buch ist in logische Blöcke unterteilt, die eine tiefgestaffelte Ve
 
 ---
 
-### 📸 Grafiken und Illustrationen
+📸 Grafiken & Illustrationen
 
-Alle visuellen Materialien, Installations-Screenshots, schrittweisen Terminal-Konfigurationen und GUI-Einstellungen wurden aus dem Haupttext in ein isoliertes Verzeichnis `/images` ausgelagert. Die Grafiken sind in Unterordnern strukturiert, was ihr automatisches Rendern im Arbeitsspeicher während des Lesens des Buches vollständig ausschließt.
+Alle grafischen Materialien, Installations-Screenshots und GUI-Einstellungen wurden aus dem Haupttext in ein isoliertes Verzeichnis _assets/images ausgelagert. Die Grafiken sind in Unterordnern strukturiert, was deren automatisches Rendern im Speicher während des Lesens des Buches vollständig ausschließt. Es wurden stilistische Icons im Verzeichnis _assets/icons hinzugefügt, das die Unterordner 256x256 und 256x256@2x sowie den Unterordner Trash enthält, in dem sich wiederum Unterordner für stilistische Papierkorb-Icons befinden. Ebenso sind stilistische Hintergrundbilder in Unterordnern innerhalb von _assets/wallpapers abgelegt.
 
 ---
 

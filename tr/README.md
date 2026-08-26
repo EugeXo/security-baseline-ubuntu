@@ -38,9 +38,9 @@ Kitabın tamamı, derinlemesine savunma (defense-in-depth) mimarisi oluşturan m
 
 ---
 
-### 📸 Grafikler ve Görseller
+📸 Grafikler ve Görseller
 
-Tüm görsel materyaller, kurulum ekran görüntüleri, adım adım terminal yapılandırmaları ve GUI ayarları ana metnin dışına, yalıtılmış bir `/images` dizinine taşınmıştır. Grafikler alt klasörler halinde yapılandırılmıştır, bu da kitabın okunması sırasında bellekte otomatik olarak işlenmesini tamamen engeller.
+Kitabın okunması sırasında grafiklerin bellekte otomatik olarak işlenmesini (rendering) tamamen engellemek amacıyla tüm grafik materyalleri, kurulum ekran görüntüleri ve GUI ayarları ana metnin dışındaki yalıtılmış bir dizine (_assets/images) taşınmıştır. Grafikler alt klasörler halinde yapılandırılmıştır. Ayrıca _assets/icons dizinine stilize ikonlar eklenmiştir; bu dizin 256x256 ve 256x256@2x alt klasörlerinin yanı sıra, içinde çöp kutusu ikonları için alt klasörler barındıran bir Trash alt klasörü içermektedir. Aynı şekilde, _assets/wallpapers dizininde de alt klasörlere ayrılmış stilize duvar kağıtları yer almaktadır.
 
 ---
 

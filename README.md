@@ -1,3 +1,17 @@
+### ☕ Support the Project
+
+If this practical guide has saved your host from compromise, helped you configure your security baseline, or saved you hours of debugging AppArmor and Firejail profiles, you can support the author and further development of this open-source initiative.
+
+> ⚠️  **OPSEC Warning:** Double-check the addresses before sending any funds.
+
+| Coin | Address |
+| :--- | :--- |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/xmr.png" width="20" align="center"> **Monero (XMR)** | `41iZ3BCmeDHJMqoWKYqkmWBM9WNFgMmBvhgt9iYRV6DZQHD5sjc5z2ubjMtdmie7vH3KatF8Qyg1bRsbtEJ5aAYHCZYQCwF` |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/btc.png" width="20" align="center"> **Bitcoin (BTC)** | `bc1q02qe2dujga6dw7d8m0m9s4ntngjq8ynrydxcwk` | 
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/sol.png" width="20" align="center"> **Solana (SOL)** | `H974LELMFSLw8f2M9hACc1vDxXRfHgQcBoL1Ef4AuYRw` |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/xrp.png" width="20" align="center"> **Ripple (XRP)** | `rULyw4LQXiVV6ecciJPndq7SHHi2hc2tHv` |
+| <img src="https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdt.png" width="20" align="center"> **USDT (TRC-20)** | `TKzQieJ7RjGeRHU8bi6wiuFruP9uYpuexL` |
+
 # 🛡️ Advanced OS Hardening: Security, Privacy & Anonymity Guide
 
 An enterprise-grade, comprehensive guide dedicated to host-level hardening, operational security (OpSec), and digital self-defense. This project is localized into 17 languages to empower journalists, human rights defenders, and infosec professionals globally.
@@ -38,13 +52,13 @@ This guide provides step-by-step instructions to transform a standard Linux dist
 
 * **DMA & Memory Protection:** Kernel-level IOMMU programming (`iommu.passthrough=0`) to block malicious Direct Memory Access via Thunderbolt/USB4/PCIe interfaces, combined with low-level kernel tuning to eliminate memory data remanence.
 
-* **Telemetry & Component Purging:** Complete sanitization of the host via automated Bash scripting—purging built-in Canonical telemetry, completely disabling the Snapd ecosystem, and removing vulnerable print/discovery services (Avahi/CUPS).
+* **Telemetry & Component Purging:** Sanitizing the host completely via automated Bash scripting—purging built-in Canonical telemetry, completely disabling the Snapd ecosystem, and removing vulnerable print/discovery services (Avahi/CUPS).
 
-* **System Integrity & Automation Auditing:** Deploying a cryptographic baseline for system files via AIDE (File Integrity Monitoring) and validating the overall defensive posture using automated compliance stress-tests via Lynis.
+* **System Integrity & Security Auditing:** Deploying a cryptographic baseline for system files via AIDE (File Integrity Monitoring) and validating the overall defensive posture using automated compliance stress-tests via Lynis.
 
 * **Sandboxing & Mandatory Access Control (MAC):** Enforcing granular application containment by deploying strict AppArmor security policies and isolation chambers using the Firejail sandbox framework.
 
-* **Network Perimeter Isolation:** Engineering bulletproof MAC address spoofing, disabling the IPv6 stack, and building an uncompromising UFW firewall architecture with a strict Kill Switch to completely eliminate traffic leaks outside the `tun0` VPN interface virtual boundary.
+* **Network Perimeter Isolation:** Engineering bulletproof MAC address spoofing, disabling the IPv6 stack, and building an uncompromising UFW firewall architecture with a strict Kill Switch to completely eliminate traffic leaks outside the virtual boundary of the tun0 VPN interface.
 
 * **Browser Hardening:** Extreme browser core modification via `about:config` and deployment of specialized `user.js` files to neutralize WebRTC leaks, browser fingerprinting, and advanced cross-site tracking.
 

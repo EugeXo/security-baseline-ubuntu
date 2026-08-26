@@ -38,9 +38,9 @@ Todo o livro é dividido em blocos lógicos que formam uma arquitetura de defesa
 
 ---
 
-### 📸 Gráficos e Ilustrações
+📸 Gráficos e Ilustrações
 
-Todos os materiais visuais, capturas de tela da instalação, configurações passo a passo do terminal e ajustes da GUI foram movidos para fora do texto principal, em um diretório isolado chamado `/images`. Os gráficos estão estruturados em subpastas, o que evita completamente o seu renderização automática na memória enquanto o livro é lido.
+Todos os materiais gráficos, capturas de tela da instalação e configurações da GUI foram movidos para fora do texto principal em um diretório isolado: _assets/images. Os gráficos estão estruturados em subpastas, o que exclui completamente a sua renderização automática na memória durante a leitura do livro. Foram adicionados ícones estilizados no diretório _assets/icons, que contém as subpastas 256x256 e 256x256@2x, além de uma subpasta Trash (dentro da qual também existem subpastas para os ícones estilizados da lixeira). Da mesma forma, em _assets/wallpapers estão os papéis de parede estilizados organizados por subpastas.
 
 ---
 
