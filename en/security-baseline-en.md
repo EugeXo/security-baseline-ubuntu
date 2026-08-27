@@ -21,173 +21,173 @@
 * [Acknowledgments](#acknowledgments)
 * [Securing the Format (OPSEC Disclaimer)](#securing-the-format-opsec-disclaimer)
 * [From the Author: Why and For Whom Was This Book Written?](#from-the-author-why-and-for-whom-was-this-book-written)
-  * [Core Philosophy:](#core-philosophy)
+  * [Core Philosophy](#core-philosophy)
 * [Baseline Protection: 12 Rules of Operational Hygiene](#baseline-protection-12-rules-of-operational-hygiene)
 * [Understanding Anonymity, Privacy, and Security](#understanding-anonymity-privacy-and-security)
 * [Installing Ubuntu 24.04/26.04 LTS](#installing-ubuntu-24042604-lts)
-  * [Introduction:](#introduction)
-  * [Hardware Preparation Protocol:](#hardware-preparation-protocol)
-  * [Selecting the Distribution:](#selecting-the-distribution)
-  * [Step-by-Step Installer Walkthrough:](#step-by-step-installer-walkthrough)
+  * [Introduction](#introduction)
+  * [Hardware Preparation Protocol](#hardware-preparation-protocol)
+  * [Selecting the Distribution](#selecting-the-distribution)
+  * [Step-by-Step Installer Walkthrough](#step-by-step-installer-walkthrough)
 * [First Boot](#first-boot)
 * [System Configuration](#system-configuration)
 * [Getting Started with the Console](#getting-started-with-the-console)
-  * [Initial Setup:](#initial-setup)
-  * [Disabling Automounting and Optional Tweaks:](#disabling-automounting-and-optional-tweaks)
-  * [Managing Console Shell History:](#managing-console-shell-history)
-  * [Configuring a Secure sudo Session Timeout:](#configuring-a-secure-sudo-session-timeout)
-  * [Creating the Checks Passed Verification File:](#creating-the-checks-passed-verification-file)
+  * [Initial Setup](#initial-setup)
+  * [Disabling Automounting and Optional Tweaks](#disabling-automounting-and-optional-tweaks)
+  * [Managing Console Shell History](#managing-console-shell-history)
+  * [Configuring a Secure sudo Session Timeout](#configuring-a-secure-sudo-session-timeout)
+  * [Creating the Checks Passed Verification File](#creating-the-checks-passed-verification-file)
 * [Network and VPN Configuration](#network-and-vpn-configuration)
-  * [For Ethernet (Wired Connection):](#for-ethernet-wired-connection)
-  * [For Wi-Fi (Wireless Connection):](#for-wi-fi-wireless-connection)
-  * [NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS:](#networkmanager-hardening-suppressing-local-mdns-llmnr-hostname-leaks-and-securing-dns)
-  * [Setting Up a VPN Connection:](#setting-up-a-vpn-connection)
-  * [Purging Compromising Bluetooth Components:](#purging-compromising-bluetooth-components)
+  * [For Ethernet (Wired Connection)](#for-ethernet-wired-connection)
+  * [For Wi-Fi (Wireless Connection)](#for-wi-fi-wireless-connection)
+  * [NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS](#networkmanager-hardening-suppressing-local-mdns-llmnr-hostname-leaks-and-securing-dns)
+  * [Setting Up a VPN Connection](#setting-up-a-vpn-connection)
+  * [Purging Compromising Bluetooth Components](#purging-compromising-bluetooth-components)
 * [Security Configuration and GRUB Bootloader Hardening](#security-configuration-and-grub-bootloader-hardening)
-  * [Setting a Password to Protect GRUB:](#setting-a-password-to-protect-grub)
-  * [Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks:](#software-iommu-hardening-protecting-ram-against-kernel-level-dma-attacks)
+  * [Setting a Password to Protect GRUB](#setting-a-password-to-protect-grub)
+  * [Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks](#software-iommu-hardening-protecting-ram-against-kernel-level-dma-attacks)
 * [Configuring the UFW Firewall With and Without a Kill Switch](#configuring-the-ufw-firewall-with-and-without-a-kill-switch)
-  * [Setting Up the Firewall with a Kill Switch:](#setting-up-the-firewall-with-a-kill-switch)
-  * [Important Addition on Managing Rule Priority:](#important-addition-on-managing-rule-priority)
-  * [Alternative Configuration Setup (Without VPN / For Guest OS):](#alternative-configuration-setup-without-vpn--for-guest-os)
+  * [Setting Up the Firewall with a Kill Switch](#setting-up-the-firewall-with-a-kill-switch)
+  * [Important Addition on Managing Rule Priority](#important-addition-on-managing-rule-priority)
+  * [Alternative Configuration Setup (Without VPN / For Guest OS)](#alternative-configuration-setup-without-vpn--for-guest-os)
 * [Kernel Tuning, Access Control, and Purging Unnecessary System Services](#kernel-tuning-access-control-and-purging-unnecessary-system-services)
-  * [Protecting the Network Stack and Kernel Memory Subsystem:](#protecting-the-network-stack-and-kernel-memory-subsystem)
-  * [Low-Level sysctl Hardening: Mitigating TCP Timestamp Fingerprinting:](#low-level-sysctl-hardening-mitigating-tcp-timestamp-fingerprinting)
-  * [Blocking Rare Network Protocols and Legacy Filesystems:](#blocking-rare-network-protocols-and-legacy-filesystems)
-  * [Filesystem Access Control Hardening:](#filesystem-access-control-hardening)
-  * [Securely Mounting Shared Memory:](#securely-mounting-shared-memory)
-  * [Configuring Wi-Fi to Default Off on Boot:](#configuring-wi-fi-to-default-off-on-boot)
-  * [Cutting Off Video Streams and Audio Recording:](#cutting-off-video-streams-and-audio-recording)
-  * [Removing Printing Services and Local Network Discovery Services:](#removing-printing-services-and-local-network-discovery-services)
-  * [Masking Geolocation and Timezone:](#masking-geolocation-and-timezone)
+  * [Protecting the Network Stack and Kernel Memory Subsystem](#protecting-the-network-stack-and-kernel-memory-subsystem)
+  * [Low-Level sysctl Hardening: Mitigating TCP Timestamp Fingerprinting](#low-level-sysctl-hardening-mitigating-tcp-timestamp-fingerprinting)
+  * [Blocking Rare Network Protocols and Legacy Filesystems](#blocking-rare-network-protocols-and-legacy-filesystems)
+  * [Filesystem Access Control Hardening](#filesystem-access-control-hardening)
+  * [Securely Mounting Shared Memory](#securely-mounting-shared-memory)
+  * [Configuring Wi-Fi to Default Off on Boot](#configuring-wi-fi-to-default-off-on-boot)
+  * [Cutting Off Video Streams and Audio Recording](#cutting-off-video-streams-and-audio-recording)
+  * [Removing Printing Services and Local Network Discovery Services](#removing-printing-services-and-local-network-discovery-services)
+  * [Masking Geolocation and Timezone](#masking-geolocation-and-timezone)
 * [Configuring Repositories and System Updates](#configuring-repositories-and-system-updates)
-  * [Updating the System:](#updating-the-system)
-  * [Deploying the NVIDIA Graphics Stack in Isolated Mode:](#deploying-the-nvidia-graphics-stack-in-isolated-mode)
-* [Terminal Environments in Ubuntu:](#terminal-environments-in-ubuntu)
+  * [Updating the System](#updating-the-system)
+  * [Deploying the NVIDIA Graphics Stack in Isolated Mode](#deploying-the-nvidia-graphics-stack-in-isolated-mode)
+* [Terminal Environments in Ubuntu](#terminal-environments-in-ubuntu)
   * [Replacing Gnome Terminal and Ptyxis with Ghostty](#replacing-gnome-terminal-and-ptyxis-with-ghostty)
-  * [Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis:](#optional-ubuntu-2604--restoring-gnome-terminal-and-removing-ptyxis)
+  * [Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis](#optional-ubuntu-2604--restoring-gnome-terminal-and-removing-ptyxis)
 * [Removing and Blocking Snap and Telemetry](#removing-and-blocking-snap-and-telemetry)
-  * [Purging Snap:](#purging-snap)
-  * [Ripping Out Canonical Telemetry:](#ripping-out-canonical-telemetry)
-  * [Purging the Background Firmware Tracker fwupd:](#purging-the-background-firmware-tracker-fwupd)
+  * [Purging Snap](#purging-snap)
+  * [Ripping Out Canonical Telemetry](#ripping-out-canonical-telemetry)
+  * [Purging the Background Firmware Tracker fwupd](#purging-the-background-firmware-tracker-fwupd)
 * [Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor](#installing-security-utilities-libpam-tmpdir-debsums-and-the-btop-system-monitor)
   * [The libpam-tmpdir Security Utility](#the-libpam-tmpdir-security-utility)
   * [The debsums Utility](#the-debsums-utility)
   * [Btop: A Streamlined Resource Monitor](#btop-a-streamlined-resource-monitor)
   * [Monitoring Network Ports and Active Connections](#monitoring-network-ports-and-active-connections)
 * [Creating Golden Restore Points: Deploying and Configuring Timeshift](#creating-golden-restore-points-deploying-and-configuring-timeshift)
-  * [Introduction:](#introduction-1)
-  * [Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB):](#timeshift-mechanics-in-an-encrypted-environment-luks--grub)
-  * [Securely Installing Timeshift:](#securely-installing-timeshift)
-  * [Initial Configuration and Creating Snapshot #1 (Sterile Baseline):](#initial-configuration-and-creating-snapshot-1-sterile-baseline)
-  * [Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational):](#ongoing-control-strategy-creating-snapshot-2-pre-operational)
-  * [Emergency Rollback Protocol (System Compromised or Broken):](#emergency-rollback-protocol-system-compromised-or-broken)
+  * [Introduction](#introduction-1)
+  * [Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB)](#timeshift-mechanics-in-an-encrypted-environment-luks--grub)
+  * [Securely Installing Timeshift](#securely-installing-timeshift)
+  * [Initial Configuration and Creating Snapshot #1 (Sterile Baseline)](#initial-configuration-and-creating-snapshot-1-sterile-baseline)
+  * [Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational)](#ongoing-control-strategy-creating-snapshot-2-pre-operational)
+  * [Emergency Rollback Protocol (System Compromised or Broken)](#emergency-rollback-protocol-system-compromised-or-broken)
 * [Installing a Clean .deb Release of Firefox and Removing the Snap Stub](#installing-a-clean-deb-release-of-firefox-and-removing-the-snap-stub)
 * [Installing and Hardening Privacy Settings in Mozilla Firefox](#installing-and-hardening-privacy-settings-in-mozilla-firefox)
-  * [Preparing the System for Tuning:](#preparing-the-system-for-tuning)
-  * [Initial GUI Privacy Configuration (Mandatory for Everyone):](#initial-gui-privacy-configuration-mandatory-for-everyone)
-  * [Configuring Private DNS Providers (DNS over HTTPS):](#configuring-private-dns-providers-dns-over-https)
-  * [Hardening Automation: Creating the user.js Configuration File:](#hardening-automation-creating-the-userjs-configuration-file)
+  * [Preparing the System for Tuning](#preparing-the-system-for-tuning)
+  * [Initial GUI Privacy Configuration (Mandatory for Everyone)](#initial-gui-privacy-configuration-mandatory-for-everyone)
+  * [Configuring Private DNS Providers (DNS over HTTPS)](#configuring-private-dns-providers-dns-over-https)
+  * [Hardening Automation: Creating the user.js Configuration File](#hardening-automation-creating-the-userjs-configuration-file)
   * [Deploying Ultimate Security Extensions](#deploying-ultimate-security-extensions)
 * [Installing and Configuring the Portmaster Interactive Network Firewall](#installing-and-configuring-the-portmaster-interactive-network-firewall)
-  * [Introduction:](#introduction-2)
-  * [Preparation, Initial Kernel Initialization, and Upgrading:](#preparation-initial-kernel-initialization-and-upgrading)
+  * [Introduction](#introduction-2)
+  * [Preparation, Initial Kernel Initialization, and Upgrading](#preparation-initial-kernel-initialization-and-upgrading)
 * [Guaranteed Data Destruction and Sterilizing Your Digital Footprint](#guaranteed-data-destruction-and-sterilizing-your-digital-footprint)
-  * [Introduction:](#introduction-3)
+  * [Introduction](#introduction-3)
   * [Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization](#anatomy-of-a-digital-footprint-why-deleting-files-is-useless-without-metadata-sanitization)
-  * [Installing and Sanitizing Metadata with MAT2:](#installing-and-sanitizing-metadata-with-mat2)
-  * [Secure and Irreversible File and Directory Destruction:](#secure-and-irreversible-file-and-directory-destruction)
-  * [Operational Parameters for the shred Utility:](#operational-parameters-for-the-shred-utility)
-  * [Global Wiping of Unallocated Disk Space:](#global-wiping-of-unallocated-disk-space)
+  * [Installing and Sanitizing Metadata with MAT2](#installing-and-sanitizing-metadata-with-mat2)
+  * [Secure and Irreversible File and Directory Destruction](#secure-and-irreversible-file-and-directory-destruction)
+  * [Operational Parameters for the shred Utility](#operational-parameters-for-the-shred-utility)
+  * [Global Wiping of Unallocated Disk Space](#global-wiping-of-unallocated-disk-space)
 * [Steganography, Obfuscation, and Anti-Forensics Trace Hiding in Ubuntu](#steganography-obfuscation-and-anti-forensics-trace-hiding-in-ubuntu)
-  * [Introduction:](#introduction-4)
-  * [Linux Steganography: Concealing Files Within Media Content:](#linux-steganography-concealing-files-within-media-content)
-  * [The steghide Command-Line Utility:](#the-steghide-command-line-utility)
-  * [Stealth Concealment via the Advanced StegoForge Tool:](#stealth-concealment-via-the-advanced-stegoforge-tool)
-  * [Archive Concatenation (Quick Hack Without Third-Party Software):](#archive-concatenation-quick-hack-without-third-party-software)
-  * [Text Obfuscation: Bypassing Automated Inspection Systems (DPI):](#text-obfuscation-bypassing-automated-inspection-systems-dpi)
-  * [Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks):](#analyzing-hidden-threats-file-extension-spoofing-bidi-attacks)
+  * [Introduction](#introduction-4)
+  * [Linux Steganography: Concealing Files Within Media Content](#linux-steganography-concealing-files-within-media-content)
+  * [The steghide Command-Line Utility](#the-steghide-command-line-utility)
+  * [Stealth Concealment via the Advanced StegoForge Tool](#stealth-concealment-via-the-advanced-stegoforge-tool)
+  * [Archive Concatenation (Quick Hack Without Third-Party Software)](#archive-concatenation-quick-hack-without-third-party-software)
+  * [Text Obfuscation: Bypassing Automated Inspection Systems (DPI)](#text-obfuscation-bypassing-automated-inspection-systems-dpi)
+  * [Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks)](#analyzing-hidden-threats-file-extension-spoofing-bidi-attacks)
 * [Installing and Configuring the VeraCrypt Cryptographic Suite](#installing-and-configuring-the-veracrypt-cryptographic-suite)
-  * [Introduction to VeraCrypt and Installation:](#introduction-to-veracrypt-and-installation)
-  * [Deep Security Tuning: RAM Key Protection (Paranoia Mode):](#deep-security-tuning-ram-key-protection-paranoia-mode)
-  * [A Fundamental Security Tool: Creating Hidden Volumes:](#a-fundamental-security-tool-creating-hidden-volumes)
-  * [Ultimate Hardening: Configuring PIM and Hardware Keyfiles:](#ultimate-hardening-configuring-pim-and-hardware-keyfiles)
-  * [Real-World Threat Modeling: Why Paranoia Must Be Systemic:](#real-world-threat-modeling-why-paranoia-must-be-systemic)
-* [Utilizing Yubico Security Keys](#utilizing-yubico-security-keys)
-  * [Introduction:](#introduction-5)
-  * [Installation:](#installation)
+  * [Introduction to VeraCrypt and Installation](#introduction-to-veracrypt-and-installation)
+  * [Deep Security Tuning: RAM Key Protection (Paranoia Mode)](#deep-security-tuning-ram-key-protection-paranoia-mode)
+  * [A Fundamental Security Tool: Creating Hidden Volumes](#a-fundamental-security-tool-creating-hidden-volumes)
+  * [Ultimate Hardening: Configuring PIM and Hardware Keyfiles](#ultimate-hardening-configuring-pim-and-hardware-keyfiles)
+  * [Real-World Threat Modeling: Why Paranoia Must Be Systemic](#real-world-threat-modeling-why-paranoia-must-be-systemic)
+* [Using Yubico Security Keys](#using-yubico-security-keys)
+  * [Introduction](#introduction-5)
+  * [Installation](#installation)
   * [Implementing a Hardware Kill Switch via Kernel udev Rules](#implementing-a-hardware-kill-switch-via-kernel-udev-rules)
 * [Installing and Configuring USBGuard](#installing-and-configuring-usbguard)
-  * [Introduction:](#introduction-6)
-  * [Installation and Setup:](#installation-and-setup)
+  * [Introduction](#introduction-6)
+  * [Installation and Setup](#installation-and-setup)
 * [Installing the KeePassXC Local Password Manager](#installing-the-keepassxc-local-password-manager)
-  * [Introduction:](#introduction-7)
-  * [Vault Protection Scenarios:](#vault-protection-scenarios)
-  * [Installing the Software Suite:](#installing-the-software-suite)
-  * [Creating and Hardware-Securing the Database:](#creating-and-hardware-securing-the-database)
-  * [Deep Hardening of Internal Security Settings:](#deep-hardening-of-internal-security-settings)
-  * [Secure Data Entry via Protected Clipboard:](#secure-data-entry-via-protected-clipboard)
+  * [Introduction](#introduction-7)
+  * [Vault Protection Scenarios](#vault-protection-scenarios)
+  * [Installing the Software Suite](#installing-the-software-suite)
+  * [Creating and Hardware-Securing the Database](#creating-and-hardware-securing-the-database)
+  * [Deep Hardening of Internal Security Settings](#deep-hardening-of-internal-security-settings)
+  * [Secure Data Entry via Protected Clipboard](#secure-data-entry-via-protected-clipboard)
 * [Installing and Running the Wireshark Network Analyzer](#installing-and-running-the-wireshark-network-analyzer)
-  * [Introduction:](#introduction-8)
-  * [Installing and Launching Wireshark:](#installing-and-launching-wireshark)
-  * [Critical Security Concept: Packet Capture Subsystem Security:](#critical-security-concept-packet-capture-subsystem-security)
-  * [Stealth Traffic Capture (Headless Console Mode):](#stealth-traffic-capture-headless-console-mode)
-  * [Practical Wireshark Field Guide:](#practical-wireshark-field-guide)
+  * [Introduction](#introduction-8)
+  * [Installing and Launching Wireshark](#installing-and-launching-wireshark)
+  * [Critical Security Concept: Packet Capture Subsystem Security](#critical-security-concept-packet-capture-subsystem-security)
+  * [Stealth Traffic Capture (Headless Console Mode)](#stealth-traffic-capture-headless-console-mode)
+  * [Practical Wireshark Field Guide](#practical-wireshark-field-guide)
 * [Installing and Managing the AppArmor Security System](#installing-and-managing-the-apparmor-security-system)
-  * [Introduction:](#introduction-9)
-  * [A New Security Paradigm: Kernel Automation:](#a-new-security-paradigm-kernel-automation)
-  * [Practical Hardening of the AppArmor Subsystem:](#practical-hardening-of-the-apparmor-subsystem)
+  * [Introduction](#introduction-9)
+  * [A New Security Paradigm: Kernel Automation](#a-new-security-paradigm-kernel-automation)
+  * [Practical Hardening of the AppArmor Subsystem](#practical-hardening-of-the-apparmor-subsystem)
 * [Installing and Configuring the Firejail Isolated Sandbox](#installing-and-configuring-the-firejail-isolated-sandbox)
-  * [Introduction:](#introduction-10)
-  * [Installing Firejail and Preparing the Sandbox:](#installing-firejail-and-preparing-the-sandbox)
-  * [Core Firejail Filtering Options (Reference):](#core-firejail-filtering-options-reference)
-  * [Creating a Dedicated Hardened Firefox Profile:](#creating-a-dedicated-hardened-firefox-profile)
-  * [Airtight PDF Vault: Safely Opening Files in an Isolated Offline Mode:](#airtight-pdf-vault-safely-opening-files-in-an-isolated-offline-mode)
-  * [Sandboxing Image Viewer for Secure Media Inspection:](#sandboxing-image-viewer-for-secure-media-inspection)
-  * [KeePassXC Sandboxing Scenario:](#keepassxc-sandboxing-scenario)
-  * [Installing and Sandboxing the LibreOffice Suite:](#installing-and-sandboxing-the-libreoffice-suite)
-  * [Installing and Sandboxing GNU Image Manipulation Program (GIMP):](#installing-and-sandboxing-gnu-image-manipulation-program-gimp)
-  * [Installing and Sandboxing VS Codium (Development IDE):](#installing-and-sandboxing-vs-codium-development-ide)
-  * [Installing and Sandboxing LM Studio Bionic Local AI:](#installing-and-sandboxing-lm-studio-bionic-local-ai)
-  * [Securing Communications: Mandatory Isolation of Messengers and Crypto Infrastructure (Author's OPSEC Setup):](#securing-communications-mandatory-isolation-of-messengers-and-crypto-infrastructure-authors-opsec-setup)
-  * [Installing and Sandboxing Telegram Desktop:](#installing-and-sandboxing-telegram-desktop)
-  * [Host Cryptographic Foundation: Generating and OPSEC-Protecting GnuPG Keys:](#host-cryptographic-foundation-generating-and-opsec-protecting-gnupg-keys)
-  * [Installing and Sandboxing the Psi+ Jabber Client:](#installing-and-sandboxing-the-psi-jabber-client)
-  * [Installing and Sandboxing Thunderbird (Encrypted Email Workflow):](#installing-and-sandboxing-thunderbird-encrypted-email-workflow)
-  * [Automating the Defensive Perimeter (Firecfg Utility) and Customizing System Icons:](#automating-the-defensive-perimeter-firecfg-utility-and-customizing-system-icons)
-  * [Advanced Paranoia Mode: Sandboxing with Session Persistence via Overlay:](#advanced-paranoia-mode-sandboxing-with-session-persistence-via-overlay)
+  * [Introduction](#introduction-10)
+  * [Installing Firejail and Preparing the Sandbox](#installing-firejail-and-preparing-the-sandbox)
+  * [Core Firejail Filtering Options (Reference)](#core-firejail-filtering-options-reference)
+  * [Creating a Dedicated Hardened Firefox Profile](#creating-a-dedicated-hardened-firefox-profile)
+  * [Airtight PDF Vault: Safely Opening Files in an Isolated Offline Mode](#airtight-pdf-vault-safely-opening-files-in-an-isolated-offline-mode)
+  * [Sandboxing Image Viewer for Secure Media Inspection](#sandboxing-image-viewer-for-secure-media-inspection)
+  * [KeePassXC Sandboxing Scenario](#keepassxc-sandboxing-scenario)
+  * [Installing and Sandboxing the LibreOffice Suite](#installing-and-sandboxing-the-libreoffice-suite)
+  * [Installing and Sandboxing GNU Image Manipulation Program (GIMP)](#installing-and-sandboxing-gnu-image-manipulation-program-gimp)
+  * [Installing and Sandboxing VS Codium (Development IDE)](#installing-and-sandboxing-vs-codium-development-ide)
+  * [Installing and Sandboxing LM Studio Bionic Local AI](#installing-and-sandboxing-lm-studio-bionic-local-ai)
+  * [Securing Communications: Mandatory Isolation of Messengers and Crypto Infrastructure (Author's OPSEC Setup)](#securing-communications-mandatory-isolation-of-messengers-and-crypto-infrastructure-authors-opsec-setup)
+  * [Installing and Sandboxing Telegram Desktop](#installing-and-sandboxing-telegram-desktop)
+  * [Host Cryptographic Foundation: Generating and OPSEC-Protecting GnuPG Keys](#host-cryptographic-foundation-generating-and-opsec-protecting-gnupg-keys)
+  * [Installing and Sandboxing the Psi+ Jabber Client](#installing-and-sandboxing-the-psi-jabber-client)
+  * [Installing and Sandboxing Thunderbird (Encrypted Email Workflow)](#installing-and-sandboxing-thunderbird-encrypted-email-workflow)
+  * [Automating the Defensive Perimeter (Firecfg Utility) and Customizing System Icons](#automating-the-defensive-perimeter-firecfg-utility-and-customizing-system-icons)
+  * [Advanced Paranoia Mode: Sandboxing with Session Persistence via Overlay](#advanced-paranoia-mode-sandboxing-with-session-persistence-via-overlay)
 * [Installing Rkhunter and Hunting Rootkits](#installing-rkhunter-and-hunting-rootkits)
 * [Installing and Configuring the ClamAV Antivirus Scanner](#installing-and-configuring-the-clamav-antivirus-scanner)
-  * [Introduction:](#introduction-11)
-  * [Installing ClamAV:](#installing-clamav)
-  * [Updating Signature Databases and Bypassing Network Blocks:](#updating-signature-databases-and-bypassing-network-blocks)
-  * [Structuring System Scans:](#structuring-system-scans)
-  * [Multithreaded Scanning (Hardening):](#multithreaded-scanning-hardening)
+  * [Introduction](#introduction-11)
+  * [Installing ClamAV](#installing-clamav)
+  * [Updating Signature Databases and Bypassing Network Blocks](#updating-signature-databases-and-bypassing-network-blocks)
+  * [Structuring System Scans](#structuring-system-scans)
+  * [Multithreaded Scanning (Hardening)](#multithreaded-scanning-hardening)
 * [Installing and Configuring the VirtualBox Virtualization Environment](#installing-and-configuring-the-virtualbox-virtualization-environment)
 * [Shrinking and Optimizing VDI Virtual Disks](#shrinking-and-optimizing-vdi-virtual-disks)
-  * [Introduction:](#introduction-12)
-  * [Sanitizing a Windows Guest Virtual Machine:](#sanitizing-a-windows-guest-virtual-machine)
-  * [Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux):](#sanitizing-a-linux-guest-virtual-machine-ubuntukali-linux)
-  * [Final Virtual Disk Compaction on the Host Machine:](#final-virtual-disk-compaction-on-the-host-machine)
+  * [Introduction](#introduction-12)
+  * [Sanitizing a Windows Guest Virtual Machine](#sanitizing-a-windows-guest-virtual-machine)
+  * [Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux)](#sanitizing-a-linux-guest-virtual-machine-ubuntukali-linux)
+  * [Final Virtual Disk Compaction on the Host Machine](#final-virtual-disk-compaction-on-the-host-machine)
 * [Installing and Configuring the Docker Containerization Platform](#installing-and-configuring-the-docker-containerization-platform)
-  * [Introduction:](#introduction-13)
-  * [What Is the Hidden Danger of Default Docker?](#what-is-the-hidden-danger-of-default-docker)
-  * [Deploying Docker in Rootless Mode:](#deploying-docker-in-rootless-mode)
-  * [Taming the Network and Binding Docker to UFW:](#taming-the-network-and-binding-docker-to-ufw)
-  * [Experimental Proof of Security (Verifying Non-Root Execution):](#experimental-proof-of-security-verifying-non-root-execution)
+  * [Introduction](#introduction-13)
+  * [What Is the Hidden Danger of Default Docker](#what-is-the-hidden-danger-of-default-docker)
+  * [Deploying Docker in Rootless Mode](#deploying-docker-in-rootless-mode)
+  * [Securing Docker Networking: Preventing UFW Firewall Bypass](#securing-docker-networking-preventing-ufw-firewall-bypass)
+  * [Experimental Proof of Security (Verifying Non-Root Execution)](#experimental-proof-of-security-verifying-non-root-execution)
 * [Installing and Configuring the AIDE File Integrity Monitoring System](#installing-and-configuring-the-aide-file-integrity-monitoring-system)
-  * [Introduction:](#introduction-14)
-  * [Installing and Configuring AIDE:](#installing-and-configuring-aide)
-  * [Executing a Penetration Test (Validating Defense Mechanisms):](#executing-a-penetration-test-validating-defense-mechanisms)
+  * [Introduction](#introduction-14)
+  * [Installing and Configuring AIDE](#installing-and-configuring-aide)
+  * [Executing a Penetration Test (Validating Defense Mechanisms)](#executing-a-penetration-test-validating-defense-mechanisms)
 * [Automated System Security Auditing with Lynis](#automated-system-security-auditing-with-lynis)
 * [Configuring Ubuntu/Xubuntu/Lubuntu Guest Systems in VirtualBox](#configuring-ubuntuxubuntulubuntu-guest-systems-in-virtualbox)
-  * [Installing Guest Additions:](#installing-guest-additions)
-  * [Installing Mozilla Firefox:](#installing-mozilla-firefox)
-  * [Configuring Shared Folders in VirtualBox:](#configuring-shared-folders-in-virtualbox)
+  * [Installing Guest Additions](#installing-guest-additions)
+  * [Installing Mozilla Firefox](#installing-mozilla-firefox)
+  * [Configuring Shared Folders in VirtualBox](#configuring-shared-folders-in-virtualbox)
   * [Installing Ledger Live in VirtualBox with Ubuntu/Xubuntu/Lubuntu](#installing-ledger-live-in-virtualbox-with-ubuntuxubuntulubuntu)
-  * [Running Ledger Live on the Primary Ubuntu Host OS](#running-ledger-live-in-a-sandbox-on-the-main-ubuntu-host-system)
+  * [Running Ledger Live on the Main Host System (Ubuntu)](#running-ledger-live-on-the-main-host-system-ubuntu)
 * [About the Author and Legal Information](#about-the-author-and-legal-information)
-  * [Contact Information and Community Resources:](#contact-information-and-community-resources)
+  * [Contact Information and Community Resources](#contact-information-and-community-resources)
 
 <br>
 <br>
@@ -266,46 +266,46 @@ Advanced feature sets, exhaustive command syntax, and specialized edge-case scen
 
 *Hello World, comrade!*
 
-Before we dive into the hardcore technical hardening of our system, let's lock down the foundation. Below are 12 ironclad rules of operational hygiene that we need to learn by heart and strictly observe. Without understanding them, even the most advanced security tools will eventually prove completely useless:
+Before diving into the hardcore technical hardening of our system, let's establish the foundation. Below are 12 ironclad rules of operational hygiene that must be memorized and followed without exception. Without understanding them, even the most advanced security tools will eventually prove entirely useless:
 
-1. **Purge wireless peripherals from our secure perimeter whenever possible:** this includes Bluetooth and Wireless devices (headsets, headphones, wireless keyboards, and mice). Any wireless interface drastically inflates our attack surface and forces implicit trust in protocol stacks, proprietary firmware, and vendor implementation choices.
-2. **Enforce mandatory full-disk encryption** on the system storage drive during OS installation. We make the cryptographic passphrase at least 24 random characters long (including special characters)!
-3. **Perform scheduled periodic changes of our OS authentication password.** We make the user password unique and sufficiently long (at least 16 characters recommended). When using hardware security keys, the password is not replaced, but rather supplemented with an additional security factor.
+1. **Eliminate wireless peripherals in the secured perimeter whenever possible:** this includes Bluetooth and wireless tech (headsets, headphones, wireless keyboards, and mice). Any wireless interface expands the attack surface and requires trusting protocol stacks, device firmware, and security implementations.
+2. **Ensure mandatory full-disk encryption (FDE)** of the system drive during OS installation. Set the cryptographic passphrase length to at least 24 random characters (including special symbols)!
+3. **Perform scheduled periodic rotation of the OS authentication password.** Make the user password unique and sufficiently long (at least 16 characters recommended). When using hardware tokens, the password is not replaced but augmented with an additional defense factor.
 4. **Activate password protection for the GRUB bootloader** to completely eliminate unauthorized access to kernel parameters and configuration editing during physical access to the PC.
-5. **Implement a hardware security key** (YubiKey or legitimate equivalents) as a mandatory second factor of authentication (2FA) for logging into the system and approving superuser commands.
-6. **Clean the system of any unnecessary software.** This especially applies to closed-source proprietary software. We remember the fundamental rule: the fewer third-party services, daemons, and applications in our system, the smaller our potential attack surface and total critical vulnerabilities.
-7. **Keep the operating system perpetually updated.** We take it as an ironclad rule to regularly check for and install system security updates using console tools.
-8. **Continuously monitor network and interface states.** We pay close attention to which remote resources background connections are establishing with and where our network traffic is going.
-9. **Regularly conduct internal host audits.** We periodically (preferably 2–3 times a week) inspect the system for rootkits, malware, and check system file integrity.
-10. **Never run suspicious executable files on the main system.** For safe testing, we always use an isolated `Firejail` sandbox or virtual machines.
-11. **Enforce strict protection against dangerous DMA (Direct Memory Access) attacks and password-protect BIOS/UEFI:** In BIOS/UEFI settings, we forcibly set Thunderbolt/USB4 ports to maximum authorization mode (*Kernel DMA Protection*) to reduce the risk of DMA attacks via external peripherals. We set a strong BIOS/UEFI password. Additionally, we completely disable *Sleep Mode*, as encryption keys remain in RAM in plaintext during this state.
-12. **Forcibly lock the session whenever leaving the workstation, even for a moment, and shut down the computer completely when away long-term.**
+5. **Implement a hardware token** (YubiKey or its legitimate equivalents) as a mandatory second factor of authentication (2FA) for system login and superuser command authorization.
+6. **Purge all redundant software from the system.** This applies especially to closed-source proprietary software. Remember the core rule: fewer third-party services, daemons, and applications mean a smaller attack surface and fewer critical vulnerabilities.
+7. **Keep the operating system perpetually updated.** Make it an ironclad rule to regularly check for and install system security updates using console tools.
+8. **Continuously monitor network and interface states.** Pay close attention to which remote resources background connections are established with and where network traffic is routed.
+9. **Regularly conduct internal host audits.** Periodically inspect the system (preferably 2–3 times a week) for rootkits, viruses, and system file integrity.
+10. **Never run questionable executable files in the main system.** For safe testing, always use an isolated `Firejail` sandbox or virtual machines.
+11. **Enforce strict protection against dangerous DMA (Direct Memory Access) attacks and password-protect BIOS/UEFI:** In BIOS/UEFI settings, forcibly set Thunderbolt/USB4 ports to maximum authorization mode (*Kernel DMA Protection*) to mitigate attack risks via external device DMA access. Set a password on BIOS/UEFI. Additionally, disable Sleep Mode entirely, as disk encryption keys remain in RAM in plaintext during this state.
+12. **Lock the session forcibly whenever leaving the workstation, and shut down the computer completely when leaving for an extended period.**
 
 > [!NOTE]
-> The weakest element of any security system often remains not the software, but user actions.
+> The weakest element in any security system is often not software, but human action.
 >
-> In professional circles, there is a humorous saying: "the primary vulnerability resides between the chair and the keyboard."
+> In professional circles, there is a playful saying: "the main vulnerability sits between the chair and the keyboard."
 >
-> That is precisely why technical hardening must be paired with operational discipline: verifying files before opening them, scrubbing metadata prior to publication, monitoring network activity, and maintaining a constant awareness of our threat model.
+> That is precisely why technical hardening must be accompanied by operational discipline: inspecting files before opening them, scrubbing metadata before publication, monitoring network activity, and maintaining a constant awareness of your threat model.
 
 <br>
 
 ## Understanding Anonymity, Privacy, and Security
 
-In casual conversation, these terms are often mashed together, even though they address fundamentally different vectors.
+In everyday speech, these concepts are often mixed up, even though they describe distinctly different tasks.
 
 **Anonymity** answers the question: "Can my actions be linked to my real-world identity?"
-In an ideal environment, an adversary can monitor the activity itself, but has zero capability to tie it to a specific physical individual.
+In an ideal system, an adversary sees the action itself, but cannot link it to a specific person in the physical world under any circumstances.
 
-**Privacy** answers the question: "Do I control what information is harvested about me and who gains access to it?" 
-The adversary acknowledges that the individual exists, but that individual maintains total command over what data leaks outward.
+**Privacy** answers the question: "Do I control what information is collected about me and who gets access to it?"
+The adversary knows the individual exists, but the individual controls which portion of the data can be transmitted outward.
 
-**Security** answers the question: "Can I defend my host system, environment, and physical device against unauthorized access?"
-The operator maintains continuous combat readiness within their digital perimeter. The adversary might be standing right at the gates, yet lack the exploitation primitives to compromise the host and extract data.
+**Security** answers the question: "Can I protect my system, data, and device from unauthorized access?"
+The user remains in constant combat readiness inside their digital perimeter. The adversary may stand right at the gate, yet lack the capabilities to breach the system and exfiltrate data.
 
-An encrypted laptop backed by a hardened passphrase represents elevated **security**. However, if the operator willingly publishes personal identifiers online, their **privacy** remains zero. Deploying anonymization routing tools can obscure your identity, but does nothing to protect your OS against malicious payloads. A heavily secured workstation can be completely non-anonymous, while an anonymous routing link can be fundamentally insecure.
+An encrypted laptop with a strong password improves security. However, if the user voluntarily posts all personal data on the internet, privacy is not enhanced. Using anonymization tools may complicate identifying the user, but it does not protect the system from malware. A well-secured system can be non-anonymous, and an anonymous system can be insecure.
 
-**The goal of this book is not to sell the illusion of absolute defense or complete online invisibility. The goal is to demonstrate how to engineer a system where the operator clearly understands which threat vectors are mitigated and which operational constraints remain.**
+**The goal of this guide is not to create an illusion of absolute protection or total online invisibility. The goal is to demonstrate options for building a system where the user understands which risks are being mitigated and which limitations remain.**
 
 <br>
 
@@ -313,96 +313,96 @@ An encrypted laptop backed by a hardened passphrase represents elevated **securi
 
 #### Introduction:
 
-In this chapter, we deploy our Linux operating system built around strict security controls. This section also covers installation onto external USB and Thunderbolt storage drives.
+This chapter covers installing the Linux operating system with security requirements in mind. It also includes the option to deploy the system onto external USB and Thunderbolt storage drives.
 
-Before initializing the installation process, we must take several critical risk vectors into account. One of the most prevalent operational pitfalls is target drive misconfiguration during bootloader installation.
+Before starting the installation, several critical factors must be taken into account. One of the most common risks is selecting the wrong drive for the bootloader installation.
 
-In Linux, GRUB (GRand Unified Bootloader) handles system initialization. During setup, the installer might default to placing GRUB on the wrong physical drive—often writing to the EFI System Partition (ESP) of a secondary storage device instead of our intended target. Consequently, existing host operating systems may fail to boot until bootloader recovery is performed.
+In Linux, GRUB (GRand Unified Bootloader) typically handles system booting. During installation, it might be placed not on the intended drive, but, for example, on the EFI partition of another disk. As a result, the existing operating system may fail to boot correctly until the bootloader is repaired.
 
-To eliminate this failure mode entirely, the most reliable protocol for us is to physically disconnect all internal HDDs and SSDs unrelated to our target OS during the installation process.
+To rule out this scenario entirely, the most reliable method is to physically disconnect all internal HDDs and SSDs not involved in the target Linux installation before starting the process.
 
-On desktop hardware, this requires basic access to internal components and a screwdriver. On laptops, hardware access depends on chassis design and can be significantly more complex.
+For a desktop PC, this usually requires only access to internal components and a standard screwdriver. On laptops, the procedure depends on device design and can be more complex.
 
-Apple hardware (particularly modern MacBooks equipped with the T2 security chip or Apple Silicon) is strictly disadvised for our deployment model due to proprietary hardware abstractions, closed boot chain constraints, and Linux kernel incompatibility.
+Apple devices (especially modern MacBooks with the T2 chip and Apple Silicon) are not recommended for this setup due to hardware platform specifics, boot chain quirks, and Linux compatibility limitations.
 
 > [!NOTE]
-> We have thoroughly validated this manual on **Ubuntu 24.04 LTS Noble Numbat (24.04.4)** and **Ubuntu 26.04 LTS Resolute Raccoon (26.04.0)**.
+> This guide has been fully tested on **Ubuntu 24.04 LTS Noble Numbat (24.04.4)** and **Ubuntu 26.04 LTS Resolute Raccoon (26.04.0)**.
 >
-> We conducted testing across **VirtualBox 7.2.x**, **VMware Workstation Pro 26H1**, as well as bare-metal hardware running integrated Intel graphics and discrete NVIDIA GPU accelerators.
+> Testing was conducted in **VirtualBox 7.2.x**, **VMware Workstation Pro 26H1**, as well as on bare-metal systems with integrated Intel graphics and discrete NVIDIA graphics adapters.
 
 #### Hardware Preparation Protocol:
 
-* **On a Desktop PC:** We remove the side chassis panel, disconnect the system entirely from mains power, and unplug all storage drives except the single target drive designated for our Linux installation. If M.2 NVMe drives are present, we will need a precision screwdriver for removal.
+* **On a desktop PC:** Remove the side case panel, completely disconnect power from the mains, and unplug all storage drives except the target disk designated for the Linux installation. If M.2 NVMe drives are present, a screwdriver will be required to remove them.
 
-* **On a Laptop:** We power down the machine completely, unplug external power adapters, and disconnect the internal battery if possible. After removing the bottom chassis cover, we disconnect or remove all storage drives except our intended target.
+* **On a laptop:** Power off the device completely, disconnect the AC adapter, and disconnect the battery if possible. After removing the bottom cover, disconnect or remove all storage drives except the target drive.
 
-If we are deploying to an external USB or Thunderbolt drive, we leave only that target external storage device connected. It will serve as our primary target drive for system installation.
+If installing onto an external USB or Thunderbolt drive, keep only that specific drive connected. It will serve as the target media for the system installation.
 
 > [!WARNING]
-> Prior to initializing OS setup, we access the BIOS/UEFI firmware interface and verify our GPU hardware configuration. On laptops equipped with hybrid graphics architecture, we enforce Hybrid Mode / Optimus. This routes our primary desktop compositor through the CPU's integrated graphics core. Doing so allows us to leverage open-source Linux kernel drivers (such as `i915`, `xe`, or `amdgpu` depending on our silicon) and eliminates immediate reliance on proprietary closed-source blobs.
+> Before installing the operating system, enter BIOS/UEFI and verify the graphics subsystem configuration. On laptops equipped with hybrid graphics, enable Hybrid Mode/Optimus to handle the core desktop interface via the CPU's integrated graphics processing unit. This allows using open-source Linux kernel drivers (i915, xe, amdgpu depending on hardware) and avoids unnecessary dependencies on proprietary components.
 >
-> If supported by our platform, we configure a strong supervisor password for BIOS/UEFI and enable hardware disk locking (ATA/NVMe password protection, if supported by the SSD/HDD). This mitigates unauthorized boot order tampering and hardens our host against physical access attack vectors.
+> Where available, set a BIOS/UEFI password and activate hardware-level drive protection (if supported by the specific SSD/HDD model). This mitigates the risk of unauthorized boot setting modifications and complicates attacks requiring physical access to the device.
 >
-> We audit the status of Secure Boot. If our target installation topology fully supports it, we recommend leaving this feature enabled.
+> Check Secure Boot status. If the platform and deployment scenario support its correct operation, keep this feature enabled.
 >
-> **We ensure only the single drive designated for our system installation remains connected to the desktop or laptop.**
+> **Keep only the target installation drive connected to the computer or laptop.**
 >
-> We execute the Linux installation **strictly offline** — we unplug the LAN Ethernet cable and do not connect our host to any Wi-Fi wireless networks. All required packages, security updates, and tooling will be deployed post-installation, once initial base hardening is complete.
+> Perform the Linux installation **offline without internet connectivity** — disconnect the LAN ethernet cable and do not join wireless Wi-Fi networks. All necessary packages and updates will be deployed after completing the base system configuration.
 
-Why do we perform an offline installation?
+Why perform an offline installation?
 
-An air-gapped offline install drastically reduces our external risk vectors during initial OS deployment:
+An offline installation minimizes external variables during the initial system deployment phase:
 
-* Zero active external network sockets exist throughout our setup phase;
-* Automatic pulling of third-party dependencies or upstream updates is blocked prior to base hardening;
-* Background network daemons and system services spawned during installation are kept to an absolute minimum;
-* It provides us with complete deterministic control over the baseline OS image and installed components;
-* Potential remote attack vectors are suppressed until host security hardening is fully enforced.
+* Prevents active external network connections during installation;
+* Eliminates automatic downloads of third-party components and updates prior to completing core setup;
+* Reduces background network services and processes that might launch during the installation phase;
+* Simplifies auditing the baseline state of the operating system and tracking initially installed components;
+* Minimizes potential external attack vectors prior to completing initial system security hardening.
 
-Once initial configuration and security controls are locked down, we can safely bring our network interfaces online inside a strictly controlled perimeter.
+Once initial configuration and defense mechanisms are applied, re-establish network connectivity within a fully controlled environment.
 
 #### Selecting the Distribution:
 
-We will execute all configurations on modern releases: **Ubuntu 24.04 LTS Noble Numbat** and **Ubuntu 26.04 LTS Resolute Raccoon**. They feature a smooth learning curve, remain lightweight, and operate reliably even on hardware constrained to 2 GB of RAM (especially when opting for minimal derivatives such as Xubuntu or Lubuntu). Furthermore, they benefit from massive backing by the global open-source ecosystem and, most importantly, ship with a robust baseline security posture straight out of the box.
+All demonstrations throughout this guide use current **Ubuntu 24.04 LTS Noble Numbat** and **Ubuntu 26.04 LTS Resolute Raccoon** releases. They are straightforward to master, resource-efficient, and run stably on PCs with as little as 2 GB of RAM (especially when opting for lightweight flavors like Xubuntu or Lubuntu). Furthermore, they offer extensive global Linux community support and, most importantly, a solid baseline security posture right out of the box.
 
-We strongly advise running the installation process in English. Should unexpected errors or runtime exceptions occur, querying technical documentation, stack traces, and upstream forums becomes significantly more efficient. That said, this is an operational choice—the final localization decision rests with you. Throughout this manual, we deploy using English localization—specifically English (US).
+Performing the installation in English is recommended. Should unexpected errors arise, troubleshooting and sourcing technical data on specialized English-language resources becomes significantly easier. However, this is not a strict requirement, and the final choice of system language remains up to you. This guide utilizes the English (US) localization.
 
 #### Step-by-Step Installer Walkthrough:
 
-**1.** Following language selection, we proceed to the keyboard layout configuration menu—**"Select your keyboard"**—and select **English (US)** or our preferred mapping.
+**1.** After choosing the system language, proceed to the keyboard layout menu **"Select your keyboard"** and select **English (US)** or another preferred layout.
 
-**2.** In the network connectivity screen, we strictly select **"Do not connect to the internet"**.
+**2.** In the internet connection step, strictly select **"Do not connect to the internet"**.
 
-**3.** Next, we choose **"Interactive Installation"** and select **"Default selection"**—this ensures a minimal software footprint is installed on the underlying filesystem. Should we require additional software suites like office packages later on, we will pull them directly from official software repositories. Minimizing our initial package footprint directly shrinks our exposure and mitigates potential attack vectors.
+**3.** Next, select the **"Interactive Installation"** and **"Default selection"** options — this ensures deploying a minimal software footprint on the system. If additional packages like office suites are needed later, install them manually from official repositories. Minimizing the initial software baseline directly reduces potential attack surface vectors.
 
-**4.** On the subsequent screen, we naturally decline the installation of proprietary third-party software blobs.
+**4.** In the following step, skip installing proprietary software.
 
-**5.** **Ubuntu 24.04:** In the **"Disk Setup"** menu, we click **"Advanced features..."**, select **"Use LVM and encryption"**, confirm our choice by clicking **"OK"**, and press **"Next"**.
+**6.** **Ubuntu 24.04:** In the **"Disk Setup"** menu, click **"Advanced features..."**, choose **"Use LVM and encryption"**, confirm with **"OK"**, and click **"Next"**.
 
-**Ubuntu 26.04:** We retain the default selection **"Erase disk and install Ubuntu"** and click **"Next"**.
+**Ubuntu 26.04:** Keep the default **"Erase disk and install Ubuntu"** selection and click **"Next"**.
 
-**6.** **Ubuntu 24.04:** The next screen prompts us for our master disk encryption passphrase. We craft (and carefully store) a robust passphrase at least 24 characters long (longer is better), incorporating the full range of keyboard inputs: uppercase and lowercase Latin characters (A-Z, a-z), numeric digits (0-9), special symbols, and space characters. We click **"Next"**.
+**7.** **Ubuntu 24.04:** The next screen prompts for a master disk encryption passphrase. Create (and memorize) a strong passphrase at least 24 characters long (preferably longer), utilizing uppercase and lowercase Latin letters (A-Z, a-z), numbers (0-9), special characters, and spaces. Click **"Next"**.
 
-**Ubuntu 26.04:** We select **"Encryption with passphrase"**, click **"Next"**, and enter our master disk encryption passphrase on the following screen. We craft (and carefully store) a robust passphrase at least 24 characters long (longer is better), incorporating the full range of keyboard inputs: uppercase and lowercase Latin characters (A-Z, a-z), numeric digits (0-9), special symbols, and space characters. We click **"Next"**.
+**Ubuntu 26.04:** Select **"Encryption with passphrase"**, click **"Next"**, and enter a master disk encryption passphrase on the subsequent menu. Create (and memorize) a strong passphrase at least 24 characters long (preferably longer), utilizing uppercase and lowercase Latin letters (A-Z, a-z), numbers (0-9), special characters, and spaces. Click **"Next"**.
 
-**7.** Next, the **"Create your account"** provisioning screen appears. In the **"Your name"** field, we input an operational identifier (we choose a neutral string that leaks zero real-world identity markers, e.g., `user`). In the **"Computer name"** field, we define an arbitrary system hostname (e.g., `host-node`), and choose our user account name under **"Pick a username"**. In the **"Choose password"** section, we generate a complex user passphrase at least 16 characters long using uppercase and lowercase Latin characters (A-Z, a-z), digits (0-9), special symbols, and spaces. We ensure **"Require password to login"** is selected, then click **"Next"**.
+**8.** Next, the **"Create your account"** screen appears. Under **"Your name"**, enter a pre-selected neutral string that does not expose real identity (e.g., `user`). Under **"Computer name"**, assign an arbitrary hostname (e.g., `host-node`), and choose a username in the **"Pick a username"** field. In the **"Choose a password"** field, create a strong password at least 16 characters long using uppercase and lowercase Latin letters (A-Z, a-z), numbers (0-9), special characters, and spaces. Retain **"Require password to login"** and click **"Next"**.
 
-**8.** The next screen displays a timezone selection map. We select any initial region (we will subsequently standardize our host timezone to UTC), then click **"Next"**.
+**9.** The next menu presents a timezone map. Select any location (the timezone will be changed to UTC later) and click **"Next"**.
 
-**9.** On the final review screen, we perform an audit of all target parameters to ensure no configurations were missed, then click **"Install"**.
+**10.** Review the configuration in the final overview window to ensure all parameters are set correctly, then click **"Install"**.
 
-The installer will now begin provisioning the operating system. This process is fully automated, executes rapidly, and requires zero user intervention. Once deployment finishes, the installer will prompt us to remove the USB installation medium and execute a system reboot. At this point, initial setup is complete, and any disconnected secondary drives can be safely reconnected.
+The operating system will now begin automatic installation and setup. The process completes quickly without requiring further interaction. Upon completion, the installer prompts to remove the installation USB drive and reboot the system. At this stage, installation is complete, and any previously disconnected storage drives can be safely reattached.
 
 > [!IMPORTANT]
-> Ubuntu 24.04/26.04 offers two fundamentally distinct frameworks for protecting data at rest: legacy passphrase-backed encryption and hardware-bound encryption with automated decryption via TPM. Both architectures deploy LUKS as the underlying disk encryption layer; they differ primarily in how the secret key is derived and supplied to unseal the volume.
+> Ubuntu 24.04/26.04 offers two fundamentally different approaches to on-disk data protection: traditional user-passphrase encryption and hardware-mediated encryption using automatic TPM unlocking. While both rely on LUKS as the underlying disk encryption engine, they differ primarily in the key retrieval mechanism.
 > 
-> We deliberately implement the classic LVM + LUKS architecture backed by a long user passphrase throughout this manual. This directly aligns with our defined threat model, where the device owner must explicitly authenticate to unlock the encrypted volume before host boot continuation.
+> This guide intentionally utilizes the traditional LVM + LUKS scheme with a lengthy user passphrase. This aligns with the chosen threat model, where the device owner must explicitly authenticate before decrypting the storage volume.
 > 
-> This does not imply that TPM-bound FDE is inherently broken or insecure. It targets a different threat model and delivers specific advantages, such as automated platform integrity measurement and defense against specific early-stage boot chain attacks. However, within the scope of this book, automated disk unsealing is strictly ruled out: we mandate explicit user authentication using a long LUKS passphrase.
+> This does not imply that TPM-based FDE is inherently "insecure." It caters to a different operational model and carries distinct advantages, including automated platform integrity checks and mitigation against specific boot chain tampering attacks. However, within the scope of this guide, automatic disk unlocking is strictly avoided in favor of manual user authentication using a long LUKS passphrase.
 > 
-> Thus, leveraging classic LUKS throughout this book represents a deliberate operational decision under our stated threat model, rather than a claim that TPM-based FDE is fundamentally flawed.
+> Thus, choosing traditional LUKS in this book is a deliberate architecture decision based on the stated threat model, rather than a claim that TPM/FDE is generally unsafe.
 > 
-> Our approach—manually crafting a high-entropy passphrase via LVM—remains the gold standard in information security for protecting data at rest against physical access attacks on powered-down hardware. When deploying automated unsealing via TPM, our user passphrase ceases to be the primary defensive boundary. Instead, security relies entirely on the correct execution of trusted platform modules, bootloader integrity, and vendor hardware implementations. Manually keying in a long LUKS passphrase completely eliminates this high-risk attack surface.
+> Creating a strong manual passphrase via traditional LVM is the sole technically sound defense against physical access attacks on a powered-off machine under this threat model. When relying on automatic TPM unlocking, the user passphrase ceases to be the primary defense factor. In that scenario, security shifts to the trusted platform implementation, bootloader state, and hardware execution integrity. Manually entering a long LUKS passphrase completely eliminates this vector of compromise.
 
 **Chapter Assets:** `_assets/images/1_os_install`
 
@@ -410,16 +410,16 @@ The installer will now begin provisioning the operating system. This process is 
 
 ## First Boot
 
-We log in to the host system by providing our disk encryption passphrase followed by our user account password. Moving forward, our user password will be required to authenticate administrative actions via `sudo`. Upon reaching the desktop interface, we are greeted by the initial setup wizard; we click **"Next"**.
+Log into the system using the disk encryption passphrase followed by the user account password. This account password will subsequently authorize administrative actions via `sudo`. Upon reaching the welcome wizard, click **"Next"**.
 
-In Ubuntu 26.04, the next screen presented is **"Location Services"**. By default, this toggle is set to the disabled position, so we simply click **"Next"**. (Note: Ubuntu 24.04.4 skips this screen entirely).
+In Ubuntu 26.04, the next screen displays **"Location Services"**. The toggle defaults to the disabled position, so click **"Next"**. This menu is absent in Ubuntu 24.04.4.
 
-In Ubuntu 24.04, the installer prompts us to enable an *Ubuntu Pro* subscription—we click **"Skip"** in the top right corner. (Note: Ubuntu 26.04.0 skips this step).
+In Ubuntu 24.04, the subsequent screen prompts to attach an *Ubuntu Pro* subscription — click **"Skip"** in the upper-right corner. This menu is absent in Ubuntu 26.04.0.
 
-On the **"Help improve Ubuntu"** prompt, we strictly select or maintain the option **"No, don't send system data"** (in Ubuntu 26.04, we ensure the "Share error reports with the Ubuntu team" toggle remains disabled as well). We click **"Next"** until reaching the final window, then complete the wizard by clicking **"Finish"**. At this stage, we suppress the outbound transmission of diagnostic telemetry to Canonical.
+On the **"Help improve Ubuntu"** screen, select **"No, don't send system data"** (in 26.04, also ensure the "Share error reports with the Ubuntu team" toggle remains disabled). Click **"Next"** until reaching the final screen, then complete setup by clicking **"Finish"**. This disables transmitting diagnostic and telemetry data to Canonical.
 
 > [!NOTE]
-> Even though we clicked **"Skip"**, Canonical still leaves active subscription check daemons running in the background. Do not worry—we will manually strip these telemetry components via the terminal in an upcoming section.
+> Even after clicking **"Skip"**, Canonical retains active subscription-checking daemons running in the background. This is expected behavior; these components will be manually purged via the terminal in later steps.
 
 **Chapter Assets:** `_assets/images/2_first_boot`
 
@@ -427,41 +427,41 @@ On the **"Help improve Ubuntu"** prompt, we strictly select or maintain the opti
 
 ## System Configuration
 
-By default, the desktop displays a panel on the left known as the **"Dock"**. We click the circular OS icon at the bottom corner of the panel (**"Show Apps"**) and select **"Settings"** (alternatively, we access the settings menu via the top system bar by clicking the status area in the top-right corner and selecting the gear icon).
+By default, the left side of the desktop features a taskbar known as the **"Dock"**. Click the circular system menu icon in the corner of the panel (**"Show Apps"**) and select **"Settings"** (alternatively, access settings via the top panel: click the status menu in the top-right corner, select the gear icon, and open **"Settings"**).
 
-Inside the System Settings interface, we toggle both **"Bluetooth"** and **"Wi-Fi"** switches to the OFF position. This puts our system into "Airplane Mode" and temporarily disables wireless interfaces until we configure their permanent hardware/kernel-level block.
+Inside the system settings menu, toggle both **"Bluetooth"** and **"Wi-Fi"** switches to the off position. This places the system into Airplane Mode and temporarily disables wireless interfaces until permanent blocking is configured.
 
-Next, we customize the **"Dock"** under the **"Ubuntu Desktop"** tab according to our operational preference. For instance, we relocate it to the bottom by setting **"Position on screen"** to **"Bottom"**, and adjust the **"Icon size"**. Disabling **"Panel Mode"** transforms our Dock into a compact, macOS-style launcher bar. Additionally, we strip the panel of any unnecessary default application shortcuts.
+Next, customize the **"Dock"** panel under **"Ubuntu Desktop"**. For instance, move it to the bottom by setting **"Position on screen"** to **"Bottom"**, and adjust the **"Icon size"** slider. Disabling **"Panel Mode"** makes the **"Dock"** compact and detached, resembling the macOS panel layout. Clear any unneeded default application shortcuts from the panel.
 
-We navigate to **"Privacy & Security"**, then enter the **"Diagnostics"** / **"Telemetry"** sub-tab. Under **"Problem Reporting"**, we set the **"Send error reports to Canonical"** parameter strictly to **"Never"**.
+Navigate to **"Privacy & Security"**, then access the **"Diagnostics"**/**"Telemetry"** sub-menu. Under **"Problem Reporting"**, strictly set **"Send error reports to Canonical"** to **"Never"**.
 
-We proceed to the adjacent **"File History & Trash"** section. Here, it is critical for us to completely disable **"File History"**. We enable **"Automatically Delete Trash Content"** and **"Automatically Delete Temporary Files"**, configuring their retention period to **"1 day"**.
+Proceed to the adjacent **"File History & Trash"** section. Here, completely disabling **"File History"** is critical. Enable both **"Automatically Delete Trash Content"** and **"Automatically Delete Temporary Files"** options, setting the retention period to **"1 day"**.
 
 > [!IMPORTANT]
-> Automatic trash and cache purging serves only as basic surface hygiene. To maintain operational security, confidential files, cryptographic material, and log artifacts must always be destroyed manually via the terminal using low-level utilities like `shred` (discussed in detail later). This renders forensic recovery from physical media extremely difficult. Note that file destruction mechanics depend on media architecture: while `shred` is effective on legacy magnetic HDDs, modern SSD/NVMe flash storage requires Full Disk Encryption combined with secure cryptographic key erasure (Crypto-Erase) for absolute data destruction.
+> Automatic trash and cache purging serves as basic surface hygiene. To maintain operational security, sensitive files, passphrases, and logs must always be manually shredded via the terminal using low-level tools like `shred` (covered in detail later). This drastically complicates forensic recovery from storage media. Note that data sanitization varies by storage architecture: while `shred` works for traditional HDDs, modern SSD/NVMe drives are more reliably protected via full-disk encryption and proper cryptographic key destruction.
 
-In the adjacent **"Location"** tab, we verify that the toggle is set to **"Off"**—there is zero operational justification for the operating system to track our physical coordinates.
+In the neighboring **"Location"** sub-menu, ensure the toggle is set to **"Off"** — the operating system has no operational need to track physical coordinates.
 
-Under **"Screen Lock"**, we adjust the **"Blank Screen Delay"** parameter. The default setting is 5 minutes; for elevated security, we reduce this to 1–2 minutes. We ensure **"Automatic Screen Lock"** is toggled ON. Within this same panel, we access **"Automatic Screen Lock Delay"** and set it to **"Screen Turns Off"**, 30 seconds, or a maximum of 1 minute (initiating a screen dimming phase precisely 30 seconds or 1 minute before lock activation). We enable both **"Lock Screen Notifications"** and **"Lock Screen on Suspend"**.
+Under **"Screen Lock"**, configure the **"Blank Screen Delay"** duration. The default interval is 5 minutes, but setting it to 1–2 minutes significantly improves security. Enable the **"Automatic Screen Lock"** toggle. Within the same section, open **"Automatic Screen Lock Delay"** and set it to **"Screen Turns off"**, 30 seconds, or 1 minute at most (initiating a 30-second or 1-minute screen dimming sequence prior to locking). Additionally, enable **"Lock Screen Notifications"** and **"Lock Screen on Suspend"**.
 
-Next, in the **"Connectivity"** menu, we disable **"Connectivity Checking"**. This eliminates automated background network probes performed by the OS.
+Next, under **"Connectivity"**, disable **"Connectivity Checking"** to reduce automated background network probing performed by the system.
 
-Under **"Thunderbolt"**: if we do not utilize external Thunderbolt expansion hardware, we disable the interface entirely.
+Under **"Thunderbolt"**: disable the controller entirely if no Thunderbolt peripherals are in use.
 
-In Ubuntu 26.04, a new **"Cameras"** control toggle has been introduced under **"Privacy & Security"**—we enter this menu and switch the camera access toggle to OFF.
+In Ubuntu 26.04, navigate to the newly introduced **"Cameras"** item under **"Privacy & Security"** and toggle the switch to the off position.
 
-We navigate to **"System"** -> **"Date & Time"** to configure temporal settings. If we are hardening this host for high-anonymity workflows over encrypted VPN tunnels or the Tor network, we disable **"Automatic Date & Time"**. In elevated privacy models, automated network time synchronization should be disabled and timezones set manually. Throughout this manual, UTC will serve as our standardized temporal baseline.
+Under **"System"**, access the **"Date & Time"** sub-menu to adjust system time parameters. If preparing the host for high-anonymity workflows over secured VPN tunnels or the Tor network, disable **"Automatic Date & Time"**. Disabling automatic time synchronization and manually setting the timezone fits privacy-focused operational models. This guide enforces UTC as the single time standard throughout subsequent sections.
 
-In the **"Keyboard"** tab, we append any required secondary input layouts. Other visual or cosmetic preferences in the system menu can be adjusted based on our personal workflow requirements.
+Under **"Keyboard"**, add required input layouts. The remaining settings tabs cover cosmetic and user-interface preferences, which require no specialized security configuration.
 
-Under **"Sound"**, we mute our input hardware by toggling off the microphone icon in **"Input Volume"**.
+Under **"Sound"**, mute the microphone by clicking the icon next to **"Input Volume"**.
 
 > [!NOTE]
-> The **"Privacy & Security"** menu in Ubuntu 24.04/26.04 features a critical diagnostic panel: **"Device Security"**. This tab displays the active state of **"Secure Boot"**. A green indicator confirms that Secure Boot is actively enforced. Secure Boot validates cryptographic signatures across the early boot loader chain, guaranteeing that only trusted binaries matching UEFI security policies are executed during host initialization.
+> The **"Privacy & Security"** menu in Ubuntu 24.04/26.04 includes a key sub-menu: **"Device Security"**. This panel provides a visual status readout for **"Secure Boot"**. A green indicator confirms active secure boot state. Secure Boot verifies digital signatures across boot chain components, ensuring only trusted binaries matching UEFI security policies execute during startup.
 >
-> If warning indicators flag an untrusted or unverified kernel, it serves as an immediate alert that baseline hardware security features are disabled in our motherboard's BIOS/UEFI. Without these hardware locks, the confidentiality of data on a powered-on or suspended host degrades rapidly, exposing live RAM to cold-boot attacks and direct memory access (DMA) key extraction.
+> Warnings indicating an unprotected kernel signal that host hardware defense features are disabled in BIOS/UEFI. Operating without hardware-level protection compromises host security on powered-on or suspended machines, leaving volatile RAM exposed to physical cold-boot or memory acquisition attacks targeting cryptographic keys.
 >
-> The adjacent indicator displays **"Checks Passed"** / **"Protected"**. In an upcoming chapter, we will generate a diagnostic report via the terminal to inspect these low-level security assertions directly.
+> The adjacent indicator displays **"Checks Passed"**/**"Protected"**. A text file will be generated later to inspect entries from this menu via CLI.
 
 **Chapter Assets:** `_assets/images/3_system_settings`
 
@@ -471,41 +471,41 @@ Under **"Sound"**, we mute our input hardware by toggling off the microphone ico
 
 #### Initial Setup:
 
-Launching the terminal for daily work is done via the applications menu (**"Show Apps"**). For quick and convenient access to the command line, we can pin the terminal shortcut to the **"Dock"** panel.
+Launch the terminal via the application menu (**"Show Apps"**). Pin the terminal shortcut to the **"Dock"** panel for quick and convenient command-line access.
 
-Ubuntu is based on Debian and uses the same `.deb` package format. Software installation is carried out via the APT package manager from the Ubuntu repositories. We manage and install these packages with APT, while administrative operations are executed through `sudo` as needed.
+Ubuntu is based on Debian and utilizes the same `.deb` package format. Software deployment is handled via the APT package manager from official Ubuntu repositories. Manage and install these packages using APT, and execute administrative operations via `sudo` when necessary.
 
-By default, after successful authentication, `sudo` caches the session for 15 minutes. During this timeframe, subsequent commands executed via `sudo` will typically not require re-entering the password. For a system with elevated security requirements, we consider this interval excessive and will reduce it to 0–2 minutes at the end of this chapter.
+By default, after successful authentication, `sudo` caches the credentials for 15 minutes. During this window, subsequent `sudo` commands typically bypass the password prompt. This interval is excessive for a system with strict security requirements and will be reduced to 0–2 minutes at the end of the chapter.
 
-When we open a terminal window, a prompt string is displayed containing the current username, system hostname, and working directory, terminating with a dollar sign (**`$`**). This icon visually indicates that the shell is running under an unprivileged user session. To perform most configuration tasks, we must prepend commands with `sudo` (e.g., `sudo apt update`).
+Opening the terminal window displays a prompt containing the current username, network hostname, and current working directory, ending with a dollar sign **`$`**. This symbol indicates that the session is running in standard user mode. Prepend the `sudo` prefix to commands (e.g., `sudo apt update`) to execute most configuration tasks.
 
-To transition into a fully interactive `root` superuser mode, we use the `sudo -i` or `sudo -s` commands. The `sudo -i` command completely simulates a clean root login by loading its own environment variables, while `sudo -s` launches a root shell while preserving the current user's environment variables. For acquiring a temporary root session, `sudo -i` is preferred. Unlike `sudo -s`, this mode launches a login shell with a clean `root` environment, making it convenient for extended administrative tasks. For routine operations, executing standalone commands via `sudo` without maintaining a persistent root session remains our recommended approach.
+To drop into a fully interactive `root` superuser shell, use the `sudo -i` or `sudo -s` commands. The `sudo -i` command fully simulates a clean root login, loading its native environment variables, whereas `sudo -s` launches a root shell but retains the standard user's current environment variables. Use `sudo -i` to obtain a fully functional, short-term root session. Unlike `sudo -s`, this mode launches a login shell with the `root` environment, making it optimal for prolonged administrative operations. During normal operation, prefer executing isolated commands via `sudo` rather than transitioning into a persistent root session unnecessarily.
 
-After successfully entering our password, the **`$`** symbol in the prompt will change to a hash mark (**`#`**). This signifies that the system has elevated to superuser mode with full administrative privileges. From here, modifying any file—including kernel parameters—is permitted, so we proceed with extreme caution.
+After successful password entry, the **`$`** symbol in the prompt changes to a hash mark **`#`**. This indicates the system has transitioned into superuser mode with maximum administrative privileges. Modification of any files, including kernel parameters, is permitted here, so proceed with extreme caution.
 
 > [!IMPORTANT]
-> Memorizing foundational Linux terminal commands will make working with our system fast and efficient.
+> Memorizing basic Linux terminal commands will make system navigation fast and efficient.
 
-**GNOME Terminal in Ubuntu 24.04**
+**GNOME Terminal Ubuntu 24.04**
 
-GNOME Terminal in Ubuntu 24.04 makes it easy to customize visual settings directly from the GUI menu. It offers window transparency and flexible color palette options down to custom hex codes, yielding an aesthetically comfortable environment for extended command-line sessions.
+The terminal in Ubuntu 24.04 offers convenient visual customization directly via the GUI menu. It supports Transparency and allows setting a precise color palette with Custom shade selection, making prolonged terminal workflows highly comfortable aesthetically.
 
-Before diving into core tasks, let us tune the appearance of the terminal. In the upper-right section of the window, next to the search icon, we click the **"Burger Menu"** (three horizontal lines) and select **"Preferences"**. Under the **"Profiles"** tab, we select the default profile **"Unnamed"**. Here, we can adjust colors, fonts, window dimensions, and transparency levels according to our preferences.
+Before starting core tasks, configure the terminal's appearance. In the upper-right corner of the window, next to the magnifying glass icon, click the **"Hamburger menu"** (three horizontal lines) and navigate to **"Preferences"**. In the opened **"Profiles"** tab, select the default **"Unnamed"** profile. Adjust colors, fonts, workspace dimensions, and window transparency to fit personal preferences.
 
-The main drawback is its reliance on the older GTK3 stack and the lack of certain modern isolation and security mechanisms present in GTK4 applications.
+The drawback is reliance on the older GTK3 stack and the absence of certain modern isolation and security mechanisms available to GTK4 applications.
 
-**Ptyxis in Ubuntu 26.04**
+**Ptyxis Ubuntu 26.04**
 
-Before standardizing on Ptyxis for daily use, let us configure it for optimal comfort. We click the **"Burger Menu"** (three horizontal lines) in the top-right corner of the window and select **"Preferences"**. This opens the **"Appearance"** menu directly, where we can select a ready-made theme preset. First, we scroll down slightly and disable the **"Use System Font"** toggle, then choose our preferred font size. To choose a color palette, we click the **"Show All Palettes"** drop-down menu at the very top of the **"Appearance"** pane and select the scheme that best fits our workflow. For deeper color and font customization, we will need to edit configuration files directly.
+Before shifting to Ptyxis for regular use, configure it for better ergonomics. In the upper-right corner of the window, click the **"Hamburger menu"** (three horizontal lines) and navigate to **"Preferences"**. This opens the **"Appearance"** menu directly, offering pre-built visual presets for subsequent workflows. First, scroll down slightly and deactivate the **"Use System Font"** toggle, then select the required font size. A selection of color palettes is pre-installed; at the very top of **"Appearance"**, click the **"Show All Palettes"** dropdown and select the most suitable color scheme. For deeper color and font customization, direct editing of configuration files is required.
 
-**Custom Profile Setup for Ptyxis** 
+**Custom profile variant for Ptyxis.** 
 
-**1.** We open a terminal and create the directory along with our custom profile file:
+**1.** Open the console and create a directory containing the custom profile file:
 ```bash
 mkdir -p ~/.local/share/org.gnome.Ptyxis/palettes && nano ~/.local/share/org.gnome.Ptyxis/palettes/my-homebrew.palette
 ```
 
-**2.** We paste the modified lighter dark-gray/deep-blue background profile configuration:
+**2.** Paste the modified lighter dark-gray/deep-blue background parameters for the profile:
 ```ini
 [Palette]
 Name=My Homebrew
@@ -537,209 +537,208 @@ SuperuserForeground=#00ff00
 SuperuserBackground=#171717 or #0b1020
 ```
 
-To save the configuration in the `nano` editor, we press the key combination **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in the `nano` editor, press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
 
-**3.** We apply slight window transparency. A value of `0.00` represents complete transparency, while `1.00` indicates total opacity. We choose the value that best fits our preference:
+**3.** Add slight transparency to the window. A value of `0.00` means full transparency, while `1.00` means completely opaque. Select the most appropriate value:
 ```bash
 gsettings set org.gnome.Ptyxis.Profile:/org/gnome/Ptyxis/Profiles/$PTYXIS_PROFILE/ opacity 0.95
 ```
 
-Next, we close the terminal and launch it again. The newly created profile should now appear in the **"Palettes"** section. Via the **"Burger Menu"** (three horizontal lines), we navigate to **"Preferences"** -> **"Appearance"** -> **"Show All Palettes"**, locate the **"My Homebrew"** profile, and select it.
+Next, close the console and relaunch it. The created profile should appear in the **"Palettes"** section. Via the **"Hamburger menu"** (three horizontal lines), navigate to **"Preferences"** -> **"Appearance"** -> **"Show All Palettes"**, locate the **"My Homebrew"** profile, and select it.
 
 > [!IMPORTANT]
-> It is essential to understand that when comparing Ptyxis and GNOME Terminal, Ptyxis aligns significantly better with the security model adopted in this book due to its additional environment isolation capabilities. Replacing Ptyxis with the more familiar GNOME Terminal means forfeiting some of these defensive features and constitutes a compromise within our workflow.
+> It is important to understand that when comparing Ptyxis and GNOME Terminal, the former better aligns with the security model adopted in this book due to its advanced workspace isolation capabilities. Therefore, replacing Ptyxis with the more familiar GNOME Terminal means sacrificing some of these features and acts primarily as a compromise in this scenario.
 > 
-> We will also explore Ghostty later as an alternative terminal emulator. We will cover its installation and baseline setup separately so that we can compare it directly with Ptyxis and GNOME Terminal to determine the best fit for our system.
+> Ghostty will also be examined later as an alternative terminal emulator. Its installation and basic configuration will be covered separately, allowing readers to compare it against Ptyxis and GNOME Terminal to select the most suitable option for their system.
 
 #### Disabling Automounting and Optional Tweaks:
 
-**1.** The first thing we will do is disable automatic media mounting (this turns off auto-mounting, but does not prevent a user or application from mounting media manually):
+**1.** Disable automatic mounting of removable media (prevents automatic mounting while still permitting manual mounting by the user or an application):
 ```bash
 gsettings set org.gnome.desktop.media-handling automount false && gsettings set org.gnome.desktop.media-handling automount-open false
 ```
 
-**2.** We center newly launched application windows on the screen. In our experience, this makes navigating much more convenient, especially inside virtual machines:
+**2.** Center newly launched application windows on the screen. This layout improves workflow, particularly inside virtual machines:
 ```bash
 gsettings set org.gnome.mutter center-new-windows true
 ```
 
-If for any reason this window placement does not suit our workflow, we run the same command, replacing `true` with `false`.
+If this window placement proves undesirable, execute the same command replacing `true` with `false`.
 
-**3.** To avoid wasting time navigating graphical menus, we restore the familiar keyboard layout switching using the classic `Shift + Alt` shortcut via two quick system commands:
+**3.** Revert the keyboard layout switching shortcut to the classic `Shift + Alt` combination using two rapid system commands instead of navigating graphical menus:
 ```bash
 gsettings set org.gnome.desktop.input-sources xkb-options "['grp:alt_shift_toggle']" && gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift>Alt_L', '<Alt>Shift_L']"
 ```
 
 #### Managing Console Shell History:
 
-By default, Bash maintains command history with a limited size: older entries are eventually overwritten, and running multiple terminal instances simultaneously can lead to race conditions during history saving. Additionally, history is typically written to the disk file only upon shell exit rather than after every individual command. In the event of an abrupt system termination, recent commands might be lost, which is unacceptable for our auditing workflow.
+By default, Bash retains a command history of limited size: older entries are eventually displaced, and multiple concurrently open terminals can create race conditions during history preservation. Furthermore, history is typically written to disk upon shell termination rather than after each individual command. In the event of an unexpected system shutdown, recently executed commands might fail to commit to the history file, which is undesirable for auditing workflows.
 
-We will configure Bash to append commands to the history log immediately and increase its retention size to prevent data loss.
+Configure Bash to record command history immediately and expand its capacity to prevent data loss regarding executed actions.
 
-**1.** We open the `.bashrc` configuration file in our home directory:
+**1.** Open the `.bashrc` configuration file in the home directory:
 ```bash
 nano ~/.bashrc
 ```
 
-**2.** We jump to the very end of the file using **`Alt + /`** and append the following lines:
+**2.** Jump to the end of the file using **`Alt + /`** and append the following lines:
 
 ```bash
 # Unlimited history size
 export HISTSIZE=-1
 export HISTFILESIZE=-1
 
-# Write commands to history immediately after pressing Enter
+# Immediately append command to history file after pressing Enter
 export PROMPT_COMMAND="history -a; $PROMPT_COMMAND"
 
-# Ignore consecutive duplicate entries only
+# Ignore consecutive duplicates only
 export HISTCONTROL=ignoredups
 
-# Log exact timestamp (date and time) of execution
+# Log exact execution timestamp
 export HISTTIMEFORMAT="%F %T "
 
-# Append commands to the history file instead of overwriting it
+# Append commands to file instead of overwriting
 shopt -s histappend
 ```
 
-We save the file with **`Ctrl + O`** -> **`Enter`**, then exit using **`Ctrl + X`**.
+Save the file via **`Ctrl + O`** -> **`Enter`**, then exit via **`Ctrl + X`**.
 
-* `HISTSIZE=-1` and `HISTFILESIZE=-1` — completely remove limits on entry counts.
-* `history -a` — forcibly writes each command to disk right after execution.
-* `ignoredups` — removes consecutive identical entries without hiding commands starting with a space.
-* `HISTTIMEFORMAT` — records timestamps, which is critical for incident investigations.
-* `shopt -s histappend` — merges logs across multiple open terminal windows.
+* `HISTSIZE=-1` and `HISTFILESIZE=-1` — Remove all limits on history line counts.
+* `history -a` — Forces appending the executed command to disk immediately after execution.
+* `ignoredups` — Filters out sequential duplicate commands while retaining commands preceded by spaces.
+* `HISTTIMEFORMAT` — Captures timestamps, which is critical for incident response and forensic audits.
+* `shopt -s histappend` — Merges logs across parallel open terminal instances.
 
-**3.** We apply the settings to the current session without restarting the terminal:
+**3.** Apply settings to the current session without restarting the terminal:
 ```bash
 source ~/.bashrc
 ```
 
-**4.** We verify that updated logging is functioning properly:
+**4.** Verify that the updated logging mechanism is active:
 ```bash
 history
 ```
 
-We now have an end-to-end, loss-prevention timeline complete with exact timestamps for every command executed.
+The shell now maintains a unified, persistent chronology with precise timestamps for every executed command.
 
-**5.** We clear the terminal screen clutter:
+**5.** Clear terminal screen clutter:
 ```bash
 clear
 ```
 
-**6.** Occasionally, sensitive data (such as a password or API token) might accidentally be typed into the console. Leaving these details in the log files poses a security risk. To selectively remove the last erroneous command:
+**6.** If sensitive data (such as a passphrase or API token) is inadvertently entered into the console during operation, it must not remain in the logs. To purge only the single last erroneous entry, execute:
 ```bash
 history -d $(history | tail -n 1 | awk '{print $1}')
 ```
 
-**7.** If we need to completely purge the current session history and overwrite the file on disk, we combine the clear and write flags:
+**7.** To completely purge the active session history and overwrite the log file on disk, execute a combined clear-and-write sequence:
 ```bash
 history -c && history -w
 ```
-The `-c` flag completely clears the in-memory history of the active session, while `-w` forces this empty state to be written to the history file, erasing prior entries.
+The `-c` flag flushes the active terminal's in-memory history buffer, while `-w` forcibly writes this empty state to the history file on disk, erasing prior logs.
 
-Even with immediate, unlimited history logging configured, a standard user (or an attacker gaining session access) can still manually wipe the history file using `history -c && history -w` or simply remove it with `rm ~/.bash_history`.
+Even with real-time, persistent history recording configured, a standard user (or an adversary with session access) can still manually purge the log file via `history -c && history -w` or remove it entirely using `rm ~/.bash_history`.
 
-Standard permission changes via `chmod -w` will not work here: revoking write access prevents the Bash shell from capturing any new commands. Instead, the file must be configured to allow *append operations only*, strictly prohibiting *overwriting or deletion*.
+Modifying standard file permissions via `chmod -w` is ineffective here: revoking write access completely prevents the Bash shell from appending new commands. The file must be configured as *append-only*, explicitly blocking *overwriting or deletion*.
 
-Linux satisfies this requirement using extended file system attributes (`chattr`).
+Linux file system attributes (`chattr`) resolve this requirement.
 
-**8.** We switch to superuser mode, as modifying extended file attributes requires root privileges:
+**8.** Elevate to superuser mode, as modifying file system attributes requires root privileges:
 ```bash
 sudo -i
 ```
 
-**9.** We assign the `+a` (append-only) attribute to the history file. Using the `$SUDO_USER` variable automatically resolves our original username, even from within the root session:
+**9.** Assign the `+a` (append-only) attribute to the history file. Using the `$SUDO_USER` system variable dynamically references the unprivileged user account while operating inside the root shell:
 ```bash
 chattr +a /home/$SUDO_USER/.bash_history
 ```
 
-**10.** If administrative duties later require clearing or editing this file, we remove the protection attribute using:
+**10.** Should administrative maintenance require purging or editing this log file in the future, strip the protective attribute using:
 ```bash
 chattr -a /home/$SUDO_USER/.bash_history
 ```
 
-We re-apply the `+a` attribute immediately after maintenance is completed.
+Re-apply the `+a` attribute immediately upon completing maintenance.
 
 > [!IMPORTANT]
-> The `append-only` attribute is not a definitive defense mechanism. A user with root privileges can remove this attribute at any point to modify or delete the history file. We treat this configuration as an additional security layer rather than an infallible logging control.
+> The `append-only` attribute is not an absolute barrier. Any user with root privileges can strip the attribute and modify or delete the history log. Treat this control as a supplementary hardening layer rather than an immutable audit log.
 
 #### Configuring a Secure sudo Session Timeout:
 
-To force a change to the password cached credentials duration in the terminal, we will create an isolated configuration file. Direct editing of the main system `/etc/sudoers` file is discouraged to prevent syntax errors that could permanently revoke administrative privileges.
+To enforce a custom password timeout duration in the terminal, create a dedicated configuration snippet. Editing the main system file `/etc/sudoers` directly is discouraged to avoid syntax errors that could lockout administrative access.
 
-**1.** We launch the `nano` text editor to create a dedicated configuration snippet:
+**1.** Open the `nano` text editor to create a isolated drop-in configuration file:
 ```bash
 nano /etc/sudoers.d/99_sudo_timeout
 ```
 
-**2.** We insert the following line into the empty file:
+**2.** Insert the following directive into the blank file:
 ```ini
 Defaults timestamp_timeout=2
 ```
 
-The value `2` instructs `sudo` to retain authentication credentials for two minutes. Once this interval expires, subsequent `sudo` invocations will prompt for the password again. Alternatively, setting this value to `0` forces authentication on every execution, establishing a strict security posture for our hardened host.
+The value `2` instructs `sudo` to cache successful authentication credentials for two minutes. Once this interval expires, subsequent `sudo` invocations prompt for the password again. Setting this value to `0` forces `sudo` to require a password on every invocation, providing maximum credential isolation for hardened hosts.
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, followed by **`Ctrl + X`** to exit back to the root shell.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the root shell.
 
-**3.** We apply appropriate file permissions:
+**3.** Restrict file permissions on the newly created configuration snippet:
 ```bash
 chmod 0440 /etc/sudoers.d/99_sudo_timeout
 ```
 
 > [!WARNING]
-> Before closing the active terminal or exiting root mode, verifying the syntax of our newly applied rule is imperative:
+> Prior to closing the terminal or exiting the root shell, verifying configuration syntax with the following command is mandatory:
 > ```bash
 > visudo -c
 > ```
-> If the system reports `...parsed OK`, the syntax is valid and safe to apply. If a syntax error is returned, we reopen the file using `nano` immediately to fix the issue. Failing to do so before closing the shell will render the `sudo` command unusable and lock us out of administrative access!
+> A response returning `...parsed OK` confirms zero syntax errors and a safe configuration state. If the utility flags a syntax error, reopen the file immediately via `nano` to correct it. Failing to fix errors prior to closing the session breaks administrative access via `sudo`!
 
-> [!NOTE]
-> **Author's Note:** The `visudo` utility validates the syntax of files associated with the `sudo` security policy engine (specifically `/etc/sudoers` and included rules inside `/etc/sudoers.d/`). When modifying other system files (such as network configs, Firefox `user.js` profiles, firewall rules, or GRUB options), calling `visudo -c` is unnecessary as it does not parse non-sudo files.
+**Author's Note:** The `visudo` utility validates syntax exclusively for the privilege delegation framework (`/etc/sudoers` and drop-in files inside `/etc/sudoers.d/`). When modifying other system files (such as network configurations, Firefox `user.js` files, firewall rules, or GRUB parameters), running `visudo -c` is unnecessary and serves no purpose.
 
-**4.** We exit superuser mode to return to our unprivileged shell:
+**4.** Exit superuser mode and drop back into the standard unprivileged user session:
 ```bash
 exit
 ```
 
-**5.** A helpful trick for routine operations: to immediately invalidate an active `sudo` session token without waiting for the two-minute timeout to elapse, we execute:
+**5.** A helpful operational tip: to instantly invalidate the active `sudo` authentication token without waiting for the two-minute timeout to expire, execute:
 ```bash
 sudo -k
 ```
 
-The `sudo -k` command instantly revokes the cached authentication timestamp, ensuring that our next `sudo` command prompts for a password right away.
+Executing `sudo -k` immediately revokes active `sudo` credentials, ensuring the next `sudo` invocation requires password authentication.
 
 #### Creating the Checks Passed Verification File:
 
-**1.** We create a text file to review the parameters under **"Privacy & Security"** -> **"Device Security"** -> **Checks Passed**:
+**1.** Create a text file to log the **"Privacy & Security"** -> **"Device Security"** -> **"Checks Passed"** overview:
 ```bash
 touch ~/Downloads/checks_passed.txt
 ```
 
-**2.** We open the newly created file using the `nano` editor:
+**2.** Open the newly created file in the `nano` editor:
 ```bash
 nano ~/Downloads/checks_passed.txt
 ```
 
-**3.** We paste the contents copied to our clipboard into `checks_passed.txt`:
+**3.** Paste the contents copied to the clipboard into `checks_passed.txt`:
 ```ini
-OUR COPIED CLIPBOARD VALUES
+COPIED CLIPBOARD VALUES
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, followed by **`Ctrl + X`** to exit.
+To save the file in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit.
 
 > [!NOTE]
-> Adjusting specific parameters that failed validation depends on our primary system use case. For example, **Intel GDS Mitigation: !Fail (Not Enabled)** indicates that protection against the Gather Data Sampling (GDS) vulnerability is currently inactive. This can be caused by microcode status, kernel parameters, or system settings. Enabling mitigations may impact performance in certain scenarios, so we decide based on our specific CPU architecture, workload demands, and overall threat model.
+> Resolving failed checks depends on specific machine hardware and operational goals. For instance, **Intel GDS Mitigation: !Fail (Not Enabled)** indicates that defenses against the Gather Data Sampling (GDS) vulnerability are currently inactive. This state typically stems from CPU microcode, kernel parameters, or system configurations. Enabling this mitigation performance penalties in specific workloads, so decision-making should align with processor architecture, usage profile, and threat model requirements.
 > 
-> Similarly, the line **Linux Swap: !Fail (Not Encrypted)** might initially raise concerns. However, if our swap partition or file resides inside a LUKS-encrypted volume, its data on disk is fully encrypted. Therefore, this flag alone does not mean our swap contents are stored in plaintext on physical storage.
+> The **Linux Swap: !Fail (Not Encrypted)** line may initially cause concern. However, if swap resides inside a LUKS-encrypted volume, swap data on disk remains fully encrypted. Consequently, this warning does not indicate that swap data sits unencrypted on the physical drive.
 > 
-> To verify our current swap layout, we run:
+> Verify swap placement and path using the following command:
 > ```bash
 > swapon --show
 > ```
 > 
-> If the output points to `/swap.img`, the swap exists as a standard file inside the root file system. In our environment, the root file system is placed within a LUKS-encrypted volume, meaning the swap file contents inherit full encryption protection.
+> If the output references `/swap.img`, swap is operating as a file located inside the root file system. Because the root file system sits inside a LUKS-encrypted volume under this deployment model, all contents written to the swap file inherit that underlying encryption.
 
-**Chapter Appendix:** *_assets\images\4_start_terminal*
+**Chapter Assets:** `_assets/images/4_start_terminal`
 
 <br>
 
@@ -747,60 +746,60 @@ To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, fol
 
 #### For Ethernet (Wired Connection):
 
-Without plugging in the cable, we open system **"Settings"** and select the **"Network"** section. We locate **"Wired"** and click the **"Network Options"** gear icon. In the resulting window, on the **"Details"** tab, we immediately uncheck **"Make available to other users"** and **"Connect automatically"**.
+Without connecting the network cable, navigate to system **"Settings"** and select the **"Network"** tab. Locate the **"Wired"** entry and click the **"Network Options"** gear icon. Inside the opened window, navigate to the **"Details"** tab and immediately uncheck both **"Make available to other users"** and **"Connect automatically"**.
 
-Next, we move to the **"Identity"** tab. In the **"MAC Address"** field, we select our active network interface. Its interface name (e.g., `enp0s1`, `ens33`, or similar) will be displayed alongside—we need to remember or write it down, as it is critical for our downstream network and firewall configurations.
+Navigate to the **"Identity"** tab. Under the **"MAC Address"** dropdown, select the active network interface. Take note of its interface name displayed alongside (e.g., `enp0s1`, `ens33`, or similar), as recording this exact identifier is critical for subsequent firewall and network hardening steps.
 
-Let's switch to the **"IPv4"** tab. Here, we forcibly set our own custom DNS server so we don't use the DNS servers provided by our ISP. We toggle **"DNS"** from **"Automatic"** to **"Off"**, using Quad9 as an example: `9.9.9.9` (alternative: `149.112.112.112`). We enter: `9.9.9.9, 149.112.112.112` separated by a comma. This allows us to move DNS resolution outside our provider's infrastructure.
+Transition to the **"IPv4"** tab to enforce custom DNS resolution and bypass ISP-provided DNS servers. Toggle the **"DNS"** switch from **"Automatic"** to **"Off"** and enter Quad9 resolvers separated by a comma: `9.9.9.9, 149.112.112.112`. This routes name resolution outside the local provider's infrastructure.
 
-In the **"IPv6"** tab, under **"IPv6 Method"**, we strictly select **"Disable"**. After completing all these adjustments, we click **"Apply"**.
+Under the **"IPv6"** tab, set the **"IPv6 Method"** strictly to **"Disable"**. Click **"Apply"** after making all adjustments.
 
 > [!IMPORTANT]
-> Let's remember that disabling IPv6 in the graphical interface only protects this specific chosen network profile. To reduce the risk of a real IP address leak via IPv6 (IPv6 Leak) when working with any type of VPN, a bit later—in the chapter on fine-tuning the kernel (`sysctl.conf`)—we will forcibly disable this protocol globally at the system level.
+> Disabling IPv6 via the GUI applies exclusively to the selected network profile. To prevent potential real IP leaks over the IPv6 protocol (IPv6 Leak) across all VPN configurations, IPv6 will be forcibly disabled globally at the kernel level via `sysctl.conf` in a subsequent chapter.
 
 > [!NOTE]
-> **Note:** We can view the exact name of our network card using the `ip a` command.
+> **Note:** The exact network interface name can also be verified from the CLI using the `ip a` command.
 
-In the **"Cloned Address"** field, we can configure address spoofing. For instance, if we specify `08:00:27:E5:CA:C1`, this network node will completely mimic a VirtualBox virtual machine. However, a much more reliable option for everyday privacy is selecting **"Random"**. The **"Random"** setting will generate a new MAC address upon every connection event. If we are deploying Ubuntu inside a virtual machine (VM), we leave **"Cloned Address"** empty!
+Under the **"Cloned Address"** field, physical address spoofing can be configured. Specifying a MAC address like `08:00:27:E5:CA:C1`, for example, causes the interface to mimic a VirtualBox virtual machine. However, selecting **"Random"** provides superior daily operational privacy by generating a new MAC address upon every profile connection. If deploying Ubuntu inside a virtual machine, leave **"Cloned Address"** blank.
 
-In Ubuntu 24.04/26.04, NetworkManager profiles are stored via the Netplan backend; therefore, if we need guaranteed MAC address management, we will configure the parameter directly through NetworkManager and its configuration.
+In Ubuntu 24.04/26.04, NetworkManager profile settings map through the Netplan backend; precise MAC address spoofing rules can be explicitly set via NetworkManager configurations directly when required.
 
 #### For Wi-Fi (Wireless Connection):
 
-**1.** First, we check our network interface name and record it (as it will be required for subsequent configuration steps):
+**1.** Check and record the network interface identifier (required for subsequent configuration tasks):
 ```bash
 ip a
 ```
 
-After completing this step, we jump to the section **Setup for Physical Hardware (Full Randomization)**, follow the instructions step by step, and then return back to this part of the chapter.
+After executing this command, jump to the **Bare-Metal PC or Laptop Configuration (Full Randomization)** section below, follow those steps sequentially, and then return to this section.
 
-In **"Show Apps"**, we open **"Settings"**, go to **"Wi-Fi"**, and toggle the switch to active. Below, we will see active Wi-Fi networks or only our configured network. We click it with the mouse. In the authentication window that appears, we click **Cancel**, after which a gear icon will show up next to the network name. First, on the **"Details"** tab, we uncheck **"Make available to other users"** and **"Connect automatically"**.
+Access **"Settings"** via **"Show Apps"**, select the **"Wi-Fi"** section, and toggle the main switch to the active position. Nearby active Wi-Fi access points or the target network will appear. Click the target network name. In the authentication prompt, click **Cancel**, which surfaces a gear icon next to the network name. Under the **"Details"** tab, uncheck both **"Make available to other users"** and **"Connect automatically"**.
 
-Next, we switch to the **"Identity"** tab. In the **"MAC Address"** field, we select our active network interface, and in **"Cloned Address"**, we set the value to **"Random"**.
+Navigate to the **"Identity"** tab. Under **"MAC Address"**, select the active network interface, and set **"Cloned Address"** to **"Random"**.
 
-Let's move to the **"IPv4"** tab. Here, we forcibly set our own custom DNS server to avoid using ISP-provided DNS servers. We toggle **"DNS"** from **"Automatic"** to **"Off"** and enter reliable, no-log Quad9 servers: `9.9.9.9` (alternative: `149.112.112.112`).
+Transition to the **"IPv4"** tab to enforce custom DNS resolution and bypass ISP-provided DNS servers. Toggle the **"DNS"** switch from **"Automatic"** to **"Off"**, then enter non-logging Quad9 resolvers in the input field: `9.9.9.9` (alternative: `149.112.112.112`).
 
-In the **"IPv6"** tab, under **"IPv6 Method"**, we strictly select **"Disable"**.
+Under the **"IPv6"** tab, set the **"IPv6 Method"** strictly to **"Disable"**.
 
-We open the **"Security"** tab and enter eight random characters into the password field, after which the **"Apply"** button will become active. We click it to apply all settings at once. In general, entering the real password works too—a network connection won't happen anyway. But since we are paranoid, we will play it safe and enter the real password only right before our first internet access for system updates.
+Access the **"Security"** tab and enter eight arbitrary random characters into the passphrase field, which activates the **"Apply"** button. Click **"Apply"** to save all configured parameters simultaneously. Entering the authentic network password is also acceptable, as active network connections remain blocked. However, entering arbitrary characters provides an extra precaution until preparing the initial connection for system updates.
 
-We disable Wi-Fi by toggling the switch to the inactive state.
+Disable Wi-Fi by toggling the main switch to the inactive position.
 
-* **Setup for Physical Hardware (Full Randomization)**
+* **Bare-Metal PC or Laptop Configuration (Full Randomization)**
 
-For physical hardware, the optimal choice is generating a completely new random MAC address upon every connection to the network. Configuration files in `conf.d` are parsed in lexicographical order, so naming a file `99-...` allows us to place our parameters after default configuration files, thereby increasing their priority.
+For physical hardware, generating a completely new randomized MAC address upon every network connection provides optimal operational security. Configuration files inside `conf.d` parse in lexicographical order, so the `99-...` filename prefix ensures these directives override standard configuration parameters.
 
-**1.** We enter the terminal with superuser privileges:
+**1.** Elevate to superuser mode:
 ```bash
 sudo -i
 ```
 
-**2.** We create a priority rules configuration file:
+**2.** Create a high-priority configuration drop-in file:
 ```bash
 nano /etc/NetworkManager/conf.d/99-macrandom.conf
 ```
 
-**3.** We insert the following parameter block into the opened editor to activate automatic address changing:
+**3.** Insert the following directive block to enable automatic address spoofing:
 ```ini
 [device]
 wifi.scan-rand-mac-address = yes
@@ -810,200 +809,196 @@ ethernet.cloned-mac-address = random
 wifi.cloned-mac-address = random
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit back to the shell.
+Save the file in `nano` via **`Ctrl + O`** -> **`Enter`**, then exit via **`Ctrl + X`**.
 
-**4.** We restart the network service to apply settings immediately:
+**4.** Restart the network service to apply configuration changes immediately:
 ```bash
 systemctl restart NetworkManager
 ```
-Now, upon every new connection to any network, the system will generate a new random MAC address.
+The system will now generate a new random MAC address upon establishing every new network connection.
 
-**5.** After restarting the network service, we run a final verification (where we replace `enp0s1` with our actual interface name):
+**5.** Perform final verification following the service restart (replace `enp0s1` with the actual target interface name):
 ```bash
 ip link show enp0s1
 ```
 
 > [!TIP]
-> To avoid typing the full interface name manually, we can use a trick: type the command and the first letter of the interface (`e` for wired connections, `w` for wireless) and press **Tab**—the system will auto-complete the name for us.
+> To avoid typing full interface identifiers manually, enter the initial letter of the target interface type (`e` for wired ethernet, `w` for wireless) and press **`Tab`** to trigger command-line auto-completion.
 
-If everything worked as expected, we will see in the last output line: `link/ether "generated MAC" brd ff:ff:ff:ff:ff:ff permaddr "real MAC"`.
+A successful execution returns output displaying `link/ether "generated MAC" brd ff:ff:ff:ff:ff:ff permaddr "hardware MAC"` on the final line.
 
-As a reminder, when setting up a Wi-Fi connection, we return back to the next step in the section **For Wireless Connection (Wi-Fi)**.
+Note: When configuring Wi-Fi connections, return to the **Wireless Connection (Wi-Fi)** setup section.
 
-* **Setup for Virtual Machines (Strict Vendor Spoofing)**
+* **Virtual Machine Configuration (Strict Vendor Spoofing)**
 
-In virtual environments on Ubuntu 24.04/26.04, the Netplan and NetworkManager combination blocks automatic MAC address changes via the GUI, resetting it back to the hypervisor's factory prefix (e.g., `00:0c:29:...` for VMware) upon every host reboot. This instantly de-anonymizes our virtual machine usage.
+In virtualized environments running Ubuntu 24.04/26.04, the Netplan and NetworkManager stack blocks automatic MAC address randomization via the GUI, resetting the interface address back to the hypervisor's factory prefix (e.g., `00:0c:29:...` for VMware) upon every system reboot. This behavior immediately exposes virtual machine usage.
 
-To permanently disguise our system as real bare-metal hardware while preserving full GUI functionality, we will force the Linux kernel itself to override the MAC address at the earliest boot stage using the `rc.local` system automation script.
+To permanently mask the system as physical desktop hardware while preserving full desktop environment functionality, enforce early boot-stage kernel MAC address overrides using the `rc.local` automation script.
 
-**1.** We enter the terminal with superuser privileges:
+**1.** Elevate to superuser mode:
 ```bash
 sudo -i
 ```
 
-**2.** We create a low-level hardware configuration system script:
+**2.** Create the low-level system configuration script:
 ```bash
 nano /etc/rc.local
 ```
 
-**3.** We insert the following block of commands into the opened editor: 
+**3.** Insert the following execution block (replace `enp0s1` with the actual target interface name):
 ```bash
 #!/bin/bash
-# Seamless kernel-level strict MAC spoofing at OS startup (replace enp0s1 with your interface name)
+# Kernel-level strict MAC spoofing executed during boot (replace enp0s1 with target interface name)
 ip link set dev enp0s1 down
 ip link set dev enp0s1 address 28:80:8A:8F:32:7D
 ip link set dev enp0s1 up
 exit 0
 ```
-To save the file in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit back to the shell.
+Save the file in `nano` via **`Ctrl + O`** -> **`Enter`**, then exit via **`Ctrl + X`**.
 
 > [!NOTE]
-> The Linux kernel prohibits changing the MAC address of an active network card. Therefore, our script first downs the interface for a fraction of a second, replaces the address with a "legitimate" Intel one, and then instantly brings the card back active for the graphical manager to handle.
+> The Linux kernel prohibits modifying the MAC address of an active network interface. Consequently, the script momentarily disables the interface, injects a legitimate Intel hardware MAC address, and immediately re-enables the interface prior to handing control to the graphical network manager.
 >
-> Instead of the Intel address, we can enter any other valid MAC address of real physical hardware:
+> The Intel MAC address can be replaced with any valid MAC address corresponding to real physical hardware:
 >
-> * Example MAC address: `00:E0:4C:A1:22:33` — Spoofing as a Realtek chipset (prefix `00:E0:4C`; `FC:93:4E`; `50:3E:AA`; `00:13:70`; `00:23:CD`, etc.)
-> * Example MAC address: `04:92:26:BC:55:66` — Spoofing as an ASUS laptop (prefix `04:92:26`; `04:D4:C4`; `04:D9:F5`; `08:60:6E`; `08:BF:B8`, etc.)
-> * Example MAC address: `28:80:8A:8F:32:7D` — Spoofing as an Intel chipset (prefix `28:80:8A`; `28:7F:CF`; `28:7F:CF`; `28:C5:D2`; `14:85:7F`, etc.)
-> * Example MAC address: `3C:50:02:DC:1E:55` — Spoofing as an Apple laptop (prefix `3C:50:02`; `60:81:10`; `A4:83:E7`; `00:1C:B3`; `00:17:F2`, etc.)
-> * Example MAC address: `00:14:22:F1:A8:D3` — Spoofing as a Dell chipset (prefix `00:14:22`; `00:15:C5`; `00:21:70`; `74:86:7A`; `D0:94:66`, etc.)
->
-> We can learn more about MAC address pools on the internet!
+> * Example MAC: `00:E0:4C:A1:22:33` — Realtek chipset spoofing (prefixes: `00:E0:4C`, `FC:93:4E`, `50:3E:AA`, `00:13:70`, `00:23:CD`, etc.)
+> * Example MAC: `04:92:26:BC:55:66` — ASUS laptop spoofing (prefixes: `04:92:26`, `04:D4:C4`, `04:D9:F5`, `08:60:6E`, `08:BF:B8`, etc.)
+> * Example MAC: `28:80:8A:8F:32:7D` — Intel chipset spoofing (prefixes: `28:80:8A`, `28:7F:CF`, `28:C5:D2`, `14:85:7F`, etc.)
+> * Example MAC: `3C:50:02:DC:1E:55` — Apple laptop spoofing (prefixes: `3C:50:02`, `60:81:10`, `A4:83:E7`, `00:1C:B3`, `00:17:F2`, etc.)
+> * Example MAC: `00:14:22:F1:A8:D3` — Dell chipset spoofing (prefixes: `00:14:22`, `00:15:C5`, `00:21:70`, `74:86:7A`, `D0:94:66`, etc.)
 
-**4.** We tighten security controls **(Critical!)**. We make our script executable at the OS level, otherwise the kernel will ignore it during boot:
+**4.** Enforce strict permissions (**Critical**). Mark the script executable at the OS level to ensure execution by the kernel during system boot:
 ```bash
 chmod +x /etc/rc.local
 ```
 
-**5.** We send the virtual machine into a clean reboot to test the automation in action:
+**5.** Reboot the virtual machine to test automated execution:
 ```bash
 reboot
 ```
 
-**6.** After rebooting, we open the terminal and run our final verification (where we replace `enp0s1` with our interface name):
+**6.** Open the terminal after system startup and run final verification (replace `enp0s1` with the actual target interface name):
 ```bash
 ip link show enp0s1
 ```
-In the command output's `link/ether` line, we should see our new hardcoded Intel/Realtek spoofed MAC address, while the actual factory VM prefix will remain permanently hidden under the `permaddr` parameter. At the same time, network GUI settings and the VPN import button will stay fully functional.
+The output line starting with `link/ether` must display the static Intel/Realtek spoofed MAC address, while the original hypervisor factory prefix remains hidden under the `permaddr` attribute. Graphical network control and VPN import capabilities remain fully functional.
 
 #### NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS:
 
-By default, `NetworkManager` can use local name resolution mechanisms like mDNS (Multicast DNS) and LLMNR (Link-Local Multicast Name Resolution), designed for device discovery and name resolution within local networks.
+By default, `NetworkManager` may utilize mDNS (Multicast DNS) and LLMNR (Link-Local Multicast Name Resolution) mechanisms designed for local device discovery and hostname resolution within local network segments.
 
-On public networks—such as coffee shops, coworking spaces, or hotels—these protocols can leak our computer's hostname and presence to local peers. These requests are especially unwanted in scenarios where our VPN tunnel is not yet established or temporarily unavailable: local network traffic continues directly through the main interface during such moments.
+On public networks—such as those in cafes, co-working spaces, or hotels—these protocols can expose the host machine's hostname and reveal device presence to local network peers. These query broadcasts are particularly unwanted when a VPN tunnel is not active or temporarily drops, allowing local network traffic to route unencrypted via the primary interface.
 
-Additionally, during automatic network configuration, DNS servers can be assigned via DHCP from the local router. Depending on network setup, this allows the use of our ISP's or access point operator's DNS infrastructure. To minimize local network queries and avoid relying on automatic parameters, we will set our own DNS servers and disable unnecessary local name resolution mechanisms.
+Furthermore, dynamic network configuration can accept DNS server addresses pushed via DHCP by local routers. Depending on network configuration, this setup forces reliance on the access point or ISP's DNS infrastructure. To minimize local network query emissions and eliminate dependence on auto-assigned parameters, set static custom DNS servers and disable superfluous local name resolution mechanisms.
 
-To do this, we will create a dedicated `NetworkManager` configuration file to enforce our parameters.
+Create a dedicated `NetworkManager` configuration file to enforce these parameters.
 
-**1.** We open the terminal and create our privacy file:
+**1.** Open the terminal and create the privacy hardening drop-in file:
 ```bash
 sudo nano /etc/NetworkManager/conf.d/99-privacy-hardening.conf
 ```
 
-**2.** We insert the following configuration block bound to our interfaces:
+**2.** Insert the following configuration block bound to local interface definitions:
 ```ini
 [device-privacy]
 match-device=file:/sys/class/net/e*,file:/sys/class/net/w*
-# Total suppression of mDNS at the network connection level
+# Completely disable mDNS across network connections
 mdns = 0
-# Complete suppression of the LLMNR protocol
+# Suppress the LLMNR protocol entirely
 llmnr = 0
 
 [connection-privacy]
 match-device=file:/sys/class/net/e*, file:/sys/class/net/w*
-# Protection against DHCP de-anonymization (we do not send hostnames to routers)
+# Prevent DHCP deanonymization (suppress hostname transmission to local routers)
 ipv4.dhcp-send-hostname = false
 ipv6.dhcp-send-hostname = false
 ipv4.dhcp-fqdn = none
 ipv6.dhcp-fqdn = none
-# Forced override of DNS settings from the local router
-# (Protection against DNS traffic interception via rogue DHCP servers)
+# Enforce ignoring DNS parameters pushed by the local router
+# (Mitigates DNS traffic interception via rogue DHCP servers)
 ipv4.ignore-auto-dns = yes
 ipv6.ignore-auto-dns = yes
 ```
-To save the file in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit back to the shell.
+Save the file in `nano` using **`Ctrl + O`** -> **`Enter`**, then exit using **`Ctrl + X`**.
 
-**3.** We restart the service to apply privacy policies immediately:
+**3.** Restart the network service to apply privacy policies immediately:
 ```bash
 sudo systemctl restart NetworkManager
 ```
 
-**4.** For Netplan, we run the command specifying our connection name (e.g., `Wired connection 1` or our Wi-Fi SSID name) and required settings:
+**4.** For Netplan setups, execute `nmcli` referencing the exact target connection name (e.g., `Wired connection 1` or the specific Wi-Fi network SSID):
 ```bash
-sudo nmcli connection modify YOUR-CONNECTION-NAME ipv4.ignore-auto-dns yes
+sudo nmcli connection modify CONNECTION_NAME ipv4.ignore-auto-dns yes
 ```
 
-**5.** We set our static DNS servers (specifying our connection name):
+**5.** Set static custom DNS servers (specifying the target connection name):
 ```bash
-sudo nmcli connection modify YOUR-CONNECTION-NAME ipv4.dns 9.9.9.9
+sudo nmcli connection modify CONNECTION_NAME ipv4.dns 9.9.9.9
 ```
 
-**6.** We set permissions on the `yaml` file with NM rules:
+**6.** Restrict access permissions on the Netplan `yaml` configuration file:
 ```bash
 sudo chmod 0600 /etc/netplan/01-network-manager-all.yaml
 ```
 
-**7.** We apply the settings so everything works without a system reboot:
+**7.** Apply Netplan parameters to enforce configuration changes without requiring a system reboot:
 ```bash
 sudo netplan apply
 ```
 
-**8.** We verify our configuration (`-LLMNR -mDNS -DNSOverTLS DNSSEC=no/unsupported` is a positive indicator for us):
+**8.** Verify operational parameters (`-LLMNR`, `-mDNS`, `-DNSOverTLS`, and `DNSSEC=no/unsupported` indicate target hardened state):
 ```bash
 resolvectl status
 ```
 
 #### Setting Up a VPN Connection:
 
-If using a VPN connection, we follow the steps below; if no VPN is present, we skip this section.
+When utilizing a VPN connection, execute the steps outlined below; skip this section if no VPN is present.
 
-In the same **"Network"** menu, right below **"Wired"**, we find the VPN setup section. By default, its status shows *«Not set up»*. We click the plus icon on the right and select **«Import from file...»**. We select our pre-prepared `.ovpn` configuration file (for example, from an encrypted USB drive) and import it. Base profile configuration is now complete.
+In the same **"Network"** menu, directly beneath the **"Wired"** entry, resides the VPN configuration panel. The status defaults to * "Not set up" *. Click the plus sign to the right and select **"Import from file..."**. Select the pre-configured `.ovpn` profile file (e.g., from an encrypted USB drive) and import it. This completes basic profile deployment.
 
 > [!WARNING]
-> **Warning!** Launching OpenVPN directly via the terminal in default mode does not protect against traffic leaks during an abrupt connection drop or server failure. We will configure a strict Kill Switch later using our built-in host firewall.
+> **Warning!** Running OpenVPN directly via the terminal in default mode does not protect against traffic leaks if the connection drops unexpectedly or the remote server fails. Enforcing a strict traffic block (Kill Switch) will be configured later using the host's native firewall.
 > 
-> After successful import and VPN verification, inside the VPN connection settings under the **«IPv4»** tab, we recommend explicitly specifying private DNS resolvers belonging to our specific VPN provider (usually an internal gateway like `10.8.0.1`), or using independent secure addresses guaranteed not to log data:
+> Following successful import and VPN verification, access the newly created VPN profile settings, navigate to the **"IPv4"** tab, and explicitly set private DNS resolvers belonging to the specific VPN provider (typically an internal gateway such as `10.8.0.1`), or assign independent, privacy-focused, zero-log DNS addresses:
 > 
->* *Mullvad DNS:* `194.242.2.2` (basic) or `194.242.2.3` (with automatic ad and tracker blocking). A project by one of the most private and reputable VPN providers in the world.
->* *Quad9:* `9.9.9.9`. Servers are based in Switzerland, strictly complying with stringent European privacy laws and automatically filtering phishing and malicious sites at the DNS query level.
->* *Control D (Uncensored):* `76.76.2.0`. Completely independent and fast resolver with zero censorship, logs, or restrictions.
+> * *Mullvad DNS:* `194.242.2.2` (standard) or `194.242.2.3` (includes ad and tracker blocking). Maintained by one of the most privacy-focused and reputable VPN providers globally.
+> * *Quad9:* `9.9.9.9`. Infrastructure hosted in Switzerland, adhering strictly to European privacy legislation while filtering phishing and malicious domains at the DNS level.
+> * *Control D (Uncensored):* `76.76.2.0`. Fully independent, high-speed resolver operating without censorship, logging, or query restrictions.
 > 
-> **Network Protocol Isolation (IPv6 Leak Prevention):**
-> Even if we globally disable IPv6 traffic handling in UFW firewall settings (using `sudo sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw`), the tunnel's virtual interface (`tun0`) may ignore this rule upon initialization. If the remote VPN server supports IPv6, the OS will attempt to route part of the traffic through it, bypassing our IPv4 Kill Switch rules.
+> **Network Protocol Isolation (Mitigating IPv6 Leaks):**
+> Even if global UFW firewall configurations explicitly disable IPv6 processing (via `sudo sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw`), the virtual tunnel interface (`tun0`) can override this rule during initialization. If the remote VPN server supports IPv6, the operating system may attempt to route traffic over IPv6, bypassing IPv4 Kill Switch rules.
 > 
-> To completely eliminate this critical leak vector, right after importing our configuration, we open our created VPN connection settings, switch to the **«IPv6»** tab, and forcibly set **«IPv6 Method»** to **«Disable»**.
+> To eliminate this data leak vector, immediately after importing the configuration, open the created VPN profile settings, navigate to the **"IPv6"** tab, and set the **"IPv6 Method"** toggle strictly to **"Disable"**.
 > 
 > **NetworkManager Architectural Security:**
-> Upon a successful GUI import, the system automatically extracts all cryptographic keys and stores them in isolated system directories. The original `.ovpn` file can then be safely removed from our USB drive.
+> Upon successful GUI import, NetworkManager extracts all cryptographic keys into isolated system directories. The original `.ovpn` file stored on the USB drive can then be safely deleted.
 
-In modern Ubuntu releases, importing complex configuration files with specific routes via standard GUI can fail due to strict security policies in the built-in `network-manager-openvpn` plugin. **If the GUI throws an error, it is much more reliable for us to launch the session directly through the terminal.**
+In modern Ubuntu releases, importing complex configuration files containing specific routes via the standard GUI may fail due to strict security policies enforced by the `network-manager-openvpn` plugin. **If the graphical interface returns an import error, launching the session directly via the terminal is significantly more reliable.**
 
 > [!IMPORTANT]
-> We strictly prohibit launching OpenVPN directly from standard user directories (such as `Downloads`). Keys and configs must reside where root kernel permissions protect them; otherwise, compromising a user session (e.g., via a browser) could lead to the theft of our VPN credentials.
-
-**Chapter Appendix:** *_assets\images\5_network_vpn*
+> Executing OpenVPN directly from user home directories (e.g., the `Downloads` folder) is strictly prohibited. Cryptographic keys and configuration profiles must reside in system directories protected by root-level access permissions; otherwise, compromising the unprivileged user session (e.g., via browser exploits) allows adversaries to exfiltrate VPN access credentials.
 
 #### Purging Compromising Bluetooth Components:
 
-The Bluetooth wireless protocol is used extremely rarely, so for security purposes, it is far more effective to deactivate and isolate it completely rather than constantly monitoring its active broadcast status. This protocol has many known and potential zero-day (0-day) vulnerabilities, creating dangerous attack vectors for close-range remote attacks. If our computer is in a cafe, coworking space, or public place, attackers could target the kernel's Bluetooth stack to gain remote control over our device.
+The Bluetooth wireless protocol is rarely utilized; thus, fully disabling and isolating it yields significantly better security than continuously monitoring its over-the-air status. This protocol carries numerous known and zero-day (0-day) vulnerabilities, introducing dangerous attack vectors for proximate remote exploitation. In public spaces such as cafes or co-working environments, adversaries can exploit the kernel's Bluetooth stack to gain unauthorized remote control over the device.
 
-**1.** We block the Bluetooth transmitter at the kernel level (soft-block), preventing the chip from broadcasting radio signals:
+**1.** Apply a software-level block to the Bluetooth transmitter at the kernel level (`soft-block`), preventing the chip from emitting radio signals:
 ```bash
 sudo rfkill block bluetooth
 ```
 
-**2.** We completely isolate the Bluetooth stack in user space, disabling automatic startup of the system service at boot, while the `--now` flag stops its active execution in host RAM immediately:
+**2.** Isolate the user-space Bluetooth stack entirely by disabling automated service execution during boot, appending the `--now` flag to terminate the daemon running in host memory instantly:
 ```bash
 sudo systemctl disable --now bluetooth
 ```
 
-**3.** We open our kernel module blacklist configuration file:
+**3.** Open the kernel module blacklist configuration file:
 ```bash
 sudo nano /etc/modprobe.d/blacklist-hardening.conf
 ```
 
-**4.** We add the following lines for complete kernel-level Bluetooth isolation:
+**4.** Append the following directives to enforce complete kernel-level Bluetooth driver isolation:
 ```ini
 blacklist bluetooth
 blacklist btusb
@@ -1015,17 +1010,19 @@ install btusb /bin/true
 install btintel /bin/true
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit back to the shell.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
-**5.** We finalize our changes and embed the new configuration into the initial boot RAM disk image:
+**5.** Finalize configuration changes by rebuilding the initial RAM filesystem image across all installed kernels:
 ```bash
 sudo update-initramfs -u -k all
 ```
 
-Once completed, the Linux kernel physically will not load drivers upon detecting the device. For the system, this chip becomes a "piece of dead silicon"—completely eliminating background software bypasses by malware or hidden rootkits.
+Following this execution, the Linux kernel cannot load corresponding drivers upon detecting a Bluetooth controller. The host treats the controller as non-functional hardware, preventing background software overrides by malware or covert rootkits.
 
 > [!IMPORTANT]
-> This closes 99.9% of attack vectors, though the chip remains powered. Absolute guarantees against advanced hardware rootkits require physically removing the card from its slot or desoldering it.
+> This mitigation eliminates 99.9% of remote attack vectors, though the controller remains powered electrically. Absolute isolation against advanced hardware-level rootkits requires physically disconnecting or desoldering the module from the motherboard.
+
+**Chapter Assets:** `_assets/images/5_network_vpn`
 
 <br>
 
@@ -1033,143 +1030,143 @@ Once completed, the Linux kernel physically will not load drivers upon detecting
 
 #### Setting a Password to Protect GRUB:
 
-To eliminate unauthorized editing of Linux kernel parameters (preventing *Evil Maid* attacks) when physical access to the computer is present, we must set an administrative password on the GRUB bootloader. Without this defense, anyone powering on the PC can modify boot lines, pass `init=/bin/bash` to the kernel, and bypass standard authentication at the boot stage.
+To prevent unauthorized modification of Linux kernel parameters (*Evil Maid* attack vectors) when physical access is present, set an administrative password for the GRUB bootloader. Without this mitigation, anyone with physical access can alter boot directives, pass `init=/bin/bash` to the kernel, and bypass standard operating system authentication during early boot stages.
 
-We open the terminal and execute the following steps in sequence:
+Open the terminal and execute the following steps sequentially:
 
-**1.** We launch the secure hash generation utility. The system will prompt us to enter and confirm a password (we recommend using a complex password at least 16 characters long):
+**1.** Launch the hash generation utility. Enter and confirm the master password when prompted (use a strong passphrase at least 16 characters long):
 ```bash
 grub-mkpasswd-pbkdf2
 ```
 
-The utility will output a long hash string starting with `grub.pbkdf2.sha512...`. We highlight and copy this entire string.
+The utility outputs a hashed string starting with `grub.pbkdf2.sha512...`. Highlight and copy this string in its entirety.
 
 > [!NOTE]
-> In Ubuntu distributions, the GRUB configuration is typically auto-generated from `/etc/default/grub` settings and scripts inside `/etc/grub.d/`. An error in any of these files can cause `update-grub` to fail when generating `grub.cfg`.
+> On Ubuntu distributions, the primary GRUB configuration compiles dynamically from `/etc/default/grub` and scripts inside `/etc/grub.d/`. Syntax errors within these files can break `grub.cfg` generation when running `update-grub`.
 > 
-> To avoid modifying default generation scripts, we will utilize a dedicated `/boot/grub/custom.cfg` file. GRUB automatically includes this file upon boot, allowing us to isolate user configurations from auto-generated setups.
+> To avoid modifying default generation scripts, isolate custom parameters inside `/boot/grub/custom.cfg`. GRUB sources this file directly during boot, decoupling user settings from automatically generated configurations.
 
-**2.** We create an autonomous authorization configuration file at the lowest bootloader level:
+**2.** Create a dedicated configuration snippet for bootloader authentication at the lowest initialization layer:
 ```bash
 sudo nano /boot/grub/custom.cfg
 ```
 
-**3.** Inside the opened file, we insert two clean lines declaring the superuser and binding our generated hash to it (without quotes or Bash syntax):
+**3.** Insert two lines declaring the superuser account and binding the generated password hash (without quotes or Bash syntax):
 ```text
 set superusers="root"
-password_pbkdf2 root OUR_COPIED_HASH_FROM_STEP_1
+password_pbkdf2 root COPIED_HASH_FROM_STEP_1
 ```
 
-To save our changes in the `nano` editor, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit back to the console.
+To save changes in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
-By default, declaring a superuser in GRUB locks the bootloader entirely—the system will demand a password on every routine reboot. To ensure the operating system boots automatically while demanding a password *only* upon attempting unauthorized menu editing (pressing **`e`**) or launching the console (pressing **`c`**), we must allow unrestricted kernel booting.
- 
-**4.** To do this, we open the generator system template:
+By default, declaring a superuser locks down the entire bootloader, prompting for credentials during standard reboots. To allow the default operating system to launch automatically while prompting for passwords *only* when attempting unauthorized menu editing (key `e`) or accessing the command line interface (key `c`), unrestrict standard kernel entries.
+
+**4.** Open the core generator template:
 ```bash
 sudo nano /etc/grub.d/10_linux
 ```
 
-**5.** We locate the line starting with `CLASS=` (usually `CLASS="--class gnu-linux --class gnu --class os"`), and append the `--unrestricted` parameter so it matches the following format:
+**5.** Locate the directive starting with `CLASS=` (typically `CLASS="--class gnu-linux --class gnu --class os"`) and append the `--unrestricted` parameter:
 ```ini
 CLASS="--class gnu-linux --class gnu --class os --unrestricted"
 ```
-We save the file with **`Ctrl + O`** -> **`Enter`**, then exit using **`Ctrl + X`**.
+Save the file via **`Ctrl + O`** -> **`Enter`**, then exit via **`Ctrl + X`**.
 
-**6.** We apply our settings to GRUB at the OS level:
+**6.** Apply GRUB configuration updates at the OS level:
 ```bash
 sudo update-grub
 ```
 
-**7.** We enforce strict access permissions on our created `custom.cfg` file, completely hiding the password hash from being read by standard unprivileged users on the system:
+**7.** Enforce strict permissions on the created `custom.cfg` file, hiding the stored password hash from unprivileged system users:
 ```bash
 sudo chmod 0600 /boot/grub/custom.cfg
 ```
 
 > [!WARNING]
-> After applying these modifications, our GRUB password will not be required during standard Ubuntu boots, making it very easy to forget due to infrequent use. However, in emergency scenarios (such as filesystem errors or recovering system access), the bootloader will demand it. To eliminate the risk of losing administrative control, make sure to write this password down on paper and store it securely (e.g., in a safe) or save it inside an offline password manager vault (such as KeePassXC). We will cover installing and configuring this software in detail in upcoming chapters.
+> Following these adjustments, standard Ubuntu boots bypass the GRUB password prompt, making it easy to forget due to rare usage. However, during emergency recovery (e.g., filesystem repairs or emergency maintenance), the bootloader will demand this passphrase. To prevent total loss of administrative control, record this credential on paper stored in a physical safe or save it inside an offline password manager database (such as KeePassXC). Detailed setup for this software is covered in subsequent chapters.
 
 #### Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks:
 
-Since we established the necessity of defending against dangerous DMA (*Direct Memory Access*) attacks early on, relying solely on disabling Sleep Mode or trusting BIOS/UEFI settings is entirely insufficient. On many consumer laptops and motherboards, vendors deliberately hide or cut hardware port authorization features for Thunderbolt and USB4 interfaces. 
+Because the introduction established the necessity of defending against high-risk DMA (*Direct Memory Access*) attacks, disabling sleep mode and relying on BIOS/UEFI parameters alone is entirely insufficient. On many consumer laptops and motherboards, hardware authorization features for Thunderbolt and USB4 ports are deliberately hidden or completely omitted by manufacturers.
 
-To guarantee uncompromised defense, we must forcibly activate and tune the **IOMMU** subsystem at the GRUB kernel bootloader level. This forces the central processing unit to hardware-isolate RAM address spaces, completely blocking external devices from gaining direct access to host RAM without operating system mediation.
+To guarantee uncompromising defense, enforce and configure the **IOMMU** subsystem at the GRUB bootloader level. This forces the CPU to isolate RAM address spaces at the hardware layer, completely blocking external hardware devices from directly accessing host RAM while bypassing the operating system.
 
 > [!NOTE]
-> To maintain operational hygiene, we place Linux kernel hardware initialization parameters into a dedicated system drop-in directory. This protects our low-level flags from accidental overwrite by package managers during routine system updates.
+> To maintain operational hygiene, Linux kernel initialization parameters should be stored in a dedicated system drop-in directory. This shields low-level flags from accidental overwrite by package management tools during routine system updates.
 
-We open the terminal on our primary host system and execute the following steps in sequence:
+Open the main host system terminal and execute the following steps sequentially:
 
-**1.** We create our independent kernel security configuration file inside the drop-in directory:
+**1.** Create an independent kernel security configuration file inside the extension drop-in directory:
 ```bash
 sudo nano /etc/default/grub.d/99_security_baseline.cfg
 ```
 
-**2.** Inside the opened file, we insert a single operational line containing memory isolation initialization flags matching our physical CPU architecture.
+**2.** Insert a single operational line into the opened file containing hardware memory isolation flags suited to your physical CPU architecture.
 
-* **For Intel Processors:**
+* **For Intel CPUs:**
 ```ini
 GRUB_CMDLINE_LINUX_DEFAULT="${GRUB_CMDLINE_LINUX_DEFAULT} intel_iommu=on iommu=pt"
 ```
 
-* **For AMD Processors:**
+* **For AMD CPUs:**
 ```ini
 GRUB_CMDLINE_LINUX_DEFAULT="${GRUB_CMDLINE_LINUX_DEFAULT} amd_iommu=on iommu=pt"
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+Save the configuration in `nano` by pressing **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit.
 
-* **`intel_iommu=on / amd_iommu=on`** — forcibly initializes the IOMMU driver at the CPU architecture level upon system boot.
-* **`iommu=pt`** (*Pass-Through*) — enables pass-through mode for internal host devices (e.g., integrated graphics), mapping direct address translations only for legitimate built-in buses. This delivers maximum performance and baseline stability by default.
+* **`intel_iommu=on/amd_iommu=on`** — Forces the CPU architecture-level IOMMU control driver to initialize during system startup.
+* **`iommu=pt`** (*Pass-Through*) — Enables pass-through mode for internal host devices (such as integrated graphics adapters), applying direct address translations exclusively to legitimate built-in buses. This provides maximum default performance and stability.
 
 > [!WARNING]
-> If we are porting settings from this book to our bare-metal hardware (rather than a virtual machine), replacing `iommu=pt` (trusted pass-through mode) with `iommu=force` is our best choice. 
-> This strict flag prevents the Linux kernel from automatically putting newly connected external devices (especially via Thunderbolt/USB4/PCIe protocols) into trusted mode. The kernel forcibly applies DMA address translation tables to every interface without exception.
-> **We perform a safe test on physical hardware first:** We reboot, enter the GRUB menu, and press **`e`** (entering our `root` login and GRUB password defined previously). In the kernel parameters line, we change `iommu=pt` to `iommu=force`. We press **`Ctrl + X`** to boot. If our system reaches the desktop without graphic freezes, and Wi-Fi and sound operate normally, our hardware is fully compatible with strict hardening. Only then do we commit this parameter permanently!
-> On VirtualBox and VMware testbeds, the strict isolation flag `force` can cause GNOME desktop deadlocks by blocking the virtual display adapter (VMSVGA).
+> When porting settings from this guide to bare-metal hardware (rather than virtual machines), replace `iommu=pt` (trusted pass-through mode) with `iommu=force`.
+> This strict flag prevents the Linux kernel from automatically assigning newly attached hot-plugged external devices (especially via Thunderbolt/USB4/PCIe protocols) to trusted mode. The kernel strictly enforces DMA Translation tables across all interfaces without exception.
+> **Perform a safe PC hardware verification test first:** Reboot the host, press **E** at the GRUB boot menu (enter the root username and the password configured in the previous step). In the kernel command line, replace `iommu=pt` with `iommu=force`. Press **`Ctrl + X`** to boot. If the desktop environment loads successfully without graphics freezes, Wi-Fi failure, or audio dropping, your hardware is fully compatible with strict hardening. Only after successful testing should this parameter be declared permanently!
+> On VirtualBox and VMware virtual environments, the strict isolation flag `force` can trigger a GNOME desktop deadlock by blocking virtual display adapters (VMSVGA).
 
-We save our changes in `nano` via **`Ctrl + O`** -> **`Enter`**, then **`Ctrl + X`**.
+Save changes in `nano` using **`Ctrl + O`** -> **`Enter`**, then exit via **`Ctrl + X`**.
 
-**3.** We update the bootloader configuration in the operating system so the kernel compiles and applies our new low-level instructions:
+**3.** Update the bootloader configuration across the operating system to compile and lock in the new low-level directives:
 ```bash
 sudo update-grub
 ```
 
-**4.** We force a computer reboot to apply hardware memory isolation:
+**4.** Force a system reboot to apply hardware memory isolation:
 ```bash
 sudo systemctl reboot -i
 ```
 
-**5.** Following reboot, we open the terminal and execute verification. We inspect the kernel ring buffer logs via `dmesg` with `sudo` privileges to confirm defense deployment across RAM:
+**5.** Following reboot, open the terminal and verify operation. Inspect the `dmesg` ring buffer using `sudo` privileges to verify security deployment and active RAM protection:
 ```bash
 sudo dmesg | grep -E "iommu|IOMMU|dmar"
 ```
 
 > [!IMPORTANT]
-> Prior to OS boot, we enter BIOS/UEFI and set **Intel VT-d** (for Intel CPUs) or **AMD-Vi / IOMMU** (for AMD CPUs) to **Enabled**. If omitted, the kernel will ignore our boot parameters and log an error.
+> Access BIOS/UEFI prior to boot and set Intel VT-d (Intel processors) or AMD-Vi/IOMMU (AMD processors) to Enabled. If left disabled, the kernel ignores boot parameters and logs an error.
 
 > [!TIP]
-> If terminal output displays lines such as *"DMAR: IOMMU enabled"*, *"DMAR: Intel-IOMMU"*, or confirms hardware translation map initialization, our PC is now hardware-protected against direct RAM extraction via malicious DMA hardware cards!
+> If terminal output displays entries such as *"DMAR: IOMMU enabled"*, *"DMAR: Intel-IOMMU"*, or confirms successful initialization of CPU hardware address translation tables, your system is hardware-protected against direct RAM exfiltration via rogue DMA attack boards!
 
 > [!NOTE]
-> **Optional Tuning for Ubuntu 26.04:** If `unattended-upgrades` introduces excessive delays during system shutdown or reboot (interfering with routine `sudo reboot`), we can override its `TimeoutStopSec` using a systemd drop-in without modifying the original package unit file.
+> **Optional configuration for Ubuntu 26.04:** If `unattended-upgrades` introduces excessive shutdown or reboot delays (disrupting standard `sudo reboot` operations), override `TimeoutStopSec` via a systemd drop-in without modifying the upstream package unit file.
 > 
-> We create the directory and override configuration file:
+> Create the directory and configuration drop-in file:
 > ```bash
 > sudo mkdir -p /etc/systemd/system/unattended-upgrades.service.d && sudo nano /etc/systemd/system/unattended-upgrades.service.d/override.conf
 > ```
 > 
-> We define a 1-minute timeout value inside:
+> Set a one-minute execution timeout:
 > ```ini
 > [Service]
 > TimeoutStopSec=60
 > ```
 > 
-> We reload the systemd daemon:
+> Reload systemd manager configuration:
 > ```bash
 > sudo systemctl daemon-reload
 > ```
 > 
-> We verify our modification (it should return `TimeoutStopUSec=1min`):
+> Verify active unit parameters (should output `TimeoutStopUSec=1min`):
 > ```bash
 > systemctl show unattended-upgrades.service -p TimeoutStopUSec
 > ```
@@ -1180,255 +1177,255 @@ sudo dmesg | grep -E "iommu|IOMMU|dmar"
 
 #### Setting Up the Firewall with a Kill Switch:
 
-In Ubuntu, before connecting to the internet, we must configure the firewall via the terminal. We execute the following steps sequentially:
+In Ubuntu, while remaining disconnected from the internet, configure the host firewall via the terminal. Execute the following steps sequentially:
 
-First, we disable all IPv6 traffic processing in system firewall settings to eliminate hidden data leaks.
+First, disable all IPv6 traffic processing in system firewall settings to eliminate covert data leaks.
 
-**1.** We set the firewall to active mode. It will now start automatically upon every operating system boot:
+**1.** Enable the firewall subsystem. It will now launch automatically on every system boot:
 ```bash
 sudo ufw enable
 ```
 
-**2.** We disable IPv6 protocol support inside the UFW subsystem configuration file:
+**2.** Disable IPv6 support within the UFW configuration file:
 ```bash
 sudo sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
 ```
 
-**3.** We verify operating status. The firewall is running, but currently using default rules:
+**3.** Check firewall status. The service is active, running default rules:
 ```bash
 sudo ufw status verbose
 ```
 
-**4.** We completely deny all incoming traffic and any external connection attempts to our PC:
+**4.** Block all incoming traffic and external connection attempts targeting the host:
 ```bash
 sudo ufw default deny incoming
 ```
 
-**5.** We block all outgoing traffic. This turns the firewall into a strict Kill Switch: it completely cuts off data leaks across all ports, temporarily disabling internet access on the machine:
+**5.** Enforce a global outbound traffic block. This action converts the firewall into a strict Kill Switch: it terminates data exfiltration across all ports, temporarily disabling internet access on the host:
 ```bash
 sudo ufw default deny outgoing
 ```
 
-**6.** We block any packet forwarding through our system:
+**6.** Block packet forwarding across system interfaces:
 ```bash
 sudo ufw default deny forward
 ```
 
-**7.** We allow outgoing traffic strictly to the IP address and port of our specific VPN server (selecting `udp` or `tcp` according to our `.ovpn` file). We replace the placeholders `VPN_IP` and `PORT` with our real technical details:
+**7.** Allow outbound traffic exclusively to the specific VPN server IP address and target port (select `udp` or `tcp` matching your `.ovpn` configuration). Replace placeholders `VPN_IP` and `PORT` with actual connection parameters:
 ```bash
 sudo ufw allow out to VPN_IP port PORT proto udp
 ```
 
 > [!IMPORTANT]
-> If our VPN provider uses a domain name in its configuration (e.g., `server.mullvad.net`), we must determine its numerical IP address and enter that instead, otherwise the firewall will block domain resolution and the VPN tunnel will fail to establish.
+> If the VPN provider specifies a domain name in the configuration (e.g., `server.mullvad.net`), resolve its numeric IP address first and supply the static IP. Otherwise, the firewall blocks DNS resolution attempts, preventing tunnel establishment.
 
-**8.** We allow outgoing DNS traffic (port 53) strictly through the secured VPN interface, which is typically named `tun0`. If our VPN uses a different interface name, we specify that instead:
+**8.** Allow outbound DNS traffic (port 53) strictly through the secured VPN interface, typically designated as `tun0`. Specify the corresponding interface name if your VPN uses a different identifier:
 ```bash
 sudo ufw allow out on tun0 to any port 53 proto udp
 ```
 
-**9.** We open the outbound HTTP port (80), routing traffic exclusively into the VPN tunnel:
+**9.** Allow outbound HTTP traffic (port 80) routed exclusively through the VPN tunnel interface:
 ```bash
 sudo ufw allow out on tun0 to any port 80 proto tcp
 ```
 
-**10.** We open the outbound secured HTTPS port (443) through the VPN interface:
+**10.** Allow outbound HTTPS traffic (port 443) routed through the VPN tunnel interface:
 ```bash
 sudo ufw allow out on tun0 to any port 443 proto tcp
 ```
 
-**11.** We list all created rules alongside their unique ID numbers. This makes managing them straightforward:
+**11.** Display all active rules with assigned numerical IDs for straightforward management:
 ```bash
 sudo ufw status numbered
 ```
 
-**12.** We enable network activity logging. Available modes include `low`, `medium`, `high`, and `full`. The `medium` value provides an ideal balance for monitoring anomalies without cluttering the disk with logs:
+**12.** Enable network activity logging. Available modes include `low`, `medium`, `high`, and `full`. The `medium` setting provides optimal balance for anomaly tracking without flooding system disks:
 ```bash
 sudo ufw logging medium
 ```
 
-To allow proper operation of local services and isolated development environments (e.g., VS Code, Portmaster, or LM Studio), we must add rules for the loopback interface (`localhost`):
+To enable proper operation for local services and isolated development environments (e.g., VS Code, Portmaster, or LM Studio), append loopback interface (`localhost`) rules:
 
-**13.** We allow all inbound local connections within the host:
+**13.** Allow all incoming loopback traffic within the host:
 ```bash
 sudo ufw allow in on lo to any
 ```
 
-**14.** We allow all outbound local connections within the host:
+**14.** Allow all outgoing loopback traffic within the host:
 ```bash
 sudo ufw allow out on lo to any
 ```
 
-**15.** We open port 853 across physical and virtual interfaces for the secure DNS-over-TLS protocol (relevant when using Portmaster):
+**15.** Open port 853 across physical and virtual interfaces for secure DNS-over-TLS communication (required when utilizing Portmaster):
 ```bash
 sudo ufw allow out to any port 853 proto tcp
 ```
 
-**16.** We allow fast tunnel connections (QUIC/UDP) for traffic filtering systems inside the VPN:
+**16.** Allow high-speed tunnel connections (QUIC/UDP) for traffic filtering engines operating inside the VPN:
 ```bash
 sudo ufw allow out on tun0 from any to any proto udp
 ```
 
-**17.** We perform a final check on firewall status. Baseline firewall setup is successfully complete:
+**17.** Perform a final firewall status verification. Firewall baseline deployment is complete:
 ```bash
 sudo ufw status verbose
 ```
 
-**18.** We open the UFW sysctl configuration file using the `nano` editor:
+**18.** Edit UFW kernel runtime parameter rules using `nano`:
 ```bash
 sudo nano /etc/ufw/sysctl.conf
 ```
 
-**19.** Near the end of the file, we locate the martian logging lines and change their values from zero to one:
+**19.** Locate martian logging parameters near the end of the file and toggle their values from zero to one:
 ```ini
 net/ipv4/conf/all/log_martians=1
 net/ipv4/conf/default/log_martians=1
 ```
 
-To save our configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, then **`Ctrl + X`** to exit.
+Save the configuration in `nano` via **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit.
 
-**20.** We reload UFW to apply our updated firewall rules:
+**20.** Reload UFW to enforce updated firewall rules:
 ```bash
 sudo ufw reload
 ```
 
-**21.** We call the built-in reference manual for the utility (highly recommended reading):
+**21.** Access the built-in manual page for utility operations (strongly recommended reading):
 ```bash
 man ufw
 ```
 
 #### Important Addition on Managing Rule Priority:
 
-Occasionally, we may need to block a specific malicious IP address or an entire subnet. For instance, while analyzing traffic in Wireshark, we might notice the system repeatedly attempting to communicate with IP addresses `84.17.56.74` and `84.17.56.91` over port 80. We can choose to block them individually or block the entire subnet.
+Occasions arise where blocking a specific malicious IP address or an entire subnet becomes necessary. For instance, while analyzing traffic in the Wireshark network monitor, you might notice persistent outbound connection attempts targeting IP addresses `84.17.56.74` and `84.17.56.91` over port 80. You can choose to block them individually or drop traffic to the entire subnet at once.
 
-It is critically important to understand UFW rule logic: rules are processed strictly from top to bottom. If we append a block rule to the end of the list, it will sit below our general allow rule for port 80 (Rule #9), causing the firewall to ignore it and pass the packet. For a block rule to take effect, we must forcibly insert it at the top of the list using `insert N`, where `N` represents the position number at the start of the table:
+Understanding UFW logic is critical: rules process strictly from top to bottom. Simply appending a deny rule to the end of the list places it below the general outbound allow rule for port 80 (rule #9), causing the firewall to ignore the block and pass the packet. To enforce the restriction, insert it at the top of the chain using `insert N`, where `N` represents the target index number:
 
-**1.** We enforce a strict connection block to a specific IP on port 80. The rule takes first priority and is processed before all others:
+**1.** Enforce a hard connection block targeting a specific IP address on port 80. The rule takes index 1 and receives top evaluation priority:
 ```bash
 sudo ufw insert 1 deny out to 84.17.56.74 port 80
 ```
 
-**2.** We block outbound traffic to the entire `84.17.56.0/24` subnet on port 80:
+**2.** Block outbound traffic targeting the entire `84.17.56.0/24` subnet on port 80:
 ```bash
 sudo ufw insert 1 deny out to 84.17.56.0/24 port 80
 ```
 
-**3.** We reload and apply the updated firewall rules:
+**3.** Reload UFW to enforce updated firewall rules:
 ```bash
 sudo ufw reload
 ```
 
-If we need to remove an incorrect rule, we use its unique ID number. Note that deleting a rule automatically shifts the remaining table rules upward, altering their position numbers. Therefore, we must re-issue the numbered list command before deleting subsequent rules:
+To purge an erroneous rule, target its assigned numerical ID. Deleting a rule shifts the entire table upward, reindexing all subsequent rule numbers. Always query the updated numbered list before executing additional deletion commands:
 
-**4.** We display the current rule list with updated position numbers:
+**4.** Display the active rule table with current numerical IDs:
 ```bash
 sudo ufw status numbered
 ```
 
-**5.** Example of deleting a rule currently assigned position number 5:
+**5.** Delete a rule assigned to index 5:
 ```bash
 sudo ufw delete 5
 ```
 
 #### Alternative Configuration Setup (Without VPN / For Guest OS):
 
-If configuring the system without a VPN tunnel (such as inside an isolated Guest OS in VirtualBox, where host traffic is already secure), port forwarding commands will use the `any` target parameter instead. The complete sequence is as follows:
+If configuring a system without a VPN tunnel (e.g., inside an isolated guest OS in VirtualBox where traffic is already secured on the host machine), port authorization commands will utilize the `any` keyword. The complete deployment workflow proceeds as follows:
 
-**1.** We set the firewall to active mode:
+**1.** Enable the firewall subsystem:
 ```bash
 sudo ufw enable
 ```
 
-**2.** We disable IPv6 protocol support inside the UFW subsystem configuration file:
+**2.** Disable IPv6 protocol support within the UFW configuration file:
 ```bash
 sudo sed -i 's/IPV6=yes/IPV6=no/' /etc/default/ufw
 ```
 
-**3.** We completely deny all incoming traffic:
+**3.** Block all incoming traffic globally:
 ```bash
 sudo ufw default deny incoming
 ```
 
-**4.** We block all outgoing traffic:
+**4.** Block all outgoing traffic globally:
 ```bash
 sudo ufw default deny outgoing
 ```
 
-**5.** We block any packet forwarding:
+**5.** Block all packet forwarding:
 ```bash
 sudo ufw default deny forward
 ```
 
-**6.** We allow outbound DNS traffic (port 53) to all servers via UDP:
+**6.** Allow outbound UDP DNS traffic (port 53) to any destination server:
 ```bash
 sudo ufw allow out to any port 53 proto udp
 ```
 
-**7.** We open standard outbound HTTP traffic (port 80) to all destinations:
+**7.** Open standard outbound HTTP access (port 80) to any destination server:
 ```bash
 sudo ufw allow out to any port 80 proto tcp
 ```
 
-**8.** We open secure outbound HTTPS traffic (port 443) to all destinations:
+**8.** Open secure outbound HTTPS access (port 443) to any destination server:
 ```bash
 sudo ufw allow out to any port 443 proto tcp
 ```
 
-**9.** We allow all inbound local connections on the loopback interface `lo`:
+**9.** Allow all incoming loopback connections on the `lo` interface:
 ```bash
 sudo ufw allow in on lo to any
 ```
 
-**10.** We allow all outbound local connections on the loopback interface `lo`:
+**10.** Allow all outgoing loopback connections on the `lo` interface:
 ```bash
 sudo ufw allow out on lo to any
 ```
 
-**11.** We open outbound port 853 to all servers for secure DNS-over-TLS protocol:
+**11.** Open outbound port 853 to any destination server for secure DNS-over-TLS protocol operation:
 ```bash
 sudo ufw allow out to any port 853 proto tcp
 ```
 
-**12.** We enable medium-level network activity logging:
+**12.** Enable medium-level network activity logging:
 ```bash
 sudo ufw logging medium
 ```
 
-**13.** We check final status for our configured firewall:
+**13.** Verify the final active state of the configured firewall:
 ```bash
 sudo ufw status verbose
 ```
 
-**14.** We open the UFW sysctl configuration file using `nano`:
+**14.** Edit UFW kernel parameter configurations using `nano`:
 ```bash
 sudo nano /etc/ufw/sysctl.conf
 ```
 
-**15.** Near the end of the file, we locate the martian logging lines and change their values from zero to one:
+**15.** Locate martian packet logging directives near the bottom of the file and toggle values from zero to one:
 ```ini
 net/ipv4/conf/all/log_martians=1
 net/ipv4/conf/default/log_martians=1
 ```
 
-To save our configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, then **`Ctrl + X`** to exit.
+Save the configuration in `nano` via **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit.
 
-**16.** We reload UFW to apply our updated firewall rules:
+**16.** Reload UFW to enforce updated firewall rules:
 ```bash
 sudo ufw reload
 ```
 
 > [!IMPORTANT]
-> Starting with Ubuntu 22.04, the classic `iptables` subsystem is deprecated and replaced by the modern, high-performance `nftables` engine. UFW now acts as a user-friendly frontend interface over `nftables`. To inspect raw kernel network rules directly, we use the updated command instead of `sudo iptables -L`:
+> Starting with Ubuntu 22.04, the legacy `iptables` framework is deprecated in favor of the high-performance `nftables` engine. The UFW utility serves strictly as a high-level frontend abstraction for `nftables`. To inspect raw low-level kernel rulesets, execute the modern command instead of legacy `sudo iptables -L`:
 > ```bash
 > sudo nft list ruleset
 > ```
 
-**17.** We test our local port:
+**17.** Audit local port posture:
 ```bash
 ssh localhost
 ```
 
-The output should clearly display *"Connection refused"*. This confirms that the remote access service is inactive, ports are closed, and our system is operating normally.
+The terminal should output an explicit error: *"Connection refused"*. This confirms the remote management daemon is inactive, target ports remain closed, and system security state is verified.
 
 <br>
 
@@ -1436,26 +1433,26 @@ The output should clearly display *"Connection refused"*. This confirms that the
 
 #### Protecting the Network Stack and Kernel Memory Subsystem:
 
-Prior to connecting to global networks, we must execute several critically important modifications to the operating system kernel, baseline file permissions, and verify the activity of the SSH remote access service.
+Prior to connecting to the global network, execute critical hardening routines targeting the operating system kernel, baseline file permissions, and remote access service activity.
 
-We protect the network stack and kernel memory subsystem. To achieve this, we create a dedicated, isolated configuration file inside the `sysctl.d` directory. All configurations must be performed with superuser privileges:
+Harden the kernel network stack and memory subsystem. To achieve this, create a dedicated, isolated configuration file inside the `sysctl.d` directory. Execute all parameters strictly with elevated root privileges:
 
-**1.** We switch to interactive superuser mode (`root`):
+**1.** Enter an interactive root superuser session:
 ```bash
 sudo -i
 ```
 
-**2.** We create and open a new configuration file using the `nano` text editor:
+**2.** Create and open a new configuration drop-in file using `nano`:
 ```bash
 nano /etc/sysctl.d/99-security-hardening.conf
 ```
 
-Inside the empty file, we add the following low-level kernel security parameters:
+Populate the newly created file with the following low-level kernel security directives:
 ```ini
-# Protection against buffer overflow vulnerabilities (enabling ASLR)
+# Buffer overflow protection (enabling ASLR)
 kernel.randomize_va_space = 2
 
-# Protection against IP Spoofing via Reverse Path Filtering
+# IP spoofing protection via Reverse Path Filtering
 net.ipv4.conf.all.rp_filter = 1
 net.ipv4.conf.default.rp_filter = 1
 
@@ -1463,122 +1460,126 @@ net.ipv4.conf.default.rp_filter = 1
 net.ipv4.conf.all.accept_source_route = 0
 net.ipv4.conf.default.accept_source_route = 0
 
-# Ignore malicious ICMP broadcast requests and bogus error responses
+# Ignore malicious broadcast ICMP requests and bogus error responses
 net.ipv4.icmp_echo_ignore_broadcasts = 1
 net.ipv4.icmp_ignore_bogus_error_messages = 1
 
-# Log packets with invalid (spoofed) source addresses (Martian Packets)
+# Log packets with impossible (spoofed) source addresses (Martian Packets)
 net.ipv4.conf.all.log_martians = 1
 net.ipv4.conf.default.log_martians = 1
 
-# Completely disable the IPv6 protocol at the kernel level to minimize attack vectors
+# Fully disable IPv6 protocol at the kernel level to minimize attack surface
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 
-# Protection against SYN-Flood DoS attacks
+# SYN-Flood DoS mitigation
 net.ipv4.tcp_syncookies = 1
 net.ipv4.tcp_synack_retries = 3
 
-# Disable sending ICMP redirects (system is not a router)
+# Disable ICMP redirect transmission (Host is not a router)
 net.ipv4.conf.all.send_redirects = 0
 net.ipv4.conf.default.send_redirects = 0
 
-# Prevent writing to unsafe FIFO files in shared directories
+# Restrict writing to untrusted FIFOs in world-writable sticky directories
 fs.protected_fifos = 2
 
-# Prevent writing to regular files owned by others in sticky shared directories
+# Restrict writing to files owned by other users in world-writable sticky directories
 fs.protected_regular = 2
 
-# Append process PID to core dumps so malware cannot overwrite existing logs
+# Append process PID to core dumps to prevent log overwrites
 kernel.core_uses_pid = 1
 
-# Hide kernel pointer addresses in /proc/kallsyms even from root to block offset calculations for exploits
+# Hide kernel pointer addresses in /proc/kallsyms even from root to prevent exploit offset calculations
 kernel.kptr_restrict = 2
 
-# Restrict reading the kernel log buffer to privileged users
+# Restrict unprivileged access to the kernel log buffer
 kernel.dmesg_restrict = 1
 
-# Restrict unprivileged users from using the kernel performance subsystem (perf) for side-channel attacks
+# Restrict unprivileged access to the kernel performance subsystem (perf) to block side-channel attacks
 kernel.perf_event_paranoid = 3
 
-# Disable SysRq magic key combinations to block physical reboot or core memory dump attacks
+# Disable SysRq magic key combinations to prevent physical access memory dumps or forced reboots
 kernel.sysrq = 0
 
-# Strengthen ptrace restrictions to protect processes from unauthorized tracing
+# Harden ptrace restrictions to protect active processes against unauthorized memory tracing
 kernel.yama.ptrace_scope = 2
 
-# Block unprivileged users from passing raw BPF programs to the kernel and enable constant JIT blinding
+# Disable unprivileged eBPF execution and enforce JIT hardening (blinding) against modern BPF exploits
 kernel.unprivileged_bpf_disabled = 1
 net.core.bpf_jit_harden = 2
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+Save the configuration in `nano` via **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit.
 
-**3.** We exit superuser mode and return to standard user privileges:
+**3.** Terminate the root superuser session and return to standard user privilege level:
 ```bash
 exit
 ```
 
-**4.** Since we do not use remote desktop services, we explicitly disable the service:
+**4.** Because remote desktop management is unused, disable the service entirely:
 ```bash
 sudo systemctl disable --now gnome-remote-desktop.service
 ```
-**5.** We disable the service handling modem communications and mobile networks:
+
+**5.** Disable services managing cellular modems and mobile broadband networks:
 ```bash
 sudo systemctl disable --now ModemManager.service
 ```
 
 #### Low-Level sysctl Hardening: Defense Against TCP Timestamp Fingerprinting:
 
-Even with a strict UFW firewall active and operating system markers hidden, the Linux kernel can still reveal itself at the network layer through TCP packet parameters. One of the most dangerous passive deanonymization vectors is **TCP Timestamp Fingerprinting (RFC 1323)**.
+Even with a strict UFW firewall active and OS signatures suppressed, the Linux kernel leaks its identity at the network layer through TCP packet parameters. One of the most dangerous passive deanonymization techniques is **TCP Timestamp Fingerprinting (RFC 1323)**.
 
-When establishing a network connection (SYN packet), the Linux kernel includes a timestamp (`TSval`) inside the TCP header by default. This counter increments at a fixed frequency (often based on kernel system jiffies).
+When establishing a network connection (SYN packet), the Linux kernel includes a timestamp (`TSval`) in the TCP header by default. This counter increments at a fixed frequency (often based on kernel system jiffies).
 
-By analyzing this parameter (for example, through passive traffic sniffing or Nmap scanners), a remote server or Internet Service Provider can:
+By analyzing this parameter (e.g., via passive traffic sniffing or Nmap scanners), a remote server or ISP can:
 
-* Calculate the exact **uptime** of our operating system since its last boot.
-* Perform session correlation: if we switch VPN servers or IP addresses while the uptime and TCP tick frequency remain identical, the remote party immediately identifies the traffic as originating from the same physical computer.
+* Calculate the exact **uptime** of your operating system since its last boot.
+* Perform session correlation: if you switch VPNs or IP addresses but the uptime and TCP timestamp tick rate remain identical, the remote host instantly correlates the traffic to the same physical machine.
 * Identify hidden devices operating behind a NAT router.
 
-To eliminate this vector, we must forcibly disable timestamp generation across the kernel network stack.
+To eliminate this attack vector, force the kernel network stack to disable timestamp generation.
 
-**1.** We open our previously created kernel protection configuration file:
+**1.** Open the previously created kernel security configuration file:
 ```bash
 sudo nano /etc/sysctl.d/99-security-hardening.conf
 ```
-**2.** We navigate to the end of the file and append the following parameters:
+
+**2.** Navigate to the end of the file and append the following directives:
 ```ini
-# Disable TCP timestamps to protect against fingerprinting and uptime tracking
+# Disable TCP timestamps to mitigate fingerprinting and uptime tracking
 net.ipv4.tcp_timestamps = 0
 
-# Defense against replay attacks (RFC 1323) when timestamps are disabled
+# Prevent replay attacks (RFC 1323) when TCP timestamps are disabled
 net.ipv4.tcp_tw_reuse = 0
 ```
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
 > [!IMPORTANT]
-> **Author's Note:** Disabling `tcp_timestamps` effectively masks the system by removing unique time fingerprints. However, on gigabit links and under extremely high network load, this can theoretically cause a minor reduction in throughput because the kernel loses access to PAWS (Protect Against Wrapped Sequence numbers). For a secure, isolated host, this compromise is fully justified and necessary.
+> **Author's Note:** Disabling `tcp_timestamps` effectively obfuscates the system by stripping its unique time fingerprint. However, on gigabit links and under extreme network load, this may theoretically reduce throughput slightly because the kernel loses access to the PAWS (Protect Against Wrapped Sequence numbers) algorithm. For a hardened, isolated host, this trade-off is fully justified and necessary.
 
-To apply all added network stack and kernel parameters immediately without rebooting the system, we execute:
+To apply all newly added network stack and kernel parameters instantly without rebooting the system, run:
 
-**3.** We reload all system kernel configuration files without restarting the PC:
+**3.** Reload all system kernel configuration files without a reboot:
 ```bash
 sudo sysctl --system
 ```
+
 > [!TIP]
-> **Validation Check:** We examine the command output carefully. At the very end of the parameter application list, we should see lines from our created `99-security-hardening.conf` file successfully overriding default values from prior files.
+> **Validation Check:** Carefully inspect the command output. At the bottom of the applied parameters list, verify that your custom `99-security-hardening.conf` file successfully loaded and overridden previous default parameters.
 
 #### Blocking Rare Network Protocols and Legacy Filesystems:
 
-We block the kernel from loading rare network protocols and unused legacy filesystems to eliminate attack vectors exploiting vulnerabilities in their binary modules:
+Block the kernel from loading rare network protocols and unused legacy filesystems to completely eliminate potential attack vectors targeting vulnerabilities in their binary kernel modules:
 
-**1**. We open the kernel module blacklist configuration file created earlier:
+**1.** Open the configuration file for the previously created kernel module blacklist:
 ```bash
 sudo nano /etc/modprobe.d/blacklist-hardening.conf
 ```
 
-**2**. We insert the following configuration lines:
+**2.** Insert the following configuration directives:
 ```ini
 blacklist dccp
 blacklist sctp
@@ -1591,88 +1592,89 @@ blacklist freevxfs
 blacklist cramfs
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, and then press **`Ctrl + X`** to exit.
 
-**3.** We update the initial RAM filesystem image to embed our new configuration into the early boot stage:
+**3.** Update the initial RAM filesystem image to embed the new configuration directly into early boot stage:
 ```bash
 sudo update-initramfs -u -k all
 ```
 
 #### Filesystem Access Control Hardening:
 
-By default in Ubuntu distributions, newly created files receive a permission mask of `UMASK 022`. This allows other unprivileged system users (as well as potentially compromised background system daemons) to freely read new files. We modify this global policy to make it strictly restrictive:
+By default, Ubuntu operating systems create files with a `UMASK 022` permission mask. This allows other unprivileged local users (and potentially compromised background system daemons) to freely read newly created files. Change this global policy to the most restrictive profile:
 
-**1.** We open the global user account parameters configuration file:
+**1.** Open the global user account parameters configuration file:
 ```bash
 sudo nano /etc/login.defs
 ```
 
-Inside the file, we locate the `UMASK 022` and `USERGROUPS_ENAB yes` entries and forcibly change their values to `UMASK 077` and `USERGROUPS_ENAB no`. If the `UMASK 022` line is absent, we append `UMASK 077` to the end of the file.
+Locate `UMASK 022` and `USERGROUPS_ENAB yes` inside the file and forcibly update their values to `UMASK 077` and `USERGROUPS_ENAB no`. If the `UMASK 022` directive is missing, append `UMASK 077` to the end of the file.
 
-To save changes in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save changes in `nano`, press **`Ctrl + O`** -> **`Enter`**, and then press **`Ctrl + X`** to exit.
 
-This guarantees that any new files or directories created by programs or users in the future will be accessible strictly by their owner by default (`600` permissions for files and `700` for directories).
+This guarantees that any new files or directories generated by applications or users will default exclusively to owner-only access (`600` permissions for files and `700` for directories).
 
-Next, we restrict access to our current home directory from third-party inspection:
+Now, lock down access to the current home directory against unauthorized local inspection:
 
-**2.** We set strict access permissions on our personal home folder:
+**2.** Enforce strict permissions on the personal user home directory:
 ```bash
 chmod 0700 /home/$USER
 ```
 
-**3.** We fix permissions for custom sudoers rule directories:
+**3.** Restrict access permissions on custom `sudoers` rule directories:
 ```bash
 sudo chmod 750 /etc/sudoers.d && sudo chmod 640 /etc/sudoers.d/* 2>/dev/null || true
 ```
 
 #### Securely Mounting Shared Memory:
 
-We now configure secure mounting options for virtual shared memory (`shared memory`), which is frequently targeted by attackers for executing fileless malware:
+Configure secure mounting parameters for virtual shared memory (`shared memory`), a vector frequently leveraged by attackers for covert fileless malware execution:
 
-**1.** We open the host filesystem mount table:
+**1.** Open the host filesystem table:
 ```bash
 sudo nano /etc/fstab
 ```
 
 > [!WARNING]
-> Applying the `noexec` option to the `/dev/shm` shared memory partition is a classic security recommendation to prevent execution of malicious code directly from RAM. However, in modern distributions, this memory region is vital for web browsers (Firefox, Chromium), which rely on it for process IPC interactions and fast UI rendering.
+> Applying the `noexec` mount option to the `/dev/shm` shared memory partition is a classic recommendation to mitigate malware execution directly from RAM. However, in modern Linux distributions, this memory sector is critical for web browsers (Firefox, Chromium), which rely on it for process IPC interaction and rapid interface rendering.
 > 
-> Enforcing `noexec` on `/dev/shm` causes Chromium-based browsers to crash immediately upon launch with an *"Aw, Snap!"* error. Firefox will open and allow browsing simple web pages, but its internal tab sandbox isolation mechanisms will drop into restricted mode. Complex web content—such as hardware-accelerated video streams, WebAssembly (WASM), or WebGL graphics—will trigger tab crashes.
+> Enforcing the `noexec` flag on `/dev/shm` triggers an immediate crash in Chromium-based browsers (*«Aw, Snap!»*) at launch. While Firefox will start and handle basic web browsing, its internal tab isolation sandboxes fall back to a degraded mode. Complex web content—hardware-accelerated streaming video, WebAssembly (WASM), or WebGL graphics—will cause open tabs to crash.
 > 
-> Reverting to the outdated **Xorg (X11)** display server to bypass this issue is not recommended. While Xorg operates alongside `noexec`, its legacy architecture completely lacks window isolation. Any unprivileged application running under Xorg can log keystrokes (keylogging) across other windows, capture screenshots, and simulate input, undermining overall host security.
+> Avoid resolving this issue by downgrading the desktop to the legacy **Xorg (X11)** display server. Although Xorg tolerates the `noexec` flag, its 1980s architecture completely lacks window isolation. Any unprivileged application running under Xorg can log keystrokes across other windows, capture screenshots, and synthesize input events, neutralizing host security controls.
 
-If full work with media content or local LLMs is planned on the target PC, we use **Option 2A** with `rw,nosuid,nodev` flags. Code execution security should be addressed at higher layers via AppArmor profiles, container isolation, and strict execution controls.
+If the target system requires full capability for media playback and local LLM execution, deploy **Option 2A** using `rw,nosuid,nodev` flags. Code execution security should be enforced higher up the stack via native AppArmor profiles, container isolation, and strict application execution policies.
 
-We navigate to the end of the file and append one of the chosen configuration lines:
+Navigate to the bottom of the file and append one of the following configuration options based on system role.
 
-**Balanced Mode (Recommended for Daily Desktop Use):**
+**Balanced Profile (Recommended for Daily Desktop Use):**
 
-**2A.** This option maintains full stability for modern web browsers while rendering streaming video or executing WebAssembly scripts, preserving internal Inter-Process Communication (IPC). The system remains protected against mounting arbitrary block devices and UID/GID spoofing:
+**2A.** Preserves complete operational stability for modern web browsers during video streaming and WebAssembly processing without breaking internal IPC communication mechanisms. The host remains protected against block device node creation and privilege escalation via setuid/setgid bits:
 ```ini
 tmpfs /dev/shm tmpfs rw,nosuid,nodev 0 0
 ```
 
-**Paranoid Mode (Maximum Isolation):**
+**Paranoid Profile (Maximum Isolation):**
 
-**2B.** Suitable for CLI servers or Desktop systems running strictly constrained workloads (terminal workflows, text editors, local administration, Docker/VMware environments) with no need for heavy dynamic web content. The `noexec` flag blocks code execution from memory, neutralizing fileless malware vectors:
+**2B.** Suited for CLI servers and dedicated desktop systems running defined workloads (terminal applications, text editors, local administration, Docker/VMware environments) where rendering dynamic web content is not required. The `noexec` flag blocks third-party binary execution from RAM, mitigating *Fileless Malware* attack vectors:
 ```ini
 tmpfs /dev/shm tmpfs defaults,noexec,nosuid,nodev 0 0
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
 > [!NOTE]
-> Unlike Chromium-based browsers that crash instantly at startup under `noexec`, Firefox will launch and function across basic websites. However, processing complex content will trigger tab failures when rendering WebAssembly (WASM) or WebGL graphics, forcing internal sandbox isolation mechanisms into a fallback mode.
+> Unlike Chromium-engine browsers that crash instantly on launch under `noexec`, Firefox will launch and render simple websites. Issues manifest when rendering complex content: tabs crash when initializing WebAssembly (WASM) or WebGL graphics, and internal sandbox isolation operates in a degraded, less secure state.
 
 #### Configuring Wi-Fi to Default Off on Boot:
 
-To guarantee wireless network interfaces do not transmit hidden probes at boot, we block them via system daemons. This prevents probe request leaks and accidental exposure of the factory MAC address in public spaces:
+To guarantee that wireless modules do not emit hidden over-the-air network probes during system boot, block them at the system daemon level. This completely eliminates probe request leaks and prevents accidental deanonymization of the factory MAC address in public spaces:
 
-**1.** We open the service configuration file in `nano`:
+**1.** Open the unit configuration file in a text editor:
 ```bash
 sudo nano /etc/systemd/system/rfkill-block-early.service
 ```
-**2.** We insert the blocking parameters:
+
+**2.** Insert the following blocking directives:
 ```ini
 [Unit]
 Description=Block WiFi radio at kernel level before NetworkManager starts
@@ -1690,14 +1692,14 @@ RemainAfterExit=yes
 WantedBy=sysinit.target
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit.
 
-**3.** We create a synchronization unit for NetworkManager:
+**3.** Create a unit file to enforce alignment with NetworkManager policies:
 ```bash
 sudo nano /etc/systemd/system/wifi-off.service
 ```
 
-**4.** We define the following rules:
+**4.** Insert the following service directives:
 ```ini
 [Unit]
 Description=Keep NM WiFi/WWAN state disabled after it starts
@@ -1714,39 +1716,39 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 ```
 
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
-**5.** We reload systemd daemons:
+**5.** Reload systemd manager configuration:
 ```bash
 sudo systemctl daemon-reload
 ```
 
-**6.** We enable both early RfKill execution and Wi-Fi disabling units:
+**6.** Enable the early boot RfKill block and Wi-Fi suppression services:
 ```bash
 sudo systemctl enable rfkill-block-early.service && sudo systemctl enable wifi-off.service
 ```
 
-**7.** We reboot the system:
+**7.** Reboot the host system:
 ```bash
 sudo systemctl reboot -i
 ```
 
-The system will preserve this state in kernel configurations, ensuring radio modules remain blocked in RFkill by default during subsequent boots.
+The system preserves this state within kernel parameters, ensuring radio transmitters remain disabled via RFkill by default on subsequent boots.
 
 > [!WARNING]
-> This configuration addresses 99.9% of practical operational scenarios, reducing risk to a negligible window not exploitable by standard software.
-> The only method guaranteeing zero leakage risk is cutting physical power to the radio. This is achieved via BIOS/UEFI settings (Hardware Disable) or physical hardware switches on legacy hardware. Keypad combinations like Fn+F2, Fn+F5, or Fn+F8 trigger software signals via ACPI events captured by the kernel (visible via `sudo journalctl -f`), after which the OS disables the transmitter programmatically. If a system is compromised at the rootkit level, software locks can be bypassed.
+> This deployment sequence covers 99.9% of practical threat scenarios, leaving an imperceptible exposure window that cannot be exploited by standard software.
+> The sole mitigation yielding zero risk of RF exfiltration requires cutting power to the wireless controller entirely. Achieve this via BIOS/UEFI firmware toggles (Hardware Disable) or physical kill switches found on legacy laptops. Standard keyboard hotkeys such as Fn+F2, Fn+F5, or Fn+F8 (featuring antenna or airplane icons) act strictly as software triggers. Activating them emits an ACPI event caught by the OS kernel (observable via `sudo journalctl -f`), which then instructs software to mute the transmitter. However, if the host is compromised by rootkits, these software restrictions can be bypassed regardless of physical key state.
 
 #### Cutting Off Video Streams and Audio Recording:
 
-Physical camera covers protect against visual surveillance, but built-in microphones can continue recording ambient room audio in the background.
+While a physical camera slider or tape over the lens prevents visual espionage, the microphone can still capture ambient audio in the background.
 
-**1.** We open our module hardening configuration file:
+**1.** Open the configuration file:
 ```bash
 sudo nano /etc/modprobe.d/blacklist-hardening.conf
 ```
 
-**2.** We block kernel drivers for USB video class devices (UVC) and Intel/Realtek sound subsystems:
+**2.** Enforce absolute isolation over the kernel multimedia stack, blocking camera drivers (UVC) and Intel sound subsystems:
 ```ini
 blacklist uvcvideo
 install uvcvideo /bin/true
@@ -1755,17 +1757,17 @@ blacklist snd_hda_codec_realtek
 install snd_hda_intel /bin/true
 install snd_hda_codec_realtek /bin/true
 ```
-To save the configuration in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
-**3.** We apply changes by rebuilding the initramfs boot image:
+**3.** Apply changes by embedding the updated configuration into the initial boot stage:
 ```bash
 sudo update-initramfs -u -k all
 ```
 
 > [!NOTE]
-> The `uvcvideo` module handles integrated webcams, while `snd_hda_intel` and `snd_hda_codec_realtek` initialize sound cards and microphones. The host is now functionally isolated from audio and video capture within the OS.
+> The `uvcvideo` module manages integrated webcams, while `snd_hda_intel` and `snd_hda_codec_realtek` handle sound card and microphone initialization. The host is now operating as a fully air-gapped audio-visual terminal. Covert eavesdropping on room ambient audio or capturing video streams from within the OS is rendered impossible.
 
-**4.** If speakers and microphones are required for recording voice notes, working with media, or watching video, we adjust the configuration file accordingly. We keep the webcam blocked while commenting out audio chip entries using `# ` (a hash followed by a space) so the kernel initializes speakers and microphones:
+**4.** If speakers and microphones are required for voice recording, audio processing, or media playback, adjust the configuration file as follows. Keep the camera strictly blocked, while commenting out the audio chip directives using a hash `#` symbol (followed by a space) so the Linux kernel ignores them and leaves the audio hardware active:
 ```ini
 blacklist uvcvideo
 install uvcvideo /bin/true
@@ -1774,363 +1776,364 @@ install uvcvideo /bin/true
 # install snd_hda_intel /bin/true
 # install snd_hda_codec_realtek /bin/true
 ```
-To save changes in `nano`, we press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the console shell.
 
-**5**. We rebuild the early boot image to commit the perimeter updates:
+**5.** Rebuild the initial RAM filesystem image to finalize the security perimeter:
 ```bash
 sudo update-initramfs -u -k all
 ```
 
 > [!IMPORTANT]
-> Microphones should not remain active continuously. To toggle input quickly, most laptops feature dedicated key combinations (typically Fn+F4 with a struck-through microphone icon). If unavailable, use desktop controls: open **Settings**, navigate to **Sound**, and under **Input**, click the microphone icon beside **Input Volume** to mute it. Clicking it again restores input.
+> Microphones should not remain active continuously. To toggle input rapidly, most laptops provide a hardware hotkey combination (typically Fn+F4 displaying a crossed-out microphone icon). If the target device lacks a dedicated key, utilize native operating system controls. Navigate to system **«Settings»**, select the **«Sound»** tab, and inside the **«Input»** section, click the microphone icon next to the **«Input Volume»** slider to instantly mute input (*Mute* tooltip). Clicking it again toggles the device back to active status (*Unmute* tooltip).
 
 #### Removing Printing Services and Local Network Discovery Services:
 
-Next, we disable the `avahi-daemon` background service. This daemon automatically discovers local network resources via mDNS, broadcasting the host name as `hostname.local` over open UDP port 5353 and TCP port 32768. Active open ports on public networks expose devices to reconnaissance and targeting:
+Next, forcibly disable the `avahi-daemon` service. This background daemon manages automatic local network resource discovery via the mDNS protocol, broadcasting your host's hostname in the `hostname.local` format. Furthermore, the utility maintains open network ports 5353 (UDP) and 32768 (TCP). Active open ports in public local networks allow adversaries to rapidly identify and target your device, which is entirely unacceptable:
 
-**1.** We remove Avahi completely, purging residual configuration files:
+**1.** Purge the Avahi service from the system completely, wiping residual configuration files:
 ```bash
 sudo apt purge avahi-daemon -y && sudo apt autoremove -y
 ```
 
-Next, we disable and remove `cups`, which manages background discovery of network printers and print queues. Unless printing capability is explicitly required, this subsystem should be purged:
+Next, disable and uninstall the `cups` service, which manages background network printer discovery and print queue operations. Unless printer access is required on the host, this subsystem must be eliminated completely:
 
-**2.** We stop and disable the printer discovery service:
+**2.** Terminate and disable the network printer scanning service immediately:
 ```bash
 sudo systemctl disable --now cups-browsed
 ```
 
-**3.** We remove CUPS daemons and printing packages:
+**3.** Purge CUPS daemons and printing packages completely without cascading package upgrades:
 ```bash
 sudo apt purge cups cups-daemon cups-browsed hplip hplip-data -y
 ```
 
-**4.** We clean up orphaned dependencies:
+**4.** Clean up remaining orphaned package dependencies:
 ```bash
 sudo apt autoremove --purge -y
 ```
 
-**5.** We enforce desktop print subsystem lockdown via GNOME settings. This prevents background device search threads, saves RAM, and blocks multicast requests directed to `239.255.255.250:3702`:
+**5.** Enforce a hard quarantine over the printing subsystem at the GNOME desktop shell level (Desktop Lockdown). This prevents the desktop environment from spawning background device discovery threads, frees host RAM from phantom notification daemons, and permanently blocks multicast probe requests targeting the router (`239.255.255.250:3702`):
 ```bash
 gsettings set org.gnome.desktop.lockdown disable-printing true
 ```
 
-**6.** We disable multicast on the network interface level to prevent kernel IGMP broadcasts to `224.0.0.22` (replace `enp0s1` with your interface name):
+**6.** Disable multicast support at the physical network interface layer on the host card. This cuts off system IGMP multicast traffic sent by the OS kernel to `224.0.0.22` (replace `enp0s1` with your actual Netplan interface name):
 ```bash
 sudo ip link set dev enp0s1 multicast off
 ```
 
 #### Masking Geolocation and Timezone:
 
-We purge the `Geoclue` location service to prevent background geographical tracking:
+Completely purge the `Geoclue` geolocation service from the operating system to prevent covert background tracking of host physical coordinates:
 
-**1.** We stop and mask the geolocation service, blocking initialization via D-Bus:
+**1.** Terminate and mask the geolocation service immediately, completely blocking its invocation via the system D-Bus:
 ```bash
 sudo systemctl stop geoclue.service && sudo systemctl mask geoclue.service
 ```
 
-Finally, we adjust system clocks to a neutral timezone to eliminate regional digital footprints:
+Finally, force the system clock to a neutral timezone to scrub the operating system's regional digital fingerprint:
 
-**2.** We set system time to UTC:
+**2.** Set the system timezone to Coordinated Universal Time:
 ```bash
 sudo timedatectl set-timezone UTC
 ```
 
-We confirm timezone application:
+Verify that the new timezone parameters were applied successfully:
 
-**3.** We display system clock status:
+**3.** Display current system time status:
 ```bash
 timedatectl
 ```
-The output should explicitly confirm `Time zone: UTC (UTC, +0000)`.
-
-Before concluding, verify that the host is protected against remote SSH port scanning and unauthorized connection attempts.
+The output string `Time zone:` must explicitly show: `UTC (UTC, +0000)`.
 
 <br>
 
 ## Configuring Repositories and System Updates
 
-Starting with version 24.04, `/etc/apt/sources.list` has completely migrated to `/etc/apt/sources.list.d/ubuntu.sources`. In Ubuntu 26.04, the graphical "Software & Updates" application is absent, so we will utilize the console verification method.
+Starting with version 24.04, `/etc/apt/sources.list` has fully migrated to `/etc/apt/sources.list.d/ubuntu.sources`. In Ubuntu 26.04, the «Software & Updates» GUI is absent, requiring command-line verification instead.
 
-**1.** We open the system update repository configuration file using the `nano` text editor:
+**1.** Open the system repository configuration file in `nano`:
 ```bash
 sudo nano /etc/apt/sources.list.d/ubuntu.sources
 ```
 
-**2.** We edit the configuration by removing the `multiverse` and `restricted` component branches:
+**2.** Edit the configuration to remove `multiverse` and `restricted`:
 ```ini
 Types: deb
-URIs: [http://archive.ubuntu.com/ubuntu/](http://archive.ubuntu.com/ubuntu/)
+URIs: http://archive.ubuntu.com/ubuntu/
 Suites: resolute resolute-updates resolute-backports
 Components: main universe
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 
 Types: deb
-URIs: [http://security.ubuntu.com/ubuntu/](http://security.ubuntu.com/ubuntu/)
+URIs: http://security.ubuntu.com/ubuntu/
 Suites: resolute-security
 Components: main universe
 Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
 ```
 
-For Ubuntu 24.04, it is still possible to use the GUI. Therefore, we can configure repositories via the graphical menu.
+For Ubuntu 24.04, using the GUI is still an option. Configure repositories via the graphical interface as follows:
 
-We navigate to the **"Show Apps"** menu, open **"Software & Updates"**, and inside the **"Ubuntu Software"** tab (*Downloadable from the Internet*), we uncheck **"Software restricted by copyright or legal issues (multiverse)"** and, if we are **not using** an NVIDIA/AMD graphics card, **"Proprietary drivers for devices (restricted)"**. From an information security perspective, these repositories are not open-source, and only their developers know what proprietary code might be covertly bundled inside.
+Navigate to **«Show Applications»**, launch **«Software & Updates»**, and under the **«Ubuntu Software»** tab (*Downloadable from the Internet*), uncheck **«Software restricted by copyright or legal issues (multiverse)»**. If running hardware without proprietary Nvidia or AMD graphics cards, uncheck **«Proprietary drivers for devices (restricted)»** as well. From a security standpoint, these repositories are closed-source, leaving their binary contents non-auditable and vendor-opaque.
 
-To significantly increase host privacy, under the **"Download from:"** field, we recommend selecting **"Main server"**. This completely eliminates potential geographic deanonymization resulting from update requests sent to regional mirrors and protects against traffic analysis by local ISPs.
+To significantly boost host privacy, set **«Download from:»** to **«Main server»**. This eliminates potential geographic location leaks caused by update queries hitting local mirrors and protects against ISP-level traffic analysis.
 
-We click **"Close"**, and then in the pop-up dialog box, we select **"Reload"** so the operating system fully refreshes the local package cache. With this optimization, basic graphical security configuration is successfully completed!
+Click **«Close»**, then click **«Reload»** in the prompt to refresh the local package cache. This completes the baseline GUI security hardening sequence.
+
+**Chapter Assets:** *_assets/images/6_software_updater*
 
 <br>
 
 #### Updating the System:
 
-Now that the initial operating system security configuration is complete, it is time to perform a full system update. It is time to connect to a physical network: we plug in an Ethernet cable or enable the Wi-Fi adapter (although it is strongly recommended to completely abandon wireless networks wherever technically possible in favor of a classic wired connection).
+With initial operating system hardening complete, perform a full system update. Connect to the physical network by attaching an Ethernet cable or enabling the Wi-Fi adapter (though abandoning wireless networks in favor of traditional wired connections is strongly recommended wherever technically feasible).
 
 > [!WARNING]
-> **If we use a VPN!** Since a strict Kill Switch was configured in the UFW firewall in the previous chapter, the internet on the host will not work immediately after connecting the cable or Wi-Fi. We must forcibly establish an encrypted VPN connection; otherwise, the firewall will block absolutely all outgoing packets.
+> **If using a VPN!** Because a strict Kill Switch was configured in UFW during the previous chapter, internet access will remain blocked immediately after connecting via cable or Wi-Fi. You must manually establish your encrypted VPN tunnel; otherwise, the firewall will drop all outbound packets.
 > 
-> We can activate the tunnel in two ways:
+> Bring up the tunnel using one of two methods:
 > 
-> * **Graphical method (simplest):** We click on the system status menu in the upper right corner of the screen (the GNOME panel containing the battery, sound, and network icons). In the drop-down menu, we select **"Wired"** and connect to the network, and then we select **"VPN"** and click to connect as well.
-> * **Via terminal (if the GUI throws an error):** We open the console and forcibly bring up the tunnel directly via the OpenVPN binary using the following command:
+> * **Graphical Method (Recommended):** Click the system status menu in the top-right corner of the screen (the GNOME panel housing battery, audio, and network icons). From the drop-down menu, select **«Wired»** to connect to the local network, then select **«VPN»** and click to connect.
+> * **Terminal Method (Fallback if GUI fails):** Open a terminal shell and forcibly initiate the tunnel directly via OpenVPN:
 > ```bash
 > sudo openvpn --config /path_to_file/profile.ovpn
 > ```
 
-**1.** We update the local repository index, and then download and install fresh security patches and system module updates:
+**1.** Refresh local repository indexes, then download and apply the latest security patches and core system updates:
 ```bash
 sudo apt update && sudo apt upgrade --with-new-pkgs -y
 ```
 
 > [!NOTE]
-> Message: `Summary: Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading:` number of uninstalled packages (for example, 5)
+> Output showing `Summary: Upgrading: 0, Installing: 0, Removing: 0, Not Upgrading: N` (where N is a number of held packages, e.g., 5).
 > 
-> Most likely, when running `apt list --upgradable`, the terminal will display: `Not upgrading yet due to phasing`. This means the update is distributed in stages (phased update). This is standard Ubuntu functionality, not a package manager error. **For test systems**, the update can be forcibly installed:
+> Running `apt list --upgradable` will likely display: `Not upgrading yet due to phasing`. This indicates phased rollout delivery, a standard Ubuntu deployment mechanism rather than a package manager failure. **For testing environments**, force immediate installation using:
 > 
 > ```bash
 > sudo apt -o APT::Get::Always-Include-Phased-Updates=true full-upgrade
 > ```
 
-**2.** We completely clean the operating system of old unused packages, residual dependencies, and remove all downloaded program caches from the disk to save space:
+**2.** Purge obsolete packages, remove orphaned dependencies, and clear downloaded package caches to reclaim storage space:
 ```bash
 sudo apt autoremove --purge -y && sudo apt clean
 ```
 
-**3.** We reboot the computer to finalize the application of all kernel updates and background system services:
+**3.** Reboot the host to finalize kernel updates and restart background system services:
 ```bash
 sudo systemctl reboot -i
 ```
 
 #### Deploying the NVIDIA Graphics Stack in Isolated Mode:
 
-This subsection is necessary exclusively in two cases: when deploying a local AI lab to work with neural networks (LM Studio) or if hardware graphics acceleration is critically required for heavy workloads. When the system is built purely for text-based OPSEC (confidential email, secure messengers, basic browsing), we skip this step.
+This subsection is required strictly under two scenarios: when deploying a local AI environment for neural network workloads (LM Studio) or when hardware-accelerated heavy graphics rendering is critical. If building a system dedicated solely to text-based OPSEC (confidential email, secure messaging, basic web browsing), skip this step entirely.
 
-If the hardware power of the graphics card is indeed required, we implement a temporary gateway tactic: we activate the repository, fetch the components, lock their versions at the kernel level, and then completely remove this branch from the system. As a result, the graphics stack will operate at full capacity, while the operating system returns to a state of complete "packet silence".
+If GPU hardware performance is required, execute a temporary gateway strategy: activate the repository, pull the necessary components, freeze their versions at the kernel layer, and remove the repository branch from the system completely. This yields full graphics stack performance while restoring the operating system to a state of complete "package silence."
 
-**1.** We temporarily activate the official proprietary component repository `restricted` and update the package indices:
+**1.** Temporarily activate the official proprietary `restricted` repository component and update package indexes:
 ```bash
 sudo add-apt-repository restricted -y && sudo apt update
 ```
 
-**2.** We run the utility to automatically install the current stable driver branch for our kernel:
+**2.** Launch the driver auto-installation utility to pull the latest stable branch targeting your kernel:
 ```bash
 sudo ubuntu-drivers install
 ```
-If in Ubuntu 24.04 the console displays a message stating that all drivers are already installed (`All the available drivers are already installed.`), we launch **"Software & Updates"** and navigate to the **"Additional Drivers"** tab. There, we must select the driver currently relevant, for example, *Using NVIDIA driver metapackage from nvidia-driver-580 (proprietary)*. After that, we click **"Apply Changes"**, and once the driver installation finishes, we click **"Restart..."**.
 
-Upon rebooting in Ubuntu 24.04, we perform a mandatory verification on the user password login screen: in the lower right corner, we check the gear icon status. If it displays Ubuntu on Xorg instead of Wayland, we switch it back to secure Wayland. After that, we enter the password and log into the system.
+If Ubuntu 24.04 returns a message stating `All the available drivers are already installed.`, launch **«Software & Updates»** and navigate to the **«Additional Drivers»** tab. Select the current active driver, for example, *Using NVIDIA driver metapackage from nvidia-driver-580 (proprietary)*. Click **«Apply Changes»**, then select **«Restart...»** once installation completes.
 
-**3.** We freeze the current versions of all installed NVIDIA packages in the system. This prevents the `apt` manager from modifying them, completely eliminating the risk of breaking the graphics session after removing the repository:
+During reboot in Ubuntu 24.04, verify settings on the user password login screen: click the gear icon in the lower-right corner to check session status. If set to Ubuntu on Xorg rather than Wayland, switch it back to the secure Wayland session before logging in.
+
+**3.** Freeze current versions of all installed NVIDIA packages on the system. This prevents the `apt` package manager from modifying them, eliminating display session breakage after repository removal:
 ```bash
 dpkg -l | grep nvidia | cut -d' ' -f3 | xargs -r sudo apt-mark hold
 ```
 
-**4.** Now we completely remove the `restricted` branch from the system:
+**4.** Remove the `restricted` repository branch from the system:
 ```bash
 sudo add-apt-repository --remove restricted -y && sudo apt update
 ```
 
-In the future, if we need to update the drivers, we replace `hold` with `unhold` and re-enable the `restricted` repository.
+To update drivers in the future, replace `hold` with `unhold` and re-enable the `restricted` repository.
 
 > [!NOTE]
-> By applying the `apt-mark hold` command, we sealed the driver in its current stable state. Now we can rest assured: routine distribution updates will no longer affect or break our graphics stack, and complete removal of the `restricted` repository guarantees that the system will never connect to third-party proprietary servers again!
+> Applying `apt-mark hold` locks the driver stack in its current stable state. Scheduled distribution updates will no longer touch or break the display driver stack, while completely removing the `restricted` repository ensures the system ceases all connection attempts to third-party proprietary mirrors.
 
-**5.** We send the host machine to a mandatory reboot to initialize the locked driver modules at the Linux kernel level:
+**5.** Reboot the host machine to initialize locked driver modules at the Linux kernel level:
 ```bash
 sudo systemctl reboot -i
 ```
 
 > [!IMPORTANT]
-> **Only for Ubuntu 24.04**. The Wayland display server provides window isolation at the display server level, completely blocking viruses and malware from keylogging and clipboard spying. However, the Ubuntu display manager (`gdm3`), at the slightest suspicion of instability in fresh NVIDIA drivers or the Ubuntu 24.04 kernel, has a hidden trigger for a forced and silent fallback to the insecure X11 (Xorg) protocol.
+> **Ubuntu 24.04 Only**. The Wayland display server enforces window isolation at the display server layer, blocking malware from logging keystrokes or snooping on the system clipboard. However, the Ubuntu display manager (`gdm3`) contains an automated fallback trigger that silently downgrades the session to legacy X11 (Xorg) upon detecting potential instability with modern NVIDIA drivers or the Ubuntu 24.04 kernel.
 > 
-> If after another reboot it drops to X11 during the check below, we use an alternative method via GRUB and a dummy override file.
+> If the session falls back to X11 following a reboot during verification, execute the following recovery procedure using GRUB configuration overrides and udev rules masking.
 > 
-> **Without enabling the internet**, immediately after rebooting, we open the host terminal and check the current state of the graphical environment:
+> **Without enabling internet access**, open a host terminal shell immediately following reboot and audit the active display session:
 > ```bash
 > echo $XDG_SESSION_TYPE
 > ```
-> * If the command returns `wayland`, the perimeter is relatively secure, and we can proceed further with the chapter.
-> * If `x11` lights up in the console, the display server is blocked by the system. It is strictly forbidden to continue configuration until the Wayland contour is forcibly restored!
+> * If the output returns `wayland`, the security perimeter remains intact; proceed with the chapter.
+> * If the output returns `x11`, the display server was downgraded. Do not proceed until the Wayland session is forcibly restored.
 >
-> **Algorithm for forced Wayland resuscitation in Ubuntu 24.04 for NVIDIA graphics cards:**
+> **Forced Wayland Restoration Procedure for NVIDIA GPUs on Ubuntu 24.04:**
 > 
-> **1.** We open the system bootloader configuration file in a text editor:
+> **1.** Open the bootloader configuration file in a text editor:
 > ```bash
 > sudo nano /etc/default/grub
 > ```
-> **2.** We navigate to the line `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"` and append the KMS kernel mode setting flag `nvidia-drm.modeset=1` inside the quotes:
+> **2.** Locate the line `GRUB_CMDLINE_LINUX_DEFAULT="quiet splash"` and append the kernel KMS mode setting flag `nvidia-drm.modeset=1` inside the quotes:
 > ```ini
 > GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nvidia-drm.modeset=1"
 > ```
-> We save the configuration file with key combination **"Ctrl + O"** → **"Enter"**, then **"Ctrl + X"** to exit back to the console.
+> Save the file in `nano` via **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the terminal.
 > 
-> **3.** We write the changes to the boot sector of the host machine:
+> **3.** Write configuration changes to the host boot sector:
 > ```bash
 > sudo update-grub
 > ```
-> **4.** We blind the Ubuntu system udev blocker, which forcibly disables Wayland when proprietary drivers are detected. To do this, we override its rules with an empty dummy file:
+> **4.** Neutralize Ubuntu's system udev rule that forcibly disables Wayland when proprietary drivers are detected by overriding it with an empty symlink target:
 > ```bash
 > sudo ln -sf /dev/null /etc/udev/rules.d/61-gdm.rules
 > ```
-> **5.** We send the host machine to a mandatory reboot:
+> **5.** Reboot the host machine to enforce parameters:
 > ```bash
 > sudo reboot
 > ```
 
-**Chapter Asset:** *_assets\images\6_software_updater*
+**Chapter Assets:** *_assets/images/6_software_updater*
 
 ## Terminal Environments in Ubuntu:
 
 #### Replacing GNOME Terminal and Ptyxis with Ghostty
 
-We install the highly discussed Ghostty terminal, written in the Zig programming language. The author of the project is Mitchell Hashimoto, a well-known figure in IT circles.
+Installing the highly discussed Ghostty terminal emulator, written in Zig and created by well-known IT figure Mitchell Hashimoto.
 
-**Installation for Ubuntu 24.04 LTS Noble Numbat users:**
+**Installation for Ubuntu 24.04 LTS (Noble Numbat) users:**
 
-**1.** Just in case, we check the removal in simulation mode to ensure we do not touch critical packages:
+**1.** Perform a dry-run purge to verify dependency removal and ensure critical packages are not inadvertently removed:
 ```bash
 apt -s purge gnome-terminal
 ```
 
-**2.** We install Ghostty:
+**2.** Install Ghostty:
 ```bash
 sudo add-apt-repository ppa:maksberg/ghostty-ubuntu && sudo apt update && sudo apt install ghostty
 ```
 
-**3.** We remove GNOME Terminal:
+**3.** Purge GNOME Terminal:
 ```bash
 sudo apt purge gnome-terminal
 ```
 
-**4.** We perform a simulation of removing residual packages:
+**4.** Perform a dry-run autoremove to inspect orphan packages targeted for cleanup:
 ```bash
 apt -s autoremove
 ```
 
-If no extraneous system packages are detected, we proceed with the final cleanup.
+If no essential system packages are targeted, proceed with final cleanup.
 
-**5.** We remove residual Terminal leftovers:
+**5.** Purge lingering GNOME Terminal dependencies:
 ```bash
 sudo apt autoremove
 ```
 
-* **Installation for Ubuntu 26.04 LTS Resolute Raccoon users:**
+**Installation for Ubuntu 26.04 LTS (Resolute Raccoon) users:**
 
-**1.** Just in case, we check the removal in simulation mode to ensure we do not touch critical packages:
+**1.** Perform a dry-run purge to verify dependency removal and ensure critical packages are not inadvertently removed:
 ```bash
 apt -s purge ptyxis
 ```
 
-Most likely, the command will flag `apport-gtk*` and `ptyxis*` for removal, which suits us completely. The `apport-gtk*` utility is responsible for sending crash reports in Ubuntu. When a program crashes, a window appears reporting an abnormal application termination and offering to send a report, so we remove it without much regret.
+The package manager will likely target `apport-gtk*` and `ptyxis*` for removal, which is expected. The `apport-gtk*` utility manages crash report popups and telemetry submission in Ubuntu; removing it prevents crash diagnostic prompts from launching.
 
-**2.** We install Ghostty:
+**2.** Install Ghostty:
 ```bash
 sudo apt update && sudo apt install ghostty
 ```
 
-All further actions are executed directly inside the Ghostty window.
+Execute all remaining tasks directly from within the Ghostty terminal emulator window.
 
-**3.** We remove Ptyxis:
+**3.** Purge Ptyxis:
 ```bash
 sudo apt purge ptyxis
 ```
 
-**4.** We perform a simulation of removing residual packages:
+**4.** Perform a dry-run autoremove to inspect orphan packages targeted for cleanup:
 ```bash
 apt -s autoremove
 ```
 
-If no extraneous system packages are detected, we proceed with the final cleanup.
+If no essential system packages are targeted, proceed with final cleanup.
 
-**5.** We remove residual Ptyxis leftovers:
+**5.** Purge lingering Ptyxis dependencies:
 ```bash
 sudo apt autoremove
 ```
 
-**Ghostty Configuration Option for Ubuntu 24.04/26.04:**
+**Ghostty Configuration Options for Ubuntu 24.04 / 26.04:**
 
-We can edit the configuration inside the Ghostty settings via the **burger menu** by selecting **Open Configuration**. In the opened `config.ghostty` file, we insert the following lines:
+Access configuration settings in Ghostty by opening the **burger menu** and selecting **Open Configuration**. Populate the resulting `config.ghostty` file with the following directives:
 
 ```ini
-# Font family and font size
+# Font family and size
 font-family = "Ubuntu Mono Semi-Bold"
 font-size = 16
 
-# Font color (hacker green primary text)
+# Foreground text color (hacker green)
 foreground = #00ff00
 
 # Window background color (deep dark blue)
 background = #0a1128
 
-# Window opacity (0.0 completely transparent, 1.0 fully opaque)
+# Window opacity (0.0 fully transparent, 1.0 fully opaque)
 background-opacity = 0.95
 
-# Background blur radius behind the window (0 disabled)
+# Background blur radius (0 disables blur)
 background-blur-radius = 20
 
-# Window dimensions in characters and lines
+# Initial window dimensions in character columns and rows
 window-width = 96
 window-height = 24
 ```
 
 #### Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis:
 
-Once again, I repeat that **I do not recommend** this option, as it carries certain security risks and serves purely as an alternative choice. If suspicious code that turns out to be malicious is accidentally executed inside it, the entire system will be compromised with nearly 100% probability. Therefore, in such cases, strict usage of the `firejail` sandbox is recommended.
+To reiterate, **this approach is not recommended** as it introduces inherent security risks and serves purely as an alternative fallback. Executing untrusted or malicious code within this setup carries a near-100% probability of compromising the entire host system. Using a strict `firejail` sandbox is strongly recommended for such workflows instead.
 
-**1.** Just in case, we check the removal in simulation mode to ensure we do not touch critical packages:
+**1.** Perform a dry-run purge to verify dependency removal and ensure critical system packages are not inadvertently targeted:
 ```bash
 apt -s purge ptyxis
 ```
 
-Most likely, the command will flag `apport-gtk*` and `ptyxis*` for removal, which suits us completely. The `apport-gtk*` utility is responsible for sending crash reports in Ubuntu. When a program crashes, a window appears reporting an abnormal application termination and offering to send a report, so we remove it without much regret.
+The package manager will likely target `apport-gtk*` and `ptyxis*` for removal, which is expected. The `apport-gtk*` utility manages crash reporting popups and telemetry submission in Ubuntu; removing it prevents crash diagnostic prompts from launching.
 
-**2.** We install GNOME Terminal:
+**2.** Install GNOME Terminal:
 ```bash
 sudo apt install gnome-terminal
 ```
 
-All further actions are executed directly inside the Terminal window.
+Execute all subsequent commands directly from within the newly installed GNOME Terminal window.
 
-**3.** We remove Ptyxis:
+**3.** Purge Ptyxis:
 ```bash
 sudo apt purge ptyxis
 ```
 
-**4.** We perform a simulation of removing residual packages:
+**4.** Perform a dry-run autoremove to inspect orphan packages targeted for cleanup:
 ```bash
 apt -s autoremove
 ```
 
-If no extraneous system packages are detected, we proceed with the final cleanup.
+If no essential system packages are targeted, proceed with final cleanup.
 
-**5.** We remove residual Ptyxis leftovers:
+**5.** Purge lingering Ptyxis dependencies:
 ```bash
 sudo apt autoremove
 ```
 
-We verify the package list before actual deletion. If system components whose purpose is unknown to us are present among them, we abort the operation; otherwise, we execute the full removal command in the terminal — `sudo apt autoremove`.
+Audit the package list before executing the final deletion command. If unknown system components appear in the removal queue, abort the process; otherwise, execute the removal command in the terminal shell: `sudo apt autoremove`.
 
-**6.** We remove residual Ptyxis leftovers:
+**6.** Purge remaining Ptyxis orphan packages:
 ```bash
 sudo apt autoremove
 ```
@@ -2141,64 +2144,64 @@ sudo apt autoremove
 
 #### Purging Snap:
 
-Now we proceed to completely purge the operating system of the Snapd subsystem, which is capable of silently downloading and updating proprietary packages in bypass of the host's established privacy settings:
+Proceed to strip the `Snapd` subsystem from the operating system entirely, neutralizing its ability to covertly download and update proprietary packages while bypassing host privacy parameters:
 
-**1.** We completely cut out the `Snapd` daemon and its associated structures from the operating system:
+**1.** Purge the `Snapd` daemon and its supporting architecture from the host:
 ```bash
 sudo apt purge snapd -y
 ```
 
-To prevent the package manager from accidentally installing this daemon back via dependencies in the future when updating application software, we lock its installation via APT Pinning hard priority rules:
+To prevent the package manager from automatically pulling the daemon back as an orphan dependency when updating third-party applications, lock its installation status via hard APT Pinning priorities:
 
-**2.** We create a dedicated permanent lock configuration file:
+**2.** Create a dedicated pinning configuration file:
 ```bash
 sudo nano /etc/apt/preferences.d/nosnap.pref
 ```
 
-**3.** In the empty file that opens, we insert the following lines:
+**3.** Insert the following policy directives into the newly created file:
 ```ini
 Package: snapd
 Pin: release a=*
 Pin-Priority: -10
 ```
 
-To save the configuration in the `nano` editor, we press **`Ctrl + O`** -> **`Enter`**, then **`Ctrl + X`** to exit back to the console.
+To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the terminal shell.
 
 > [!IMPORTANT]
-> First, in newer Ubuntu versions, the standard graphical app store *App Center* relies entirely on the Snap backend. After removing the daemon, it will physically cease to launch. For our system, this is a huge plus, as we completely eliminate an unnecessary attack vector, while installing all required legitimate software via the clean console package manager `apt`. If we ever urgently need a graphical manager for manual installation of `.deb` packages, we can deploy the classic Synaptic utility with the command: `sudo apt install synaptic`.
+> First, in recent Ubuntu releases, the stock *App Center* GUI relies entirely on the Snap backend. Purging the daemon permanently breaks the graphical store executable. This is a net security gain for a hardened host: it eliminates an unneeded attack surface while shifting software management strictly to the clean `apt` CLI package manager. If a graphical package manager is required to handle `.deb` files manually, deploy the legacy Synaptic utility via: `sudo apt install synaptic`.
 > 
-> Second, the standard Firefox browser in modern Ubuntu is now provided by Canonical strictly as a Snap container. The `purge snapd` command will completely remove Firefox from the operating system! To avoid being cut off from the outside world, before cutting out Snap, we must install a clean official `.deb` version of Firefox from the developer repository (Mozilla PPA). We will do this immediately once we finish initial host kernel isolation and apply the first system updates!
+> Second, Canonical packages the default Firefox browser strictly as a Snap container in modern Ubuntu releases. Running `purge snapd` completely removes Firefox from the host system! To avoid losing web connectivity, ensure a native `.deb` build of Firefox is installed from the official developer repository (Mozilla PPA) prior to purging Snap. Execute this step immediately after completing initial kernel isolation and applying base system updates!
 
 #### Ripping Out Canonical Telemetry:
 
-It is time to apply our comprehensive automated Bash script for the total removal of built-in telemetry and the prevention of latent technical metrics transmission to Canonical servers. We create this script in the user Downloads folder:
+It is time to execute our comprehensive automated Bash script to purge all built-in telemetry and prevent latent technical metric transmission to Canonical servers. Create this script inside the user's Downloads directory:
 
-**1.** We navigate to the active user's Downloads folder:
+**1.** Navigate to the active user's Downloads directory:
 ```bash
 cd ~/Downloads
 ```
 
-**2.** We initialize the creation of an empty script file:
+**2.** Create an empty script file:
 ```bash
 touch telemetryoff.sh
 ```
 
-**3.** We open the script using the `nano` editor:
+**3.** Open the script using the `nano` text editor:
 ```bash
 nano telemetryoff.sh
 ```
 
 > [!WARNING]
-> It is absolutely not recommended to copy automated script code directly from e-book interfaces (PDF/EPUB/FB2) to avoid hidden encoding errors, space substitution, and accidental insertion of invisible formatting control characters! Type the lines or transfer them using plain text editors. Always carefully inspect the code!
+> Do not copy automated script code directly from e-reader interfaces (PDF/EPUB/FB2) to avoid hidden encoding errors, replaced whitespace, or accidental insertion of invisible formatting control characters! Type the lines manually or pass them through a plain text editor. Always audit script code carefully!
 
-**4.** We open the created file via the nano text editor and insert the following monolithic telemetry cleanup script code:
+**4.** Insert the following consolidated telemetry purging script into the open file inside `nano`:
 ```bash
 #!/bin/bash
 # Ubuntu 24.04/26.04 Telemetry & Pro Hardening Script (Ultimate Edition)
 
 # Designed for Ubuntu Desktop and its flavors (Xubuntu, Lubuntu)
 
-# Superuser privileges check
+# Check for root privileges
 
 if [ "$EUID" -ne 0 ]; then
  echo "[-] Error: Please run this script as root: sudo $0"
@@ -2218,21 +2221,21 @@ if [ -f /etc/default/apport ]; then
 fi
 
 echo "[+] Removing telemetry and advertising packages safely (preserving desktop GUI)..."
-# We lock the desktop environment in "manually installed" status so apt does not remove the desktop
+# Mark desktop environments as manually installed so apt does not purge the desktop GUI
 apt-mark manual ubuntu-desktop xubuntu-desktop lubuntu-desktop gdm3 lightdm 2>/dev/null
 
-# We remove classic telemetry software and the intrusive Ubuntu Pro/ESM client
+# Remove classic telemetry software and persistent Ubuntu Pro/ESM clients
 apt purge ubuntu-report whoopsie popularity-contest ubuntu-pro-client ubuntu-advantage-tools -y
 
-# Safe removal of apport without cascading GUI removal
+# Safely purge apport without cascading GUI removal
 
 apt purge apport -y --allow-remove-essential 2>/dev/null || apt remove apport -y
 
-# We clean system trigger caches for ESM updates that communicated with Canonical
+# Clear system triggers for ESM update caches that query Canonical servers
 
 rm -f /etc/apt/apt.conf.d/20ubuntu-pro-esm 2>/dev/null
 
-# We automatically clean orphaned dependencies while verifying GUI integrity
+# Automatically clean up orphaned dependencies while verifying GUI integrity
 apt autoremove -y
 
 echo "[+] Configuring APT Pinning (Permanent Lock)..."
@@ -2265,57 +2268,57 @@ EOF
 echo "[+] Telemetry and Ubuntu Pro hardening completed successfully!"
 ```
 
-To save the file in the nano editor, we press **`Ctrl + O`** -> **`Enter`**, then **`Ctrl + X`** to exit back to the console.
+To save the file in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the terminal shell.
 
-**5.** We set strict file access permissions: reading, editing, and executing the script will be available exclusively to its direct owner:
+**5.** Enforce strict access permissions on the file: restrict read, write, and execution privileges exclusively to the file owner:
 ```bash
 chmod 0700 telemetryoff.sh
 ```
 
-**6.** We run the script as a superuser and wait for the host optimization to complete successfully. After execution, the script can be removed:
+**6.** Execute the script with superuser privileges and await successful completion of the host optimization routine. Once complete, the script can be deleted:
 ```bash
 sudo ./telemetryoff.sh
 ```
 
-**7.** We reboot the system:
+**7.** Reboot the system:
 ```bash
 sudo reboot
 ```
 
 > [!TIP]
-> If we want to run the script immediately without prior permission modification via `chmod +x`, we can invoke the Bash interpreter directly:
+> To execute the script immediately without modifying execution bits via `chmod +x`, invoke the Bash interpreter directly:
 > ```bash
 > sudo bash telemetryoff.sh
 > ```
-> *Note: if the file was edited in Windows, we must first sanitize line endings using `sed -i 's/\r$//' telemetryoff.sh`.*
+> *Note: If the script file was edited under Windows, strip line endings first via `sed -i 's/\r$//' telemetryoff.sh`.*
 
-After execution, the `telemetryoff.sh` script can be deleted from the `Downloads` folder either via the Trash or using `rm ~/Downloads/telemetryoff.sh`.
+After execution, remove `telemetryoff.sh` from `Downloads` via the trash interface or by executing `rm ~/Downloads/telemetryoff.sh`.
 
-**8.** We clean up residual leftovers of the kernel crash reporting tool:
+**8.** Purge lingering components of the kernel crash reporting and submission framework:
 ```bash
-sudo systemctl stop apport.service && sudo systemctl disable --now kerneloops.service
+sudo systemctl stop apport.service  && sudo systemctl disable --now kerneloops.service
 ```
 
 #### Purging the Background Firmware Tracker fwupd:
 
-Even after completely cleaning Canonical system telemetry, the hidden `fwupd` (Firmware Updater) daemon remains active by default in the operating system. Every time a network connection is established, it silently sends requests to the global CDN server `cdn.fwupd.org`, transmitting unique hardware UUID identifiers of the motherboard, CPU, and NVMe drives under the pretext of checking for BIOS/UEFI updates.
+Even after completely purging Canonical system telemetry, the hidden `fwupd` (Firmware Updater) daemon remains active by default in the operating system. Upon establishing a network connection, it silently transmits background queries to the global CDN server `cdn.fwupd.org`, leaking unique hardware UUID identifiers for the motherboard, CPU, and NVMe drives under the guise of checking for BIOS/UEFI firmware updates.
 
-We decline uncontrolled background leaks of host hardware hashes. All critical low-level firmware updates will be performed strictly manually and offline, while the daemon's network activity is completely cut off at the operating system kernel level.
+Eliminate uncontrolled background exfiltration of host hardware hashes. Perform all critical low-level firmware updates strictly offline and manually, while severing the daemon's network access at the system daemon layer.
 
-**1.** We stop active services and automatic update timers:
+**1.** Terminate active services and background update timers:
 ```bash
 sudo systemctl stop fwupd fwupd-refresh.service fwupd-refresh.timer
 ```
 
-**2.** We forcibly mask (freeze) unit configuration files in `systemd`. This strictly blocks any possibility of accidental, background, or forced restarting by the operating system during the installation of other packages:
+**2.** Forcibly mask unit configuration files in `systemd`. This permanently blocks accidental, background, or dependency-triggered service execution during package operations:
 ```bash
 sudo systemctl mask fwupd fwupd-refresh.service fwupd-refresh.timer
 ```
 
 > [!NOTE]
-> After applying masking, the background `fwupd` process is completely unloaded from RAM and loses the ability to generate network sockets on its own. Hidden connections to external `cdn.fwupd.org` servers are permanently terminated.
+> Applying systemd masking unloads the background `fwupd` process from RAM and prevents it from binding network sockets. Covert connections targeting external `cdn.fwupd.org` endpoints are permanently blocked.
 
-**Chapter Asset:** *_assets\images\7_systemcut_telemetry*
+**Chapter Assets:** *_assets/images/7_systemcut_telemetry*
 
 <br>
 
@@ -2323,197 +2326,197 @@ sudo systemctl mask fwupd fwupd-refresh.service fwupd-refresh.timer
 
 #### The libpam-tmpdir Security Utility:
 
-To eliminate one of the oldest architectural vulnerabilities in Linux, we need to isolate shared temporary directories to which all processes in the system have access by default. We integrate a dedicated module into the authentication kernel, which will create a personal, protected memory pocket for each application.
+To eliminate one of the oldest architectural vulnerabilities in Linux, isolate shared temporary directories accessible by default to all system processes. Integrate a specialized authentication module into the kernel to dynamically provision isolated, per-application temporary storage in memory for every active session.
 
-**1.** We install the low-level application temporary directory isolation module (`libpam-tmpdir`):
+**1.** Deploy the low-level application temporary directory isolation module (`libpam-tmpdir`):
 ```bash
 sudo apt install libpam-tmpdir -y
 ```
 
 > [!NOTE]
-> By default in Linux, absolutely all launched programs, messengers, system daemons, and scripts use the shared system folder `/tmp` to store their temporary data. From a security standpoint, this is a massive open corridor. Any malware, hidden tracker, or unprivileged process inside the system can inspect the contents of `/tmp`, spy on temporary files of neighboring applications, attempt to tamper with them, or execute a *Symlink Attack* (substitution via symbolic links).
+> By default, all running processes, messaging applications, system daemons, and scripts share the global system directory `/tmp` for temporary file storage. From a security perspective, this creates an unmonitored shared surface. Malicious binaries, covert trackers, or unprivileged processes executing inside the system can enumerate `/tmp` contents, spy on temporary files generated by adjacent applications, attempt file tampering, or execute symlink attacks.
 
 #### The debsums Utility:
 
-The `debsums` utility is a tool for those who like to keep a finger on the pulse of the system and verify every single cog. The name stands for Debian checksums.
+The `debsums` utility is built for auditing internal system integrity at a granular level. The name stands for Debian checksums.
 
-When we install any application via the package manager (`apt`), a special file containing reference checksums (typically MD5 or SHA) for every file delivered by that package is downloaded into the system alongside the program itself. Next, `debsums` takes these reference values and begins comparing them with the actual files residing on our hard drive. If anyone (or any virus/rootkit) covertly modifies a system file (for example, replacing the system utility `/bin/ls` or `/usr/bin/ssh` with an infected version), the checksum will fail to match. The utility will immediately return a `FAILED` status.
+When deploying packages via the `apt` package manager, a reference manifest containing cryptographic hash digests (typically MD5 or SHA) for every installed file is pulled alongside the binary payload. The `debsums` engine parses these reference manifests and audits them against actual files residing on the disk subsystem. If an adversary, rootkit, or rogue process covertly modifies a system binary (such as replacing `/bin/ls` or `/usr/bin/ssh` with a trojanized binary), the cryptographic hash check fails, triggering an immediate `FAILED` alert status.
 
-**1.** We install the checksum verification utility:
+**1.** Deploy the package checksum auditing utility:
 ```bash
 sudo apt install debsums -y
 ```
 
-**2.** We run a global verification across all system packages:
+**2.** Execute a global integrity audit across all installed system packages:
 ```bash
 sudo debsums -s
 ```
 
 #### Btop: A Streamlined Resource Monitor:
 
-A modern console task manager designed to replace the standard `top` system monitor. The utility features a far more user-friendly, informative, and interactive graphical interface deployed right inside the terminal.
+A modern terminal-based resource monitor designed to replace the standard `top` utility. The tool provides a significantly more intuitive, detailed, and interactive graphical dashboard running directly inside the terminal interface.
 
-**1.** We install the utility from the official repository:
+**1.** Deploy the utility from the official repository:
 ```bash
 sudo apt install btop -y
 ```
 
-**2.** We launch the resource monitor:
+**2.** Launch the resource monitor:
 ```bash
 btop
 ```
 
-The help menu for shortcut keys inside the utility is brought up by pressing **H** (*Help*). A quick exit from the program is performed by pressing **Q** (*Quit*).
+Access the internal keybinding reference menu by pressing **H** (*Help*). Exit the application instantly by pressing **Q** (*Quit*).
 
 <br>
 
 #### Monitoring Network Ports and Active Connections:
 
-Continuous control over network activity is a core operational hygiene skill. We must clearly understand exactly which internal processes open sockets and where network traffic is currently being transmitted.
+Continuous monitoring of network activity is a core operational hygiene requirement. Maintain complete visibility over which internal processes bind sockets and where outbound network traffic is actively routed.
 
-**1.** We run an audit of open network ports. The command clearly shows which background services and daemons are currently "listening" on ports on the machine in anticipation of external connections:
+**1.** Audit open network listening ports. This command displays active background daemons and system services listening on local ports for incoming connections:
 ```bash
 sudo ss -tupnl
 ```
 
-**2.** We output an expanded table of current network activity. The command displays absolutely all active network sessions, including established outgoing connections (*ESTABLISHED*). With its help, we can instantly determine which remote IP addresses traffic is heading to right now:
+**2.** Display the full active network session table. This command exposes all active network sockets, including established outbound connections (*ESTABLISHED*). Use it to immediately identify remote destination IP addresses processing active traffic:
 ```bash
 sudo ss -tupna
 ```
 
-The `ss` utility provides an instant static snapshot of network activity. However, advanced malware or hidden backdoors can act more subtly: they open a network connection for fractions of a second, exfiltrate an encrypted payload of sensitive data, and instantly close the port. Because of this, catching them manually by regularly running a console command is practically impossible.
+While `ss` provides an instantaneous static snapshot of active sockets, sophisticated malware and covert backdoors often operate via short-lived connections—opening a socket for a fraction of a second, exfiltrating encrypted payloads, and immediately severing the pipe. Capturing these transient events manually via periodic command execution is practically impossible.
 
-For continuous security monitoring of network sockets in real time, it is recommended to combine the capabilities of `ss` with the built-in system automation utility `watch`, adding the change-highlighting flag `-d`:
+For continuous real-time socket monitoring, combine `ss` with the native system automation utility `watch`, enforcing dynamic delta highlighting via the `-d` flag:
 
-**3.** We launch continuous real-time socket monitoring:
+**3.** Launch real-time continuous socket monitoring:
 ```bash
 sudo watch -n 1 -d 'ss -tupna'
 ```
 
-This combination will automatically refresh the terminal screen every second (`-n 1`), while the `-d` flag will physically highlight on the display any new, suddenly opening outgoing or incoming network connections, allowing us to visually capture even the shortest background network activity.
+This pipeline automatically refreshes the terminal buffer every second (`-n 1`), while the `-d` flag visually highlights any newly spawned inbound or outbound socket transitions on the screen, enabling manual detection of transient background network activity.
 
-To return back to the console, we press **`Ctrl + Z`**.
+To terminate the monitoring loop and return to the shell console, press **`Ctrl + Z`**.
 
 <br>
 
-## CCreating Golden Restore Points: Deploying and Configuring Timeshift
+## Creating Golden Restore Points: Deploying and Configuring Timeshift
 
 #### Introduction:
 
-We have completed the initial kernel hardening, permission isolation, and strict firewall configuration with flying colors. Our system now represents a clean, secure, but currently fully isolated host from the outside world. Before we initiate our first major connection to the network and pull down system updates, we must freeze this "sterile" state.
+With initial kernel hardening, privilege isolation, and strict firewall blocking fully established, the host is operating as a clean, hardened, and completely air-gapped system. Before initiating a primary network connection to apply full distribution updates, freezing this sterile state is a critical prerequisite.
 
-Why is this necessary? Engineering security teaches us to prepare for the worst-case scenario: when installing large update packages, upgrading the kernel, or subsequently building heavy virtual containers, something might go wrong. To avoid spending hours reinstalling the OS from scratch and re-configuring all our manual hardening steps in the event of an emergency, we will create instant system snapshots with the ability to roll back in a few clicks.
+Engineered security controls account for worst-case operational failure: applying major package updates, upgrading core kernel images, or building virtualized container stacks can trigger system instability or break configurations. Rather than wasting hours reinstalling the operating system from scratch and repeating manual hardening steps, construct instant system snapshots that enable bare-metal rollback in a few clicks.
 
-The powerful system utility `Timeshift` will help us achieve this. It operates on the principle of backup restore points, protecting system files and settings exclusively while leaving personal data in the home directory untouched (which completely rules out the loss of working documents during a rollback).
+Deploy the `Timeshift` system utility to manage state restoration. Operating as a restore-point system, it isolates and protects core system binaries and configurations without altering user data stored inside the home directory, preventing operational document loss during state restoration routines.
 
 #### Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB):
 
-Since during the installation phase we deployed the system on top of an encrypted LVM pool and protected the `GRUB` bootloader with a password, we must observe two strict security rules:
+Because the system was deployed on top of an encrypted LVM pool and the `GRUB` bootloader was secured with a password during installation, account for two strict security rules:
 
-1. **No third-party software from Live-USB:** We will configure `Timeshift` and execute point rollbacks strictly from within our booted, decrypted operating system. Using third-party emergency flash drives is unacceptable in our OPSEC concept, as they operate by bypassing our authentication mechanisms.
-2. **Boot sector control:** Our encrypted drive and password-protected `GRUB` will remain completely safe, as `Timeshift` snapshots copy the state of files inside logical volumes without touching the low-level LUKS encryption structure. However, during restoration, the system may rewrite the `GRUB` menu configuration, so our kernel editing password will remain active and will not be reset.
+1. **No External Software via Live-USB:** Configure `Timeshift` and execute snapshot rollbacks strictly from within the running, decrypted operating system. Using third-party emergency Live USB drives is unacceptable under this OPSEC model, as they bypass established host authorization mechanisms.
+2. **Boot Sector Integrity Control:** The encrypted disk layout and password-protected `GRUB` bootloader remain fully secured because `Timeshift` snapshots operate on file states inside logical volumes without modifying the underlying low-level LUKS encryption structure. However, restoring a snapshot can overwrite `GRUB` menu configuration files; the kernel editing password remains active and will not be reset.
 
 #### Securely Installing Timeshift:
 
-We sequentially execute commands in the terminal as the superuser. We bring up our encrypted tunnel, after which we initialize the installation from the official Ubuntu repository:
+Execute the sequence of commands in the terminal with superuser privileges. Bring up the encrypted tunnel, then initiate installation from the official Ubuntu repository:
 
-**1.** We enter interactive superuser (root) mode:
+**1.** Switch to interactive superuser mode (root):
 ```bash
 sudo -i
 ```
 
-**2.** We immediately update the local package index and install a clean .deb version of Timeshift directly over a secure connection:
+**2.** Refresh the local package index and install the native .deb version of Timeshift directly over the secure connection:
 ```bash
 apt update && apt install timeshift -y
 ```
 
-**3.** We exit superuser mode back into the regular user session:
+**3.** Exit superuser mode and return to the standard user session:
 ```bash
 exit
 ```
 
-The utility has been successfully deployed on board the host, while our protective network perimeter did not remain open to the outside world for even a second.
+The utility is now successfully deployed on the host, while the protective network perimeter remained continuously enforced without exposure to external traffic.
 
 #### Initial Configuration and Creating Snapshot #1 (Sterile Baseline):
 
-Launching `Timeshift` requires superuser privileges.
+Executing `Timeshift` requires superuser privileges.
 
-**4.** We launch the program:
+**1.** Launch the application:
 ```bash
 sudo timeshift-gtk
 ```
 
-We can use the graphical interface of the application by launching it via the **"Show Apps"** menu (the system will prompt for the administrator password); however, if we begin using a Yubikey in the future, we will have to abandon this method in favor of the console interface.
+You can launch the graphical interface via the **«Show Apps»** application menu (the system will prompt for administrative credentials); however, if you subsequently transition to Yubikey authentication, this option must be abandoned in favor of the CLI method.
 
-Upon first launch, the Setup Wizard will open. We immediately click **"Finish"** without changing anything.
+Upon initial startup, the Setup Wizard will open. Immediately click **«Finish»** without making changes.
 
-We navigate to the **"Settings"** section of the program and select:
+Navigate to the **«Settings»** menu item and configure the following parameters:
 
-* **Snapshot Type ("Type"):** Select strictly **"RSYNC"** mode. Since we are using a standard file system on top of LVM encryption, this mode will create reliable copies using system hard links without wasting extra disk space on unmodified files.
-* **Storage Location ("Location"):** The system will automatically highlight our system's encrypted LVM partition (e.g., `dm-1` or `dm-0` under our root group name). Select it. Copies will be stored on the same disk inside an isolated system directory `/timeshift`, protected by our root privileges.
-* **Schedule Levels ("Schedule"):** Uncheck all boxes for automatic timers **(Daily, Boot, Weekly, Monthly)**. In our operational hygiene paradigm, background daemons must not perform disk operations on their own, create hidden CPU load, or degrade drive lifespan. We will create all snapshots strictly manually, keeping full control over the process.
-* **User Folders ("Users"):** This tab configures home directory behavior during a system rollback. By default, for a regular user (`user /home/user`), the parameter is set to **"Exclude All Files"** — leave it unchanged so that the utility does not overwrite our personal databases and passwords. For the root folder (`root /root`), switch the setting to **"Include All Files"**.
-* **Directory Filters ("Filters"):** Switch to the adjacent tab. After enabling the administrator folder in the backup in the previous step, make sure that in the global filters list, the line `/root/**` is now highlighted with a green marker (Include). If a duplicate line with an exclusion sign (red marker) is still present there, simply select it with the mouse and click the **"Remove"** button at the bottom of the window. The administrator folder must be backed up and restored alongside the OS kernel. The `home/$USER/**` folder is copied at your discretion.
-* **"Misc":** Here, we set the date and time format to our preference.
-* Click the **"OK"** button. The initial binding is successfully completed.
+* **Snapshot Type («Type»):** Select **«RSYNC»** mode exclusively. Since standard file systems run over LVM encryption, this mode creates reliable snapshots using system hard links without consuming redundant storage space for unmodified files.
+* **Storage Location («Location»):** The system automatically highlights the active encrypted LVM partition (e.g., dm-1 or dm-0 associated with the root volume group name). Select it. Snapshots are stored on this partition within an isolated system directory at `/timeshift`, restricted to root permissions.
+* **Snapshot Schedule («Schedule»):** Uncheck all automated backup triggers **(Daily, Boot, Weekly, Monthly)**. Under this operational hygiene model, background daemons must not execute unprompted disk I/O operations, generate hidden CPU overhead, or degrade drive endurance. Execute all snapshots manually under full operator control.
+* **User Directories («Users»):** This tab dictates home directory behavior during system rollback routines. By default, the standard user entry (`user /home/user`) is set to **«Exclude All Files»**—set this parameter to **«Include All Files»** for the initial snapshot. For subsequent snapshots, optionally set it to **«Exclude All Files»** to prevent the utility from overwriting personal databases and credential stores. Enforce setting the root directory entry (`root /root`) to **«Include All Files»**.
+* **Directory Filters («Filters»):** Switch to the adjacent tab. Having enabled the administrative directory in the previous step, verify that the global filter entry `/root/**` is highlighted with a green marker (Include). If a duplicate exclusion rule marked with a red symbol persists, select it with the cursor and click the **«Remove»** button at the bottom of the window. The administrative home directory must be backed up and restored alongside the OS kernel. The `home/$USER/**` directory can be included at operator discretion.
+* **Miscellaneous («Misc»):** Set the preferred date and time display format.
+* Click **«OK»** to save settings and complete initial binding.
 
-Now, in the main application window, click the **"Create"** button. The program will initiate the scanning process and build our first snapshot. In the snapshot comments field *Comments (click to edit)*, make sure to enter: `BUILD_01_STERILE_HARDENING`.
+Click the **«Create»** button in the main interface window. The application initiates a scanning process and generates the initial baseline snapshot. In the snapshot comment field *Comments (click to edit)*, input the identifier string: `BUILD_01_STERILE_HARDENING`.
 
 > [!WARNING]
-> In **"Settings"**, pay close attention to the **"root /root"** line. By default, exclusion mode is active for it as well. In our security paradigm, this is a vulnerability: if the host is compromised, malicious scripts or backdoors injected by an attacker into the administrator directory would persist in the system after a rollback.
-> Forcibly toggle the radio button for the **"root /root"** line to the rightmost position — **"Include All Files"**.
+> Within **«Settings»**, pay close attention to the **«root /root»** line item. By default, this directory is set to exclusion mode. Under this threat model, that behavior represents an operational flaw: following host compromise, malicious scripts or persistent backdoors placed in the administrator's directory would survive a system rollback. 
+> Force the radio button for **«root /root»** to the far right position—**«Include All Files»**.
 
 > [!IMPORTANT]
-> This is our primary recovery point ("Sterile Benchmark"). It freezes all low-level kernel hardening, ideal `sysctl` parameters, the modified `UMASK 077` mask, and the hard removal of factory Canonical telemetry. All of this is secured before application software, third-party repositories, browsers, and user tools are installed in the system. If anything goes wrong during subsequent customization or software experiments, we can instantly revert to this baseline protected configuration.
+> This snapshot serves as the primary system recovery baseline ("Sterile Reference"). It captures all low-level kernel hardening configurations, optimized `sysctl` parameters, the enforced `UMASK 077` file creation mask, and the complete removal of native Canonical telemetry—prior to deploying user applications, third-party software repositories, web browsers, or user utilities. If subsequent customization or software testing introduces system instability, restore this hardened baseline configuration instantly.
 
 #### Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational):
 
-Now that we have a solid safety net in the form of the first snapshot, we can move forward: applying daily system updates via `apt upgrade`, removing remaining telemetry meta-packages, and restoring a clean `.deb` version of the Firefox browser to the system.
+Now that the baseline system security is backed up by the initial snapshot, proceed with daily operational maintenance: apply routine system updates via `apt upgrade`, strip residual telemetry meta-packages, and deploy the native `.deb` build of the Firefox browser.
 
-However, before proceeding to the chapter on deep host auditing using the `Lynis` utility and building isolated sandboxes or virtual containers with lightweight Xubuntu/Lubuntu inside VirtualBox, we are obligated to create **Snapshot #2**.
+However, prior to advancing to comprehensive host auditing via `Lynis` or deploying isolated sandbox environments and lightweight Xubuntu/Lubuntu virtual containers inside VirtualBox, creating **Snapshot #2** is a mandatory prerequisite.
 
-The procedure is identical: before running heavy virtualization software or deep audits, we open `Timeshift` and manually create a second restore point. In the comments, specify: `BUILD_02_BEFORE_LYNIS`.
+The procedure remains identical: prior to executing complex virtualization engines or deep auditing tools, launch `Timeshift` and manually provision a secondary recovery baseline. Assign the following comment string: `BUILD_02_BEFORE_LYNIS`.
 
 #### Emergency Rollback Protocol (System Compromised or Broken):
 
-If during experiments with isolated containers or due to an accidental syntax error in low-level configuration files we lose system stability, we execute a safe rollback from within the running operating system:
+If operational stability is degraded during isolated container experimentation or through syntax errors introduced into low-level configuration files, execute a safe rollback from within the active operating system environment:
 
-* Open the Timeshift graphical interface via the menu (**"Show Apps"**).
-* Select the required snapshot from the list (for example, the benchmark `BUILD_01_STERILE_HARDENING`).
-* Click the **"Restore"** button.
-* In the target partition selection window **"Target Devices"**, the program will ask to confirm the mount paths for root (`/`) and the boot partition (`/boot/efi`). Strictly leave the default values: **"Keep on Root Device"**.
-* Click **"Next"**. The utility will perform an express change analysis, display a list of files that will be overwritten or removed, and send the host into an automatic reboot.
+* Launch the graphical Timeshift interface via the application menu (**«Show Apps»**).
+* Select the target recovery snapshot from the list (e.g., the baseline `BUILD_01_STERILE_HARDENING`).
+* Click the **«Restore»** button.
+* In the **«Target Devices»** selection menu, confirm root (`/`) and boot partition (`/boot/efi`) mount paths. Retain default parameters: **«Keep on Root Device»**.
+* Click **«Next»**. The utility executes a differential analysis, generates an audit manifest of files queued for overwrite or deletion, and initiates an automated host reboot.
 
-During rebooting, Timeshift will overwrite modified system files in interactive text mode, restoring them to our benchmark state.
+During the reboot sequence, Timeshift executes in an interactive text console to overwrite modified system binaries, restoring system state to the designated recovery baseline.
 
 > [!NOTE]
-> Please note that thanks to hardware and software LUKS encryption, when the PC boots after a rollback, the system will prompt for our disk master password as usual. The GRUB bootloader will remain securely locked by the hash created earlier, as Timeshift operates exclusively inside the decrypted logical volume and is physically incapable of resetting, wiping, or modifying external disk defense layers.
+> Due to underlying LUKS hardware and software encryption abstractions, the host prompts for the master disk passphrase upon reboot as expected. The GRUB bootloader remains locked via the established hashdigest; Timeshift executes strictly inside the decrypted logical volume and cannot modify, erase, or reset outer disk protection layers.
 
-We are protected on all sides. Moving on to the next operational hygiene stage!
+Host security is fully established. Proceed to the next phase of operational hygiene controls!
 
-**Chapter Asset:** *_assets\images\8_timeshift*
+**Chapter Assets:** *_assets/images/8_timeshift*
 
 <br>
 
 ## Installing a Clean .deb Release of Firefox and Removing the Snap Stub:
 
-Since we successfully updated the system over a secure VPN connection in the previous step, it is time to restore our main working tool — the Firefox web browser. As we already know, when the Snapd subsystem was completely removed, the standard browser was uninstalled, leaving behind hidden configuration leftovers. The `firefox` package in the standard Ubuntu repository is a mere stub (a transit script) that forcibly reintroduces telemetry and the Snapd daemon back into the system.
+Because the system was successfully updated over a secure VPN tunnel in the previous step, return the primary work tool to the host—the Firefox web browser. Purging the Snapd subsystem removed the default browser build while leaving residual configuration artifacts behind. The `firefox` package inside standard Ubuntu repositories functions strictly as a dummy transition package (a wrapper script) designed to re-install telemetry and force the Snapd daemon back onto the system.
 
-Before installing a pure, independent version of the browser directly from the developers at Mozilla Team, we must completely clean out residual junk from the home directory and strictly block automatic package substitution mechanisms.
+Prior to deploying a native, un-isolated browser build directly from the upstream Mozilla Team developers, purge all residual metadata from the home directory and enforce strict APT pin-priority overrides.
 
-Sequentially execute the following steps in the terminal as a regular user:
+Execute the following commands in sequence from a standard user shell session:
 
-**1.** We completely delete hidden residual directories, cache, and old profiles of the Snap version of the browser in the home folder:
+**1.** Purge residual directories, caches, and legacy profiles left behind by the Snap package build inside the home folder:
 ```bash
 rm -rf ~/snap/firefox ~/.mozilla/firefox
 ```
 
-**2.** We import the official PPA repository of the Mozilla development team into the operating system:
+**2.** Import the official Mozilla Team PPA repository into the host package manager:
 ```bash
 sudo add-apt-repository ppa:mozillateam/ppa -y
 ```
 
-**3.** The `firefox` package in Ubuntu repositories is a Snap stub by default. To bypass this restriction and force the package manager to pull down a clean binary directly from the Mozilla Team PPA, we create a strict priority configuration file:
+**3.** The default `firefox` package in Ubuntu repositories serves as a Snap stub. To bypass this restriction and force the package manager to fetch native binaries directly from the Mozilla Team PPA, enforce a strict pin-priority configuration file:
 ```bash
 sudo tee /etc/apt/preferences.d/mozilla-firefox <<EOF
 Package: firefox*
@@ -2525,93 +2528,95 @@ Pin: release o=Ubuntu
 Pin-Priority: -10
 EOF
 ```
-To save the file in the nano editor, we press **`Ctrl + O`** -> **`Enter`**, then **`Ctrl + X`** to exit back to the console.
 
-**4.** We update the local system package index taking into account the newly created priority rules:
+To save the configuration in the `nano` editor, press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
+
+**4.** Refresh the local package index to apply the newly configured package pinning rules:
 ```bash
 sudo apt update
 ```
 
-**5.** We launch the installation of a clean, Snap-independent desktop version of Firefox:
+**5.** Install the native, Snap-decoupled desktop build of Firefox:
 ```bash
 sudo apt install firefox -y
 ```
 
 > [!IMPORTANT]
-> The next configuration step is split into two options depending on the operating system version: **Ubuntu 24.04 LTS Noble Numbat** vs. the newer **Ubuntu 26.04 LTS Resolute Raccoon**. Select and execute only the single command strictly corresponding to your distribution.
+> The following configuration step is split into two options depending on the operating system version: **Ubuntu 24.04 LTS Noble Numbat** or **Ubuntu 26.04 LTS Resolute Raccoon**. Select and execute only the single command matching the installed distribution.
+
+**6.** Enable the system rule allowing the background unattended-upgrades service to fetch critical security patches for Firefox directly from the Mozilla Team repository:
 
 * **For Ubuntu 24.04 LTS Noble Numbat users:**
-**6a.** We activate a hidden system rule that permits Ubuntu's automatic background update service to download critical security patches for Firefox directly from the Mozilla Team repository:
 ```bash
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:noble";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
 ```
 
 * **For Ubuntu 26.04 LTS Resolute Raccoon users:**
-**6b.** We activate an analogous system rule for the 26.04 distribution package base:
 ```bash
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-firefox
 ```
 
 > [!WARNING]
-> Without performing step 7a/7b, the browser will update only during a manual call to `apt upgrade`, which significantly increases the risk of remaining unprotected against fresh zero-day (0-day) vulnerabilities.
+> Without configuring automatic origin permissions, the browser will update exclusively during manual `apt upgrade` execution, increasing exposure window risks against zero-day vulnerabilities.
 
-**7.** We conduct a final verification. If the command outputs the browser version without mentioning Snap, the installation has completed successfully:
+**7.** Perform a final audit. If the command outputs the version string without referencing Snap, deployment was executed successfully:
 ```bash
 firefox --version
 ```
+
 > [!IMPORTANT]
-> Installing the browser via the official PPA from the Mozilla Team grants us two serious advantages:
+> Deploying the browser via the official Mozilla Team PPA provides two critical operational advantages:
 >
-> **Full compatibility with third-party sandboxes:** The executable binary is now physically located at the classic system path `/usr/bin/firefox`. This allows us to enforce strict Mandatory Access Control via `AppArmor` and isolate it inside a `Firejail` container without any conflicts — something that would be technically impossible with a Snap version locked inside Canonical's proprietary backend.
-> **Absence of hidden installer telemetry:** The build is compiled directly from open-source Mozilla code, contains no Canonical transit scripts, and does not attempt to activate background telemetry services.
+> **Full Compatibility with External Sandboxes:** The browser binary resides at the standard path `/usr/bin/firefox`. This allows constraint mapping under mandatory access control mechanisms via `AppArmor` and execution containment inside `Firejail` sandboxes without conflicting with Canonical's isolated Snap backend.
+> **Zero Installer Telemetry:** The build is compiled directly from upstream Mozilla open-source repositories, containing no Canonical transition wrappers or background telemetry submission daemons.
 
 <br>
 
-## IInstalling and Hardening Privacy Settings in Mozilla Firefox
+## Installing and Hardening Privacy Settings in Mozilla Firefox
 
 #### Preparing the System for Tuning:
 
-The built-in Firefox web browser requires strict hardening. We installed it exclusively as a clean `.deb` package. Now, we will forcibly shut down Mozilla's hidden internal telemetry, block cross-site tracking, and completely zero out host de-anonymization vectors.
+The native web browser built into the operating system requires rigorous hardening. Deployed exclusively as a clean `.deb` package, disable hidden internal Mozilla telemetry by force, block cross-site tracking, and completely neutralize host deanonymization vectors.
 
 > [!WARNING]
-> **Initial browser launch and all configuration steps must occur strictly under full radio silence — WITHOUT internet access!**
-> To prevent critical OPSEX scenarios, clicking the Firefox icon while the system is online is strictly forbidden. Upon the very first launch, an unhardened Firefox will instantly spew primary telemetry packets across the network, verify our IP location, and establish connections with Mozilla servers. To eliminate data leaks entirely, we are obligated to temporarily isolate the system.
+> **Initial browser launch and all configuration steps must occur strictly under complete radio silence—WITHOUT internet connectivity!**
+> To avoid a critical OPSEX failure, clicking the Firefox launcher while the host is online is strictly prohibited. On its initial unconfigured startup, an untamed Firefox instance immediately transmits primary telemetry packets over the wire, checks the host IP region, and contacts Mozilla infrastructure. To prevent data leakage, isolate the operating system prior to execution.
 
-We can achieve this using the simplest methods available:
+Isolating the host can be accomplished easily using one of the following methods:
 
-* **Graphical method (Simplest):** We click the network connections icon in the system tray and toggle the wired connection (or Wi-Fi) switch to **"Off"**.
-* **Console method (For terminal):** We completely kill the operating system's network stack with a single universal command:
+* **Graphical Method (Simplest):** Click the network connection icon in the system tray and toggle the Ethernet or Wi-Fi interface to **«Off»**.
+* **Console Method (CLI):** Completely sever the operational system network stack using a single universal command:
 ```bash
 nmcli networking off
 ```
 
-Now the host is in a completely sterile vacuum. We safely launch Firefox and proceed to step-by-step tuning.
+With the host isolated inside a clean environment, safely launch Firefox and proceed with step-by-step hardening controls.
 
 > [!TIP]
-> This guide utilizes the ironic author-coined term — "OPSEX".
-> It describes a situation where a complex defense architecture loses all effectiveness due to simple human error.
+> Within this framework, "OPSEX" is an intentional tongue-in-cheek term crafted by the author.
+> It describes an operational security failure where complex security controls are rendered useless by a simple human mistake.
 >
-> For example, one can meticulously configure an anonymous environment, yet accidentally hit the web through an unhardened browser, or transmit a file without stripping hidden metadata.
+> For example, an operator might configure a hardened environment but inadvertently breach isolation by launching an unhardened browser or transmitting a file containing embedded metadata.
 >
-> OPSEX serves as a reminder that security is defined not only by technical controls, but by everyday user operational hygiene.
-> Therefore, it is critical to continuously analyze personal data-handling habits alongside security tools.
+> OPSEX serves as a reminder that system security relies on daily operational discipline alongside technical controls.
+> Evaluate user workflow habits alongside defensive tooling when securing operational data.
 >
-> *The term OPSEX was originally formulated by the author of this guide (EugeXo) as a concept to describe the human factor in operational security.*
+> *The term OPSEX was originally formulated by the author of this guide (EugeXo) during risk analysis of personal data exposure vectors caused by user negligence and low digital literacy.*
 
 #### Initial GUI Privacy Configuration (Mandatory for Everyone):
 
-We launch the browser and enter the following direct path into the address bar: `about:preferences#privacy`. Sequentially, we tweak the settings:
+Launch the browser. Input the direct path into the address bar: `about:preferences#privacy`. Enforce the following configuration modifications sequentially:
 
-* **«Enhanced Tracking Protection» Block:** We open the **«Advanced settings»** sub-item and switch the toggle to strict **«Strict»** mode. Then we click **«Reload All Tabs»**. This action automatically activates Dynamic First-Party Isolation (*dFPI*), preventing ad trackers from spying on our movements across the web.
-* **«Browsing Data» Block:** We make sure to check **«Clear cookies and site data every time you close Firefox»**.
-* **«DNS over HTTPS» Block:** Modern browsers can execute covert background DNS queries. To kill this vector, we scroll down to **«Advanced settings»**, set the provider selection to **«Custom»**, and manually specify the URL of a secure, non-logging DoH server.
-* **«Connection and software security» Block:** At the very bottom of the page, we locate **«HTTPS-Only Mode»**, access its additional parameters, and switch the toggle to **«Enable HTTPS-Only Mode in all windows»**. This enforces encryption on any unprotected HTTP traffic.
-* **«Search» Section:** We navigate to this section in the left sidebar menu and change the default search engine, replacing Google's telemetry engine with private, non-logging **DuckDuckGo**.
-* **«Permissions and data» Section:** We scroll down to **«Firefox Data Collection and Use»** and forcibly uncheck all telemetry options. The browser will no longer send technical reports or stability metrics to Mozilla.
+* **«Enhanced Tracking Protection»** *Section:* Navigate to **«Advanced settings»**. Toggle the protection level to **«Strict»**. Click **«Reload All Tabs»**. This automatically activates Dynamic First-Party Isolation (*dFPI*), blocking advertising trackers from monitoring cross-site navigation.
+* **«Browsing Data»** *Section:* Enable the checkbox for **«Clear cookies and site data every time you close Firefox»**.
+* **«DNS over HTTPS»** *Section:* Modern browsers execute covert background DNS queries. Scroll down to **«Advanced settings»** to suppress this behavior. Set the provider option to **«Custom»** and manually input the URL of a trusted, no-logs DoH provider.
+* **«Connection and software security»** *Section:* Scroll to the bottom of the page to find **«HTTPS-Only Mode»**. Open its advanced options and switch the toggle to **«Enable HTTPS-Only Mode in all windows»** to enforce cryptographic protection across all unencrypted HTTP requests.
+* **«Search» Section:** Select this option from the left navigation sidebar. Change the default search provider from the Google telemetry engine to **DuckDuckGo**, a privacy-focused alternative.
+* **«Permissions and data»** *Section:* Scroll down to **«Firefox Data Collection and Use»**. Uncheck all telemetry collection checkboxes to prevent the browser from transmitting diagnostic telemetry or stability metrics to Mozilla servers.
 
 #### Configuring Private DNS Providers (DNS over HTTPS):
 
-We can select any secure, non-logging DoH server from the list below:
+Select any secure, non-logging DoH server from the provided list.
 
 > [!NOTE]
 > **1. Mullvad DNS (From the creators of Mullvad VPN)**
@@ -2648,29 +2653,29 @@ We can select any secure, non-logging DoH server from the list below:
 
 #### Hardening Automation: Creating the user.js Configuration File:
 
-To avoid manually entering dozens of radical parameters through the `about:config` interface, we can build a single automated text file named `user.js`. All preferences are declared there using the system format `user_pref("parameter", value);`.
+To avoid entering numerous radical parameters manually via the `about:config` interface, create a single automated text file named `user.js`. All settings are added there using the system format `user_pref("parameter", value);`.
 
-We need to place this file directly into the hidden folder of the currently active Firefox profile in Ubuntu. On every startup, the browser will automatically parse this file and enforce all our hardened preferences. Inside the `about:config` engineering menu, these parameters will be highlighted in bold, locking out accidental manual changes.
+Place this file directly into the hidden folder of the currently active Firefox profile in Ubuntu. Upon each launch, the browser will automatically read this file and apply all strict parameters. In the `about:config` engineering menu, these preferences will be highlighted in bold, blocking accidental manual changes.
 
-To locate the exact profile path, create the `user.js` file there, populate it with configuration payloads, and strictly limit access permissions, execute the following steps in the terminal as a standard user:
+Find the exact path to the profile, create the `user.js` file there, populate it with content, and strictly restrict access permissions by following these steps in the terminal as a regular user:
 
-**1.** We navigate to the profile directory (in a clean and current `.deb` release of Firefox, the default profile almost always ends with `.default-release`) and create an empty configuration file:
+**1.** Navigate to the profile directory (in a clean and latest `.deb` version of Firefox, the default profile almost always ends with `.default-release`) and create an empty configuration file:
 ```bash
 cd ~/.config/mozilla/firefox/*-release/ && touch user.js
 ```
 
 > [!NOTE]
-> If we choose to write an automation script for multiple deployment targets and want `user.js` guaranteed to land in the active working profile (regardless of its directory name or folder count), we deploy the lower snippet utilizing the `PROFILE_DIR` variable instead.
+> To write an automation script for different machines and ensure `user.js` is created in the currently active working profile (regardless of its name or the number of folders), use the alternative syntax with the `PROFILE_DIR` variable:
 > ```bash
 > PROFILE_DIR=$(awk -F= '/^\[Install/ {p=1} p && /^Default=/ {print $2; exit}' ~/.config/mozilla/firefox/profiles.ini) && cd "$HOME/.config/mozilla/firefox/$PROFILE_DIR" && touch user.js
 > ```
 
-**2.** We open the newly created user.js in the `nano` editor:
+**2.** Open the created `user.js` in the `nano` editor:
 ```bash
 nano user.js
 ```
 
-**3.** We copy this security configuration array and paste it in its entirety:
+**3.** Copy and paste the following security configuration array in its entirety:
 ```javascript
 // ============================================================================
 // HARDENING CONFIG FOR MOZILLA FIREFOX (USER.JS)
@@ -2913,58 +2918,58 @@ user_pref("media.gmp-manager.buildID", "");
 user_pref("media.gmp-manager.updateEnabled", false);
 ```
 
-To save the configuration in `nano`, we hit **«Ctrl + O»** → **«Enter»**, and then **«Ctrl + X»** to exit back to the terminal prompt.
+To save the configuration file in `nano`, press **`Ctrl + O`** → **`Enter`**, then **`Ctrl + X`** to exit back to the terminal prompt.
 
-If a malicious script or internal Firefox update trigger attempts to edit `user.js` to restore WebRTC or re-enable telemetry, we block access by enforcing read-only permissions at the Linux kernel level immediately following file creation:
+If an attacker, malicious script, or automatic Firefox update attempts to modify `user.js` to restore WebRTC or re-enable telemetry, defend the file by configuring read-only permissions at the Linux kernel level immediately after population:
 
-**4.** We set read-only permissions for the file owner inside the current profile directory:
+**4.** Set read-only permissions for the file owner within the profile directory:
 ```bash
 chmod 0400 user.js
 ```
 
-We effectively lock write access to this configuration file for any unprivileged process. Now, even if a user accidentally modifies a preference via the browser UI, the Gecko engine will re-read the locked `user.js` on the next reboot and forcibly restore our custom security baseline.
+This revokes write privileges to the configuration file for all processes. Even if settings are altered in the graphical user interface, the underlying Gecko engine will re-read the locked `user.js` file upon restart and re-apply these custom parameters.
 
 > [!NOTE]
-> If we need to remove `user.js` in the future to reset settings, we first restore write permissions before deleting it:
+> To delete `user.js` in the future to reset settings, restore write permissions prior to removal:
 > ```bash
 > chmod 600 ~/.config/mozilla/firefox/*-release/user.js && rm ~/.config/mozilla/firefox/*-release/user.js
 > ```
 
-We have thoroughly mapped out hardened Firefox parameters to guarantee zero unauthorized data leakage to external networks. Without executing these manual interventions, any modern browser acts as a continuous telemetry siphon tracking user movements across the web.
+These hardened Firefox settings ensure personal data is not exposed across the network. Without these modifications, default browser configurations continuously capture user activity and collect telemetry.
 
-**5.** Once all telemetry routines, trackers, and architectural attack surfaces are purged from the browser core, we shut down the application and bring our system back online. We toggle the network switch in the system tray back on, or run the final bring-up command in the terminal (replacing `enp0s1` with your actual interface name):
+**5.** Once telemetry modules, trackers, and structural vulnerabilities are neutralized in the browser core, terminate the application and reconnect the host machine. Re-enable the network toggle in the system tray or execute the following command (replacing `enp0s1` with the active interface name):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
 
-Now, instead of a tracking platform, we command a completely anonymous, encrypted, hardened terminal. Operating under uncompromising OPSEC, we can safely re-enter the web perimeter and proceed to extension deployment!
+The browser configuration is now fully hardened, anonymized, and encrypted. With strict OpSec maintained, proceed to online tasks and extension deployment.
 
 > [!IMPORTANT]
-> If, after applying `about:config` hardening, verification test suites (Browserleaks/CreepJS) continue to show a static hash for our font footprint — do not panic. This is the primary indicator that our defenses are fully operational. By restricting font visibility to level `1`, we obscured our host's unique 1xx local font stack, forcing the browser to present a generic baseline web font package. Because the input telemetry metrics are static and uniform, the site-generated hash freezes, permanently preventing anti-fraud engines from tracking unique host system artifacts. We have successfully blended into the crowd of anonymous users.
+> If testing resources (Browserleaks/CreepJS) present a static font fingerprint hash after applying these `about:config` parameters, this confirms the protection model is working correctly. Restricting font visibility to level `1` hides local host fonts and forces the browser to expose a fixed base web package. Because input metrics become static, the calculated site hash freezes, preventing anti-fraud systems from tracking unique host characteristics.
 > 
-> Some legacy hardening manuals recommend completely disabling document fonts via `browser.display.use_document_fonts = 0`. We reject this approach. That directive forcibly blocks all CSS fonts, breaking modern UI rendering and turning web icon fonts into broken square glyphs. Furthermore, completely disabling document fonts instantly flags our profile as a critical anomaly to remote threat engine scanners. Our chosen parameter, `layout.css.font-visibility = 1`, preserves complete web page functionality while isolating host local fonts from signature scanners.
+> Avoid completely disabling document fonts via `browser.display.use_document_fonts = 0`. That directive blocks CSS fonts entirely, disrupting modern interface rendering and replacing web icon fonts with missing glyph boxes. Furthermore, completely blocking document fonts marks the profile as an anomaly to anti-fraud engines. Setting `layout.css.font-visibility = 1` maintains site usability while isolating local host fonts from signature scanners.
 > 
-> During privacy verification runs, we will observe a specific architectural behavior: the system font hash remains static, while the Canvas Fingerprint shifts dynamically on every page reload. This represents the target baseline behavior of Firefox's native security core (`privacy.resistFingerprinting`). The Gecko engine deploys a dual-layer strategy: it blinds trackers to local host fonts by normalizing them to a standardized baseline, while injecting cryptographic pixel noise on the fly into Canvas streams. This noise is generated natively within the browser source code, rendering our traffic mathematically indistinguishable from millions of operational Tor Browser instances.
+> During privacy audits, the system font hash remains static while the Canvas Fingerprint shifts upon page refresh. This is the expected operation of Firefox's `privacy.resistFingerprinting` module. The Gecko engine applies a dual strategy: it standardizes font visibility while introducing cryptographic pixel noise into Canvas rendering pipelines on the fly. This noise is generated natively within the browser source code, rendering network activity mathematically indistinguishable from users of dedicated anonymity platforms (such as Tor Browser).
 > 
-> **Keep in mind that Firefox configurations evolve across software releases — parameters functional today may require adjustments after upstream updates!**
+> **Firefox configuration keys may change across versions; parameters validated in current releases may require updates in future releases.**
 
 #### Deploying Ultimate Security Extensions:
 
-Since our previously activated parameter `privacy.resistFingerprinting` (RFP) already flawlessly spoofs and masks all critical fingerprints directly at the Gecko engine source level, we only need to integrate two foundational extensions from the official Mozilla Add-ons store:
+Since the `privacy.resistFingerprinting` (RFP) parameter we previously enabled flawlessly spoofs and mitigates all key fingerprints at the Gecko engine source-code level, we only need to integrate two fundamental extensions from the official Mozilla Add-ons store:
 
-* **uBlock Origin** (developed by Raymond Hill) — `https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/`. The industry's leading blocker for ads, covert mining scripts, tracking telemetry, and malicious phishing domains. Delivers top-tier execution performance with near-zero RAM overhead.
-* **NoScript Security Suite** (developed by Giorgio Maone) — `https://addons.mozilla.org/en-US/firefox/addon/noscript/`. The ultimate mandatory access control system for JavaScript execution. It empowers users to dynamically authorize or block script execution across web assets in real time, guaranteeing absolute protection against zero-day browser exploits. **Run strictly in STRICT mode!**
+* **uBlock Origin** (by Raymond Hill) — `https://addons.mozilla.org/en-US/firefox/addon/ublock-origin/`. The industry's top blocker for advertisements, covert miner scripts, tracking domain beacons, and malicious phishing sites. It features superior performance and minimal memory consumption.
+* **NoScript Security Suite** (by Giorgio Maone) — `https://addons.mozilla.org/en-US/firefox/addon/noscript/`. The ultimate mandatory access control system for JavaScript execution. It allows users to permit or block script execution on web pages in real time, providing total protection against browser exploits. **Must be run strictly in STRICT mode!**
 
 > [!IMPORTANT]
-> Enabling `privacy.resistFingerprinting = true` forcibly sets the browser's internal timezone to neutral UTC (concealing our real geographic region), locks browser window dimensions to standard fixed resolutions (introducing distinct gray padding borders — *Letterboxing* — when maximized), and reports a generic default graphics interface to external endpoints.
+> Enabling `privacy.resistFingerprinting = true` forces the browser's timezone to UTC (hiding actual physical location), constrains the browser window to standard fixed dimensions (introducing characteristic gray padding borders—*Letterboxing*—when maximized), and reports a generic default GPU to all web resources.
 > 
-> However, if JavaScript remains fully execution-enabled on a target domain, sophisticated anti-fraud telemetry scripts can still observe subtle rendering micro-delays to infer underlying hardware profiles.
+> However, if JavaScript is fully enabled on a visited site, advanced anti-fraud scripts can still measure subtle micro-delays during interface rendering.
 > 
-> The **NoScript** extension permanently seals this attack vector: with JavaScript execution blocked on a target domain, the site is physically incapable of deploying fingerprinting collection scripts. To maintain maximum operational anonymity, disable JS execution via the NoScript dashboard across all untrusted endpoints, enabling it temporarily and granularly only on trusted, essential web assets.
+> The **NoScript** extension eliminates this vector: if JavaScript is blocked for a given domain, the site cannot execute fingerprinting scripts. To achieve maximum anonymity, disable JS via the NoScript interface by default, enabling it temporarily and selectively only on trusted, essential web resources.
 > 
-> Blocking JavaScript execution will cause heavy, highly interactive modern sites to render incorrectly or lose dynamic functions — a natural and fully justified trade-off for ultimate privacy enforcement.
+> Blocking JavaScript may cause complex modern websites to render improperly or lose interactive functionality—a necessary trade-off for absolute privacy.
 
-**Chapter Asset:** *_assets\images\9_firefox*
+**Chapter Assets:** *_assets\images\9_firefox*
 
 <br>
 
@@ -2978,114 +2983,114 @@ Unlike legacy solutions such as OpenSnitch, Portmaster enforces an out-of-the-bo
 
 #### Preparation, Initial Kernel Initialization, and Upgrading:
 
-To deploy the current release of Portmaster without triggering kernel cascades, UFW routing conflicts, or excessive CPU lockups, we execute my custom two-stage offline upgrade tactic.
+To deploy the current version of Portmaster without cascading kernel panics, UFW conflicts, and endless CPU consumption, apply my proprietary two-stage offline upgrade tactic.
 
-**1.** We launch our hardened Firefox instance and navigate to the official portal at `[https://safing.io](https://safing.io)`. We download the complete offline installer for Portmaster v2 as a `.deb` package (tailored for Debian/Ubuntu environments). Once the download finishes, we kill the Firefox process entirely.
+**1.** Open our configured Firefox browser. Navigate to the official developer website `https://safing.io`. Download the full offline installer for Portmaster v2 in `.deb` format (for Debian/Ubuntu systems). Once the download completes, close Firefox entirely.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.1_amd64.deb \\ Direct link valid as of August 26, 2026 (release date: July 17, 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.1_amd64.deb \\ Direct link valid as of August 27, 2026 (release from July 17, 2026).
 ```
 
-**2.** We spawn a terminal session on the host. We fetch the official stable legacy `.deb` package from Safing's update mirrors to instantiate baseline directory structures:
+**2.** Open the host terminal. Download the official stable `.deb` installer of the legacy version from Safing update servers to deploy the initial system structures:
 ```bash
 wget https://updates.safing.io/latest/linux_amd64/packages/portmaster-installer.deb
 ```
 
-**3.** We unpack the fetched package via `apt`. The package manager automatically resolves and pulls the critical low-level kernel dependency `libnetfilter-queue1`:
+**3.** Install the downloaded package via `apt`. The package manager will automatically supply the critical low-level dependency `libnetfilter-queue1` into the Linux kernel:
 ```bash
 sudo apt install ./portmaster-installer.deb -y
 ```
 
-**4.** As soon as unpacking finishes, we forcibly cut the OS network stack. This is mandatory for safely provisioning internal control sockets:
+**4.** Upon completion of the installation, forcibly disable the operating system's network stack. This is required for secure configuration of internal sockets:
 ```bash
 nmcli networking off
 ```
 
-We launch the Portmaster GUI through the desktop application menu (*"Show Apps"*). On initial launch, the interface triggers a critical notice: **The Portmaster Core is not running**. We hit **"START CORE SERVICE"** and enter our `root` administrative credentials in the authentication modal.
+Launch the Portmaster graphical interface via the system menu *(**"Show Apps"**)*. On the first run, the interface will present a critical alert: **The Portmaster Core is not running**. Click **"START CORE SERVICE"** and enter the `root` superuser password in the authentication popup.
 
-On the **Portmaster Protects Your Privacy** onboarding screen, we hit the blue **"Quick Setup"** button. On the subsequent **Trackers Are Blocked System-Wide** pane, we click **"Next"**.
+On the **Portmaster Protects Your Privacy** welcome screen, click the blue **"Quick Setup"** button. On the subsequent tracker blocking screen, **Trackers Are Blocked System-Wide**, click **"Next"**.
 
-Under **Secure DNS For All Connections**, we locate the **Customize** dropdown. We pick a trusted Swiss DNS endpoint from the built-in preset list (for instance, **Set Quad9**), collapse the menu, and hit **"Next"**. On the final **Learn More As You Explore** pane, we hit **"Finish"**.
+In the **Secure DNS For All Connections** section, locate the **Customize** dropdown menu. Select a reliable Swiss DNS provider from the built-in list (e.g., select **Set Quad9**). Collapse the dropdown menu and click **"Next"**. On the final screen, **Learn More As You Explore**, click **"Finish"**.
 
-In the left vertical navigation bar, we click the gear icon (**Settings**). We navigate to **Privacy Filter** and pinpoint the **Default Network Action** subsection. We switch the dropdown value from the default **Allow** state to **Prompt**. The firewall will now intercept all outbound traffic streams and request explicit operator authorization per outbound connection request.
+In the left vertical navigation bar, click the gear icon **Settings**. Navigate to the **Privacy Filter** section and locate the **Default Network Action** subsection. Change the dropdown menu setting from the default **Allow** to **Prompt**. The firewall will now block all network activity and request approval for every outgoing packet.
 
-**5.** We briefly bring the network interface back up so Portmaster can pull missing auxiliary libraries and rule sets (remembering to specify our actual network interface name):
+**5.** Briefly restore network connectivity to allow the firewall to download remaining libraries and filter lists (remember to adjust the network interface name):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
 
-**6.** As soon as initialization completes and the firewall status indicator turns solid green, we kill the host network stack once again:
+**6.** As soon as setup completes and the firewall indicator turns green, disable the network stack once again:
 ```bash
 nmcli networking off
 ```
 
 > [!IMPORTANT]
-> The architectural brilliance of this tactic lies in tricking Safing's Go runtime initialization pipeline. Attempting a raw, direct deployment of Portmaster v2 onto a machine enforcing a strict UFW Kill Switch locks up its engine due to an empty local database cache. It constantly tries to register eBPF hooks while colliding with UFW drop rules, entering a dead loop that maxes out CPU cores at 100% due to permanent sync faults.
+> The elegance of this scheme relies on bypassing the initialization pipeline of Safing's Go runtime. Attempting a direct "head-on" deployment of Portmaster v2 on a system with a strict UFW Kill Switch causes its engine to freeze due to an unpopulated local database cache. It continuously generates eBPF hooks, hits blocking UFW tables, enters a dead loop, and spikes CPU cores to 100% due to permanent synchronization errors.
 >
-> Our two-stage offline deployment permanently bypasses this bug:
->* The legacy base version (1.6.10) safely builds the target directory layout, configuration structure, and initial database skeleton inside `/opt/safing/portmaster/` offline without triggering conflicts with UFW.
->* When we subsequently apply the standalone v2 (2.2.1) package over the legacy deployment, the new engine detects the existing database layout. It attaches to the initialized base and operates alongside UFW, maintaining low CPU utilization (0–2%). Both defensive layers function in parallel without compromising the host Kill Switch configuration!
+> Our two-stage offline extraction bypasses this bug entirely:
+>* The legacy base version (1.6.10) deploys the directory structures, configuration files, and skeleton local databases under `/opt/safing/portmaster/` in an offline state without conflicting with UFW.
+>* When deploying the standalone v2 (2.2.1) package over the legacy structure, the new firewall core detects the initialized database framework. It hooks into the pre-configured baseline and operates alongside UFW in the shared network stack, consuming only 0–2% CPU resources. Both protective layers function in parallel without interference, maintaining the integrity of our Kill Switch!
 
-**7.** Maintaining complete radio silence with the network stack dropped, we switch to the terminal and navigate to the directory containing our downloaded offline package:
+**7.** While maintaining radio silence with the network disabled, open a terminal and navigate to the directory containing the full offline package:
 ```bash
 cd ~/Downloads/
 ```
 
-**8.** We deploy the offline Portmaster v2 build over the legacy base. APT automatically halts background daemons, updates binary executables, and rewrites `systemd` units without attempting to query external endpoints:
+**8.** Install the offline Portmaster v2 build over the legacy version. The APT package manager will automatically terminate background processes, update executables, and overwrite `systemd` units without attempting outbound network connections:
 ```bash
 sudo apt install ./Portmaster_*.deb -y
 ```
 
-**9.** To cleanly initialize the updated eBPF driver inside the Linux kernel, we trigger a system reboot:
+**9.** Reboot the host to properly initialize the updated eBPF driver within the Linux kernel:
 ```bash
 sudo reboot now
 ```
 > [!NOTE]
-> **Critical Note:** Upon landing on the desktop session, the firewall GUI will request authorization to establish an internal connection to the loopback interface (`localhost 127.0.0.1`). Hit **Allow** to confirm the prompt.
+> **Important note:** Upon reaching the desktop interface on initial boot, the firewall GUI will request authorization for internal connections to the local loopback interface (`localhost 127.0.0.1`). Grant this action by clicking **Allow**.
 
-**10.** To ensure compatibility with Firefox, we temporarily unlock the write permissions on its configuration payload to modify its DNS resolver behavior:
+**10.** To ensure full functionality for Firefox, temporarily remove the strict read-only lock from its configuration file to modify the DNS resolver operational mode:
 ```bash
 chmod 600 ~/.config/mozilla/firefox/*-release/user.js
 ```
 
-**11.** We open `user.js` in the `nano` terminal editor:
+**11.** Open `user.js` using the `nano` terminal editor:
 ```bash
 nano ~/.config/mozilla/firefox/*-release/user.js
 ```
 
-**12.** We locate section **16. DNS HARDENING, SNI ENCRYPTION, AND CRITICAL DoH MODE**. We adjust the low-level parameter `network.trr.mode` from value `3` (isolated mode) back to default **`0`**:
+**12.** Locate block **16. DNS PROTECTION, NAME ENCRYPTION, AND ENFORCED DoH MODE**. Change the value of the low-level parameter `network.trr.mode` from the isolated value `3` to the default **`0`**:
 ```javascript
 user_pref("network.trr.mode", 0);
 ```
 > [!NOTE]
-> **Author's Infosec Analysis:** Flipping this parameter to `0` completely kills Firefox's standalone DoH engine. The browser stops trying to punch through the network with isolated encrypted queries, which Portmaster v2 flags as potential telemetry leaks and drops by default. Firefox now hands DNS requests directly to the host OS, where Portmaster's eBPF hooks immediately intercept, filter, and encrypt them host-wide.
+> **Author's OpSec Analysis:** Setting this parameter to `0` disables Firefox's standalone DoH engine. The browser ceases sending independent encrypted requests, which Portmaster v2 flags as traffic leaks and blocks by default. Firefox then routes DNS queries through the host operating system, where they are intercepted by Portmaster eBPF hooks, evaluated against active filters, and encrypted host-wide.
 
-To save changes in `nano`, hit **"Ctrl + O"** → **"Enter"**, then **"Ctrl + X"** to exit back to the shell prompt.
+To save changes in `nano`, press **`Ctrl + O`** → **`Enter`**, followed by **`Ctrl + X`** to exit the editor.
 
-**13.** We re-apply strict read-only permissions on `user.js` to protect it against unauthorized tampering by extensions, browser updates, or malware:
+**13.** Lock the `user.js` file against unauthorized modifications by the browser, updates, or malware:
 ```bash
 chmod 0400 ~/.config/mozilla/firefox/*-release/user.js
 ```
 
-**14.** To keep our filesystem clean, we purge the residual `.deb` installer artifacts from our local folder:
+**14.** Remove the installation `.deb` packages from the local directory to prevent digital clutter:
 ```bash
 rm ~/Downloads/Portmaster_*.deb && rm ~/portmaster-installer.deb
 ```
 
-**15.** We restore the system network stack to operational status. To ensure the link comes up cleanly (since automatic connection toggles may be disabled in Ubuntu network settings), we run NetworkManager to force-activate our target interface in a single command chain (replacing `enp0s1` with your actual interface identifier):
+**15.** Re-enable the operating system network stack. To ensure the link connects (if "Connect automatically" is disabled in Ubuntu settings), launch NetworkManager and activate the target interface using a single command string (replacing `enp0s1` with the active interface name):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
 
 > [!TIP]
-> Daily-driver, trusted applications (such as our hardened Firefox build) can be assigned permanent outbound network access authorization. 
+> Trusted daily applications (such as our locked Firefox browser) can be granted persistent network permissions.
 > 
-> To configure persistent rules, launch Firefox. Look up at the top GNOME system status panel (next to the clock, keyboard layout, and network tray) and click the Portmaster indicator icon. In the compact status menu, hit **Open App**. 
+> Launch Firefox. Navigate to the top GNOME system toolbar (displaying the clock, keyboard layout, and network status) and click the Portmaster icon. In the compact status menu, click **Open App**.
 > 
-> This opens the interactive network activity monitor, displaying the active Firefox browser process in the left application column. Click it, navigate to the internal **Settings** tab, scroll down to **Privacy Filter** → **Default Network Action**, and switch the strict default **Prompt** rule to **Allow**.
+> This opens an interactive network activity monitor displaying the active Firefox process icon in the left panel. Click the icon, navigate to the **Settings** tab, scroll to **Privacy Filter** → **Default Network Action**, and change the default value from **Prompt** to **Allow**.
 > 
-> Using this operational workflow, we can grant permanent access permissions, toggle "Prompt on demand" mode, or block any system service, Docker container, or user utility in our OS directly from the system tray in a single click.
+> Using this workflow, persistent permissions can be granted, set to "Prompt," or revoked for system services, Docker containers, and user utilities directly from the taskbar.
 
-**Chapter Asset:** *_assets\images\10_portmaster*
+**Chapter Assets:** *_assets\images\10_portmaster*
 
 <br>
 
@@ -3093,140 +3098,141 @@ nmcli networking on && nmcli connection up netplan-enp0s1
 
 #### Introduction:
 
-We will break down step-by-step how the `shred` and `wipe` utilities physically overwrite data bytes on storage media, defending our host against forensic analysis if a device is physically compromised. However, defensive engineering goes beyond local disk perimeters. We must enforce a strict operational security baseline: **every file leaving your host and entering external networks must be completely sterile**.
+We will dissect how the `shred` and `wipe` utilities physically overwrite bytes on a storage drive, protecting our host from forensic analysis in the event of device loss or seizure. However, engineering security does not end at the perimeter of your local disk. We must enforce an ironclad rule of operational hygiene: **every file leaving your system and transmitting across the network must be completely sterile**.
 
 #### Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:
 
-Most operators commit a fatal mistake: assuming a text document, a screenshot of firewall rules, or a rendered image contains only what is visible to the eye. This assumption is dangerous.
+Most users make a fatal mistake. They assume that creating a text document, taking a screenshot of firewall settings, or editing an image in a graphics editor results in a file containing only what is visible to the eye. This is a dangerous misconception.
 
-Every file acts as a "Trojan Horse", carrying a hidden payload of operational telemetry known as **metadata** (EXIF tags in imagery, document attributes in PDF and Office files). Publishing a file online, transmitting it via messaging channels, or pushing it to GitHub voluntarily leaks critical host intelligence to trackers and adversary nodes:
+Every file acts as a "Trojan horse," carrying a hidden array of service information known as **metadata** (EXIF tags for images, document properties for PDF and Office files). Publishing such a file online, transmitting it via a messenger, or uploading it to GitHub voluntarily hands trackers and potential adversaries the following data points:
 
-* **Timestamps:** Precise creation and modification timestamps down to the second. Threat analysts leverage these metrics to calculate host time zones and map operational uptime schedules.
-* **Software Footprint:** Unique application identifiers (UUIDs), build numbers, and text or graphics editor signatures. This enables an adversary to profile installed host software for known vulnerabilities.
-* **Host Telemetry:** Metadata entries frequently log system username identifiers, hostname descriptors, and active OS kernel builds.
-* **Geospatial Telemetry:** Photos captured via smartphones or GPS-enabled sensors embed exact geospatial coordinates within the file structure.
+* **Timestamp Markers:** Precise seconds of file creation and last modification. Analysts can leverage these to calculate your actual physical time zone and build a profile of your daily activity schedule.
+* **Software Environment Footprints:** Unique program identifiers (UUIDs), as well as specific graphic or text editor versions. This enables an attacker to immediately identify software vulnerabilities suitable for profiling your system.
+* **Host Identification:** Metadata frequently preserves your local system account username, computer hostname, and kernel build versions.
+* **Geolocation:** Attaching a photograph taken with a smartphone or a GPS-enabled camera embeds precise geographic coordinates of the capture location down to the meter.
 
-For OSINT researchers and target acquisition teams, metadata scraping is the lowest-hanging fruit for host deanonymization. You can deploy a hardened Ubuntu workstation wrapped in an encrypted VPN and UFW Kill Switch, but releasing a single unsterilized screenshot immediately links your online persona to your real-world digital fingerprint.
+For OSINT specialists or adversaries, collecting metadata represents the initial and easiest step toward de-anonymization. You can construct an impenetrable fortress around Ubuntu using a Kill Switch and encrypted VPN tunnels, yet a single screenshot of "successful configurations" shared without prior sanitization immediately links your network identity to your physical profile.
 
 > [!IMPORTANT]
-> The `shred` and `wipe` mechanics detailed below handle file **destruction** on local storage volumes. However, they provide zero protection if an unsterilized payload has already reached a remote server!
+> The `shred` and `wipe` mechanisms evaluated below address file **destruction** on your local storage media. However, they are entirely ineffective once a file has been transmitted to a remote server!
 > 
-> Before initiating any upload or transfer command, every file must undergo a full sanitization pass. In Linux environments, the industry standard for metadata removal is `mat2` (Metadata Anonymisation Toolkit 2). Rather than simply clearing tags, `mat2` strips and reconstructs file containers from scratch to output a clean duplicate free of historical artifacts.
+> Prior to executing a "Send" or "Upload" action, files must undergo total sanitization. Within Linux environments, the industry standard for this task is `mat2` (Metadata Anonymisation Toolkit 2). Rather than merely stripping tags, it reassembles the underlying file structure from scratch, generating a pristine duplicate stripped of historical data.
 
 #### Installing and Sanitizing Metadata with MAT2:
 
-`mat2` is written in Python, executes entirely on the local host, and requires zero external API queries (which would introduce severe operational risks).
+The utility is written in Python, runs completely locally, and requires no file transmission to third-party online services (which would constitute a severe security breach in itself).
 
-**1.** We install the standalone `mat2` CLI binary from the official Ubuntu repositories:
+**1.** Install the clean CLI version of `mat2` from the official Ubuntu repository:
 ```bash
 sudo apt install mat2 -y
 ```
 
-**2.** Prior to sanitizing a file, we can inspect its underlying metadata parameters to identify embedded host artifacts. We command the utility to parse and log all hidden tags (e.g., within a local screenshot):
+**2.** Prior to cleaning a file, inspect its contents to examine what hidden metadata is embedded. Command the utility to display all hidden metadata (for example, within a screenshot):
 ```bash
 mat2 --show screenshot.png
 ```
-The terminal outputs a detailed telemetry audit: ranging from graphics engine builds to exact screenshot timestamp markers.
+The terminal will display a detailed log ranging from graphics editor versions to the exact date and timestamp of the screenshot creation.
 
-Next, we proceed with data sanitization. By default, `mat2` enforces a safe operational posture — it preserves the target source asset and generates a sterile duplicate bearing the `.cleaned` file suffix.
+Proceed to data sanitization. By default, `mat2` operates in a fail-safe mode: it preserves the original file and generates a sterile copy alongside it appended with the `.cleaned` suffix.
 
-**3.** We sanitize an isolated document or image asset:
+**3.** Sanitize a single document or image:
 ```bash
 mat2 screenshot.png
 ```
-This generates `screenshot.cleaned.png` in the local working directory. This sterile payload is safe for network transmission. If the source asset is no longer required, we immediately burn it via `shred` (commands detailed below).
+A new file named `screenshot.cleaned.png` will be generated alongside the original. This sanitized file is safe for network transmission. If the original file is no longer required, destroy it immediately using `shred` (commands detailed below).
 
-**4.** To sanitize an entire folder of reports, screenshot captures, or log archives prior to deployment, we invoke batch processing mode across the target directory:
+**4.** To sanitize an entire folder containing reports, screenshots, or logs prior to transmission, execute batch processing across all files in the designated directory:
 ```bash
 mat2 /PATH-TO-FOLDER/*
 ```
 
-**5.** For high-security environments where unsterilized source files must not persist on disk even temporarily, we enforce inline sanitization by passing the `-inplace` flag (overwriting the target assets in place):
+**5.** For high-security requirements where original files must not persist on disk, enforce in-place overwriting using the `--inplace` flag:
 ```bash
 mat2 --inplace screenshot.png
 ```
-**6.** We execute inline metadata sanitization across all files within a target directory structure:
+
+**6.** Perform in-place metadata sanitization across all files within a directory:
 ```bash
 mat2 --inplace /PATH-TO-FOLDER/*
 ```
 
 > [!IMPORTANT]
-> Passing the `--inplace` parameter permanently destroys the original source metadata. If original creation timestamps are required for local archival records, operate strictly in default mode to produce `.cleaned` asset duplicates.
+> When executing the `--inplace` flag, acknowledge that original metadata is permanently removed from the source file. If maintaining original document timestamps is critical for internal archiving, utilize the default mode to generate `.cleaned` duplicates.
 
-With our files sanitized of digital host signatures, operational telemetry leaks are blocked. But how do we handle residual working assets, draft buffers, and temp files remaining on our encrypted LVM volumes? We now deploy physical data destruction tools to purge residual blocks from the filesystem.
+With files fully anonymized and stripped of digital tracking markers, external transmission risks are mitigated. To handle remaining operational sources, drafts, and temporary artifacts residing on the encrypted LVM drive, proceed to the tools designed for complete physical destruction within the file system.
 
 #### Secure and Irreversible File and Directory Destruction:
 
-For irreversible data wiping of confidential directories and files, we deploy the specialized `wipe` CLI tool, which overwrites targeted sectors using multi-pass wiping algorithms. Alternatively, Linux distributions include the native `shred` utility out of the box; `shred` reliably sanitizes raw files but cannot natively traverse directory structures.
+To securely erase private data, directories, and files beyond recovery, use the specialized CLI utility `wipe`, which overwrites information using complex multi-pass algorithms. Alternatively, the standard built-in utility `shred` reliably sanitizes individual files, though it lacks native architectural support for directory structures.
 
 > [!IMPORTANT]
-> **Critical Operational Note on Solid State Drives (SSDs):** 
-> On modern SSD storage media, utilities like `shred` and `wipe` do not guarantee 100% block-level physical data destruction at the flash cell layer. Wear Leveling algorithms on the storage controller dynamically reassign write operations across physical NAND flash addresses to manage drive endurance. Furthermore, executing high-pass legacy overwrites (such as 35-pass Gutmann patterns) unnecessarily degrades the drive's total bytes written (TBW) lifecycle.
+> **Author's Critical Note on Solid-State Drive Operations:**
+> On modern Solid-State Drives (SSDs), utilities such as `shred` and `wipe` do not guarantee 100% physical data erasure at the NAND cell level. This limitation stems from internal controller **Wear Leveling** algorithms, which dynamically distribute write operations across varying physical flash memory addresses to extend drive longevity. Furthermore, executing high pass counts (such as the 35-pass Gutmann method) needlessly degrades an SSD's total bytes written (TBW) endurance.
 > 
-> Because our Ubuntu host is fully encrypted at the kernel layer using LUKS, executing 1–3 overwrite passes is technically sufficient for secure asset destruction on an SSD. Once file metadata pointers within an encrypted volume are overwritten, recovering underlying blocks outside the active LUKS container becomes mathematically impossible — residual flash cell fragments remain inaccessible as encrypted noise.
+> Because the underlying Ubuntu system is fully encrypted at the kernel level using LUKS, 1 to 3 overwrite passes are sufficient to permanently neutralize data on an SSD. Once a file's metadata inside the encrypted volume is overwritten, recovering leftover data blocks from floating SSD cells becomes mathematically impossible outside the decrypted LUKS container, as unlinked blocks remain rendered as unreadable cryptographic noise.
 
-We open a terminal session and execute the following deployment sequence:
+Open the terminal and execute the following steps:
 
-**1.** We install the destructive data purging utility `wipe`:
+**1.** Install the data destruction utility `wipe`:
 ```bash
 sudo apt install wipe -y
 ```
 
-**2.** We recursively purge a target folder along with its complete file tree (replace the `FOLDERNAME` placeholder with your target directory path):
+**2.** Recursively purge a target directory along with all contained subitems (replace the `FOLDERNAME` placeholder with the target directory name):
 ```bash
 wipe -rfi FOLDERNAME
 ```
 
-The `-r` flag enforces recursive directory traversal, `-f` suppresses interactive confirmation prompts, and `-i` activates verbose progress telemetry to report sector overwriting status.
+The `-r` flag enables recursive operation, `-f` suppresses confirmation prompts, and `-i` activates verbose interactive mode to monitor sector overwrite progress.
 
-**3.** We execute destructive sanitization across all files in the current working directory (**Deploy with extreme caution!**):
+**3.** Initiate destruction of all files within the active terminal directory (**Execute with caution!**):
 ```bash
 sudo shred -v -u -z -n 3 *
 ```
 
 > [!WARNING]
-> **Warning!** Using the wild-card glob operator `*` in Linux introduces potential execution risks. The `*` character is expanded directly by the host shell. If the target directory contains nested subdirectories, `shred` fails on those paths, throws a system error: *"shred: failed to open for writing: Is a directory"*, and may abort execution of subsequent targets.
+> **Warning!** Using the wildcard operator `*` in Linux carries operational risk. The `*` character is expanded by the shell prior to command execution. If nested subdirectories exist within the active path, `shred` will encounter them, throw a system error (*"shred: failed to open for writing: Is a directory"*), and potentially abort the execution chain prematurely.
 > 
-> To ensure execution safety, we combine `shred` with the `find` utility:
+> To ensure deterministic execution, couple the command with the `find` utility:
 
-**4.** We safely isolate and destroy files exclusively on the top level of the current directory without triggering errors on subfolder structures:
+**4.** Safely purge all regular files limited strictly to the current working directory level without altering nested folder structures:
 ```bash
 find . -maxdepth 1 -type f -exec shred -v -u -z -n 3 {} \;
 ```
 
-**5.** We securely destroy a specific isolated file target (replace the `FILENAME` placeholder with the exact filename, maintaining case sensitivity and file extension):
+**5.** Permanently destroy a specific isolated file (replace the `FILENAME` placeholder with the exact case-sensitive filename and extension):
 ```bash
 shred -v -u -z -n 3 FILENAME
 ```
 
 #### Operational Parameters for the shred Utility:
 
-* **`-v`** (*verbose*) — Displays real-time progress metrics in the terminal console.
-* **`-u`** (*unlink*) — Automatically unlinks and deletes the target file entry after completing overwrite operations.
-* **`-z`** (*zero*) — Executes a final overwrite pass using pure zeroes to mask data destruction footprints.
-* **`-n 3`** — Specifies the exact number of overwrite passes (setting `3` passes provides an optimal balance of security and SSD longevity).
+* **`-v`** (*verbose*) — Display real-time progress of the operation within the console output.
+* **`-u`** (*unlink*) — Forcefully truncate and remove the file from the file system, clearing its filename entry after successful overwrite passes.
+* **`-z`** (*zero*) — Perform a final pass with zeroes to conceal the fact that data wiping took place.
+* **`-n 3`** — Specify the exact number of overwrite passes (for SSD storage media, set a safe and sufficient count of 3).
 
 > [!IMPORTANT]
-> By default, Ubuntu formats storage volumes using the Ext4 filesystem with data journaling enabled (`data=ordered`). Consequently, file metadata and payload blocks pass through a hidden system journal (`journal`) prior to being committed to primary storage sectors. Tools like `shred` and `wipe` overwrite target payload addresses on disk but cannot reach transient copies stored in Ext4 journal buffers (as explicitly documented in `man shred`).
+> By default, Ubuntu operates on the Ext4 file system with active block journaling (`data=ordered`). This mechanism records file metadata and structural fragments into a hidden system journal prior to committing physical drive writes. While utilities like `shred` and `wipe` overwrite a file at its current physical address, they cannot reach leftover data copies residing inside the Ext4 journal—a limitation explicitly highlighted in the official system manual (`man shred`).
 > 
-> Full-disk LUKS encryption mitigates this issue because the underlying Ext4 journal resides within the encrypted LUKS container. However, when sanitizing files on unencrypted external Ext4 drives, note that residual data blocks may linger within the drive's system journal.
+> Full-disk LUKS encryption completely mitigates this vulnerability (as the Ext4 journal itself resides inside the encrypted LUKS container). However, when wiping files on an external unencrypted Ext4 flash drive, remain aware that fragments of deleted files may persist within its system journal.
 
 #### Global Wiping of Unallocated Disk Space:
 
-If an operating system has been in service for an extended period and confidential files were deleted via standard file manager methods (such as moving items to **Trash** via the **Delete** key), unallocated space across the drive may hold un-overwritten data blocks. To purge previously deleted file artifacts across an SSD simultaneously, we deploy the `secure-delete` tool suite:
+If the operating system has been running for an extended period and sensitive files were deleted using standard graphical methods (pressing **Delete** to move items to the Trash), a vast amount of non-overwritten residual traces remains on the storage device. To permanently eliminate all previously deleted files on an SSD simultaneously—without waiting for random OS overwrites—deploy the specialized `secure-delete` package:
 
-**1.** We install the `secure-delete` utility suite:
+**1.** Install the secure deletion utility suite:
 ```bash
 sudo apt install secure-delete -y
 ```
 
-**2.** We execute a complete wiping pass across unallocated space on the host root system partition:
+**2.** Initiate total sanitization of unallocated space on the current system partition:
 ```bash
 sudo sfill -v -z -l /
 ```
 
 > [!NOTE]
-> Passing the `-l` (*low security*) flag reduces the pass count to two overwrites. This preserves SSD write endurance while populating free storage blocks, system journals, temp folders, and log structures with random data and trailing zeroes.
+> The `-l` (*low security*) parameter reduces the overwrite process to two optimal passes. This significantly preserves SSD endurance while guaranteeing that all free disk space—including residual fragments in hidden system journals, temporary directories, and logs—is populated with random data and final zeroes.
 
 <br>
 
@@ -3234,174 +3240,175 @@ sudo sfill -v -z -l /
 
 #### Introduction:
 
-Once metadata has been sanitized using `mat2` and transient artifacts permanently destroyed via `shred` or `wipe`, our focus shifts to the next operational goal: transmitting or storing critical intelligence while keeping the mere existence of the data completely covert.
+Once metadata is sanitized using `mat2` and temporary files are guaranteed destroyed via `shred` or `wipe`, the next challenge emerges: how to transmit or store critical information so that the very fact of its existence remains deeply hidden.
 
-Under aggressive state censorship and pervasive network surveillance, deploying raw cryptographic payloads often triggers monitoring systems, as encrypted files appear as suspicious "digital noise." To counter this, we deploy steganography (embedding data inside benign cover objects) and obfuscation (scrambling information structures).
+Under conditions of severe state censorship and pervasive network surveillance, simple data encryption frequently attracts unwanted attention from monitoring systems, as an encrypted file presents itself as suspicious "digital noise." To mitigate this issue, deploy steganography (embedding data within secondary carrier objects) and obfuscation (scrambling information) techniques.
 
 #### Linux Steganography: Concealing Files Within Media Content:
 
-Steganography allows us to embed deep inside an innocent container file (such as a photo or an audio track). The cover asset retains full functional integrity, opens seamlessly in native media players, and remains visually indistinguishable from the original source.
+Steganography enables deep embedding within an innocuous container file (such as a photo or audio recording). The cover file maintains full functionality, opens cleanly in standard media players, and remains visually indistinguishable from the original.
 
 > [!IMPORTANT]
-> Our cover file must be an authentic, high-quality asset of adequate size. Injecting hidden payload data into undersized containers creates anomalous file size-to-resolution ratios that attract forensic scrutiny.
+> The cover file must be genuine, high-quality, and sufficiently large. Otherwise, injecting secret payloads introduces anomalous discrepancies between the image's physical file size and its visual resolution, triggering suspicion during analysis.
 
 #### The steghide Command-Line Utility:
 
-We start with a classic toolchain component. `steghide` is a lightweight CLI utility available directly from the official Ubuntu repositories. It integrates seamlessly into our bash scripts (for example, to quietly exfiltrate security logs). The utility supports payload embedding within JPEG, BMP, WAV, and AU containers, relying on resilient AES-256 encryption by default.
+Start with the classic approach. `steghide` is a fully command-line utility residing in the official Ubuntu repositories. It is ideal for automation within bash scripts (for example, covertly backing up security logs). The utility embeds data into JPEG, BMP, WAV, and AU file formats using robust AES-256 encryption by default.
 
-**1.** We install the package in a single command:
+**1.** Install the package using a single command:
 ```bash
 sudo apt update && sudo apt install steghide -y
 ```
 
-**2.** We embed our secret file `secret.txt` inside a target image `photo.jpg`:
+**2.** Hide the secret file `secret.txt` inside a regular image `photo.jpg`:
 ```bash
 steghide embed -cf photo.jpg -ef secret.txt
 ```
-**3.** We purge the remaining `secret.txt` source payload left outside our steganographic container:
+
+**3.** Permanently remove the original `secret.txt` file remaining outside the steganographic container:
 ```bash
 shred -v -u -z -n 3 secret.txt
 ```
 
-The system will prompt for a strong passphrase. The output `photo.jpg` file remains visually identical to its pre-processed state.
+The system will prompt for and confirm a strong passphrase. The resulting `photo.jpg` file remains visually identical to its original state.
 
-**4.** To extract hidden payload contents from the container, we execute:
+**4.** To extract the hidden payload from the container, execute:
 ```bash
 steghide extract -sf photo.jpg
 ```
 
-We supply the secret passphrase configured during the embedding phase, and the utility instantly unpacks the source file back to disk.
+Enter the secret passphrase defined during creation to extract the original file back to disk.
 
 > [!IMPORTANT]
-> The `steghide` utility operates strictly on legacy formats: **JPEG, BMP, WAV, and AU**. Attempting to pass modern formats like **PNG** or **MP3** will result in an operational error. This stems from underlying compression mechanics:
-> * PNG uses lossless compression. The embedding techniques used by `steghide` break PNG optimization structures, causing abnormal file size growth that flags covert channel activity.
-> * MP3 employs lossy compression. The MP3 compression pipeline treats covert bit modifications within the audio stream as unwanted noise, stripping payload data during playback or transcoding.
+> The `steghide` utility operates exclusively with legacy formats: **JPEG, BMP, WAV, and AU**. Attempting to process modern formats like **PNG** or **MP3** will fail. This limitation stems from format-specific compression mechanics:
+> * PNG uses lossless compression. The `steghide` embedding method disrupts the PNG optimization algorithm, resulting in anomalous file size growth that reveals the covert channel.
+> * MP3 uses lossy compression. The MP3 algorithm treats data embedded within audio stream bits as "extraneous digital noise" and strips it during playback or conversion.
 
 #### Stealth Concealment via the Advanced StegoForge Tool:
 
-StegoForge is a versatile dual-use framework built for both Red and Blue Team operations. It enables operators to embed data covertly into media files and inspect suspicious containers using integrated detection modules.
+StegoForge is a dual-use (Red/Blue Team) framework designed both for covertly embedding payloads into media files and detecting hidden containers using integrated forensic analysis algorithms.
 
-Unlike legacy utilities limited to basic image embedding, this framework provides multi-container support:
+Unlike legacy single-format tools, this framework features multi-container support:
 
-* Images: Data injection via classic LSB, adaptive LSB, and JPEG DCT coefficient manipulation. Supports PNG, JPG/JPEG, BMP, and additional formats.
-* Audio: Payload encoding into spectrograms or psychoacoustic masking within PCM streams (frequencies imperceptible to the human ear). Supports WAV, FLAC, MP3, and more.
-* Video: Motion vector modification within MP4 and WebM streams. Supports AVI, MKV, MOV, and related codecs.
-* Documents: Payload embedding within XML structures, incremental PDF update objects, font-spacing tweaks, and invisible glyphs. Supports DOCX, PDF, PPTX, and other office formats.
-* Network Packets: Covert data encapsulation within unused header fields of network protocols (e.g., TCP/IP) embedded in PCAP trace files.
+* **Images:** Data injection via classic LSB, adaptive LSB, and DCT coefficient manipulation in JPEG. Supports PNG, JPG/JPEG, BMP, and other formats.
+* **Audio:** Writing payload data to spectrograms or leveraging psychoacoustic masking within uncompressed PCM formats (audio frequencies imperceptible to the human ear). Supports WAV, FLAC, MP3, and others.
+* **Video:** Motion vector modification within MP4 and WebM streams. Also supports AVI, MKV, MOV, and others.
+* **Documents:** Injecting data directly into XML structures, utilizing incremental updates and undocumented objects within PDF files, as well as manipulating line spacing and invisible fonts. Supports DOCX, PDF, PPTX, and others.
+* **Network Packets:** Concealing data within unallocated protocol header fields (e.g., TCP/IP) contained in network capture files (PCAP).
 
-The framework is engineered to bypass 11 advanced stegananalysis detection engines integrated into its testing suite. These include statistical evaluation (Chi-square testing, RS analysis), signature scanning routines, and deep neural networks (ONNX-formatted CNN models) trained to detect spatial file anomalies. To remain undetected by all 11 evaluation engines, the framework leverages adaptive embedding algorithms. Instead of sequential bit modification, payload data is distributed across dynamic regions of the container. Data is written exclusively to high-entropy areas (such as noisy image regions or high-motion video frames) where modifications introduce minimal variance to the overall statistical footprint. If the container's histogram remains neutral, statistical and neural engines return a status of "Payload not detected".
+The framework is engineered to defeat 11 advanced steganalysis modules built directly into its engine for resilience testing. These include statistical evaluation (Chi-square test, RS analysis), signature scanning engines, and convolutional neural networks (ONNX CNN models) trained to detect spatial anomalies in files. To bypass all 11 detection engines, the framework applies adaptive embedding algorithms: rather than writing bits sequentially, payload data is distributed unevenly across the container. Bits are allocated exclusively to noisy image regions or high-motion video frames where modifications exert minimal impact on overall file statistics. Maintaining an un-altered statistical histogram ensures neural and mathematical detection modules return a "No Payload Detected" status.
 
-Data security does not rely solely on hiding the steganographic algorithm. Should a container be identified, adversaries encounter robust cryptographic layers:
+Payload security relies on cryptography rather than algorithm secrecy. If a container file is discovered, adversaries encounter robust cryptographic defenses:
 
-* Encryption: All target payloads are encrypted prior to embedding using symmetric AES-256 in GCM mode, guaranteeing confidentiality alongside cryptographic authentication.
-* Key Derivation: User passphrases are processed into cryptographic keys using the memory-hard Argon2 function, mitigating brute-force attacks.
-* Plausible Deniability: StegoForge supports dual-key generation for a single container. Supplying a false key extracts harmless bait text, while the authentic operational key unlocks the true hidden payload.
+* **Encryption:** All payloads are encrypted using AES-256 in GCM mode prior to embedding, ensuring confidentiality and data authenticity.
+* **Key Derivation:** User passphrases are transformed into cryptographic keys using the memory-hard Argon2 function, neutralizing brute-force attempts.
+* **Plausible Deniability:** The utility supports generating two distinct decryption keys for a single container. The decoy (false) key extracts an innocuous text payload, whereas the primary (true) key unlocks the authentic hidden file.
 
-**1.** We fetch the application binary from `github.com`:
+**1.** Download the application binary from the `github.com` repository:
 ```bash
 wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-linux-x86_64
 ```
 
-**2.** We create a local binary directory, relocate the executable, assign execution permissions, and export the directory path to our shell environment:
+**2.** Create a directory for local user binaries, move the executable file, grant execution permissions, and update system PATH settings:
 ```bash
 mkdir -p ~/.local/bin && mv ~/stegoforge-linux-x86_64 ~/.local/bin/stegoforge && chmod +x ~/.local/bin/stegoforge && grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
-**3.** We launch the utility:
+**3.** Launch the framework executable:
 ```bash
 stegoforge
 ```
 
-Upon launching `stegoforge`, an interactive console menu initializes:
+Upon launching `stegoforge`, the primary console menu renders:
 
-* 1 — Encode ........ Hide an encrypted payload inside a target container asset.
-* 2 — Decode ........ Extract and decrypt a hidden payload.
-* 3 — Detect ........ Audit a target file for hidden data.
-* 4 — CTF Mode ...... Run all integrated detection engines and generate a forensic report.
-* 5 — Capacity ...... Calculate maximum payload capacity for a target container.
-* 6 — Web UI ........ Launch a local browser-based graphical interface.
-* 7 — Survival ...... Test payload resilience against platform re-encoding or conversion.
-* 8 — Dead Drop ..... Tools for dead drop exchanges and key management.
-* 9 — Update ........ Check GitHub for recent releases and apply updates.
-* d — Diff .......... Compare original and modified assets, including pixel heatmap rendering.
-* b — Batch ......... Execute automated payload embedding across a directory of containers.
-* q — Quit .......... Exit the StegoForge interface.
+* 1 — Encode ........Hide an encrypted payload inside a selected container file.
+* 2 — Decode ........Extract and decrypt a hidden payload.
+* 3 — Detect ........Inspect a file for suspected steganographic payloads.
+* 4 — CTF Mode ......Run all available detection engines and generate a detailed forensic report.
+* 5 — Capacity ......Calculate the maximum payload capacity supported by a container file.
+* 6 — Web UI ........Launch a local web interface for browser-based operations.
+* 7 — Survival ......Test payload survival against platform processing and container conversions.
+* 8 — Dead Drop .....Dead drop tools and key exchange utilities.
+* 9 — Update ........Check GitHub for upstream releases and perform an in-place upgrade.
+* d — Diff ..........Compare original and modified container files, including pixel heatmap visualizations.
+* b — Batch .........Perform payload embedding across multiple container files in a directory.
+* q — Quit ..........Exit StegoForge.
 
-For operators deploying StegoForge for the first time, use this functional workflow reference:
+Reference this structural guide for routine operational workflows:
 
-* Need to hide a payload file → 1 Encode
-* Need to extract a hidden file → 2 Decode
-* Need to audit a suspicious file → 3 Detect
-* Need to execute forensic analysis → 4 CTF Mode
-* Need to assess storage capacity → 5 Capacity
-* Bypassing the terminal interface → 6 Web UI
-* Need to inspect visual differences → d Diff
-* Need to process batch files → b Batch
+* Embed a file → 1 Encode
+* Extract an embedded payload → 2 Decode
+* Scan a suspicious file → 3 Detect
+* Execute full forensic analysis → 4 CTF Mode
+* Determine container capacity → 5 Capacity
+* Operate outside the terminal → 6 Web UI
+* Compare original and modified files → d Diff
+* Process multiple files in bulk → b Batch
 
 > [!TIP]
-> To streamline complex StegoForge workflows, we recommend deploying the built-in Web UI. It provides a clean graphical interface for primary operations, eliminating the need to memorize CLI parameters. The Web UI runs strictly on the loopback interface, binding exclusively to `[http://127.0.0.1:5000/](http://127.0.0.1:5000/)`.
+> To streamline operations with StegoForge, utilize the Web UI. It supplies a graphic interface covering core framework utilities while eliminating manual parameter entry. The Web UI runs locally and binds strictly to `http://127.0.0.1:5000/`.
 > 
-> To launch the web panel, open a terminal and execute:
+> To launch the interface, open a terminal and execute:
 > ```bash
 > stegoforge
 > ```
 > 
-> In the menu, select option six (6 — Web UI). Once initialized, navigate to `[http://127.0.0.1:5000/](http://127.0.0.1:5000/)` in your local browser.
+> Within the console menu, select option 6 (6 — Web UI). Once initialized, open `http://127.0.0.1:5000/` in your browser.
 
 #### Archive Concatenation (Quick Hack Without Third-Party Software):
 
-This technique leverages fundamental differences in binary file structures. Most image viewers parse data starting from the file header (beginning of the file), whereas archive tools parse data starting from the end of the file container. We can concatenate both file formats into a single asset using native terminal commands.
+This method leverages the structural properties of binary files. Most image viewers parse files from the beginning, whereas archive managers process structure strictly from the end of the file. Merge both components physically using the host terminal.
 
-**1.** We bundle our target documents into an encrypted ZIP archive:
+**1.** Pack secret documents into an encrypted ZIP archive:
 ```bash
 zip -e secret.zip secret.txt
 ```
 
-**2.** We merge the cover image and the encrypted archive into a unified file using `cat`:
+**2.** Concatenate the cover image and the archive into a single target file using `cat`:
 ```bash
 cat cat.jpg secret.zip > final_photo.jpg
 ```
 
-* **Hardening Verification:** Opening `final_photo.jpg` via standard desktop image viewers renders the original cover photo normally.
-* **Payload Extraction:** Right-click the file ➔ *Open With "Archive Manager"* (or run `unzip final_photo.jpg` in terminal). The extraction tool bypasses leading image bytes and reads the archive structure from the end of the container file!
+* **Hardening Outcome:** Opening `final_photo.jpg` via standard GUI file managers renders the original cat image cleanly.
+* **Extraction Workflow:** Right-click the file ➔ *Open With "Archive Manager"* (or execute `unzip final_photo.jpg` directly in the terminal). The archive utility skips leading image bytes, reading and extracting the hidden archive structure from the end of the file.
 
 #### Text Obfuscation: Bypassing Automated Inspection Systems (DPI):
 
-Automated traffic monitoring systems and Deep Packet Inspection (DPI) engines continuously scan network streams, message traffic, and uploaded files for forbidden keywords or static signatures. Altering underlying text encoding structures enables operators to bypass signature matching filters.
+Automated monitoring systems and Deep Packet Inspection (DPI) appliances continuously scan network traffic, communications, and files for stop-words or prohibited signature markers. Altering text structure enables bypassing automated signature-based filtering mechanisms.
 
-* **Homoglyph Substitution:** Replacing standard ASCII characters with visually identical Unicode glyphs breaks automated pattern matching. For instance, Cyrillic `С` and Latin `C` render identically to human operators but possess different byte representations. To automated scanners, `Secret` (using Latin `C`) and `Secret` (using Cyrillic `С`) represent distinct strings, allowing text payloads to pass through signature filters.
-* **Zero-Width Characters:** Inserting zero-width spaces (`U+200B`) splits words into distinct byte fragments for automated tools while maintaining unified visual rendering on user displays.
+* **Character Homoglyph Insertion:** Replacing specific letters with visually identical characters from alternate alphabets breaks automated signature detection entirely. For instance, the Cyrillic letter `С` and the Latin letter `C` appear identical on-screen, yet contain distinct byte-codes. To an automated scanner, `Секрет` (containing a Latin C) and `Секрет` (containing a Cyrillic C) represent entirely distinct entities, causing the filter to permit text that remains completely legible to a human reader.
+* **Zero-Width Character Injection:** Injecting zero-width spaces (`U+200B`) fractures words into discrete fragments for search crawlers while maintaining a continuous, monolithic display within the end-user's rendering engine.
 
 #### Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks):
 
-Defenders and operators working in high-risk environments must understand how Unicode manipulation can be weaponized by adversaries to mask malicious files.
+For defending teams and high-risk users, understanding how Unicode manipulation is weaponized to bypass vigilance is critical to maintaining operational security.
 
-One prevalent technique utilizes a hidden Unicode control character: **U+202E (RLO — Right-to-Left Override)**. This character forces display engines to render all subsequent text characters in reverse order (right to left).
+One primary vector exploits a specialized invisible Unicode control character: **U+202E (RLO — Right-to-Left Override)**. This character instructs the rendering engine to display all trailing text in reverse order (right-to-left).
 
-When injected into executable filenames, the UI flips trailing extension strings, concealing the true binary type:
-* **Actual path on the filesystem (as parsed by the kernel):** `document_[U+202E]fdp.exe`
-* **Visual string displayed by graphical file managers:** `document_exe.pdf`
+Embedding this hidden control character into an executable filename causes the GUI environment to invert its ending visually, masking the threat completely:
+* **Actual System Filename (Parsed by Kernel):** `document_[U+202E]fdp.exe`
+* **Rendered GUI Display (Visible to User):** `document_exe.pdf`
 
-To the OS kernel, the file remains an executable binary (`.exe`), though human operators perceive it as a benign document (`.pdf`).
+To the operating system, the file remains a fully functional executable binary (`.exe`), whereas the user perceives a benign document (`.pdf`).
 
-**1.** We simulate string rendering containing the inverted control character:
+**1.** Simulate string rendering with the hidden inversion character embedded:
 ```bash
 echo -e "File_name_\u202Efdp.exe"
 ```
-The terminal output executes the direction flip, displaying the misleading string: `File_name_exe.pdf`.
+The terminal executes the layout override, rendering the deceptive output: `Filename_exe.pdf`.
 
-**2.** To expose hidden Unicode manipulation, we invoke `cat` with the `-v` flag (displaying non-printable and hidden control characters):
+**2.** To detect hidden manipulation, pipe the output into `cat` using the `-v` flag (displaying non-printing and control characters):
 ```bash
 echo -e "File_name_\u202Efdp.exe" | cat -v
 ```
-*The raw output reveals the underlying control sequence (`^[[~` or its hex representation), exposing the string manipulation.*
+*The output strips the visual illusion, exposing explicit Unicode control codes (such as `^[[~` or its hex equivalent) and immediately revealing the manipulation.*
 
 > [!WARNING]
-> Never trust visual file extensions displayed in GUI file managers for assets received from untrusted sources. Open a terminal session and verify underlying file headers using our native system tool `file`:
+> When handling files originating from external or untrusted sources, never rely on file extensions rendered within GUI file managers. Open a terminal and inspect the file using the native `file` utility:
 > ```bash
 > file name_of_file
 > ```
-> The `file` utility inspects deep binary signatures and magic numbers that cannot be forged through surface filename modifications. If an executable Linux ELF binary or Windows PE payload is masked as a standard document, `file` accurately identifies the underlying file structure.
+> The `file` utility inspects internal document structures (magic bytes and headers) that cannot be spoofed by simple filename alterations. If an executable Linux (ELF) or Windows (PE) binary is disguised as an image, the utility will report its true format.
 
 <br>
 
@@ -3409,129 +3416,129 @@ echo -e "File_name_\u202Efdp.exe" | cat -v
 
 #### Introduction to VeraCrypt and Installation:
 
-VeraCrypt is a powerful tool for creating isolated encrypted containers and performing full-drive encryption on external USB drives and hard disks. The software provides total resistance to cryptanalysis and was engineered specifically for security-conscious professionals and privacy enthusiasts.
+VeraCrypt serves as a powerful utility for constructing isolated encrypted containers, as well as executing full-disk encryption across external USB drives and hard disks. The software provides absolute resistance to cryptanalysis and was engineered specifically to meet stringent security standards.
 
 **Installation via Community PPA Repository:**
 
-If receiving automatic software updates alongside operating system updates is preferred, a popular third-party security repository can be deployed:
+If automated system-wide package updates are preferred alongside OS maintenance, deploy the popular third-party security repository:
 
-**1.** We integrate the third-party encryption repository into the operating system:
+**1.** Integrate the third-party encryption repository into the operating system:
 ```bash
 sudo add-apt-repository ppa:unit193/encryption -y
 ```
 
 > [!IMPORTANT]
-> This PPA repository is maintained by independent community developers. Upon the release of fresh Ubuntu versions, a compiled package for the specific codename of the current distribution may be absent, causing the installation command to fail with a *«Package not found»* error.
+> This PPA repository is maintained by independent community developers. Following fresh Ubuntu releases, compiled packages matching a specific distribution version may temporarily be unavailable, causing the installation command to fail with a *"Package not found"* error.
 > 
-> If this occurs, completely purge this PPA from the system using `sudo add-apt-repository --remove ppa:unit193/encryption -y` and strictly execute **Option A (Native Method)**.
+> If this occurs, purge the PPA from the system using `sudo add-apt-repository --remove ppa:unit193/encryption -y` and proceed strictly with **(Native Method)**.
 
-**2.** We install `VeraCrypt` from the connected repository:
+**2.** Install `VeraCrypt` from the added repository:
 ```bash
 sudo apt install veracrypt -y
 ```
 
-**3.** We launch the application:
+**3.** Launch the application:
 ```bash
 veracrypt
 ```
 
-**Official Distribution Installation (Native Method):**
+**Installation via Official Distribution Package (Native Method):**
 
-To completely eliminate outdated dependency conflicts on modern Ubuntu 24.04 and 26.04 LTS installations, we recommend deploying the official stable build directly from the developers at IDRIX:
+To eliminate dependency conflicts across modern Ubuntu 24.04 and 26.04 LTS environments, deploying the official stable build directly from the IDRIX development team is recommended:
 
-* Open the browser and navigate to the official project site: `[https://veracrypt.fr](https://veracrypt.fr)`.
-* Download the current installation package for Ubuntu (`.deb` file for `amd64` architecture, e.g., `veracrypt-x.x.x-Ubuntu-amd64.deb`).
-* Open the terminal directly in the `~/Downloads` directory and execute the installation using the following sequential commands:
+* Open a browser and navigate to the official project site: `https://veracrypt.fr`.
+* Download the current installer package for Ubuntu (a `.deb` file for the `amd64` architecture, e.g., `veracrypt-x.x.x-Ubuntu-amd64.deb`).
+* Open a terminal within the downloads directory (`~/Downloads`) and execute installation using the following commands:
 
-**1.** We update the local system package index:
+**1.** Update the local system package index:
 ```bash
 sudo apt update
 ```
 
-**2.** We execute the installation of the downloaded `.deb` package (the `apt` utility will automatically pull all required system dependencies):
+**2.** Install the downloaded `.deb` package (the `apt` package manager automatically resolves all underlying system dependencies):
 ```bash
 sudo apt install ./veracrypt-*.deb -y
 ```
 
-**3.** We launch the graphical interface of the encryption platform:
+**3.** Launch the cryptographic platform's graphical user interface:
 ```bash
 veracrypt
 ```
 
 #### Deep Security Tuning: RAM Key Protection (Paranoia Mode):
 
-By default, when mounting encrypted volumes, VeraCrypt retains master decryption keys in system RAM in plaintext. If an adversary gains physical access to an active host, they could attempt to extract these keys via low-level Cold Boot attacks (freezing and reading memory chips) or hardware DMA interfaces.
+By default, when mounting encrypted volumes, VeraCrypt retains master decryption keys in RAM in plaintext. If an adversary gains physical access to a powered-on host, they could attempt to extract these keys using low-level attacks such as a *Cold Boot* attack (freezing and reading memory chips) or via hardware DMA interfaces.
 
-To completely neutralize this vector of compromise, navigate inside the VeraCrypt GUI to **Settings** ➔ **Preferences** (**Security** tab) and force-enable the available protection option:
+To eliminate this compromise vector entirely, navigate within the VeraCrypt GUI along the following path: **Settings** ➔ **Preferences** (under the **Security** tab) and force-enable the available protection setting:
 
-* **«Wipe cached passwords on exit»** *(Enforce wiping password and keyfile caches from RAM upon exiting the program)*.
+* **"Wipe cached passwords on exit"** *(Force-purge cached passwords and keyfiles from RAM upon exiting the application)*.
 
 > [!NOTE]
-> Unlike bloated Windows builds, the native VeraCrypt release for Linux lacks redundant RAM Encryption and extended caching toggles. This is due to the underlying mechanics of the Linux kernel: the operating system hardware-isolates the runtime memory of unprivileged users (`user`) via mandatory virtual memory controls, preventing unauthorized memory dumping without root privileges. Enabling the single cache-wipe option on exit provides complete offline protection for our master keys.
+> Unlike bloated Windows builds, the native Linux release of VeraCrypt omits redundant RAM encryption and extended caching toggles. This design stems from core Linux kernel mechanics: mandatory virtual memory access controls isolate runtime memory spaces of non-privileged users at the hardware interface level, preventing unauthorized dump extraction without root privileges. Enabling this single cache-wiping setting upon exit provides complete offline protection for operational master keys.
 
 #### A Fundamental Security Tool: Creating Hidden Volumes:
 
-For operating under high-threat environments, severe censorship, or the risk of coerced device inspection at borders, the mechanism of Plausible Deniability is critical. VeraCrypt enables operators to deploy a Hidden Volume.
+When operating under elevated threat levels, severe censorship, or the risk of forced device inspection at border checkpoints, a mechanism for **Plausible Deniability** becomes vital. VeraCrypt facilitates this capability through the creation of a **Hidden Volume**.
 
-The core operational concept functions as follows: a single standard encrypted container file is created, but configured with two distinct, independent passphrases:
-* **Outer Volume:** Protected by the first passphrase. Neutral files are stored here, presenting an entirely plausible and benign presence on the computer (family archives, public documents, non-sensitive literature).
-* **Hidden Volume:** Resides within the free space of the outer volume and is protected by a second, secret passphrase. It is mathematically encrypted such that its blocks are indistinguishable from random digital noise (empty space). No forensic tool can prove the existence of a secondary hidden partition within the container.
+The operational concept relies on generating a single standard encrypted container file configured with two distinct, independent passphrases:
+* **Outer Volume:** Protected by the primary passphrase. This segment holds benign, non-sensitive files whose presence appears legitimate and natural (family archives, public documents, harmless literature).
+* **Hidden Volume:** Resides within the unallocated space of the outer volume and is secured by a secondary, secret passphrase. It is cryptographically formatted such that its constituent data blocks are mathematically indistinguishable from random digital noise (unallocated space). No forensic analysis software can prove the existence of this secondary hidden partition inside the container file.
 
-If forced to reveal a password under coercion or inspection, the first (decoy) passphrase is provided. VeraCrypt opens the outer volume normally, presenting neutral decoy files to inspectors. Proving the existence of the hidden volume is technically impossible, as the container visually appears completely filled with legitimate files and random unallocated block remnants. Genuine confidential data, keys, and private documents are decrypted exclusively by entering the second passphrase in a secure setting.
+Under coercion or forced passphrase disclosure, supplying the primary (decoy) passphrase mounts the outer volume natively, presenting benign files to inspectors. Proving the existence of the hidden volume remains technically impossible, as the container outwardly presents as a standard encrypted volume containing legitimate data alongside randomized unallocated blocks. True confidential files, keys, and private logs unlock exclusively when mounting the volume with the secondary passphrase in a secure environment.
 
 > [!IMPORTANT]
-> By default, whenever data within a container is modified, the operating system updates the file modification timestamp on disk. If we covertly access the hidden volume and update files inside, the container headers update while the outer decoy file date remains old, instantly signaling to forensic analysts that a hidden volume was accessed.
+> By default, modifying data within a container causes the operating system to update the file's last-modified timestamp on disk. If the hidden volume is accessed and updated covertly, internal container headers change while the timestamps visible on the outer decoy file remain static—instantly exposing the use of a hidden volume to forensic experts.
 > 
-> To completely eliminate this forensic artifact, open **Settings → Preferences** in the VeraCrypt main menu and force-enable **«Preserve modification timestamp of file containers»**. This forces the utility to freeze the container file creation date, keeping the hidden volume indistinguishable from random encrypted data.
+> To eliminate this artifact completely, navigate within the VeraCrypt main menu to **Settings → Preferences** and enable the **"Preserve modification timestamp of file containers"** option within the global settings panel. This instructs the application to lock the container file's timestamp, keeping the hidden structure indistinguishable from standard randomized encrypted data.
 
 #### Ultimate Hardening: Configuring PIM and Hardware Keyfiles:
 
-To protect high-value containers against advanced cryptanalysis and targeted brute-force campaigns (using GPU clusters), a standard text passphrase is insufficient. We leverage internal VeraCrypt mechanisms to establish maximum protection.
+To defend mission-critical containers against advanced cryptanalysis and targeted brute-force attacks (password-cracking arrays built from multi-GPU clusters), a standard text passphrase is insufficient. Leverage internal VeraCrypt features to achieve maximum security hardening.
 
-By default, VeraCrypt applies a fixed, high number of cryptographic hash iterations during volume header derivation. This significantly slows down offline password recovery attempts while adding a slight delay during volume mounting.
+By default, during volume creation, VeraCrypt applies a fixed, massive number of cryptographic hash iterations to protect the volume header. This drastically slows down brute-force attempts by adversaries while slightly increasing mount times for the user.
 
-The **PIM** (Personal Iteration Multiplier) parameter allows operators to manually specify a custom iteration count during volume creation.
+The **PIM** (Personal Iterations Multiplier) parameter allows manual specification of a unique multiplier integer during container setup.
 
 > [!TIP]
-> **Operational Security Strategy:** Setting a high PIM reduces adversary brute-force efficiency to zero — computational clusters would require millennia to attempt even simple passphrases. The trade-off is a slightly longer mount delay on the operator's host.
+> **Security Strategy:** Specifying a high PIM value reduces adversary password-cracking speeds to near zero—compute clusters would require millennia to attempt even basic passphrases. The trade-off: local volume mounting will take several seconds longer.
 > 
-> If the volume's security relies on an extremely long and complex passphrase (exceeding 30–40 random characters), the PIM value can be intentionally reduced (below a 4-digit number) to ensure near-instantaneous volume mounting without sacrificing security.
+> Conversely, if container security relies on an extremely long and complex passphrase (exceeding 30–40 randomized characters), the PIM value can be intentionally reduced (below a 4-digit integer) to achieve instantaneous mounting without waiting.
 
-Multiple keyfiles (any image, audio file, document, or randomly generated binary file) can be bound to the container. Mounting the volume requires providing both the correct text passphrase and the exact path to these keyfiles. Without the keyfiles, decrypting the volume remains mathematically impossible, even if the passphrase is compromised.
+Link one or multiple keyfiles (such as images, audio tracks, documents, or randomly generated binary files) to the container. Mounting the volume then requires providing the correct text passphrase while simultaneously specifying the exact paths to these keyfiles. Without the designated keyfiles, volume decryption remains mathematically impossible even if the passphrase is compromised.
 
 > [!WARNING]
-> **Critical Rule for Keyfile Forensics Protection:**
-> Never store keyfiles on the internal drive of the host machine. Keyfiles must be hosted exclusively on external portable media — such as a standard SD card equipped with a hardware Write-Protect switch.
+> **Critical Rule for Keyfile Protection in Computer Forensics:**
+> Never store keyfiles on the internal drive of the host machine. Keep them exclusively on external portable media—such as a standard SD card equipped with a physical **Lock/Write-Protect** switch.
 
-Before inserting the SD card into the host system card reader to mount a container, always set the physical **Lock** slider to the write-protected position.
+Before inserting the SD card into a card reader to mount the container, ensure the **Lock** slider is engaged in the write-protected position.
 
-Why is this necessary? Computer forensics suites meticulously audit file access timestamps (`atime`) on seized storage media. If the drive operates in standard read-write mode, opening the container causes the host operating system to automatically update the keyfile metadata, leaving a fresh access timestamp behind.
+This measure counteracts modern forensic analysis tools that inspect file access timestamps (`atime` attributes) across seized media. Operating a drive in standard read-write mode causes the operating system to overwrite keyfile access metadata automatically when mounting the volume, leaving fresh hidden timestamps.
 
-During forensic examination of an SD card where only a few files out of thousands share access timestamps matching suspected activity windows, analysts can rapidly isolate which files served as VeraCrypt keyfiles. Physically locking the SD card write switch guarantees the memory controller cannot alter a single byte of metadata, completely obscuring access history.
-
-**Chapter Asset:** *_assets\images\11_veracrypt*
+During forensic inspection, locating a storage card where only a few files among thousands share exact metadata modification timestamps matching suspected user activity allows investigators to pinpoint keyfiles rapidly. Engaging physical write-protection on the SD card ensures the memory controller cannot alter a single bit of metadata, completely concealing the access history and utilization of the keyfile.
 
 ## Real-World Threat Modeling: Why Paranoia Must Be Systemic:
 
-To permanently reinforce our operational procedures across artifact sanitization, steganography, encryption, and hidden `VeraCrypt` containers, let us analyze a classic scenario from the real-world practice of independent investigators and activists operating under harsh authoritarian and military regimes.
+To permanently reinforce the concepts of trace sanitization, steganography, encryption, and hidden `VeraCrypt` containers, examine a classic real-world scenario frequently encountered by independent investigators and activists operating under repressive or authoritarian regimes.
 
-Consider a targeted journalist under heavy surveillance by local intelligence services. He reviewed our deployment guide and executed everything technically flawlessly: deployed Ubuntu on top of an encrypted LUKS pool, stashed his operational archives inside a hidden, dual-header `VeraCrypt` container, locked down the network stack behind a firewall Kill Switch, and accesses the network strictly through chains of encrypted VPN tunnels. From a host protection standpoint, his machine is an impenetrable digital fortress. If raid teams breach his location and seize the physical hardware, it won't yield a single byte of data.
+Consider a journalist under heavy surveillance by local intelligence services. Having followed security best practices, the host setup is technically flawless: Ubuntu is deployed over a fully encrypted LUKS pool, operational archives reside inside a hidden `VeraCrypt` container protected by a plausible deniability double bottom, the network stack is locked behind a strict firewall Kill Switch, and all outbound traffic routes strictly through chained encrypted VPN tunnels. From a host-hardening perspective, this system is an impenetrable digital fortress. In the event of a raid or physical seizure, the hardware reveals zero actionable data.
 
-However, our journalist makes a single fatal operational mistake. He mounts the hidden container, extracts an exposure text document or a fresh screenshot of a classified site, and uploads it publicly, sends it via a messenger, or publishes it on an independent media mirror — assuming his VPN routing and drive encryption grant total immunity.
+However, the investigator commits a single fatal mistake. Mounting the hidden container, they extract an investigative text document or a fresh screenshot of a classified facility and publish it directly to an open channel, a messaging app, or an independent media mirror—assuming their VPN and host encryption guarantee complete protection.
 
-A few hours later, a tactical team knocks on his door.
+Hours later, an enforcement team arrives.
 
 **How did this happen, and why did the fortress collapse?**
 
-The adversary didn't need to crack his LUKS partition or attempt key recovery against VeraCrypt. They simply downloaded his published file and conducted basic OSINT metadata analysis. Embedded inside the asset were:
+Adversaries did not need to break the LUKS partition or brute-force the VeraCrypt passphrase. They simply downloaded the published file and executed routine forensic metadata analysis (OSINT). The file retained:
 
-* Hidden application artifacts: username, workstation hostname, local file paths, edit history, and other internal document format fields.
-* Precise hidden EXIF save timestamps, which intelligence agencies instantly cross-referenced against ISP logs and network activity timing at a specific gateway.
-* Embedded GPS coordinates and camera sensor serial numbers (in the case of a photograph).
+* **Hidden Application Metadata:** Local usernames, hostnames, absolute directory paths, revision histories, and document-specific internal property fields.
+* **Timestamp Artifacts:** Precise hidden EXIF creation and modification timestamps, which intelligence services immediately correlated against ISP access logs and session timing patterns on targeted network gateways.
+* **Hardware Identifiers:** Embedded GPS coordinates and camera sensor serial numbers (in the case of photographic evidence).
 
-This tragic case proves that local disk encryption and network anonymity are completely neutralized if the transmitted payload itself broadcasts host digital signatures to the outside world. This is precisely why we must secure the security perimeter holistically.
+This critical failure demonstrates that local disk hardening and network anonymity are completely invalidated if the transmitted object broadcasts host-identifying markers to the external environment. Operational security must encompass the entire data lifecycle without exception.
 
-Operational hygiene leaves no room for compromise. Stay vigilant and control every byte!
+Operational hygiene tolerates no compromises. Maintain absolute vigilance and inspect every byte.
+
+**Chapter Assets:** *_assets\images\11_veracrypt*
 
 <br>
 
@@ -3539,104 +3546,105 @@ Operational hygiene leaves no room for compromise. Stay vigilant and control eve
 
 #### Introduction:
 
-A vital aspect of ensuring privacy and local host security is integrating hardware authentication factors — physical security keys connected via the computer's USB ports (both Type-A and Type-C form factors).
+Integrating hardware authentication factors—physical security keys inserted into computer USB ports (Type-A or Type-C)—serves as a critical component of privacy and local system hardening.
 
-The most ubiquitous and time-tested hardware keys in the cybersecurity industry are manufactured by Yubico. For our operational requirements, any model with hardware support for the FIDO U2F standard is fully compatible (which includes virtually the entire product line). The most accessible entry option is the basic *Yubico Security Key*. More advanced hardware builds belong to the *YubiKey 5* series (including FIPS-validated editions). From the standpoint of PAM subsystem configuration logic, the specific hardware model makes no difference.
+The most widely adopted and proven devices across the cybersecurity industry are manufactured by Yubico. For standard implementation tasks, any model featuring hardware FIDO U2F support is suitable (which encompasses virtually the entire product lineup). The most cost-effective option is the basic *Yubico Security Key*, while more advanced variations include the *YubiKey 5* series (including FIPS-certified editions). From the perspective of PAM subsystem configuration logic, the specific hardware model selected is irrelevant.
 
 #### Installation:
 
-First, we install the requisite libraries and utilities for interacting with the U2F standard:
+First, install the necessary libraries and utilities for U2F standard integration:
 
-**1.** We download and deploy the PAM module and current key generation tools:
+**1.** Download and deploy the U2F PAM module and key generation tools:
 ```bash
 sudo apt update && sudo apt install libpam-u2f pamu2fcfg -y
 ```
 
-**2.** We enter interactive superuser mode (root shell) to execute system-level configurations:
+**2.** Enter an interactive root shell to configure system-level parameters:
 ```bash
 sudo -i
 ```
 
-**3.** We create an isolated directory within the system tree to securely store hardware identifiers:
+**3.** Create an isolated directory within the system environment to securely store hardware identifiers:
 ```bash
 mkdir -p /etc/Yubico
 ```
 
-**4.** We bind the hardware key to the current user account using the `$SUDO_USER` variable:
+**4.** Bind the hardware security key to the active user account using the `$SUDO_USER` variable:
 ```bash
 pamu2fcfg -u $SUDO_USER > /etc/Yubico/u2f_keys
 ```
-*Upon executing command #4, the utility will poll the hardware bus for 15 seconds. If the key is not yet inserted, the terminal may output: "No U2F device available, please insert one now...". At this moment, immediately insert the YubiKey into a USB port and tap the flashing golden contact area on the key itself.*
+*Upon executing command #4, the utility polls the hardware bus for 15 seconds. If a key is not currently connected, the terminal displays: "No U2F device available, please insert one now...". Insert the YubiKey into a USB port immediately and touch the flashing gold contact pad on the physical token.*
 
-**5.** We set access permissions on the generated keyfile, permitting read access for the system while prohibiting any modifications:
+**5.** Set strict file permissions on the generated keyfile, permitting system read access while prohibiting modifications:
 ```bash
 chmod 644 /etc/Yubico/u2f_keys
 ```
-Now we configure the core PAM subsystem to request the physical key for all administrative terminal commands, session switches, system logins, and graphical authentication prompts:
 
-**6.** We open the operating system's general authentication configuration file:
+Next, configure the core PAM subsystem to enforce physical token authentication across administrative terminal commands, session switches, system logins, and GUI authentication prompts:
+
+**6.** Open the global authentication configuration file:
 ```bash
 nano /etc/pam.d/common-auth
 ```
 
-**7.** Inside the file, at the very top **strictly above the first line of commented text**, we prepend the following security rule:
+**7.** Insert the following security rule at the very top of the file, **strictly above the first line of commented text**:
 ```ini
 auth required pam_u2f.so authfile=/etc/Yubico/u2f_keys originuser cue
 ```
 
-To save the configuration in the `nano` editor, press key combination **«Ctrl + O»** ➔ **«Enter»**, and then **«Ctrl + X»** to exit back to the console shell.
+To save configuration changes in `nano`, press **"Ctrl + O"** → **"Enter"**, followed by **"Ctrl + X"** to exit back to the shell.
 
-Before closing the active console session, we must verify the entire authentication pipeline in a parallel window to avoid inadvertently locking out the system!
+Before closing the active shell, verify the entire configuration in a parallel session to prevent lockout!
 
-**8.** Without closing the active terminal window, open a parallel window and test the authentication pipeline:
+**8.** Leaving the current terminal session active, open a parallel window and test authentication using:
 ```bash
 sudo -i
 ```
 
-If configured correctly, the system will prompt *Please touch the authenticator*, and our YubiKey will start blinking, requiring a physical touch to drop into a root shell.
+If configured correctly, the terminal prompts with *Please touch the authenticator*, and the YubiKey flashes, requiring a physical touch to open the root shell.
 
-Following successful verification, all terminal sessions can be safely closed — our security perimeter is now fully hardened across all access vectors!
+Once verified, safely close all terminal windows—the host perimeter is now fully secured.
 
 > [!WARNING]
-> Relying on a single physical token with a strict `required` policy in PAM carries severe operational risk. If that sole YubiKey is lost, physically damaged, or suffers connector wear, access to the operating system will be permanently compromised. We strongly recommend immediately binding a secondary (backup) security key to the profile and storing it in a secure safe.
+> Enforcing a rigid `required` PAM policy using a single physical token introduces significant lockout risk. If the single YubiKey is lost, physically damaged, or suffers connector wear, access to the operating system will be permanently lost. Binding a secondary (backup) security key—stored securely off-site—to the user profile is strongly advised.
 > 
-> To enroll a backup device, remove the primary key, insert the backup token into the USB port, re-enter superuser mode:
+> To enroll a backup key, remove the primary token, insert the backup hardware token into a USB port, re-enter the root shell:
 > ```bash
 > sudo -i
 > ```
 > 
-> and append the backup key hash into our configuration file:
+> Append the backup key identifier directly to the configuration file:
 > ```bash
 > pamu2fcfg -u $SUDO_USER >> /etc/Yubico/u2f_keys
 > ```
-> Utilizing the append redirection operator `>>` is critically important! It cleanly appends the secondary device identifier as a new line at the bottom of the existing configuration without overwriting valid primary key data.
+> Using the append redirection operator `>>` is critical. This appends the configuration identifier of the secondary token as a new line at the end of the existing file without overwriting primary key records.
 
 #### Implementing a Hardware Kill Switch via Kernel udev Rules:
 
-To achieve ultimate host fortification, we establish a hardware circuit breaker at the Linux kernel level using the `udev` subsystem. Upon emergency withdrawal of the token from the USB port, the system instantly locks the active Ubuntu session, forcibly isolating active runtime environments and purging master keys from memory.
+To achieve ultimate host fortification, construct a kernel-level hardware failsafe using the Linux `udev` subsystem. Upon emergency removal of the security token from a USB port, the system instantly locks the active Ubuntu desktop session, forcibly isolating open runtime sessions and purging active master keys from system RAM.
 
-**1.** We create a custom rules configuration file for host USB devices:
+**1.** Create a custom configuration file for host USB rules:
 ```bash
 sudo nano /etc/udev/rules.d/80-yubikey-kill.rules
 ```
 
-**2.** We insert the following execution rule. To ensure the hardware Kill Switch triggers instantly across all token variants (flagship YubiKey 5 devices as well as streamlined Yubico Security Keys) while ignoring false software interface resets, we bind the low-level HID path removal trigger (`0003:1050`) to a dynamic USB bus check via `lsusb`. The session lock command triggers exclusively when the physical hardware disappears from the host ports:
+**2.** Insert the following rule. To ensure the hardware Kill Switch triggers reliably across all token hardware variations (such as flagship YubiKey 5 devices or entry-level Yubico Security Keys) while ignoring transient software interface resets, bind the low-level HID path removal event (`0003:1050`) to a dynamic USB bus query using `lsusb`. Session locking fires strictly when the device physically disconnects from the host ports:
 ```ini
 ACTION=="remove", DEVPATH=="*/0003:1050:*", RUN+="/bin/sh -c '/usr/bin/lsusb -d 1050: || /usr/bin/loginctl lock-sessions'"
 ```
 
-Save the file in `nano` via **«Ctrl + O»** ➔ **«Enter»**, then **«Ctrl + X»** to exit.
+Save the file in `nano` using **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit.
 
-**3.** We reload udev rules at runtime to force the Linux kernel to immediately arm the new trigger:
+**3.** Reload udev rules in real time to apply the new kernel trigger immediately:
 ```bash
 sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
 > [!NOTE]
-> In the event of a physical breach, raid scenario, attempt to snatch an active laptop, or sudden unauthorized entry into the workspace, a single swift movement pulling the Yubico token from the USB port is all that is required. Within milliseconds, the kernel `udev` subsystem intercepts the interrupt and commands `loginctl` to lock down the active session.
+> Under emergency conditions—such as physical intrusion, forced seizure of an active laptop, or unauthorized access to a workstation—pulling the Yubico token from its USB slot triggers protection instantly. The kernel `udev` subsystem intercepts the hardware interrupt within milliseconds and signals `loginctl` to lock all active user sessions.
 
 > [!WARNING]
-> Because two-factor authentication is configured via PAM, graphical privilege escalation prompts may fail. Should this occur, launch utilities manually from the console (for example: `sudo timeshift-gtk`).
+> Because multi-factor PAM authentication is enforced globally across the operating system, graphical authorization prompts for elevated applications may fail to complete automatically. In these instances, launch elevated utilities manually from a terminal interface (for example: `sudo timeshift-gtk`).
 
 <br>
 
@@ -3646,19 +3654,19 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 
 To prevent unauthorized USB devices from connecting to an active Ubuntu host, deploying USBGuard serves as a crucial preventive measure.
 
-Consider a human rights defender operating in an authoritarian country. He is fully aware of digital security risks and has prepared his workstation in advance: deployed Ubuntu on an encrypted LUKS partition, configured a VPN, firewall, YubiKey, and other security primitives. He is convinced that the primary threat stems from network-borne vectors and remote exploitation attempts.
+Consider a human rights defender operating in an authoritarian country. Fully aware of digital security risks, they prepared their workstation in advance: deployed Ubuntu on an encrypted LUKS partition, configured a VPN, firewall, YubiKey, and other security primitives. They remain convinced that the primary threat stems from network-borne vectors and remote exploitation attempts.
 
-One day, a trusted associate pays him a visit. While the defender steps away for literally a few seconds to brew coffee, the associate seizes the moment to insert a pre-configured USB flash drive into the host. The operating system automatically enumerates and accepts the new USB device, triggering malicious software installation.
+One day, a trusted associate pays a visit. While the defender steps away for literally a few seconds to brew coffee, the associate takes advantage of the moment to insert a pre-configured USB flash drive into the host. The operating system automatically enumerates and accepts the new USB device, triggering malicious software installation.
 
 Shortly after, confidential documents and sensitive assets are compromised.
 
 **Why did security fail?**
 
-Because physical access to an active system was omitted from the threat model. Disk encryption primarily protects assets while the computer is powered off, a VPN secures the network channel, and a YubiKey resolves hardware authentication tasks. None of these mechanisms independently answer the core question: **which USB devices should the operating system trust by default?**
+Because physical access to an active system was omitted from the threat model. Disk encryption primarily protects assets while the computer is powered off, a VPN secures the network channel, and a YubiKey resolves hardware authentication tasks. None of these mechanisms independently answer the core question: **Which USB devices should the operating system trust by default?**
 
 If connecting an unknown USB device is permitted automatically, an adversary requires only brief physical access to an unlocked host to achieve full compromise.
 
-This exact scenario is what USBGuard addresses. Its objective is to enforce an explicit whitelist of authorized USB devices while denying all non-whitelisted hardware under the core security principle of **«deny everything not explicitly allowed»**.
+This exact scenario is what USBGuard addresses. Its objective is to enforce an explicit whitelist of authorized USB devices while denying all non-whitelisted hardware under the core security principle of **"deny everything not explicitly allowed"**.
 
 Furthermore, modifying the persistent policy must remain a strictly administrative operation. An unprivileged user sitting at the workstation must not be capable of simply plugging in an unknown device and approving it via a GUI prompt.
 
@@ -3668,30 +3676,30 @@ Below, we cover the installation and configuration of USBGuard to establish a mi
 
 #### Installation and Setup:
 
-**1.** We install USBGuard:
+**1.** Install USBGuard:
 ```bash
 sudo apt update && sudo apt install usbguard -y
 ```
 
-**2.** We verify the version of the installed utility and inspect package details:
+**2.** Verify the installed utility version and package information:
 ```bash
 apt policy usbguard
 ```
 
 > [!WARNING]
-> Upon starting USBGuard, any newly connected USB devices lacking an explicit `allow` rule will be instantly blocked. Before starting the service, ensure the pre-configured YubiKey remains connected (unless a hardware Kill Switch is deployed). After starting, verify policy functionality using a secondary flash drive or another non-critical device.
+> Once USBGuard starts, any new USB devices lacking an explicit allow rule will be blocked automatically. Prior to starting the service, ensure the previously configured YubiKey remains connected (unless a hardware Kill Switch is active). After launching the daemon, test policy enforcement using a secondary USB flash drive or another non-critical device.
 
-**3.** We enable USBGuard at boot and immediately audit the daemon status:
+**3.** Enable USBGuard to launch at system boot and immediately verify service status:
 ```bash
 sudo systemctl enable --now usbguard && systemctl status usbguard --no-pager
 ```
 
-**4.** We open the USBGuard configuration, which dictates how the daemon handles both connected and newly inserted USB devices:
+**4.** Open the USBGuard configuration file, which defines how the daemon handles existing and newly connected USB hardware:
 ```bash
-sudo nano /etc/usbguard/usbguard-daemon.conf
+sudo nano /etc/usbguard/usbguard-daemon.conf 
 ```
 
-**5.** Clear the contents of the file using **«Ctrl + K»** and populate it with the following directive suite:
+**5.** Clear the contents of the file using **"Ctrl + K"** and insert the following parameters:
 ```ini
 RuleFile=/etc/usbguard/rules.conf
 RuleFolder=/etc/usbguard/rules.d/
@@ -3711,34 +3719,35 @@ AuditFilePath=/var/log/usbguard/usbguard-audit.log
 HidePII=false
 ```
 
-**6.** To manage policy rules and authorize new hardware, we access the `rules.conf` configuration file:
+**6.** Open the `rules.conf` configuration file to manage rules and add new devices:
 ```bash
 sudo nano /etc/usbguard/rules.conf
 ```
 
-Meticulously audit which hardware devices are authorized under the active policy. If necessary, strip unneeded entries from the whitelist. For example, a laptop's integrated webcam can be blocked simply by removing its corresponding rule entry.
+Carefully inspect which hardware is permitted by the active policy. If necessary, remove devices from the list that do not require access. For instance, an integrated laptop webcam can be blocked simply by removing its corresponding rule entry.
 
-**7.** We verify that unprivileged users cannot interface with the IPC channel:
+**7.** Verify that an unprivileged user lacks access to the IPC interface:
 ```bash
 usbguard list-devices
 ```
-The terminal must output an access denial error: `ERROR: IPC connect: service=usbguard: Operation not permitted`
 
-Next, we walk through a straightforward workflow for whitelisting a new device while testing USBGuard policy enforcement. Insert an unlisted USB flash drive or secondary YubiKey into an available USB port.
+The terminal must return an access denial error: `ERROR: IPC connect: service=usbguard: Operation not permitted`
 
-**8.** We open the rules configuration for editing:
+Next, consider a straightforward example of authorizing a device while simultaneously verifying USBGuard operation. To do this, insert an unlisted USB flash drive or secondary YubiKey into a USB port.
+
+**8.** Open `rules.conf` for editing:
 ```bash
 sudo nano /etc/usbguard/rules.conf
 ```
 
-Locate the new device within the listed directives — which USBGuard blocked due to the absence of a permissive rule — and toggle its status flag from `block` to `allow`.
+Locate the new device entry blocked by USBGuard due to a missing rule, and change its state parameter from `block` to `allow`.
 
-**9.** We restart the daemon to enforce the revised configuration:
+**9.** Restart the service to apply changes:
 ```bash
 sudo systemctl restart usbguard
 ```
 
-Following the service restart, the newly configured device successfully transitions to an authorized state and becomes accessible to the operating system.
+Following the restart, the newly added device transitions to an authorized state and becomes fully accessible to the system.
 
 <br>
 
@@ -3746,91 +3755,91 @@ Following the service restart, the newly configured device successfully transiti
 
 #### Introduction:
 
-To establish secure, centralized storage for all generated system passwords, cryptographic keys, GRUB bootloader passphrases, and online credentials, we will configure the local offline password manager KeePassXC. The application's core database is an encrypted container file backed by the robust AES-256 cipher standard. Depending on hardware availability and operational security requirements, one of three key protection scenarios can be selected.
+To securely and centrally store all system passphrases, cryptographic keys, GRUB boot passwords, and user account credentials, deploy the offline KeePassXC password manager. The utility operates over an encrypted database container backed by robust AES-256 encryption. Depending on available hardware and operational security requirements, select one of three container protection schemes.
 
 #### Vault Protection Scenarios:
 
-* **«Basic» Scenario:** Securing the database exclusively with a master passphrase. The primary operational risk: if an adversary obtains the `.kdbx` file and covertly captures the master password (e.g., via a hidden keylogger), the entire vault becomes fully compromised.
-* **«Advanced/Two-Factor» Scenario:** Hardening the master passphrase with a unique keyfile (*Keyfile*). Any existing file (an image, audio file, or document) can serve as a keyfile, or one can be generated randomly directly within the software.
+* **Basic Scenario:** Database protection using a master passphrase alone. The primary risk vector remains container theft: if an adversary acquires the `.kdbx` database file and covertly logs the passphrase (e.g., via a hidden keylogger), the vault is fully compromised.
+* **Advanced/Two-Factor Scenario:** Hardening the master passphrase with a unique keyfile (*Keyfile*). Virtually any existing file (such as an image, audio recording, or document) can serve as a keyfile, or one can be generated randomly within the application itself.
 
 > [!WARNING]
-> The optimal strategy is storing the keyfile on a separate external physical medium (such as an encrypted flash drive or SD card) and connecting it to the host strictly when opening the database. Storing the keyfile in the same directory as the `.kdbx` vault file is strictly forbidden! If no external media is available, any third-party, deeply hidden file that is guaranteed never to undergo modification (such as a specific personal photo, PDF manual, or MP3 track) may be used. Modifying even a single byte or metadata attribute within this file permanently locks the encrypted container. When utilizing this method, a secondary backup of the keyfile must be archived to an independent storage location to prevent accidental deletion or corruption.
+> Storing the keyfile on a separate external physical medium (such as an encrypted flash drive or SD card) and connecting it strictly when opening the database is the ideal configuration. Keeping the keyfile exposed in the same directory as the `.kdbx` file itself is strictly prohibited! If external media is unavailable, any third-party file deeply buried within the file system that is guaranteed never to undergo modification may be used (e.g., a specific personal photo, PDF manual, or MP3 track). Altering even a single byte or metadata attribute within this file permanently locks the encrypted container. When employing this method, creating an offline backup of the file to independent storage is mandatory to protect against accidental deletion or corruption.
 
-* **«Ultimate» Scenario:** Hardening the master passphrase with a YubiKey hardware token operating via the low-level Challenge-Response (HMAC-SHA1) algorithm. This specific deployment requires a hardware key from the *YubiKey 5 Series* (or YubiKey 4). The entry-level *Yubico Security Key* series (typically blue hardware units) is completely incompatible, as it lacks the underlying HMAC-SHA1 cryptographic response feature.
+* **Ultimate Scenario:** Hardening the master passphrase via a YubiKey hardware token leveraging the low-level Challenge-Response algorithm. This implementation strictly requires a fully featured *YubiKey 5 Series* (or YubiKey 4) hardware key. The entry-level *Yubico Security Key* lineup (typically blue hardware units) is entirely incompatible, as it lacks the HMAC-SHA1 cryptographic response feature.
 
 #### Installing the Software Suite:
 
-Once network interfaces, encrypted VPN gateways, and local package indexes are fully updated, open the terminal and execute the deployment.
+Once network interfaces and secured VPN gateways are successfully configured, and local package indices are updated, open a terminal session to perform the installation.
 
-**1.** We add the developers' official PPA repository to pull the latest, most secure build of KeePassXC:
+**1.** Add the developers' official PPA repository to fetch the latest secure build of KeePassXC:
 ```bash
 sudo add-apt-repository ppa:phoerious/keepassxc -y
 ```
 
-**2.** We download and deploy the password manager, the token console management utility, and the secure clipboard sanitization library in a single command (the package index updates automatically upon adding the PPA):
+**2.** Install the password manager, token CLI utility, and the secure clipboard sanitization library using a single command (the package index refreshes automatically upon adding the PPA):
 ```bash
 sudo apt install keepassxc yubikey-manager xclip -y
 ```
-> *(The `xclip` package is deployed pre-emptively so KeePassXC can forcibly flush the system clipboard via a dynamic timer following password copying, neutralizing memory-scraping clipboard hijackers).*
+> *(The `xclip` package is included preventatively to allow KeePassXC to clear the system clipboard automatically on a set timer following password copy operations, neutralizing background clipboard stealer scripts).*
 
 #### Creating and Hardware-Securing the Database:
 
-**1.** Launch the application through the standard GNOME application menu (or by entering `keepassxc` into the terminal console).
+**1.** Launch the application via the standard GNOME desktop application menu (or by entering `keepassxc` in the terminal).
 
-**2.** In the initial graphical splash window, click **Create new database**.
+**2.** In the welcome GUI window, click **Create new database**.
 
-**3.** Enter an arbitrary name for the database file (e.g., `vault`) and click **Continue**.
+**3.** Enter an arbitrary database filename (for example, `vault`) and click **Continue**.
 
-**4.** Leave the cryptographic parameters at their default values during the encryption setup step. Click **Continue**.
+**4.** Leave the encryption parameters at their default values on the configuration screen. Click **Continue**.
 
-**5.** In the **Master Password** setup window, enter a primary passphrase at least 16–20 characters in length (when using a YubiKey hardware token, the character length requirement can be significantly relaxed), ensuring it is memorized securely.
+**5.** In the **Master Password** dialog, set a main database passphrase at least 16–20 characters long (passphrase length may be significantly reduced when combining it with a YubiKey hardware token). Ensure this password is securely memorized.
 
-* If configuring the **«Basic» Scenario:** Ignore additional parameters, leave extra fields unselected, and proceed directly to Step 11.
-* If configuring the **«Advanced/Two-Factor» Scenario:** Proceed to Step 6.
-* If configuring the **«Ultimate» Scenario:** Proceed to Step 9.
+* If configuring the **Basic Scenario:** Ignore extra parameters, select no additional options, and proceed directly to step 11.
+* If configuring the **Advanced/Two-Factor Scenario:** Skip to step 6.
+* If configuring the **Ultimate Scenario:** Skip to step 9.
 
-**6.** Enable the **Key file** checkbox, click **Add Key File**, and select **Create** from the dropdown menu to generate a new randomized cryptographic sequence (or select the path to an existing, static disguise file).
+**6.** Check the **Key file** option, click **Add Key File**, and select **Create** from the drop-down menu to generate a new randomized cryptographic key sequence (or select the path to an existing, immutable disguise file on the host).
 
-**7.** Upon generating a new key, the application will prompt for a save destination. Connect external removable media or an SD card and save the file under a neutral file name.
+**7.** Upon generating a new keyfile, the application prompts to save it. Connect an external flash drive or SD card and save the file using a neutral name.
 
-**8.** Click **Continue** and proceed directly to Step 11.
+**8.** Click **Continue** and skip to step 11.
 
 **9.** Click **Add YubiKey Challenge-Response**.
 
-**10.** Program Slot #2 for offline cryptographic calculations (or audit its status). If the hardware token is brand new, initialize Slot #2 in the terminal via `ykman otp chalresp --generate 2`. If the key is already utilized for authenticating an existing KeePassXC database via Slot #2, **DO NOT RE-GENERATE** the secret, or the existing seed will be permanently overwritten! The application will immediately discover the token attached to the USB port. Click **Continue**.
+**10.** Program Slot 2 for offline challenge-response calculations (or verify its current status). If configuring a brand-new token, initialize Slot 2 first via the terminal using `ykman otp chalresp --generate 2`. If the key is already used for authenticating an existing KeePassXC database via Slot 2, **DO NOT** execute the initialization command again, as it will overwrite the active HMAC secret! The application will detect the USB hardware token immediately. Click **Continue**.
 
-**11.** The application will prompt to save the resulting database file with the `.kdbx` extension. Select a secure target destination (e.g., the root of the home directory `~/vault.kdbx`).
+**11.** The application prompts to save the resulting database container file with the `.kdbx` extension. Choose a destination path (for example, the root home directory `~/vault.kdbx`).
 
 > [!NOTE]
-> Integrating a YubiKey hardware factor (HMAC-SHA1) fundamentally transforms the security baseline. Even if the master passphrase is only 8 characters long, offline brute-force attacks via GPU clusters or ASIC farms become computationally irrelevant. Without physical access to the connected hardware token, adversaries are forced to brute-force a hidden 160-bit cryptographic response payload generated by the chip, which is mathematically impossible within reasonable physical timeframes. The sole remaining attack vector in this scenario is live keylogging on a compromised host — precisely why we build our isolated host architecture.
+> Integrating the YubiKey hardware factor (HMAC-SHA1) fundamentally alters the threat model. Even if the master passphrase is reduced to just 8 characters, offline brute-force attempts using multi-GPU or ASIC arrays become completely futile. Without physical access to the connected hardware token, adversaries are forced to brute-force the chip's hidden 160-bit cryptographic response sequence—a task mathematically impossible prior to the heat death of the universe. In this deployment scheme, the sole remaining attack vector is live password interception via a keylogger on a compromised host, which the hardened 4x4 host defense model is specifically designed to neutralize.
 
 #### Deep Hardening of Internal Security Settings:
 
-Navigate to **Tools** ➔ **Application Settings** and forcibly enable the following security directives:
+Open the menu via **Tools** ➔ **Application Settings** and forcibly enable the following security parameters:
 
-* **Security** tab ➔ **Timeouts** sub-section:
+* **Security** tab ➔ **Timeouts** section:
 * **Clear clipboard after** — set strictly to *5–10 seconds* (this triggers the `xclip` utility).
-* **Lock database after inactivity** — enable and set strictly to 600 seconds (10 minutes).
-* **General** tab ➔ **Entry Management** sub-section:
-* **Hide window when copying to clipboard** — enable to immediately minimize the application to the system tray upon pressing **«Ctrl + C»**.
+* **Lock database after inactivity** — enable and set to a strict limit of 600 seconds (10 minutes).
+* **General** tab ➔ **Entry Management** section:
+* **Hide window when copying to clipboard** — enable to minimize the application interface to the system tray immediately upon pressing **"Ctrl + C"**.
 
 > [!WARNING]
-> Refrain from installing any third-party browser extensions (including the official KeePassXC-Browser) inside your Firefox instance. First, browser extensions run within the shared context of the WebExtensions API, introducing potential attack surface vectors such as Cross-Site Scripting (XSS) and credential theft from an unlocked database. Second, our hardened operational security configuration (`privacy.resistFingerprinting = true`) inside Firefox intentionally restricts local Unix domain socket IPC communication required by extension bridges. The chosen approach for a sovereign host environment relies on native clipboard transfers combined with automated sanitization.
+> Refrain from installing any third-party browser extensions (including the official KeePassXC-Browser) into your Firefox installation. First, browser extensions run within the shared WebExtensions API context, introducing a potential Cross-Site Scripting (XSS) attack vector and risking credential extraction from an unlocked database via plugin vulnerabilities. Second, enforcing strict security controls (`privacy.resistFingerprinting = true`) inside Firefox completely blocks and breaks local Unix socket IPC channels required for extension integration. The standard for a sovereign 4x4 host deployment is utilizing the native **Auto-Type** engine exclusively.
 
 #### Secure Data Entry via Protected Clipboard:
 
-Because the graphical subsystem in Ubuntu 24.04 LTS runs on top of the **Wayland** display server protocol, global keyboard event simulation (Auto-Type) is restricted by kernel-level security architecture (applications are prohibited from injecting keystrokes into external windows). By avoiding vulnerable browser plugins entirely, we utilize the native secure data transfer model via the clipboard protected by `xclip`.
+Because the modern graphical subsystem in Ubuntu 24.04/26.04 LTS runs on the **Wayland** protocol, native auto-typing functionality (Auto-Type) is fully restricted by the operating system security architecture at the kernel level (applications are prohibited from injecting simulated keystrokes into foreign windows). By rejecting vulnerable browser plugins entirely, data is safely transferred using the clipboard mechanism protected by the `xclip` utility.
 
-**1.** Configure rapid copying: in the primary application menu, navigate to **Tools** ➔ **Settings** ➔ **General** tab. Under **Entry Management**, activate the **Copy data on double clicking field in entry view** checkbox and click **OK**.
+**1.** Configure fast copying: navigate to **Tools** ➔ **Settings** ➔ **General** tab in the main menu. Under the **Entry Management** section, check **Copy data on double clicking field in entry view** and click **OK**.
 
-**2.** Transfer credentials: navigate to the target website inside Firefox, switch focus to the KeePassXC application window, and **double-left-click** the desired password entry line.
+**2.** Perform credential insertion: open the target site in Firefox, switch to the KeePassXC window, and simply **double-click** the desired password entry.
 
-**3.** The application will instantly copy the secret to the clipboard and automatically minimize to the system tray, returning operational focus to the browser window. Paste the credentials into the target site's input field using **«Ctrl + V»**.
+**3.** The application copies the secret to the clipboard immediately, automatically minimizes to the system tray, and returns focus to the browser window. Press **"Ctrl + V"** inside the site input field to complete the operation.
 
 > [!NOTE]
-> Thanks to the `xclip` system utility deployed earlier, copied credentials remain cached in system RAM strictly for **5–10 seconds** (governed by the timeout defined in the Security tab), after which host memory space allocated to the clipboard is forcibly purged to absolute zero, eliminating data interception risks from background memory scrapers.
+> Leveraging the previously installed `xclip` system utility, the copied passphrase remains in clipboard memory for strictly **5–10 seconds** (matching the timeout defined in the Security tab). Following this window, host runtime memory reserved for the clipboard is purged completely, neutralizing credential interception risks from hidden stealer scripts.
 
-**Chapter Asset:** *_assets\images\12_keepassxc*
+**Chapter Assets:** *_assets\images\12_keepassxc*
 
 <br>
 
@@ -3838,103 +3847,104 @@ Because the graphical subsystem in Ubuntu 24.04 LTS runs on top of the **Wayland
 
 #### Introduction:
 
-Deep auditing, logging, and real-time network packet analysis are conducted using Wireshark. It allows full inspection of network packet payloads across all layers of the communication stack. It is an extremely powerful tool, and providing a detailed overview of its full feature set and analysis methodologies would require an entire textbook. Within the scope of this deployment guide, we focus on inspecting active connections through its accessible graphical interface. Through the GUI, operators can visually audit exactly which IP addresses and ports are utilized to transmit and receive host traffic. Any suspicious, undocumented, or non-recommended IP destinations should be immediately added to firewall blacklists. Advanced instructions and packet dissection examples are available in specialized technical documentation on verified IT resources, such as `varonis.com`, `sans.org`, or the official reference community `ask.wireshark.org`.
+Deep auditing, logging, and real-time network packet analysis are conducted using Wireshark. It allows full inspection of network packet payloads across all layers of the communication stack. It is an extremely powerful tool, and providing a detailed overview of its full feature set and analysis methodologies would require an entire textbook. Within the scope of this deployment guide, analysis focuses on inspecting active connections through its accessible graphical interface. Through the GUI, operators can visually audit exactly which IP addresses and ports are utilized to transmit and receive host traffic. Any suspicious, undocumented, or non-recommended IP destinations should be immediately added to firewall blacklists. Advanced instructions and packet dissection examples are available in specialized technical documentation on verified IT resources, such as `varonis.com`, `sans.org`, or the official reference community `ask.wireshark.org`.
 
 #### Installing and Launching Wireshark:
 
 > [!WARNING]
-> **Warning!** Before proceeding, verify that you have exited the persistent superuser shell (via the `exit` command) and that the command prompt displays the standard non-privileged `$` symbol. The installation workflow must be executed strictly under an unprivileged user context.
+> **Warning!** Before proceeding, ensure that you have exited the persistent superuser shell (using the `exit` command) and that the standard `$` prompt is displayed in the terminal. The installation must be executed exclusively as an unprivileged user.
 
-**1.** We launch the network analyzer installation:
+**1.** Launch the network analyzer installation:
 ```bash
 sudo apt install wireshark -y
 ```
 
-During package deployment, the APT package manager will display an interactive terminal dialog asking a critically important question: *«Should non-superusers be able to capture packets?»*. Use the keyboard arrow keys to strictly select **«Yes»**.
+During package deployment, the APT package manager displays an interactive terminal dialog raising a critical prompt: *“Should non-superusers be able to capture packets?”* Use the keyboard arrow keys to explicitly select **“Yes”**.
 
-**2.** We append the current user account to the system `wireshark` group:
+**2.** Append the current user account to the `wireshark` system group:
 ```bash
 sudo usermod -aG wireshark $USER
 ```
 
-**3.** To apply new group memberships without terminating the active session, we require the `newgrp` utility. On Ubuntu 26.04, it is provided by the `util-linux-extra` package, so we deploy it:
+**3.** Applying new group membership without terminating the active user session requires the `newgrp` utility. On Ubuntu 26.04, this binary is provided by the `util-linux-extra` package; install it via:
 ```bash
 sudo apt install util-linux-extra
 ```
 
-To force group membership changes to take effect immediately — without rebooting the system or restarting the entire desktop session — we execute the environment re-initialization command:
+To apply updated group privileges instantly without rebooting the system or restarting the active desktop session, run the group initialization command:
 
-**4.** We update access privileges for the active terminal window:
+**4.** Refresh group access privileges for the active terminal window:
 ```bash
 newgrp wireshark
 ```
 
 > [!NOTE]
-> **Author's Note:** The `newgrp` command updates access privileges exclusively within the active terminal window. Across newly spawned console windows, updated privileges will take effect automatically only after a full system reboot or session restart.
+> **Author's Note:** The `newgrp` command updates access privileges exclusively within the active terminal window. Across newly spawned shell instances, privilege updates take effect automatically only after a full system reboot.
 
-**5.** We launch the analyzer's graphical interface under the unprivileged user account:
+**5.** Launch the analyzer graphical interface under the unprivileged user account:
 ```bash
 wireshark
 ```
 
 #### Critical Security Concept: Packet Capture Subsystem Security:
 
-The operational rationale for adding the user account to the system `wireshark` group is to completely eliminate running Wireshark via `sudo`. This analytical suite comprises millions of lines of complex C/C++ code, featuring dissectors for hundreds of network protocols. Historically, critical vulnerabilities — including Remote Code Execution (RCE) — are regularly discovered within these dissectors. If the GUI is launched with root privileges, any maliciously crafted packet arriving at the network interface from an external network could instantly execute arbitrary code with maximum system privileges. Running the application strictly as an unprivileged user via an isolated dedicated group is a fundamental global security standard.
+The operational rationale for adding the user account to the system `wireshark` group is to completely eliminate running Wireshark via `sudo`. This analytical suite comprises millions of lines of complex C/C++ code, featuring dissectors for hundreds of network protocols. Historically, critical vulnerabilities—including Remote Code Execution (RCE)—are regularly discovered within these dissectors. If the GUI is launched with root privileges, any maliciously crafted packet arriving at the network interface from an external network could instantly execute arbitrary code with maximum system privileges. Running the application strictly as an unprivileged user via an isolated dedicated group is a fundamental global security standard.
 
 #### Stealth Traffic Capture (Headless Console Mode):
 
-If you need to rapidly capture network activity logs without spawning a heavy graphical user interface (for instance, to avoid de-cloaking monitoring activities to onlookers or to preserve system RAM), we utilize its command-line counterpart:
+If you need to rapidly capture a network activity log without launching a heavy graphical interface (for instance, to avoid exposing monitoring activity to nearby eyes or to conserve system memory resources), leverage the command-line counterpart:
 
-**1.** We install `tshark`, the console utility for packet capturing and deep network analysis:
+**1.** Install `tshark`, the CLI utility for packet capture and deep network traffic analysis:
 ```bash
 sudo apt install tshark
 ```
 
-**2.** We initiate covert packet capture on the secure VPN interface, saving the output to a dump file (replace the network interface name if yours differs or if a VPN is not active):
+**2.** Initiate silent traffic capture on the secured VPN interface, writing the output directly to a dump file (replace the network interface name if your setup differs or if a VPN is not active):
 ```bash
 tshark -i tun0 -w ~/Downloads/dump.pcap
 ```
 
-This command silently captures all network traffic passing through the protected `tun0` VPN interface into the `dump.pcap` capture file located in the user's Downloads directory. The resulting dump file can subsequently be opened and thoroughly analyzed inside the graphical Wireshark GUI at any convenient time.
+This command silently captures all network traffic passing through the secured `tun0` interface and writes it to the `dump.pcap` file located within the user's Downloads directory. The resulting packet capture file can subsequently be opened and thoroughly dissected inside the Wireshark GUI at any time.
 
 #### Practical Wireshark Field Guide:
 
-After installing Wireshark, do not attempt to immediately decipher every single field within each packet. During the initial phase, our goal is simply to grasp the general structure of network exchanges and learn how to locate specific events of interest.
+Following Wireshark installation, avoid attempting to analyze every packet field immediately. At this initial stage, it suffices to grasp the overall structure of network exchanges and learn to isolate events of interest.
 
-Upon launching the application, select the active network interface carrying host traffic and initiate the capture session. On a physical host, this is typically Ethernet or Wi-Fi, while deploying a VPN will introduce a virtual interface such as `tun0`.
+After launching the application, select the active network interface carrying host traffic and initiate packet capture. On a physical system, this typically corresponds to an Ethernet or Wi-Fi interface; when running a VPN, a virtual interface such as `tun0` will additionally appear.
 
-Once the capture starts, a live packet list populates the top pane. Each row corresponds to a single packet, with key columns providing an immediate snapshot of its origin:
+Once capture begins, the packet list pane populates in the upper section of the interface. Each row represents a discrete packet, with primary columns providing immediate context on its origin and destination:
 
-* **No.** — Sequential packet number in the active capture session;
-* **Time** — Timestamp of packet arrival relative to capture commencement;
-* **Source** — Originating host IP address;
-* **Destination** — Target host IP address;
-* **Protocol** — Top-layer network protocol identified by Wireshark;
-* **Length** — Total packet size in bytes;
-* **Info** — Concise summary of packet contents or operational flags.
+* **No.** — The sequential packet number within the current capture session.
+* **Time** — The packet arrival timestamp relative to the start of the recording.
+* **Source** — The originating network address of the packet.
+* **Destination** — The target network address of the packet.
+* **Protocol** — The highest-layer protocol decoded by Wireshark.
+* **Length** — The frame payload size in bytes.
+* **Info** — A concise summary of packet contents or control flags.
 
-For instance, a captured frame summary line might read: *70   40.244944613   192.168.1.119   104.18.32.47   TCP   54 56042 → 443 [ACK] Seq=19884 Ack=1062 Win=802 Len=0*
+For instance, a single packet row may present as follows:  
+*70   40.244944613   192.168.1.119   104.18.32.47   TCP   54 56042 → 443 [ACK] Seq=19884 Ack=1062 Win=802 Len=0*
 
-Breaking down this structure segment by segment:
+Deconstructing this entry by field:
 
-* 70 — Sequential packet index within the active capture session.
-* 40.244944613 — Arrival timestamp relative to recording initialization.
-* 192.168.1.119 — Source IP address (the local host machine).
-* 104.18.32.47 — Destination IP address (the remote endpoint engaged in communication).
-* TCP — Underlying transport layer protocol.
-* 54 — Frame payload size in bytes.
-* 56042 → 443 — Source and destination TCP ports. Port 56042 represents an ephemeral port allocated on the local host, while port 443 denotes standard HTTPS traffic.
-* [ACK] — TCP Acknowledgement frame. No user-level application payload is transmitted here; this packet strictly acknowledges a previously received segment.
-* Seq=19884 — TCP sequence number tracking this payload stream segment.
-* Ack=1062 — Next expected sequence byte number from the remote endpoint.
-* Win=802 — Currently advertised TCP receive window size.
-* Len=0 — Payload length within this specific TCP segment is zero. This represents operational transport control overhead rather than website content payload.
+* **70** — Sequential packet identifier in the active capture buffer.
+* **40.244944613** — Elapsed time in seconds since capture initiation.
+* **192.168.1.119** — Source IP address (the local host interface).
+* **104.18.32.47** — Destination IP address (the remote endpoint).
+* **TCP** — The active Transport Layer protocol.
+* **54** — Total frame length in bytes.
+* **56042 → 443** — Source and destination TCP ports. Port 56042 represents an ephemeral port allocated by the local OS, while 443 targets standard HTTPS service.
+* **[ACK]** — Control packet acknowledging data receipt. This frame carries no upper-layer payload; its sole purpose is confirming previously received segments.
+* **Seq=19884** — The TCP sequence number assigned to this segment.
+* **Ack=1062** — The next expected byte sequence number from the remote host.
+* **Win=802** — The currently advertised TCP receive window size.
+* **Len=0** — Zero TCP segment payload length. This represents pure transport control signaling rather than application data transmission.
 
-**Dissecting Individual Packets:**
+**Dissecting Individual Packets**
 
-Selecting any individual packet expands its internal encapsulation hierarchy within the lower inspection pane. Wireshark structures packet metadata into stacked operational layers.
+Selecting a packet reveals its encapsulated internal layer structure in the packet details pane, displayed by Wireshark as nested protocol layers.
 
-A standard TCP packet typically comprises the following layer stack:
+A standard TCP/IP packet typically exhibits the following hierarchy:
 
 * Frame
 * Ethernet II
@@ -3942,74 +3952,83 @@ A standard TCP packet typically comprises the following layer stack:
 * Transmission Control Protocol
 * Application Protocol
 
-Each layer encapsulates specific network communication data:
+Each layer encapsulates specific metadata required for protocol stack processing:
 
-* **Frame** contains capture-level metadata: frame index, precise timestamp, total length, and capture parameters.
-* **Ethernet II** exposes Data Link layer metadata, detailing source and destination hardware MAC addresses.
-* **Internet Protocol Version 4 (IPv4)** exposes Network layer attributes: sender and recipient IP addresses, Time-to-Live (TTL) values, and routing parameters.
-* **Transmission Control Protocol (TCP)** details Transport layer attributes: source/destination ports, sequence/acknowledgement numbers, and control flags.
+* **Frame** — Capture-level metadata: packet index, arrival timestamp, frame length, and interface details.
+* **Ethernet II** — Data Link Layer attributes, containing source and destination MAC hardware addresses.
+* **Internet Protocol Version 4 (IPv4)** — Network Layer headers, detailing source/destination IP addresses, Time To Live (TTL) values, and fragmentation parameters.
+* **Transmission Control Protocol (TCP)** — Transport Layer headers, exposing port pairs, sequence/acknowledgment numbers, and control flags.
 
-When inspecting UDP traffic streams, the Transport layer section reflects **User Datagram Protocol** attributes instead of TCP parameters.
+When inspecting connectionless UDP traffic, the TCP header block is replaced by a corresponding **User Datagram Protocol** layer.
 
-**Understanding Core TCP Flags**
+**Understanding Core TCP Control Flags**
 
-During TCP stream analysis, tracking essential operational flags is critical:
+When dissecting TCP streams, recognizing primary control flags is essential for state evaluation:
 
-* **SYN** — Initiates TCP connection establishment;
-* **SYN, ACK** — Response acknowledging connection establishment requests;
-* **ACK** — Confirms receipt of transmitted data segments;
-* **FIN** — Signals graceful connection termination;
-* **RST** — Abruptly resets or aborts an active connection;
-* **PSH** — Instructs the receiving stack to push buffered data directly to the application layer.
+* **SYN** — Initiates the TCP three-way handshake connection sequence.
+* **SYN, ACK** — Server acknowledgment response to a connection request.
+* **ACK** — Confirms receipt of transmitted data segments.
+* **FIN** — Initiates graceful connection teardown.
+* **RST** — Abruptly resets or terminates a TCP connection.
+* **PSH** — Instructs the receiving stack to push buffered data immediately to the application layer.
 
-Note that occasional `RST` flags or retransmitted segments should not automatically be flagged as an active attack. Operating system network stacks routinely encounter packet drops, connection timeouts, and standard session terminations.
+Note that isolated `RST` packets or retransmissions should not automatically be classified as malicious activity. Operating system network stacks routinely encounter transient packet loss, socket timeouts, and normal tear-downs.
 
-**Auditing IP Addresses and Port Mappings**
+**Correlating IP Addresses and Port Pairs**
 
-When auditing active connections, inspect both IP addresses and associated transport ports: *192.168.1.15:41832 → 9.9.9.9:53* indicates that a local application bound outgoing ephemeral port `41832` to communicate with remote port `53` (standard DNS resolution). Similarly, *192.168.1.15:52314 → 142.250.x.x:443* reflects an outbound session routed to a remote host over TCP port `443` (standard HTTPS).
+Analyzing active sockets requires correlating IP destinations with assigned service ports:  
+*192.168.1.15:41832 → 9.9.9.9:53* indicates a local process binding ephemeral outbound port `41832` to query remote DNS service on UDP port `53`.  
+Similarly: *192.168.1.15:52314 → 142.250.x.x:443* denotes an outbound TCP connection to a remote server over HTTPS port `443`.
 
-Port designations alone do not definitively guarantee the underlying application protocol; they represent standardized networking conventions between communicating endpoints.
+A port assignment alone does not strictly dictate protocol compliance; it functions as a default transport convention between communicating endpoints.
 
 **Auditing DNS Traffic**
 
-Filtering for DNS traffic offers an effective starting point for baseline auditing. Enter **dns** into the display filter bar. Wireshark will isolate packets recognized as domain resolution queries. You will observe request pairs such as *Standard query A example.com* alongside responses such as *Standard query response A 93.184.216.34*. This audit reveals domain resolution targets generated by the system. To isolate queries for a specific domain, apply the filter: **dns.qry.name == "example.com"**. This proves invaluable when auditing newly deployed software: launch the application, inspect generated DNS queries, and cross-reference them against expected network endpoints.
+DNS queries provide an ideal baseline for initial connection analysis. Applying the **dns** display filter isolates packets recognized as Domain Name System traffic. This exposes outbound resolution attempts, such as: *Standard query A example.com*, followed by its response: *Standard query response A 93.184.216.34*. This grants full visibility into domain names requested by local binaries. To isolate specific FQDN lookups, apply targeted filters: **dns.qry.name == "example.com"**. This approach is particularly effective when auditing newly installed software: launch the application, inspect generated DNS requests, and verify them against expected baseline behavior.
 
-**Filtering Traffic Streams**
+**Traffic Filtering Mechanics**
 
-Wireshark allows rapid dataset narrowing using display filters: *ip.addr == 9.9.9.9* isolates packets associated with the specified IP address. *ip.src == 192.168.1.15* isolates traffic originating strictly from that host address. *tcp.port == 443* isolates TCP traffic linked to port `443`. *udp.port == 53* filters for UDP traffic utilizing port `53`. Logical operators allow combining criteria for targeted isolation: **ip.addr == 192.168.1.15 && tcp.port == 443**. These targeted filters allow operators to narrow broad packet captures down to specific session streams.
+Wireshark leverages display filters to rapidly isolate relevant streams from raw capture data:
+
+* **ip.addr == 9.9.9.9** — Filters all frames involving the specified IP address as source or destination.
+* **ip.src == 192.168.1.15** — Restricts output strictly to frames originating from the specified source host.
+* **tcp.port == 443** — Isolates TCP traffic bound to or from port `443`.
+* **udp.port == 53** — Isolates UDP traffic bound to or from port `53`.
+
+Combine conditions using logical operators to target specific sockets: **ip.addr == 192.168.1.15 && tcp.port == 443**. Utilizing display filters enables progressive narrowing from full packet captures down to specific communication streams.
 
 > [!TIP]
-> Do not attempt to memorize complex display filter syntax initially. Mastering a few core directives is sufficient for basic operational audits: `ip.addr`, `ip.src`, `ip.dst`, `tcp.port`, `udp.port`, and `dns.qry.name`.
+> Do not attempt to memorize complex filter syntax immediately. Mastering a core set of primary filter primitives—`ip.addr`, `ip.src`, `ip.dst`, `tcp.port`, `udp.port`, and `dns.qry.name`—provides sufficient operational capability for standard traffic auditing.
 
-**Inspecting Encrypted HTTPS Streams**
+**Inspecting Encrypted HTTPS Traffic**
 
-When navigating to a website over HTTPS, Wireshark captures connection establishment, remote server IP addresses, target ports, and TLS handshake negotiations, while the underlying HTTP application payload remains fully encrypted.
+When analyzing HTTPS sessions, Wireshark exposes connection establishment parameters—including remote endpoint IP addresses, destination ports, and TLS handshake exchanges—while the HTTP application payload remains fully encrypted.
 
-Captured sessions will display sequences such as: *TCP*, *TLS Client Hello*, *TLS Server Hello*, and *TLS Application Data*.
+Typical capture sequences display protocol events such as: *TCP*, *TLS Client Hello*, *TLS Server Hello*, and *TLS Application Data*.
 
-The presence of *TLS Application Data* packets does not imply Wireshark can read the underlying payload. Without master decryption keys and specialized configurations, TLS payload data remains cryptographically secure. Keep this fundamental rule in mind during packet audits: **Wireshark exposes network communication flows, but cannot decrypt protected payload contents without proper key material.**
+The presence of *TLS Application Data* frames does not enable plain-text payload inspection by Wireshark. Without session key export files or explicit decryption credentials, TLS payloads remain cryptographically secured. Keep this operational distinction in mind during analysis: **Wireshark exposes network exchange patterns, but cannot decrypt payload contents by default.**
 
-**Practical Verification Workflow**
+**Practical Verification Exercise**
 
-To gain practical familiarity with packet analysis mechanics, execute this basic operational experiment:
+To establish basic operational proficiency with the analyzer, execute this standard verification workflow:
 
-**1.** Initiate packet capture on the active network interface.  
-**2.** Launch the web browser.  
-**3.** Navigate to a known website.  
-**4.** Allow traffic to flow for a few seconds, then stop the capture.  
-**5.** Apply the display filter: **dns**  
-**6.** Audit which domain names were resolved during the session.  
-**7.** Clear the display filter bar and enter: **tcp.port == 443**  
-**8.** Inspect the HTTPS connection streams initiated following site navigation.  
+**1.** Initiate packet capture on the active network interface.
+**2.** Launch the browser.
+**3.** Navigate to a known domain.
+**4.** Allow traffic to generate for a few seconds, then stop the capture.
+**5.** Apply the display filter: **dns**
+**6.** Audit the resolved domain names for unexpected external requests.
+**7.** Clear the filter and apply: **tcp.port == 443**
+**8.** Inspect the resulting HTTPS connection streams established during the browsing session.
 
-Select any captured frame and expand its protocol stack layers. This practical exercise demonstrates how a single user action translates across multiple layers of the operational network stack.
+Select individual frames and expand protocol headers to observe how high-level user actions traverse the encapsulated network stack layers.
 
 > [!IMPORTANT]
-> Wireshark does not automatically determine whether an observed network connection is benign or malicious. It captures raw network telemetry and provides tools for inspection. Classifying a connection as legitimate, unintended, or suspicious requires human analytical context and knowledge of expected software behavior.
+> Wireshark does not classify traffic as benign or malicious automatically. It captures raw network events and provides the analytical framework to dissect them. Determining whether a connection is legitimate, unwanted, or suspicious requires analyst evaluation based on threat modeling and expected software behavior.
 
-Mastering this functional baseline is sufficient for our guide: operators gain the technical capability to independently observe active connections, identify endpoints, verify protocol ports, analyze frame structures, and leverage these insights to audit their hardened host environment.
+This baseline covers the essential scope required for host auditing: operators must be capable of independently capturing network connections, identifying endpoints, evaluating transport protocols and port pairs, and leveraging these primitives to verify hardened host configurations.
 
-**Chapter Asset:** *_assets\images\13_wireshark*
+**Chapter Assets:** *_assets\images\13_wireshark*
 
 <br>
 
@@ -4017,64 +4036,64 @@ Mastering this functional baseline is sufficient for our guide: operators gain t
 
 #### Introduction:
 
-Mandatory Access Control (MAC) over the filesystem is implemented via the integrated AppArmor subsystem. It controls hardware resource access and network ports for specific applications. Operating as a low-level Linux kernel enhancement, it strictly confines executed binaries within defined security profiles.
+Mandatory Access Control (MAC) over the file system is enforced via the native AppArmor subsystem. It restricts hardware access, file permissions, and network sockets on a per-application basis. Operating as a low-level Linux Security Module (LSM), AppArmor strictly confines running processes to an explicitly defined set of capabilities (a profile).
 
-Consider a practical deployment scenario: a PDF viewer application can be completely blocked from accessing external network interfaces while simultaneously denying access to personal user directories.
+Consider a practical deployment scenario. A PDF viewer can be completely isolated by revoking all network socket access and denying read privileges to sensitive user directories.
 
-Under this threat model, the host perimeter remains fortified. Even if a malicious document exploiting a 0-day vulnerability is opened, the exploit code physically cannot read sensitive user directories nor covertly exfiltrate stolen data to a remote command-and-control server.
+Under this model, the host perimeter remains secure. Even if an adversary triggers a zero-day exploit via a maliciously crafted document, the executed payload remains physically incapable of reading confidential directories or exfiltrating stolen assets to a remote command-and-control server.
 
 #### A New Security Paradigm: Kernel Automation:
 
-In Ubuntu 24.04 and 26.04, the AppArmor subsystem transitioned to a deeply automated architecture. In legacy distributions, system administrators were required to manually deploy profile databases and enforce strict containment on critical binaries using commands like `aa-enforce`.
+Within Ubuntu 24.04 and 26.04 LTS, the AppArmor subsystem has transitioned to deep, automated kernel-level integration. In legacy distributions, system administrators were required to manually deliver profile databases and enforce strict containment on critical utilities via `aa-enforce` invocations.
 
-In modern environments, Canonical developers completely removed legacy text profile templates (such as `usr.sbin.resolved`, `usr.sbin.NetworkManager`, or `usr.bin.dumpcap`) from the base installation. Host security has been shifted to deeper low-level kernel mechanisms:
+Modern Ubuntu builds eliminate legacy text-based profile templates (such as `usr.sbin.resolved`, `usr.sbin.NetworkManager`, or `usr.bin.dumpcap`) from the default base image. Host defenses have shifted to lower-level architectural primitives:
 
-* 1. **System Daemons (`NetworkManager`, `resolved`):** The Linux kernel isolates them out of the box using native `systemd` sandboxing directives and independent Linux namespaces.
-* 2. **Network Utilities (`dumpcap`/Wireshark):** During Wireshark deployment, we deliberately selected **`<Yes>`** in the interactive configuration prompt. At that exact moment, the Linux kernel assigned granular system capabilities — specifically **`CAP_NET_RAW`** and **`CAP_NET_ADMIN`** — directly to the `/usr/bin/dumpcap` binary via Linux Capabilities.
+* **1. System Daemons (`NetworkManager`, `resolved`):** The Linux kernel isolates these core services out of the box using native `systemd` sandboxing primitives and isolated Linux namespaces.
+* **2. Network Utilities (`dumpcap`/Wireshark):** Explicitly selecting **`<Yes>`** during the interactive Wireshark package deployment prompts the Linux kernel to assign granular capabilities (**`CAP_NET_RAW`** and **`CAP_NET_ADMIN`**) directly to the `/usr/bin/dumpcap` binary via the Linux Capabilities framework.
 
 > [!NOTE]
-> **Author's Security Analysis:** The Linux Capabilities framework allows the packet capture binary `dumpcap` to legitimately intercept traffic from system network interfaces while keeping the process fully unprivileged under standard user permissions. The utility no longer requires dangerous `root` superuser privileges, meaning a potential exploit payload within a captured packet physically cannot compromise the underlying operating system. Attempting to manually enforce a profile on `dumpcap` via `aa-enforce` will return a `Profile not found` error.
+> **Author's Threat Analysis:** The Linux Capabilities mechanism permits the `dumpcap` capture utility to legitimately intercept raw traffic across all system interfaces while running strictly within the unprivileged user context. The process no longer requires elevated `root` privileges, ensuring that a malicious payload embedded in a captured frame remains physically incapable of compromising the underlying operating system. Attempting to manually apply an AppArmor profile to `dumpcap` via `aa-enforce` will return a `Profile not found` error.
 
-Our next strategic task is to isolate heavy user-space applications (browsers, media players, document readers) where external file execution vectors are highest. We will fortify this perimeter in the dedicated sandboxing chapter.
+Our primary strategic objective is enforcing complete isolation over complex user space software (browsers, media players, document viewers), where threat vectors involving malicious external files are highest. This defensive perimeter is fully addressed in the dedicated sandboxing chapter.
 
 #### Practical Hardening of the AppArmor Subsystem:
 
-To perform deep configuration of audit utilities, open the terminal and execute the following commands:
+To configure audit utilities for deep system analysis, open a terminal session and execute the following steps in order:
 
-**1.** We install the official database of extended security profiles:
+**1.** Install the official extended security profiles database alongside administrative utilities:
 ```bash
 sudo apt install apparmor-utils apparmor-profiles -y
 ```
 
-**2.** Audit active loaded profiles and confined process states:
+**2.** Query the active AppArmor state to inspect loaded profiles and confined process lists:
 ```bash
 sudo aa-status
 ```
 
-**3.** Force-enable automatic security service initialization during early kernel boot:
+**3.** Force-enable automatic initialization of the security service during early kernel boot:
 ```bash
 sudo systemctl enable apparmor
 ```
 
-**4.** Launch the host log parsing and profile analysis utility:
+**4.** Launch the host security log audit tool (for `fusermount3`: select **[D]eny** 3 times, then **[F]inish**, then **[S]ave**; for `systemd-detect-virt`: select **[A]llow**, then **[F]inish**, then **[S]ave**):
 ```bash
 sudo aa-logprof
 ```
 
 > [!IMPORTANT]
-> On Ubuntu 24.04 distributions, running `aa-logprof` may encounter a fatal parsing error caused by duplicate profile definitions:
+> On Ubuntu 24.04 distributions, running `aa-logprof` may terminate abruptly with a duplicate profile error:  
 > `ERROR: Conflicting profiles for firefox defined in two files...`
 > 
-> This stems from a conflict between legacy Canonical text profiles and newer kernel policies. To restore the audit tool functionality, isolate the conflicting duplicate profile to a backup directory with a single command:
+> This occurs due to a policy conflict between legacy Canonical text profiles and updated kernel rules. To restore full audit parser functionality, isolate the conflicting duplicate profile into a backup directory using a single command:
 > ```bash
 > sudo mkdir -p /etc/apparmor.d/backup_conflict/ && sudo mv /etc/apparmor.d/firefox /etc/apparmor.d/backup_conflict/ 2>/dev/null || true
 > ```
 > 
-> After isolating the duplicate, re-run `sudo aa-logprof`. The parser will successfully read host logs:
-> `Profile: ubuntu_pro_esm_cache_systemd_detect_virt`
+> Once isolated, re-run `sudo aa-logprof`. The log parser will parse system events cleanly:  
+> `Profile: ubuntu_pro_esm_cache_systemd_detect_virt`  
 > `Capability: perfmon`
 > 
-> The utility will visually list blocked calls, allowing one-click decisions to allow legitimate calls or keep denials active. Full policy tuning and conflict-free execution of the Firefox browser will be completed in the upcoming Firejail chapter.
+> The interactive utility will then present all blocked calls, allowing operators to grant legitimate capabilities or enforce denials with a single keypress. Full isolation and conflict-free execution of the Firefox browser will be addressed in the subsequent Firejail deployment chapter.
 
 <br>
 
@@ -4082,15 +4101,15 @@ sudo aa-logprof
 
 #### Introduction:
 
-To safely execute downloaded files and untrusted assets, we will deploy the Firejail sandboxing framework. It allows operators to isolate web browsers and desktop applications by restricting their access to the filesystem, system hardware resources, network capabilities, and kernel system calls based on defined security profiles.
+To safely execute untrusted external files and binaries, we deploy the Firejail sandboxing framework. Firejail isolates web browsers, productivity software, and communication clients by constraining their access to the host file system, system calls (seccomp filters), networking stacks, and hardware resources according to predefined security profiles.
 
-Firejail is a lightweight SUID sandboxing tool for Linux designed to restrict the runtime execution environment of unprivileged applications.
+Firejail is a lightweight Linux security sandbox that leverages namespaces, cgroups, and Linux Capabilities to run applications inside strictly confined environments.
 
-In this chapter, we will install Firejail, execute previously deployed applications inside the sandbox (Firefox, KeePassXC, Document Viewer, Image Viewer), and install and launch LibreOffice, GIMP, VS Codium, LM Studio, Telegram, Psi+, and Thunderbird. Furthermore, Psi+ and Thunderbird will be configured to interface with OpenPGP (GnuPG). Finally, we will generate convenient desktop launchers for each sandboxed application.
+In this chapter, we will install Firejail, launch previously installed applications (Firefox, KeePassXC, Document Viewer, and Image Viewer) within isolated sandboxes, and proceed to install and confine LibreOffice, GIMP, VSCodium, LM Studio, Telegram, Psi+, and Thunderbird. Furthermore, Psi+ and Thunderbird will be configured to handle OpenPGP (GnuPG) end-to-end encryption. Finally, we will generate custom desktop launchers (`.desktop` entries) to enforce transparent sandbox confinement across all desktop shortcuts.
 
 #### Installing Firejail and Preparing the Sandbox:
 
-**1.** We retrieve the current stable build of Firejail from the project's official repository. First, we install the requisite tools, then automatically locate the latest available `.deb` asset and deploy it:
+**1.** Retrieve the current stable build of Firejail from the project's official repository. First, install the requisite dependency utilities, then automatically resolve the latest available `.deb` release asset and deploy it:
 ```bash
 sudo apt update && sudo apt install -y curl jq ca-certificates
 
@@ -4105,298 +4124,298 @@ sudo apt install -y /tmp/firejail.deb
 rm -f /tmp/firejail.deb
 ```
 
-**2.** We verify the installed Firejail version. Inspect the output specifically for the presence of the `AppArmor support is enabled` flag, as modern Ubuntu installations utilize AppArmor integration to enhance confinement:
+**2.** Verify the installed Firejail version. Ensure the output contains the `AppArmor support is enabled` flag, confirming that Firejail integrates with the AppArmor security subsystem:
 ```bash
 /usr/bin/firejail --version
 ```
 
 > [!IMPORTANT]
-> Starting with Ubuntu 24.04 LTS, AppArmor optionally restricts unprivileged user namespace creation. This is neither an error nor a bug, but an additional kernel-level hardening feature designed to minimize kernel attack surface.
+> Starting with Ubuntu 24.04 LTS, AppArmor introduces restrictions on unprivileged user namespace creation (`unprivileged_userns`). This is an intentional Linux kernel security feature designed to reduce kernel attack surface, rather than an error or system bug.
 > 
-> Under our deployment model, we do not disable global system protections nor rewrite base system profiles manually. First, we verify current kernel state, then leverage native Firejail and AppArmor integration mechanisms.
+> Rather than disabling global system protections or manually altering vendor AppArmor profiles, we query system state first and leverage native Firejail-AppArmor integration mechanisms.
 > 
-> Crucial principle: sandboxing framework controls must fortify system security rather than degenerate into an endless chain of manual exceptions that introduce security risks themselves.
+> A fundamental security principle applies: the sandbox container must harden system posture without devolving into an unmaintainable series of manual policy overrides that introduce new threat vectors.
 
-**3.** We audit the active restriction status of unprivileged user namespaces:
+**3.** Query the active unprivileged user namespace restriction status:
 ```bash
 sysctl kernel.apparmor_restrict_unprivileged_userns
 ```
-If the kernel outputs:
+If the terminal outputs:
 ```bash
 kernel.apparmor_restrict_unprivileged_userns = 1
 ```
 
-This confirms that enhanced AppArmor namespace restriction is active. We leave this protection enabled.
+This confirms that enhanced AppArmor kernel restriction remains active. We maintain this baseline configuration enabled.
 
 #### CCore Firejail Filtering Options (Reference):
 
-* **`--apparmor`** — Enforces an AppArmor profile to restrict application actions at the Linux kernel level. Firejail initializes namespaces while AppArmor applies mandatory access controls.
-* **`--blacklist`** — Forcibly hides specified files or directories from the application environment.
-* **`--caps.drop all`** — Drops all Linux capabilities, restricting access to privileged kernel operations.
-* **`--deterministic-shutdown`** — Ensures clean sandbox termination alongside child processes once the main application process exits.
-* **`--dbus-user=none`** — Disables application access to the user session D-Bus. Applied for strict isolation of software that does not require desktop environment inter-process communication.
-* **`--dbus-system=none`** — Disables application access to the system D-Bus bus.
-* **`--net=none`** — Completely disables the kernel network stack inside the container, retaining only loopback access (`127.0.0.1`).
-* **`--nonewprivs`** — Disallows processes from acquiring new privileges inside the container via `NO_NEW_PRIVS`. Prevents privilege escalation to root.
-* **`--no-sandbox`** — Disables an application's internal Chromium/Electron sandbox when wrapped in an external sandbox (such as Firejail) to prevent isolation mechanism collisions.
-* **`--private`** — Replaces real user home directories with clean temporary mountpoints in RAM (`tmpfs`).
-* **`--private-dev`** — Spawns an isolated, virtualized `/dev` device directory.
-* **`--private-etc`** — Generates an isolated `/etc` view containing strictly essential system files and configurations.
-* **`--private-tmp`** — Completely isolates the temporary system directory `/tmp` from the host OS.
-* **`--protocol`** — Restricts application socket creation to specific Unix socket types and network protocols within the sandbox.
-* **`--seccomp`** — Enables Linux kernel Secure Computing Mode, blocking dangerous or non-standard system calls. If a rule violation occurs, the kernel immediately kills the process.
-* **`--whitelist`** — Grants explicit read-write access exclusively to the specified file or directory path.
+* **`--apparmor`** — Enforces an AppArmor security profile for secondary kernel-level application containment. Firejail constructs the isolated namespace while AppArmor applies mandatory access control (MAC) policies.
+* **`--blacklist`** — Explicitly hides targeted files or directories from the containerized application.
+* **`--caps.drop=all`** — Drops all Linux capability flags, eliminating access to privileged kernel operations.
+* **`--deterministic-shutdown`** — Guarantees clean sandbox teardown alongside all child processes upon main binary termination.
+* **`--dbus-user=none`** — Disables access to the user-session D-Bus bus. Enforces strict isolation for binaries that do not require IPC with the desktop environment.
+* **`--dbus-system=none`** — Disables access to the system D-Bus bus.
+* **`--net=none`** — Completely unbinds the host networking stack from the container, exposing only the local loopback interface (`127.0.0.1`).
+* **`--nonewprivs`** — Sets the `PR_SET_NO_NEW_PRIVS` flag to hardware-prevent process privilege escalation inside the sandbox, neutralizing setuid/setgid execution paths.
+* **`--no-sandbox`** — Disables the native Chromium/Electron user-space sandbox engine to avoid nesting conflicts when running under external sandboxing frameworks (such as Firejail).
+* **`--private`** — Mounts volatile temporary file systems (`tmpfs` in RAM) over real user home directories, presenting a clean ephemeral state.
+* **`--private-dev`** — Constructs a minimal, hardened virtual `/dev` device node directory inside the sandbox.
+* **`--private-etc`** — Supplies an isolated, minimal view of the `/etc` configuration directory containing only essential system files.
+* **`--private-tmp`** — Completely isolates the temporary system directory `/tmp` from the host environment.
+* **`--protocol`** — Restricts process access to specific socket domains and network protocol families inside the sandbox environment.
+* **`--seccomp`** — Enables Linux kernel Secure Computing (seccomp) filtering to intercept and block high-risk or non-standard system calls. Any policy violation triggers immediate kernel process termination.
+* **`--whitelist`** — Grants explicit read/write access exclusively to targeted files or directories, implicitly denying access to all non-whitelisted paths.
 
 #### Creating a Dedicated Hardened Firefox Profile:
 
-Following Firejail deployment, we proceed with preparing our dedicated, isolated Firefox profile.
+Following the installation of Firejail, proceed to configure a dedicated, hardened Firefox security profile.
 
-By default, Firejail includes a pre-configured profile for Firefox. Instead of editing the system file at `/etc/firejail/firefox.profile`, we generate our own custom user-level override file. This approach allows us to retain Firejail's baseline security directives while enabling our custom modifications without risk of being overwritten during system package updates.
+By default, Firejail includes a preconfigured Firefox profile. Rather than modifying the system-wide `/etc/firejail/firefox.profile` binary configuration directly, construct a custom user-space profile copy. This strategy maintains default Firejail security baseline rules while allowing custom policy additions that persist across package upgrades.
 
-**1.** We create the user Firejail profile directory and copy the default Firefox profile into it:
+**1.** Create the local user-space Firejail profile directory and duplicate the stock Firefox profile:
 ```bash
 mkdir -p ~/.config/firejail && cp /etc/firejail/firefox.profile ~/.config/firejail/firefox-hardened.profile
 ```
 
-**2.** We open our profile file for inspection and custom fine-tuning:
+**2.** Open the newly created profile for inspection and customization:
 ```bash
 nano ~/.config/firejail/firefox-hardened.profile
 ```
 
-**3.** We replace the line `include firefox.local` with our custom local configuration file `firefox-hardened.local`:
+**3.** Replace the `include firefox.local` directive with the path to our custom local configuration file `firefox-hardened.local`:
 ```ini
 include firefox-hardened.local
 ```
 
-Inside, we fully preserve Firejail's default profile architecture. Redesigning it from scratch is unnecessary, as maintainers have already baked in essential constraints:
+This retains the internal structure of the upstream Firejail profile. Rewriting the entire profile from scratch is unnecessary, as upstream maintainers have already defined essential containment primitives:
 
-* seccomp system call filtering;
-* capability dropping (`caps.drop all`);
-* strict filesystem access restrictions;
-* D-Bus filtering;
-* baseline hardening inclusion templates.
+* Seccomp system call filtering;
+* Linux Capability drops;
+* File system access restrictions;
+* D-Bus IPC filtering;
+* Essential hardening include files.
 
-We will store all our supplemental security directives separately within a dedicated local file.
+Custom policy directives will reside separately within the dedicated local include file.
 
-**4.** We create the local rules file for our hardened Firefox setup:
+**4.** Create the local override configuration file for the hardened Firefox profile:
 ```bash
 nano ~/.config/firejail/firefox-hardened.local
 ```
 
-**5.** We define strictly necessary permissions for our Firefox profile:
+**5.** Append only essential access permissions required by the hardened Firefox configuration:
 ```ini
-# Supplemental hardened Firefox directives
+# Custom rules for hardened Firefox
 
-# Permit FIDO2/U2F hardware security keys (YubiKey and equivalents)
+# Permit FIDO2/U2F hardware token access (YubiKey and compatible devices)
 ignore nou2f
 
-# Grant explicit access to the isolated Firefox profile directory
+# Grant exclusive access to the isolated Firefox profile directory
 noblacklist ${HOME}/.mozilla-hardened
 whitelist ${HOME}/.mozilla-hardened
 
-# Grant write access for file downloads
+# Permit file downloads to the standard Downloads directory
 whitelist ${HOME}/Downloads
 
-# Force immediate sandbox teardown upon primary process exit
+# Enforce clean sandbox teardown upon primary process exit
 deterministic-shutdown
 ```
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
 
-Now we have a custom user Firejail profile for Firefox that operates completely independent of system defaults and remains immune to package updates.
+Firejail now references a dedicated user-level Firefox profile that operates independently of system-wide defaults and remains protected against package update overrides.
 
-We will avoid using the standard browser profile path directly. Instead, we generate a dedicated directory at `~/.mozilla-hardened` reserved exclusively for our active Firefox profile. This completely isolates the browser configuration from the rest of the user home directory, establishing a transparent structure that is easy to audit inside the sandbox.
+Avoid interacting directly with the default user profile directory (`~/.mozilla`). Instead, establish an isolated directory structure at `~/.mozilla-hardened` to house the active Firefox environment exclusively. Decoupling browser runtime data from default user home directories yields a clean, auditable profile layout easily managed within sandbox boundaries.
 
-**6.** We create the dedicated directory and copy our current Firefox profile into it:
+**6.** Create the dedicated hardened directory structure and copy the active Firefox profile:
 ```bash
 mkdir -p ~/.mozilla-hardened && cp -r ~/.config/mozilla/firefox ~/.mozilla-hardened/ 2>/dev/null || true
 ```
 
-**7.** We audit the contents of the new directory:
+**7.** Inspect the contents of the newly populated profile directory:
 ```bash
 ls -la ~/.mozilla-hardened/firefox/
 ```
-Inside, we verify the presence of our Firefox profile directory formatted as `PROFILE_NAME.default-release`.
+The output must display the active profile directory matching the standard release naming convention: `PROFILE-NAME.default-release`.
 
-**8.** We create a persistent `current` symlink targeting our profile directory:
+**8.** Create a persistent `current` symbolic link pointing directly to the active profile directory:
 ```bash
-cd ~/.mozilla-hardened/firefox/ && rm -f current && ln -s PROFILE_NAME.default-release current && cd ~
+cd ~/.mozilla-hardened/firefox/ && rm -f current && ln -s PROFILE-NAME.default-release current && cd ~
 ```
 
-**9.** We verify that the symbolic link points accurately to our target profile:
+**9.** Validate that the symbolic link resolves correctly to the target profile directory:
 ```bash
 readlink -f ~/.mozilla-hardened/firefox/current
 ```
 
-If the command returns the full absolute path to the profile directory, we have linked everything correctly.
+If the invocation outputs the absolute path to the target profile directory, the symbolic link is configured correctly.
 
-**10.** We set proper user ownership across the copied profile hierarchy:
+**10.** Enforce user ownership across the isolated profile directory tree:
 ```bash
 chown -R $USER:$USER "$HOME/.mozilla-hardened"
 ```
 
-Our Firefox environment is now fully prepared for execution within our hardened Firejail perimeter. At this stage, we avoid adding overly complex manual rules or breaking native security primitives. Testing various launch parameters confirms that previous sandbox issues stemmed not from Firejail or AppArmor errors, but from the process execution wrapper.
+The Firefox profile is now prepared for execution inside an isolated Firejail container perimeter. Avoid injecting excessive manual overrides that risk compromising core sandbox mechanics. Testing across various launch parameters confirms that runtime edge cases stem from process initialization flags rather than flaws within Firejail or AppArmor primitives.
 
-In the end, our working architecture consists of:
+The verified operational baseline comprises:
 
-* baseline Firejail profile defaults with all default restrictions;
-* isolated Firefox profile data;
-* a secured `~/.mozilla-hardened` filesystem path;
-* guaranteed container cleanup via `--deterministic-shutdown`.
+* Standard Firejail security profile rules;
+* Decoupled Firefox profile configuration;
+* Isolated `~/.mozilla-hardened` file system container;
+* Reliable sandbox teardown via `--deterministic-shutdown`.
 
-**11.** We launch Firefox using our hardened Firejail profile:
+**11.** Launch Firefox inside the hardened Firejail container:
 ```bash
 firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile "$HOME/.mozilla-hardened/firefox/current"
 ```
 
-**12.** Once launched, we open a adjacent terminal window and audit active sandboxes:
+**12.** Open a secondary terminal window to audit active sandbox container instances:
 ```bash
 firejail --list
 ```
 
-The output must clearly display our active Firefox session: `PID:user::firejail --deterministic-shutdown --profile=firefox-hardened /usr/...`.
+The output must list the active Firefox container instance: `PID:user::firejail --deterministic-shutdown --profile=firefox-hardened /usr/...`.
 
-Now, we perform the most critical check: we close the Firefox window normally and wait a few seconds.
+Verify container lifecycle behavior: terminate the Firefox browser window normally and wait several seconds.
 
-**13.** We inspect the active sandbox list once again:
+**13.** Query the active sandbox list to verify process termination:
 ```bash
 firejail --list
 ```
 
-If configured properly, the active sandbox list will return an empty output. This confirms Firejail correctly intercepted the termination signal from Firefox, gracefully killed child processes, and completely destroyed the temporary container namespace.
+If configured correctly, the active sandbox list returns empty. This confirms that Firejail successfully trapped the primary process exit signal, terminated child threads cleanly, and completely destroyed the ephemeral execution namespace.
 
-As a result, Firefox launches with all our custom settings, extensions, and `user.js` preferences intact while benefiting from an additional containment layer. Upon exiting the browser, the sandbox is entirely torn down, returning the host system to its baseline sterile state.
+Firefox executes with all predefined user preferences, security extensions, and `user.js` hardening flags active while benefiting from strict OS-level container isolation. Upon browser exit, the sandbox container is destroyed entirely, returning host OS state to its pristine baseline.
 
 > [!NOTE]
-> Previously, under certain Firefox execution patterns, the sandbox process could remain orphaned in memory after closing the browser window. The root cause was not profile corruption or AppArmor misconfiguration, but process-tree termination mechanics inside user namespaces.
+> Under certain launch configurations, orphan sandbox processes could previously remain resident in memory after closing the browser interface. This behavior resulted from process tree termination dynamics inside the PID namespace rather than profile corruption or AppArmor policy failures.
 > 
-> Utilizing `deterministic-shutdown` completely resolves this behavior: Firejail actively tracks child processes and guarantees no lingering sandbox sessions remain after closing the graphical application GUI.
+> Supplying the `deterministic-shutdown` directive resolves this lifecycle condition: Firejail strictly monitors child process execution trees, guaranteeing immediate sandbox teardown upon main browser interface closure.
 
-* Toward the end of this chapter, we will establish persistent desktop integration by embedding sandboxing parameters directly into custom `.desktop` application launchers.
+Later in this section, we will lock down persistent application launches via customized .desktop shortcut configurations.
 
 #### Airtight PDF Vault: Safely Opening Files in an Isolated Offline Mode:
 
-Because document viewers (PDF and DjVu parsers) are routinely targeted via zero-day exploit payloads, isolating them completely from the host operating system and network stack is a critical task. We will build a true "air-gapped vault" for Evince/Papers — a sterile environment with network access severed completely.
+Because document viewers (such as PDF and DjVu parsers) are routinely targeted by exploits leveraging zero-day parsing vulnerabilities, isolating them from the underlying OS host and networking stack is critical. We will construct a strictly air-gapped container environment for Evince/Papers—an isolated sandbox with all outbound and inbound network capabilities completely severed.
 
-Before executing the launch command, we create or locate a dummy PDF document. Let's assume it resides inside our Downloads directory under the name `unsafe.pdf`.
+Before launching the command, ensure a sample PDF document is present in the standard user directory. For this exercise, assume a target file named `unsafe.pdf` is located inside the user's `Downloads` directory.
 
-**1.** If no PDF file is readily available, we generate a dummy file to verify sandbox operations:
+**1.** If no sample PDF is available, generate a dummy placeholder file to perform sandbox verification:
 ```bash
 touch ~/Downloads/unsafe.pdf
 ```
 
-* **Guide for Ubuntu 24.04 LTS Noble Numbat Users (Evince):**
+* **For Ubuntu 24.04 LTS Noble Numbat (Users running Evince):**
 
-**2a.** On Ubuntu 24.04, we launch the application using the following command:
+**2a.** Launch the default Evince document viewer inside the standard Firejail sandbox:
 ```bash
 firejail evince ~/Downloads/unsafe.pdf
 ```
 
-**3a.** Without closing the active document window, we open a secondary terminal tab and inspect all running isolated environments:
+**3a.** Without closing the active document viewer window, open a secondary terminal tab and execute the sandbox auditing command to list active isolated containers:
 ```bash
 firejail --list
 ```
 
-**4a.** On Ubuntu 24.04, we harden the security rules for Evince by appending directives to `evince.local`:
+**4a.** Apply hardened containment policies to Evince by creating a dedicated local configuration override `evince.local`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/evince.local
 ```
 
-**5a.** We insert the following lines into the Evince local configuration:
+**5a.** Insert the following security directives into the `evince.local` configuration block:
 ```ini
-# Complete network ban
+# Enforce absolute network isolation
 net none
 protocol unix
 
-# Drop capabilities and disallow privilege escalation
+# Drop all Linux capabilities and prevent privilege escalation
 caps.drop all
 nonewprivs
 
-# Isolate temporary and cache directories
+# Isolate temporary files and cache locations
 private-cache
 private-tmp
 
-# Retain strictly required directories inside private HOME
+# Expose only necessary directories inside a volatile private HOME workspace
 private-home Downloads,Documents
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to return to the console prompt.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the shell prompt.
 
-**6a.** On Ubuntu 24.04, we execute a verification launch of the application:
+**6a.** Perform a verification launch of Evince under the newly hardened profile:
 ```bash
 firejail evince ~/Downloads/unsafe.pdf
 ```
 
-* **Guide for Ubuntu 26.04 LTS Resolute Raccoon Users (Papers):**
+* **For Ubuntu 26.04 LTS Resolute Raccoon (Users running Papers):**
 
-**2b.** On Ubuntu 26.04, we launch the application using the following command:
+**2b.** Launch the Papers document viewer inside the standard Firejail sandbox:
 ```bash
 firejail papers ~/Downloads/unsafe.pdf
 ```
 
-**3b.** Without closing the active document window, we open a secondary terminal tab and inspect all running isolated environments:
+**3b.** Without closing the active document viewer window, open a secondary terminal tab and inspect active isolated container instances:
 ```bash
 firejail --list
 ```
 
-**4b.** On Ubuntu 26.04, we harden the security rules for Papers by appending directives to `papers.local`:
+**4b.** Apply hardened containment policies to Papers by creating a local configuration override `papers.local`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/papers.local
 ```
 
-**5b.** We insert the following lines into the Papers local configuration:
+**5b.** Insert the following security directives into the `papers.local` configuration block:
 ```ini
-# Complete network ban
+# Enforce absolute network isolation
 net none
 protocol unix
 
-# Drop capabilities and disallow privilege escalation
+# Drop all Linux capabilities and prevent privilege escalation
 caps.drop all
 nonewprivs
 
-# Isolate temporary and cache directories
+# Isolate temporary files and cache locations
 private-cache
 private-tmp
 
-# Retain strictly required directories inside private HOME
+# Expose only necessary directories inside a volatile private HOME workspace
 private-home Downloads,Documents
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to return to the console prompt.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
 
-**6b.** On Ubuntu 26.04, we execute a verification launch of the application:
+**6b.** Perform a verification launch of Papers under the newly hardened profile:
 ```bash
 firejail papers ~/Downloads/unsafe.pdf
 ```
 
-* Toward the end of this chapter, we will establish persistent sandboxed desktop execution by integrating sandbox flags directly into system root launchers.
+* Later in this chapter, permanent sandbox launch directives will be embedded directly into system desktop launchers (`.desktop` files) to ensure transparent, default sandbox enforcement.
 
 #### Sandboxing Image Viewer for Secure Media Inspection:
 
-**1.** If no PNG file is readily available, we generate a dummy image asset for operational testing:
+**1.** If no sample PNG file is available, create a dummy placeholder file to perform sandbox verification:
 ```bash
 touch ~/Pictures/unsafe.png
 ```
 
-* **Guide for Ubuntu 24.04 LTS Noble Numbat Users:**
+* **For Ubuntu 24.04 LTS Noble Numbat (Users running Eog):**
 
-**2a.** We execute the initial launch command:
+**2a.** Launch the default Eye of GNOME (Eog) image viewer inside the standard Firejail sandbox:
 ```bash
 firejail eog ~/Pictures/unsafe.png
 ```
 
-**3a.** Without closing the open image viewer window, we open a secondary terminal tab and inspect active container environments:
+**3a.** Without closing the active image viewer window, open a secondary terminal tab and execute the sandbox auditing command to list active isolated containers:
 ```bash
 firejail --list
 ```
 
-**4a.** We harden security directives for Image Viewer by appending local rules to `eog.local`:
+**4a.** Apply hardened containment policies to Image Viewer by creating a dedicated local configuration override `eog.local`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/eog.local
 ```
 
-**5a.** We insert the following lines into the Eog configuration file:
+**5a.** Insert the following security directives into the `eog.local` configuration block:
 ```ini
-# Complete network and command shell ban
+# Enforce absolute network isolation and shell restrictions
 net none
 protocol unix
 caps.drop all
@@ -4405,31 +4424,31 @@ private-cache
 private-tmp
 ```
 
-**6a.** We execute a verification launch of the application:
+**6a.** Perform a verification launch of the application under the newly hardened profile:
 ```bash
 firejail eog ~/Pictures/unsafe.png
 ```
 
-* **Guide for Ubuntu 26.04 LTS Resolute Raccoon Users:**
+* **For Ubuntu 26.04 LTS Resolute Raccoon (Users running Loupe):**
 
-**2b.** We execute the initial launch command:
+**2b.** Launch the Loupe image viewer inside the standard Firejail sandbox:
 ```bash
 firejail loupe ~/Pictures/unsafe.png
 ```
 
-**3b.** Without closing the open image viewer window, we open a secondary terminal tab and inspect active container environments:
+**3b.** Without closing the active image viewer window, open a secondary terminal tab and inspect active isolated container instances:
 ```bash
 firejail --list
 ```
 
-**4b.** We harden security directives for Image Viewer by appending local rules to `loupe.local`:
+**4b.** Apply hardened containment policies to Image Viewer by creating a local configuration override `loupe.local`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/loupe.local
 ```
 
-**5b.** We insert the following lines into the Loupe configuration file:
+**5b.** Insert the following security directives into the `loupe.local` configuration block:
 ```ini
-# Complete network and command shell ban
+# Enforce absolute network isolation and shell restrictions
 net none
 protocol unix
 caps.drop all
@@ -4438,107 +4457,106 @@ private-cache
 private-tmp
 ```
 
-**6b.** We execute a verification launch of the application:
+**6b.** Perform a verification launch of the application under the newly hardened profile:
 ```bash
 firejail loupe ~/Pictures/unsafe.png
 ```
 
-* Toward the end of this chapter, we will establish persistent desktop integration by embedding sandboxing parameters directly into custom `.desktop` application launchers.
+* Later in this chapter, permanent sandbox launch directives will be embedded directly into custom user-space `.desktop` launchers to ensure transparent, default sandbox enforcement.
 
 #### KeePassXC Sandboxing Scenario:
 
-By isolating KeePassXC inside Firejail, we transform a program running in shared user space into an autonomous offline vault. It interfaces with the outside environment exclusively via Unix domain sockets (to detect our YubiKey hardware token) while exposing only one specific target asset — our password database. The rest of the host filesystem remains invisible to the process.
+Isolating KeePassXC converts it from an ordinary application executing in a shared desktop context into an autonomous vault. It communicates with the host exclusively via Unix domain sockets (to interface with our YubiKey hardware) and maintains access solely to a single, targeted file—our password database. The rest of the host file system is completely masked.
 
-Kernel-level seccomp filters, capability dropping (`caps.drop all`), and `ptrace` memory inspection prohibitions native to Firejail profiles completely prevent third-party processes from inspecting KeePassXC memory space or reading its allocated address space.
+Kernel-level filters embedded within the Firejail profile (`seccomp`, `caps.drop all`, and `ptrace` anti-debugging rules) strictly prohibit external processes from inspecting KeePassXC process memory or reading its memory address space.
 
-**1.** We create a clean configuration directory (if not already present) and open the local override file for the password manager profile:
+**1.** Create the local Firejail configuration directory (if not already present) and open the password manager's profile override file:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/keepassxc.local
 ```
 
-**2.** We insert the non-conflicting monolithic configuration block. It overrides hidden kernel device blacklists, restores access permissions for USB hardware tokens, enables netlink socket communication for YubiKey Challenge-Response verification, and isolates the main home directory while whitelisting strictly required settings and database files:
+**2.** Insert the verified override configuration block. This unsets restrictive device blacklists, restores USB token access permissions, enables the `netlink` socket domain for YubiKey Challenge-Response hardware token discovery, and confines the user's home directory—exposing exclusively configuration files and target password databases:
 ```ini
-# Permit FIDO2/U2F hardware security keys (YubiKey and equivalents)
+# Permit FIDO2/U2F hardware token operations (YubiKey and compatible devices)
 ignore private-dev
 ignore protocol unix
 ignore nou2f
 
-# Permit standard user access groups
+# Retain host user group access permissions
 ignore groups
 ignore nogroups
 
-# Restore access to GTK glycin loader binaries
+# Re-enable GTK glycin-loader binary access
 noblacklist /usr/libexec
 whitelist /usr/libexec/glycin-loaders
 
-# Grant explicit access to KeePassXC configuration paths
+# Permit access to KeePassXC application configuration
 noblacklist ${HOME}/.config/keepassxc
 nowhitelist ${HOME}/.config/keepassxc
 whitelist ${HOME}/.config/keepassxc
 
-# IMPORTANT: Grant access to password databases and optional keyfiles.
-# Replace placeholder paths with your actual filesystem locations.
-# KeePassXC Database path:
+# CRITICAL: Grant access to target password database and keyfile.
+# Specify your actual absolute file paths.
+# KeePassXC Database:
 # noblacklist ${HOME}/Documents/passwords.kdbx
 # whitelist ${HOME}/Documents/passwords.kdbx
 
-# Key-file path (e.g., located on external media):
-# noblacklist /media/$USER/DRIVE_NAME/passwords.key
-# whitelist /media/$USER/DRIVE_NAME/passwords.key
+# Keyfile located on external encrypted storage:
+# noblacklist /media/$USER/DRIVE-NAME/passwords.key
+# whitelist /media/$USER/DRIVE-NAME/passwords.key
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to return to the console prompt.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the terminal prompt.
 
-**3.** We launch KeePassXC inside our Firejail sandbox:
+**3.** Launch KeePassXC inside the Firejail sandbox container:
 ```bash
 firejail keepassxc
 ```
 
 > [!IMPORTANT]
-> Disabling D-Bus entirely may increase isolation depth, but on modern Linux systems running Wayland display servers, it frequently introduces incompatibilities with GUI applications. Many programs rely on user session D-Bus interfaces and XDG Desktop Portals for secure desktop integration.
+> Unconditionally disabling D-Bus IPC may maximize container isolation; however, on modern Linux environments utilizing Wayland, it frequently induces execution failures across graphical desktop applications. Modern GUI software relies on the user D-Bus session bus and XDG Desktop Portals to securely interface with the desktop environment.
 >
-> If an application fails to launch after completely disabling D-Bus, applying a granular filtering mode is recommended:
+> If an application fails to launch following complete D-Bus disabling, enforce filtered Inter-Process Communication (IPC) instead:
 >
 > ```bash
 > --dbus-user=filter
 > ```
 >
-> This mode maintains strict inter-process communication controls: it blocks unauthorized bus calls while preserving core system interfaces necessary for modern graphical application stability.
+> This filtering mode maintains granular IPC control: it blocks unauthorized bus calls while preserving necessary system interfaces required for modern graphical applications to function.
 
 > [!NOTE]
-> The `firecfg` utility generates binary symlinks exclusively for standard software installed via system `.deb` packages or compiled from source. As established in the opening chapters of our guide, Canonical's telemetry-heavy Snap engine was completely removed from the operating system. Firejail achieves its maximum mandatory security potential precisely within our clean baseline setup: classical binary executables deployed via system `apt` alongside standalone, self-contained AppImage containers.
+> The `firecfg` helper utility generates symlinks exclusively for legacy binaries installed via native `.deb` packages or compiled from source. As established in the initial chapters of this manual, Canonical's telemetry-heavy Snap infrastructure has been completely purged from our hardened OPSEC environment. Firejail operates at peak mandatory access control efficiency within this pristine configuration: standard system binaries deployed via `apt` and standalone, self-contained AppImage bundles.
 
-* Toward the end of this chapter, we will establish persistent desktop integration by embedding sandboxing parameters directly into custom `.desktop` application launchers.
+* Near the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
 
 #### Installing and Sandboxing the LibreOffice Suite:
 
-Office documents serve as one of the most common vectors for information exchange across organizations. However, the sheer complexity of modern document formats (DOCX, XLSX, ODT) turns office suites into complex parsers of untrusted external data. Therefore, executing LibreOffice within our isolated Firejail environment is strongly recommended, particularly when interacting with files received from untrusted sources.
+Office documents represent one of the most common vectors for organizational data exchange. However, the sheer complexity of modern formats (DOCX, XLSX, ODT) makes office suites full-fledged external data processors. Consequently, running LibreOffice inside an isolated Firejail environment is strongly recommended—especially when handling documents obtained from external sources.
 
-**1.** We deploy LibreOffice via the system package manager:
+**1.** Install LibreOffice:
 ```bash
 sudo apt install libreoffice -y
 ```
 
-**2.** We open our custom Firejail profile override using the `nano` editor:
+**2.** Open the `libreoffice.profile` configuration file in the `nano` editor:
 ```bash
 nano ~/.config/firejail/libreoffice.profile
 ```
 
-**3.** We insert our hardened runtime security profile:
-```ini
-# Enforce native GTK3 UI rendering
+**3.** Define explicit mandatory restrictions within the file:
+```ini               
+# Force GTK3 VCL plugin
 env SAL_USE_VCLPLUGIN=gtk3
-
-# Filesystem isolation parameters
+# File system isolation
 private-tmp
 private-dev
 
-# Whitelist strictly essential workspace paths
+# Restrict file system access exclusively to these directories
 whitelist ${HOME}/Documents
 whitelist ${HOME}/Downloads
 whitelist ${HOME}/.config/libreoffice
 
-# Completely disable networking sockets
+# Enforce absolute network socket restriction
 protocol unix
 ignore protocol inet
 ignore protocol inet6
@@ -4546,10 +4564,10 @@ ignore protocol inet6
 blacklist /tmp/.X11-unix
 blacklist ${HOME}/.Xauthority
 
-# Disable D-Bus and unneeded hardware services
+# Disable D-Bus and extraneous services
 nosound
 
-# Kernel security hardening
+# Advanced security hardening
 caps.drop all
 nonewprivs
 noroot
@@ -4559,20 +4577,20 @@ blacklist ${HOME}/.ssh
 blacklist ${HOME}/.gnupg
 blacklist ${HOME}/.mozilla
 
-# Deny access to external storage media
+# Removable media storage
 blacklist /media
 blacklist /mnt
 blacklist /run/media
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the terminal prompt.
 
-**4.** We launch the main LibreOffice hub within our sandbox:
+**4.** Launch the main LibreOffice Start Center inside the sandbox:
 ```bash
 firejail libreoffice
 ```
 
-**5.** To launch individual components (Writer, Calc, Impress, Draw, Math, Base), we execute:
+**5.** To launch individual writer/calc/impress/draw/math/base applications, execute:
 ```bash
 firejail libreoffice --writer
 firejail libreoffice --calc
@@ -4582,100 +4600,100 @@ firejail libreoffice --math
 firejail libreoffice --base
 ```
 
-* Toward the end of this chapter, we will establish persistent sandboxed execution by embedding these directives directly into custom user `.desktop` application launchers.
+* Toward the end of this chapter, we will configure permanent sandboxed execution by embedding launch parameters directly into user .desktop entries.
 
 #### Installing and Sandboxing GNU Image Manipulation Program (GIMP):
 
-Graphical image editors rank among the most complex user-space applications. GIMP parses a vast array of file formats (PSD, TIFF, PNG, JPEG, SVG, among others) and supports external third-party plugins. Consequently, memory corruption vulnerabilities in image parsers or plugin extensions could potentially lead to arbitrary code execution.
+Image editors represent some of the most complex desktop user space applications. GIMP processes a vast array of graphics formats (including PSD, TIFF, PNG, JPEG, and SVG) while supporting external third-party plugins. Consequently, memory corruption vulnerabilities within file parsers or extension modules could potentially lead to arbitrary code execution.
 
-To mitigate exploit risks when opening untrusted graphics assets, we construct a confined runtime sandbox for GIMP. The application operates without network access, stripped of Linux capabilities, and restricted strictly to specified directories.
+To mitigate operational risks when opening visual assets from untrusted sources, construct an isolated container perimeter for GIMP. The application will operate with absolute network isolation, stripped Linux capabilities, and file system access strictly bounded to essential target directories.
 
-**1.** We deploy GIMP:
+**1.** Install GIMP via the package manager:
 ```bash
 sudo apt install gimp -y
 ```
 
-Assume an untrusted graphic asset was downloaded for inspection to `~/Downloads/unsafe.png`.
+Assume an untrusted visual asset has been downloaded for inspection at `~/Downloads/unsafe.png`.
 
-**2.** We execute the target file within our sandbox environment:
+**2.** Launch the file inside the default Firejail sandbox:
 ```bash
 firejail gimp ~/Downloads/unsafe.png
 ```
 
-On Ubuntu 26.04, prior to applying a custom local profile, automatic process termination for GIMP 3.x may fail to trigger cleanly. We explicitly enforce `deterministic-shutdown` within our local overrides.
+Note that on Ubuntu 26.04 LTS, prior to applying a custom local profile, automatic process termination for GIMP 3.x may fail to trigger cleanly upon main window exit. Enforce the `deterministic-shutdown` directive within local policy overrides to guarantee complete sandbox teardown.
 
-**3.** We harden security controls for GIMP by creating a local profile override:
+**3.** Harden security constraints for GIMP by creating a local profile override file:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/gimp.local
 ```
 
-**4.** We append the following rules to the configuration:
+**4.** Append the following container hardening directives:
 ```ini
-# Complete network access ban
+# Enforce complete network stack isolation
 net none
 
 # Drop all Linux capabilities
 caps.drop all
 
-# Preserve dconf and portal interfaces for native file chooser functionality
+# Preserve dconf and XDG desktop portal IPC for file selection dialogs
 ignore nodbus
 ignore dbus-user none
 ignore dbus-system none
 
-# Mute audio subsystem bindings to eliminate PulseAudio terminal warnings
+# Mute audio subsystem initialization to eliminate terminal PulseAudio errors
 env PULSE_SERVER=disabled
 
-# Override global blacklists for GIMP settings directory
+# Override global blacklists and grant access to configuration profiles
 noblacklist ${HOME}/.config/GIMP
 whitelist ${HOME}/.config/GIMP
 
-# Restrict filesystem visibility strictly to active workspace paths
+# Restrict file system access exclusively to active workspace directories
 whitelist ${HOME}/Documents
 whitelist ${HOME}/Downloads
 whitelist ${HOME}/Pictures
 
-# Terminate sandbox immediately upon closing the main GIMP UI window
+# Enforce immediate container teardown upon main GUI interface closure
 deterministic-shutdown
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the terminal prompt.
 
-**5.** We perform a verification launch of the application:
+**5.** Perform a verification launch of the application:
 ```bash
 firejail gimp ~/Downloads/unsafe.psd
 ```
 
-Unlike lightweight document viewers, GIMP does not employ full home directory virtualization (`private`), as it continuously reads user-defined configurations, brushes, plugins, custom fonts, and color profiles.
+Unlike static document viewers, full home directory masking via `--private` is omitted for GIMP, as the editor requires persistent access to user brushes, custom plugins, installed system fonts, and application profile configurations.
 
-* Toward the end of this chapter, we will establish persistent desktop launcher integration by embedding sandboxing parameters into `.desktop` files.
+* Near the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
 
 #### Installing and Sandboxing VS Codium (Development IDE):
 
-VS Codium is a telemetry-free binary distribution of Microsoft's Visual Studio Code (VS Code) with proprietary tracking components and telemetry removed. It provides an open-source development environment built for privacy. However, like any feature-rich IDE, it maintains extensive filesystem permissions and spawns numerous sub-processes, making strict isolation essential.
+VSCodium is a free-software fork of Microsoft’s Visual Studio Code (VS Code) featuring completely purged telemetry, tracking scripts, and proprietary licensing. It provides a clean development environment built with respect for user privacy. However, as with any complex IDE, it requires broad host file system access and spawns numerous child processes; strictly containing it within a hardened sandbox is therefore essential.
 
-**1.** We deploy requisite utilities, navigate to our downloads folder, and retrieve the latest stable VS Codium AppImage build directly from the official GitHub repository:
+**1.** Install requisite system dependencies, navigate to the downloads directory, and fetch the latest stable VSCodium AppImage container from the official repository:
 ```bash
 sudo apt install curl jq -y && cd ~/Downloads && API_HOST="api.github.com" && LATEST_URL=$(curl -s "https://${API_HOST}/repos/VSCodium/vscodium/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E 'x86_64.*\.AppImage$' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
 ```
 
-**2.** We grant executable permissions, extract the AppImage archive, relocate binaries to `/opt/`, and initialize configuration paths in our user home directory:
+**2.** Mark the downloaded binary executable, extract the AppImage payload, deploy the extracted tree to `/opt/vscodium`, and initialize hidden user-space configuration directories:
 ```bash
 chmod +x VSCodium.AppImage && ./VSCodium.AppImage --appimage-extract && sudo mv squashfs-root /opt/vscodium && rm VSCodium.AppImage && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions && mkdir -p ~/.vscode-oss-shared
 ```
 
-**3.** We set standard SUID permissions on the embedded Chromium sandbox binary, then recursively assign ownership over configuration directories to our current user via `$USER` (preventing `EACCES: permission denied` errors during extension execution):
+**3.** Enforce baseline setuid permissions for the internal Chromium sandbox binary, and recursively restore current user ownership across all hidden configuration paths via the `$USER` variable to eliminate potential *EACCES: permission denied* runtime faults:
 ```bash
 sudo chown root:root /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chmod u+s /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chown -R $USER:$USER ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
 ```
 
-**4.** We ensure our Firejail configuration path exists and open our custom profile:
+**4.** Create the Firejail configuration directory if not already present, and open the custom profile in `nano`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/vscodium.profile
 ```
 
-**5.** We add baseline security containment rules. We explicitly whitelist our `extensions` path (preventing extension marketplaces from mounting in Read-Only mode) and include `runuser` and `var` profile templates to prevent embedded Node.js language servers from crashing on startup:
+**5.** Define baseline sandbox isolation rules. Explicitly whitelist the `extensions` subfolder (otherwise the extension marketplace defaults to *Read-Only* mode), and include the `runuser` and `var` profile rules to prevent internal Node.js language server initialization crashes:
 ```ini
-# Baseline security controls
+# Baseline security
 caps.drop all
 netfilter
 private-cache
@@ -4690,339 +4708,339 @@ include disable-devel.inc
 include disable-exec.inc
 include disable-interpreters.inc
 
-# Whitelist settings, extension stores, and shared memory IPC paths
+# Permit access exclusively to configuration paths, extension modules, and shared memory databases
 whitelist ~/.config/VSCodium
 whitelist ~/.vscode-oss
 whitelist ~/.vscode-oss/extensions
 whitelist ~/.vscode-oss-shared
 
-# Permit execution of internal Node.js language servers required by extensions
+# Permit execution of internal Node.js language servers required by extension engines
 include whitelist-runuser-common.inc
 include whitelist-var-common.inc
 include whitelist-common.inc
 
-# Optional rapid teardown flag (retained for asynchronous Electron process management)
+# Rapid container teardown upon application exit (retained for potential Electron lifecycle quirks)
 #deterministic-shutdown
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
 
-**6.** We create a dedicated directory for our project workspaces:
+**6.** Construct a dedicated workspace directory for active development projects (workspace folder access will be bound via launcher configurations):
 ```bash
 mkdir -p ~/Documents/VSCodium_Projects
 ```
 
-**7.** We correct directory permissions on our primary `Documents` path:
+**7.** Adjust ownership and enforce restrictive permissions on the parent `Documents` directory:
 ```bash
 sudo chown $USER:$USER "$HOME/Documents" && chmod 700 "$HOME/Documents"
 ```
 
-**8.** We launch the IDE directly inside our terminal session. For complex Electron-based development tools, this launch structure represents our operational standard:
+**8.** Launch the editor in foreground interactive terminal mode. For complex Electron-based IDEs, this launch invocation serves as the baseline execution standard:
 ```bash
 firejail --profile=~/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
 ```
 
 > [!NOTE]
-> Upon exiting the graphical interface, background Electron services (such as `fileWatcher`) may occasionally keep the container namespace active, preventing our host terminal prompt from returning immediately. Under standard desktop operations, this behavior is resolved by invoking launch routines asynchronously via `.desktop` menu shortcuts.
+> Upon closing the primary graphical interface, background Electron services (such as `fileWatcher`) may hold the sandbox container active, leaving the launching host shell blocked. In production setups, this behavior is completely bypassed by utilizing graphical `.desktop` launchers that execute processes asynchronously.
 
-* Toward the end of this chapter, we will establish persistent sandboxed execution by generating custom `.desktop` launchers.
+* Further along in this chapter, we will automate sandbox confinement by creating persistent desktop launchers directly in user-space `.desktop` entries.
 
 #### Installing and Sandboxing LM Studio Bionic Local AI:
 
-Cybersecurity professionals should refrain from submitting proprietary source code, system configuration files, or internal log outputs to public cloud-based AI services due to data leakage risks.
+Cybersecurity professionals cannot transmit sensitive prompts, proprietary source code snippets, or confidential system logs to cloud AI services due to severe data leakage risks.
 
-Furthermore, vulnerability research demonstrates that malicious payloads can be embedded directly within chat templates inside GGUF format model files.
+Security researchers have demonstrated that malicious threat actors can embed execution payloads within chat templates packed inside GGUF format model files.
 
-To neutralize these threat vectors, we contain our local AI workflow inside an air-gapped host perimeter.
+We will lock down our local AI assistant inside an air-gapped host container perimeter.
 
-Because recent releases of LM Studio are packaged as monolithic AppImage binaries (~1 GB) and native Firejail mounting mechanisms on Ubuntu 24.04/26.04 can produce filesystem mount conflicts (`Invalid argument`), we deploy via pre-extraction.
+Because current LM Studio builds ship as heavy monolithic AppImage containers (~1 GB) and Firejail's native mount mechanisms in Ubuntu 24.04/26.04 trigger file system mounting conflicts (`Invalid argument`), we apply an explicit pre-extraction strategy.
 
-**1.** We navigate to the Downloads directory and pull the latest stable Linux AppImage build directly from the vendor's distribution endpoint using `curl`:
+**1.** Navigate to the downloads directory and fetch the latest stable local AI AppImage container directly from the developers' official storage server via a single command, enforcing strict redirect chaining:
 ```bash
 sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "https://lmstudio.ai/download/latest/linux/x64?format=AppImage"
 ```
 
 > [!TIP]
-> **Author's Operational Note:** The asset size is ~1 GB; ensure the download transfers completely before we proceed. By targeting the static endpoint URL, this command consistently retrieves the current build of the software.
+> **Author's Tip:** The asset payload measures ~1 GB; wait for the terminal transfer progress indicator to reach 100%. Utilizing this static URL string ensures the command always retrieves the latest neural network build.
 
-**2.** We grant executable permissions to the binary asset and extract its filesystem payload:
+**2.** Grant standard execution permissions to the downloaded file and unpack its internal file system structure into a temporary user directory:
 ```bash
 chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract
 ```
 
-**3.** We move the extracted GUI runtime files into an isolated directory structure under our user profile:
+**3.** Move the extracted graphical interface directory tree from the temporary workspace into a hidden, isolated user profile folder:
 ```bash
 mv squashfs-root ~/.lmstudio_gui
 ```
 
-**4.** We ensure our Firejail configuration path exists and open our custom profile:
+**4.** Create the Firejail configuration directory if not already present, and open the custom profile in `nano`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/lmstudio.profile
 ```
 
-**5.** We write base containment directives to the profile file:
+**5.** Define baseline container isolation rules:
 ```ini
-# Do not isolate /dev — GPU acceleration and graphic display drivers require hardware device node access
+# Do not isolate /dev — preserve access to host GPU and graphics devices
 ignore private-dev
 
-# Grant read/write access to model weights and local LM Studio configuration data
+# Permit access to LM Studio model stores and internal configuration data
 noblacklist ${HOME}/.lmstudio
 
-# Force container teardown immediately upon main interface closure
+# Enforce rapid container teardown upon application exit
 deterministic-shutdown
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
 
-**6.** At this stage, network access is temporarily retained so we can download initial model weights via Hugging Face. To preserve GPU acceleration performance across vendors, we launch the application via a dynamic wrapper. The execution string detects active graphics hardware: if NVIDIA drivers are active, device nodes (`/dev/nvidia*`) remain exposed; otherwise, standard Intel/AMD Mesa graphics stacks are targeted natively:
+**6.** At this initial stage, the global network Kill-Switch is held inactive, as the application requires outbound internet access to download model weights. To prevent large language models (LLMs) from defaulting to slow CPU execution fallback, wrap application launch in a universal one-line terminal invocation. The script dynamically checks for active host NVIDIA drivers: if an NVIDIA GPU is detected, access to `/dev/nvidia*` device nodes is preserved; otherwise, execution defaults to host Intel/AMD graphics stacks:
 ```bash
 firejail --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
 ```
 
 > [!NOTE]
-> Once we have completely downloaded the required LLM model files via the embedded search interface, we close the application. Online network access will no longer be required during our routine offline operations. Downloaded model weights are stored persistently within our user home directory under `~/.lmstudio/`. We now proceed to complete our air-gap lockdown.
+> Once required model files are fully downloaded to disk via the built-in Hugging Face browser, close the application interface. Outbound network access for this utility will only be necessary when pulling new LLM weights in the future. All downloaded model weights remain securely stored inside the user home directory path `~/.lmstudio/`. Proceed to final container sealing.
 
-Detailed setup routines for establishing dual launch modes (*Secure Sandbox* without networking vs. *Online Downloader* with networking) featuring high-resolution 512px and 256px application icons are covered **further in the text under the `firecfg` section**. The automated script provided there generates menu entries within the GNOME desktop interface.
+Detailed setup for automated split-profile launching (*Secure Sandbox* without network vs. *Online Downloader* with network) for LM Studio, including deployment of custom high-resolution 512px and 256px icons, is covered **later in this text within the `firecfg` section**. The automated helper script provided there generates integrated shortcuts inside the GNOME Applications menu ("Apps").
 
-**7.** To execute the graphical interface of LM Studio inside a fully air-gapped kernel namespace (bypassing the application menu), we run the following command with the network stack explicitly disabled (`--net=none`):
+**7.** To force-launch the full LM Studio graphical interface inside an air-gapped Linux kernel container (bypassing desktop launchers), execute the following command with the `--net=none` flag, which automatically handles GPU passthrough for NVIDIA or integrated Intel/AMD devices:
 ```bash
 firejail --net=none --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
 ```
 
-**8.** If the GUI interface is not required and we prefer executing only the lightweight local inference engine as a background service (Daemon) for API integration while strictly air-gapped, we run:
+**8.** To bypass the heavy graphical interface and execute only the lightweight local AI engine as a background service (Daemon) for CLI or API operations while air-gapping network access, use the corresponding universal invocation string. This ensures the `lms` CLI engine binds directly to NVIDIA tensor cores for rapid inference while maintaining stability across Intel/AMD host configurations:
 ```bash
 firejail --net=none --profile=lmstudio $HOME/.lmstudio/bin/lms daemon up
 ```
 
-**9.** We remove the leftover installation AppImage binary from our Downloads directory:
+**9.** Remove the downloaded installation image from the `Downloads` directory:
 ```bash
 rm ~/Downloads/LM-Studio.AppImage
 ```
 
 > [!NOTE]
-> **Security Analysis:** Our local LLM platform is fully prepared for operation within an air-gapped sandbox in both graphical (GUI) and server (CLI/Daemon) execution modes. The `--net=none` flag completely unbinds network namespaces within the Linux kernel for our target process. GPU acceleration handles matrix computations locally without exposing host filesystem access. Prompts, system logs, and security code snippets remain confined entirely to local GPU VRAM and host RAM, physically severed from network interfaces.
+> **OPSEC Security Analysis:** The local AI assistant is now operational within an isolated sandbox across both graphical (GUI) and daemon (CLI/Daemon) execution modes. The `--net=none` directive completely unbinds Linux kernel network namespaces for the running container. Dynamic device mapping guarantees that CUDA engines interface directly with GPU hardware without degrading host file system isolation controls. Sensitive prompts, internal logs, and proprietary source code fragments are processed strictly inside host RAM and GPU tensor cores, remaining physically air-gapped from external network infrastructure.
 
-* Toward the end of this chapter, we will establish persistent sandboxed execution by generating custom `.desktop` application launchers.
+* Toward the end of this chapter, we will configure permanent sandboxed execution by embedding these launch parameters directly into custom `.desktop` shortcuts.
 
 #### Securing Communications: Mandatory Isolation of Messengers and Crypto Infrastructure (Author's OPSEC Setup):
 
-For everyday work tasks, regular users choose **Telegram**. However, in the professional information security environment, the standards for privacy, decentralization, and absolute digital sovereignty remain the **XMPP (Jabber)** protocol and encrypted email paired with end-to-end **OpenPGP (GnuPG)** encryption.
+For everyday tasks, mainstream users typically opt for **Telegram**. However, across the professional cybersecurity community, the **XMPP (Jabber)** protocol and encrypted email paired with end-to-end **OpenPGP (GnuPG)** encryption remain the gold standards for privacy, decentralization, and absolute digital sovereignty.
 
 > [!NOTE]
-> When using ProtonMail secure email, keep in mind that within the "Proton-to-Proton" ecosystem, end-to-end OpenPGP encryption is already built into the web interface by default. However, to achieve full sovereignty (a defense model against the compromise of the email provider itself), we can use a **cascading encryption** tactic: encrypt the message text with our local offline Curve 25519 key directly on the host, and then send the resulting ciphertext via Proton. In this scenario, intercepting correspondence is mathematically impossible, even if a third party gains access to the servers in Switzerland.
+> When using secure email services like ProtonMail, remember that end-to-end OpenPGP encryption is built directly into the web interface by default for "Proton-to-Proton" internal communications. However, to achieve complete operational sovereignty (a security model designed to mitigate host-side or provider-level compromise), apply a **cascading encryption strategy**: encrypt the message body using a local offline Curve25519 key pair directly on the host, then transmit the resulting ciphertext via Proton. Under this model, intercepting communications becomes mathematically impossible—even if a third party gains full access to Swiss data centers.
 
-Any communication client continuously processes vast amounts of complex external data: HTML code in emails, XML streams in chats, asynchronous links, avatars, and media files from untrusted sources. This opens up a critical attack surface for exploitation of parsing vulnerabilities (including buffer overflow errors in the application core). We completely eliminate the risk of 0-day exploit execution and theft of host personal data by isolating each communication tool at the Linux kernel level using the Firejail sandbox.
+Any communication client continuously processes massive volumes of untrusted external data: HTML email layouts, XML chat streams, asynchronous link previews, avatars, and media files. This creates a critical attack surface for file-parsing exploits (including kernel-level or application buffer overflow vulnerabilities). We will neutralize the risk of 0-day exploit execution and host data exfiltration by isolating every communication tool at the Linux kernel level using the Firejail sandbox.
 
 #### Installing and Sandboxing Telegram Desktop:
 
-The main issue with the default Telegram client in Linux is that it has full access to our home directory and stores all cached files, media, and session keys in plaintext. If a malicious stealer script executes inside the system, it can easily hijack active messenger sessions.
+The primary security flaw of the default Telegram client on Linux is its unrestricted access to the host home directory, alongside storing cached media, downloaded assets, and session keys in plaintext. Should a malicious stealer script execute on the system, it can effortlessly hijack active messenger sessions.
 
-Let's strictly restrict Telegram: we deny it access to any files in the system except for its own configuration directory and one specific folder for downloads. At the same time, the messenger must maintain full traffic visibility for Portmaster firewall eBPF lenses.
+Let's strictly isolate Telegram: prohibit it from viewing any host files outside its own configuration directory and a single designated download folder, while preserving full traffic visibility for Portmaster's eBPF network filtering lenses.
 
 > [!IMPORTANT]
-> Since the Snap package base is completely purged in our paranoid OPSEC perimeter, and Flatpak versions have hidden issues with D-Bus passthrough, we will strictly use the official, clean static binary of the messenger. This allows our Firejail sandbox to achieve the highest level of mandatory process control.
+> Because the Snap package framework has been completely removed from our paranoid OPSEC configuration, and Flatpak builds suffer from subtle D-Bus passthrough issues, we strictly utilize the official, clean static messenger binary. This grants the Firejail sandbox maximum mandatory access control over running processes.
 
-**1.** We navigate to our downloads directory, download the official stable messenger archive in a single command directly via the official `telegram.org` gateway, unpack its structure, move the clean executable to the canonical system path directory `/usr/bin/`, and automatically purge all temporary junk behind us:
+**1.** Navigate to the downloads directory, fetch the official stable messenger archive directly via the official `telegram.org` redirect gateway in a single command, unpack its structure, relocate the clean executable binary to the canonical `/usr/bin/` path, and automatically sweep away temporary archive debris:
 ```bash
 sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "https://telegram.org/dl/desktop/linux" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
 ```
 
-The command executed via our `curl -L` utility will faithfully follow the HTTP redirect of the official download gateway, pull the heavy original tarball of the latest version, extract it, and move the clean static binary to the `/usr/bin/` directory named `telegram-desktop`. This is a legitimate execution path in the Linux kernel, ensuring a conflict-free launch of the executable by our graphical shell.
+The `curl -L` directive follows the HTTP redirects of the official download portal, fetches the latest upstream tarball, extracts it, and deploys the static binary to `/usr/bin/telegram-desktop`. This canonical execution path ensures seamless execution under the Linux kernel and desktop environments.
 
-**2.** To keep files downloaded from chats from scattering across the entire disk, we create a dedicated secure gateway folder in our user directory:
+**2.** Create a dedicated, isolated inbound file landing zone inside the user directory to prevent chat downloads from cluttering the host file system:
 ```bash
 mkdir -p ~/Downloads/Telegram_Downloads
 ```
 
-**3.** We ensure executable file integrity (POSIX protection):
+**3.** Enforce binary integrity via POSIX ownership attributes:
 ```bash
 sudo chown root:root /usr/bin/telegram-desktop
 ```
 
-**4.** We set execution permissions (Principle of Least Privilege):
+**4.** Apply strict execution permissions following the Principle of Least Privilege:
 ```bash
 sudo chmod 755 /usr/bin/telegram-desktop
 ```
 
-**5.** We create the directory if it is missing, and open our custom configuration file in the `nano` editor:
+**5.** Create the configuration directory if absent, and open the profile file in the `nano` editor:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/telegram.profile
 ```
 
-**6.** We write baseline isolation rules into the opened file:
+**6.** Insert baseline container isolation rules into the opened configuration file:
 ```ini
 # Telegram Desktop
 seccomp
 
-# Allow only necessary directories
+# Exclusively permit access to essential target directories
 whitelist ${HOME}/.local/share/TelegramDesktop
 whitelist ${HOME}/Downloads/Telegram_Downloads
 ```
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
 
-**7.** On Ubuntu 24.04/26.04 distributions, default system messenger profiles are bloated with redundant AppArmor filters, causing Qt applications to drop network sockets and go blind before the Portmaster eBPF driver. To completely bypass this bottleneck, we launch Telegram using our ultimate direct command: the `--profile=telegram` parameter completely seals the filesystem perimeter according to our rules. The `--seccomp` mechanism activates system call filtering at the host kernel level, thwarting attempts to exploit local privilege escalation (LPE) vulnerabilities:
+**7.** On Ubuntu 24.04/26.04 distributions, default system messenger profiles are overloaded with redundant AppArmor profiles, causing Qt applications to drop network sockets and blind Portmaster's eBPF driver. To completely bypass this bottleneck, launch Telegram using a direct command string: the `--profile=telegram` flag applies our custom profile restrictions, while `--seccomp` enforces kernel-level system call filtering to neutralize local privilege escalation (LPE) exploits:
 ```bash
 firejail --profile=telegram /usr/bin/telegram-desktop
 ```
 
-The messenger will instantly gain access to the host's internet network, and Portmaster eBPF lenses will immediately capture and display the `telegram-desktop` process in our network monitor window. At the same time, the built-in messenger file explorer will physically see nothing in our home directory besides our active chats and the isolated `Telegram_Downloads` directory. Even if an attacker sends us a malicious file and we accidentally execute it inside the messenger, the exploit will remain trapped in a virtual memory vacuum, unable to reach our SSH keys, crypto wallets, or hidden host machine system configs!
+The messenger immediately gains outbound host network access, while Portmaster's eBPF lenses capture and render the `telegram-desktop` process within the network monitor UI. Meanwhile, the client's internal file picker remains strictly blind to the rest of the host home directory—seeing only existing session state and the isolated `Telegram_Downloads` folder. Even if a threat actor transmits a malicious payload and it executes within the messenger context, the exploit remains trapped inside a virtual memory vacuum, unable to access SSH keys, cryptocurrency wallets, or sensitive host configurations!
 
-* Toward the end of this chapter, we will establish persistent sandboxed execution via a desktop shortcut by embedding rules directly into a user `.desktop` file.
+* Near the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
 
 #### Host Cryptographic Foundation: Generating and OPSEC-Protecting GnuPG Keys:
 
-Before passing the cryptographic core into isolated sandboxes for messengers and email clients, we must deploy a flawless, mathematically indestructible **OpenPGP (GnuPG)** asymmetric encryption base on the host. Errors during generation or negligence in key file permissions completely invalidate protection, allowing local malware to hijack your digital identity.
+Before passing cryptographic cores into isolated sandboxes of instant messengers and email clients, we must deploy a flawless, mathematically unassailable **OpenPGP (GnuPG)** asymmetric encryption infrastructure on the host. Generation errors or lax file access permissions for keyrings completely neutralize protection, allowing local malware to hijack your digital identity.
 
 > [!NOTE]
-> GnuPG tooling is a pre-installed baseline component in our Ubuntu Desktop out of the box. The `apt` package manager continuously uses GPG cryptographic algorithms at a deep system level to verify Canonical repository digital signatures during every system update, so the utility is fully ready to work out of the box.
+> The GnuPG toolkit comes pre-installed by default as a baseline component in Ubuntu Desktop. The `apt` package manager continuously leverages GPG cryptographic algorithms at a deep system level to verify digital signatures of Canonical repositories during system updates, rendering the utility fully operational out of the box.
 
-**1.** We abandon legacy and heavyweight RSA algorithms in favor of modern, lightning-fast, and robust **Elliptic Curve Cryptography (ECC)**. Launch the interactive GnuPG core generator:
+**1.** Abandon outdated, legacy RSA algorithms in favor of modern, ultra-fast, and highly resistant **Elliptic Curve Cryptography (ECC)**. Launch the interactive GnuPG generator:
 ```bash
 gpg --full-generate-key
 ```
-**Select strictly the following security parameters in the dialog window:**
-> 1. **Key type:** Choose option `(9) ECC and ECC (Sign and Encrypt)` — this provides separate elliptic curve keys for signing and encryption.
-> 2. **Elliptic curve type:** Select `(1) Curve 25519` (the famous Edwards curve `Ed25519`/`Cv25519`) — the recognized global EdDSA standard, protected against hidden intelligence agency backdoors.
-> 3. **Expiration date:** Choose `0` (key does not expire) OR set a strict rotation schedule (e.g., `1y` — one year).
-> 4. **User ID:** Enter your name/nickname and email.
-> 5. **Passphrase:** The system will prompt for a password to protect the secret key in RAM. Use a generated passphrase **at least 20–24 characters long** (a random set of mixed-case letters, numbers, and special characters).
+**Select the following strict security parameters in the interactive wizard:**
+> 1. **Key Type:** Select option `(9) ECC and ECC (Sign and Encrypt)`—this provisions separate elliptic curve keys for signing and encryption.
+> 2. **Elliptic Curve Type:** Select `(1) Curve 25519` (the renowned Edwards curve `Ed25519`/`Cv25519`)—an established global EdDSA standard immune to hidden state-sponsored backdoors.
+> 3. **Expiration Date:** Select `0` (key does not expire) OR define a strict rotation policy (e.g., `1y`—one year).
+> 4. **User ID (UID):** Enter your name/handle and target e-mail address.
+> 5. **Passphrase:** The system will prompt for a master password to protect the private key in RAM. Supply a generated passphrase at least **20–24 characters** long (comprising random mixed-case alphanumeric characters and special symbols).
 
 > [!IMPORTANT]
-> If we are creating a completely anonymous communication perimeter, strictly use a fictitious pseudonym and a non-existent email account in a trusted jurisdiction (e.g., `dark_agent@proton.me`).
+> When building a fully anonymous communications perimeter, use a fictional pseudonym paired with a non-existent email account under a privacy-conscious jurisdiction (e.g., `dark_agent@proton.me`).
 
-**2.** By default, the `~/.gnupg` directory is created with permissions that are too soft. If an unprivileged spy script gets into the system, it can read your key metadata. We block this vector by enforcing strict Linux kernel-level POSIX permission masks on the hidden directory and files:
+**2.** By default, the `~/.gnupg` directory is created with overly permissive access attributes. If an unprivileged spy script executes on the system, it could read key metadata. Block this vector by applying strict POSIX permission masks across the hidden directory and key files at the Linux kernel level:
 ```bash
 chmod 700 ~/.gnupg && find ~/.gnupg -type f -exec chmod 600 {} + && find ~/.gnupg -type d -exec chmod 700 {} +
 ```
 
-> **Defense Physics:** Now the permissions mask looks like an ideal Infosec monolith `drwx------`. Any process launched outside our current user account will receive a hard OS kernel hardware rejection when attempting to look into the key folder: `Permission denied`.
+> **Security Mechanics:** The permissions mask now forms an impenetrable `drwx------` access barrier. Any process executing outside our current user context attempting to inspect the keyring folder triggers an immediate OS kernel hardware denial: `Permission denied`.
 
-> **(OPSEC Recommendations for Storing Public and Private Pairs):** Asymmetric cryptography separates data into two entities, and the rules for storing them are fundamentally different:
+> **(OPSEC Recommendations for Storing Public and Private Key Pairs):** Asymmetric cryptography separates data assets into two distinct entities governed by fundamentally different storage policies:
 
 > [!IMPORTANT]
-> When executing export commands, replace the demonstration email address `YOUR-EMAIL@DOMAIN.COM` strictly with the actual email personally entered in Step 1 during key generation. Otherwise, the GnuPG core will throw a `WARNING: nothing exported` error.
+> When executing key export commands, replace the demonstration address `YOUR-EMAIL@DOMAIN.COM` strictly with the specific e-mail assigned during Step 1 key generation. Otherwise, the GnuPG core returns a `WARNING: nothing exported` error.
 
-**3.** Public Key: Our digital business card. Correspondents use it to encrypt messages sent to us and to verify our digital signature. Its security is not secret. We can post it on GitHub, send it as a file in an open chat, or pin it in an XMPP profile description. Exporting the public card to a text file:
+**3.** Public Key: Our digital calling card. Interlocutors use it to encrypt outbound messages for us and verify our digital signatures. Its security does not rely on secrecy. You may publish it to GitHub, transmit it across public channels, or attach it to an XMPP profile description. Export the public key block to an ASCII text file:
 ```bash
 gpg --armor --export YOUR-EMAIL@DOMAIN.COM > ~/Downloads/my_public_key.asc
 ```
 
-**4.** Export the private key to the Downloads folder:
+**4.** Export the secret key block into the downloads folder:
 ```bash
 gpg --armor --export-secret-keys YOUR-EMAIL@DOMAIN.COM > ~/Downloads/my_PRIVATE_key.asc
 ```
 
-**MANUAL ACTION:** Copy the `my_PRIVATE_key.asc` file to an external encrypted drive!
+**MANUAL ACTION:** Copy the `my_PRIVATE_key.asc` asset onto an external encrypted storage medium!
 
-**5.** Destroy the temporary key in Downloads using the `shred` secure deletion utility:
+**5.** Destroy the temporary private key stored in Downloads using the `shred` secure deletion tool:
 ```bash
 shred -u -v -n 3 ~/Downloads/my_PRIVATE_key.asc
 ```
 
 > [!WARNING]
-> **Private Key:** Our digital life, the DNA of our sovereignty. We use it to decrypt incoming messages and sign our files. It **MUST NEVER** be stored in cloud services, email, or network drives. The original master private key must reside exclusively in Cold Storage — on an encrypted external drive (or inside its crypto-container). Only easily replaceable operational secret subkeys for daily email encryption should be imported onto the LUKS host itself into the hidden `~/.gnupg` directory, eliminating the compromise of your entire digital identity in the event of physical loss or system breach.
+> **Private Key:** Our digital lifeblood and the foundational DNA of our operational sovereignty. We use it to decrypt incoming communications and sign outgoing payload assets. Storing secret keys in cloud environments, mailboxes, or networked storage drives is **STRICTLY PROHIBITED**. Master private keys should reside exclusively in Cold Storage—on an encrypted external physical device (or inside an isolated crypto-container). Only lightweight, easily replaceable daily working subkeys should be imported into the local LUKS host's `~/.gnupg` directory for routine mail encryption, eliminating master key compromise during physical device loss or system intrusion.
 
 > [!NOTE]
-> The physics of residual data securely wiped with `shred`/`wipe` utilities, metadata handling in `mat2`, and deployment of **VeraCrypt** crypto-containers were covered in detail in previous chapters. At this stage, we should already have an encrypted offline drive ready, where we copy the private key before physically wiping its original from the downloads folder.
+> Residual data destruction via `shred`/`wipe`, metadata cleansing via `mat2`, and **VeraCrypt** crypto-container deployment were covered thoroughly in preceding chapters. At this operational stage, an encrypted offline storage volume must already be provisioned to receive private key backups prior to physically purging original files from the local downloads directory.
 
 #### Installing and Sandboxing the Psi+ Jabber Client:
 
-For everyday routine tasks, standard users typically choose Telegram. However, in the professional cybersecurity community, the **XMPP (Jabber)** stack coupled with end-to-end encryption remains the benchmark for privacy, decentralization, and absolute digital sovereignty.
+For daily workspace communications, mainstream users typically opt for Telegram. However, across the professional cybersecurity community, the **XMPP (Jabber)** protocol paired with end-to-end encryption remains the benchmark for privacy, decentralization, and absolute digital sovereignty.
 
-As our reference client, we will use **Psi+**. Unlike the heavy Gajim (written in Python with an extensive cascade of third-party dependencies), Psi+ is a native Qt/C++ client featuring a lightweight architecture and built-in XMPP diagnostic tools, including an XML console.
+We will adopt **Psi+** as our reference client. Unlike the heavy Gajim client (written in Python with an extensive stack of third-party dependencies), Psi+ is a native Qt/C++ application boasting a minimalist architecture and built-in XMPP diagnostic tools, including an integrated XML console.
 
-However, any XMPP client continuously processes massive volumes of external XML data, asynchronous links, avatars, and media files from untrusted contacts. Theoretically, this opens a dangerous attack vector for exploiting parsing vulnerabilities (including critical buffer overflow flaws inside the core application binary). We significantly restrict the impact of potential exploit attempts against Psi+ by isolating the client using Firejail.
+However, any XMPP client continuously parses massive volumes of untrusted external XML streams, asynchronous links, avatars, and media assets. In theory, this exposes a dangerous attack surface for file-parsing exploits (including critical buffer overflow vulnerabilities within the application core). We significantly constrain the impact of potential Psi+ exploit execution by isolating the client using Firejail.
 
-We outline three legitimate encryption vectors for chat communications depending on our threat model:
+We establish three valid message encryption vectors depending on our threat model:
 
-* **OMEMO (Modern Standard):** Powered by the Double Ratchet cryptographic protocol (similar to Signal), featuring Forward Secrecy and file transfer encryption. Ideal for daily cybersecurity operations.
-* **OpenPGP/GnuPG (Old-School Benchmark):** Asymmetric encryption using robust key pairs. The Psi+ OpenPGP plugin leverages host GnuPG infrastructure to manage OpenPGP keys.
-* **OTR/Off-the-Record Messaging:** Absolute symmetric mathematical resistance impervious to quantum cryptanalysis (each key is generated manually and used strictly once per message).
+* **OMEMO (Modern Standard):** Based on the Signal Double Ratchet cryptographic protocol, featuring Forward Secrecy and encrypted file transfer support. Ideal for daily security collaboration.
+* **OpenPGP/GnuPG (Classic Baseline):** Asymmetric encryption backed by robust key pairs. The Psi+ OpenPGP plugin interfaces directly with the host GnuPG infrastructure to handle OpenPGP key operations.
+* **OTR (Off-the-Record Messaging):** Absolute symmetric mathematical resistance immune to quantum cryptanalysis (each key is generated manually and used strictly once per message).
 
-Our objective is to build a universal, resilient sandbox profile that isolates the host filesystem while seamlessly passing through any chosen cryptographic pipeline.
+Our objective is to build a universal, fault-tolerant sandbox profile that isolates the file system while seamlessly permitting traffic across any selected cryptographic layer.
 
-Since we have strict rules enforced in UFW, we will need to add firewall exceptions:
+Because strict UFW firewall policies are enforced on the host, we must append specific egress rules:
 
-**1.** We open standard XMPP outbound port 5222 to all servers for baseline Psi+ connectivity:
+**1.** Open the standard XMPP port (5222) for outbound TCP traffic across all servers to allow baseline Psi+ connections:
 ```bash
 sudo ufw allow out to any port 5222 proto tcp
 ```
 
-**2.** Optionally, for servers configured with direct TLS, we open outbound XMPP TLS port 5223 to all destinations to ensure secure transport encryption:
+**2.** Optionally, open the secure XMPP TLS port (5223) for outbound TCP traffic to support servers enforcing direct TLS connections:
 ```bash
 sudo ufw allow out to any port 5223 proto tcp
 ```
 
-* **Guide for Ubuntu 24.04 LTS Noble Numbat Users:**
+* **For Ubuntu 24.04 LTS (Noble Numbat) Users:**
 
-**3a.** The default native package in Ubuntu 24.04 repositories suffers from critical Qt library link errors when interacting with the Wayland display server (resulting in application *Segmentation fault* crashes). To bypass this system bug, we forcibly attach the official PPA repository from Psi+ developers, retrieving a targeted stable build of the messenger (Psi+ v1.5.2068), its plugin bundle (including OMEMO), and the base GnuPG subsystem in a single command:
+**3a.** The default native package inside Ubuntu 24.04 repositories suffers from critical Qt library linkage errors under the Wayland display server (resulting in *Segmentation fault* crashes). To bypass this system bug, add the official Psi+ developer PPA, fetch the adapted stable Psi+ v1.5.2068 build, the plugin suite (including OMEMO), and the baseline GnuPG framework in a single command:
 ```bash
 sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
 ```
 
-* **Guide for Ubuntu 26.04 LTS Resolute Raccoon Users:**
+* **For Ubuntu 26.04 LTS (Resolute Raccoon) Users:**
 
-In Ubuntu 26.04, the standard repository offers Psi+ version 1.4.1456. The required 1.5.2068 build could not simply be copied from Noble because existing Noble plugins were compiled against outdated ABIs. Therefore, Psi+ 1.5.2068 was recompiled directly on Ubuntu 26.04 Resolute from the source 1.5.2068 release archive. The client and its plugins were then consolidated into a single unified package: `psi-plus-resolute-client-and-plugins_1.5.2068-1~resolute1_amd64.deb`. Consequently, OMEMO, OTR, and OpenPGP utilize native libraries available directly within Resolute without bringing over legacy Noble dependencies.
+In Ubuntu 26.04, the upstream repository supplies Psi+ branch 1.4.1456. The required 1.5.2068 version could not simply be ported from Noble because pre-compiled Noble plugins were linked against outdated ABIs. Consequently, Psi+ 1.5.2068 was recompiled directly on Ubuntu 26.04 Resolute from the official 1.5.2068 source archive. The client and plugin suite were then consolidated into a single package: `psi-plus-resolute-client-and-plugins_1.5.2068-1~resolute1_amd64.deb`. As a result, OMEMO, OTR, and OpenPGP utilize libraries native to Resolute without backporting legacy Noble dependencies.
 
-We have two installation paths available. Option one installs the older yet functional Psi+ v1.4.1456 client directly from the main repository. Option two deploys the updated version compiled specifically for our setup, pulled from the book's author repository on GitHub based on the `noble` release source.
+Two deployment paths are available. The first option installs the older yet functional Psi+ v1.4.1456 build from official system repositories. The second option installs the version recompiled for this book's repository based on the `noble` release source.
 
 **Option 1:**
 
-**3b1.** We install Psi+ version 1.4.1456 directly from the standard repository in a single command:
+**3b1.** Install Psi+ version 1.4.1456 directly from standard system repositories:
 ```bash
 sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
 ```
 
 **Option 2:**
 
-**3b2-1.** We download the `.deb` package directly from the author repository at `github.com/eugexo`:
+**3.b2-1.** Download the custom `.deb` package from the author's repository (`github.com/eugexo`):
 ```bash
 wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 ```
 
 > [!IMPORTANT]
-> Before installing the fetched `.deb` package, we will not blindly trust the downloaded archive. We first verify its cryptographic checksum and inspect its contents. While this does not inherently prove the absence of malicious code, it ensures file integrity and gives us full visibility into what we are deploying. **We should apply this verification routine to all untrusted or unofficial sources.**
+> Do not implicitly trust downloaded `.deb` binaries prior to installation. Verify the file's checksum and inspect its structural contents first. While this does not prove the absence of malicious code, it confirms payload integrity and reveals exactly what assets will be deployed to the host. **This verification procedure must be applied across all untrusted or third-party sources.**
 > 
-> We verify the SHA-256 checksum of the package:
+> Verify the SHA-256 checksum of the package:
 > ```bash
 > sha256sum psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 > ```
 > 
-> We inspect `.deb` package metadata prior to installation:
+> Inspect `.deb` metadata headers prior to installation:
 > ```bash
 > dpkg-deb -I psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 > ```
 > 
-> We audit the internal payload structure of the package:
+> Inspect the internal archive manifest:
 > ```bash
 > dpkg-deb -c psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 > ```
-> A matching SHA-256 hash confirms the integrity of our downloaded asset against a known reference baseline, though hash verification alone does not serve as absolute proof of software safety. Thus, checksum verification remains one layer of our defense-in-depth inspection, not an exclusive guarantee of trust.
+> A matching SHA-256 hash confirms the received asset matches the verified upstream reference, but hash validation alone does not guarantee software trustworthiness. Treat hash verification as one defensive layer among many, rather than absolute proof of safety.
 
-**3b2-2.** After verifying the checksum, we initiate the installation of Psi+. Ubuntu will automatically resolve and pull missing system dependencies required for proper runtime operation:
+**3.b2-2.** Following hash validation, execute the Psi+ package installation. Ubuntu's package manager will automatically resolve and install necessary system dependencies:
 ```bash
 sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
 ```
 
-**4.** We launch Psi+ using its canonical system binary execution call. The Firejail sandbox environment will automatically read system default security profiles, apply mandatory security masks, and instantiate the GUI layout:
+**4.** Launch Psi+ using its canonical system command. Firejail automatically parses baseline security directives, applies the default profile, and renders the graphical interface:
 ```bash
 firejail psi-plus
 ```
 
-The Psi+ client allows us to leverage OMEMO, OTR, or OpenPGP to secure our communications. Simultaneously, Firejail mandatory sandbox boundaries restrict application access to our host filesystem, drastically mitigating potential exploit impact should vulnerabilities be targeted within the messenger core.
+Psi+ allows messaging encryption via OMEMO, OTR, or OpenPGP. Meanwhile, Firejail's mandatory access controls restrict file system access and significantly contain the impact of potential application-level vulnerabilities.
 
-We deliberately excluded WebKit/WebEngine and other non-essential modules from the custom build process. This yields a streamlined, hardened deployment of Psi+ 1.5.2068 containing the complete suite of default plugins—including OMEMO, OTR, and OpenPGP—without extraneous browser rendering engines or unnecessary attack surface area.
+Optional WebKit/WebEngine binaries and unnecessary dependencies were intentionally omitted from this build. The result is a streamlined Psi+ 1.5.2068 deployment featuring full native plugin support (including OMEMO, OTR, and OpenPGP) without extraneous web engines or unnecessary functionality outside our core OPSEC perimeter.
 
 > [!IMPORTANT]
-> For out-of-band file transfers, additional outbound network permissions depend on your specific XMPP server deployment and its associated HTTP Upload/proxy services.
+> Additional outbound network rules for file transfers depend on your specific XMPP server configuration and its associated HTTP Upload/proxy services.
 
-* Toward the end of this chapter, we will establish persistent sandboxed execution via a desktop shortcut by embedding rules directly into a user `.desktop` file.
+* Toward the end of this chapter, we will configure permanent sandboxed execution by embedding these parameters directly into custom `.desktop` shortcuts.
 
 #### Installing and Sandboxing Thunderbird (Encrypted Email Workflow):
 
-Email represents a highly sensitive exposure vector on the host. Modern phishing campaigns and targeted attacks routinely package malicious payloads and hidden scripts inside incoming messages. Running an uncontained email client poses a direct threat of system compromise. We will deploy **Thunderbird** as our reference client, seal its profile storage within an isolated perimeter, and link it cleanly to our OpenPGP cryptographic core.
+Email represents a critically vulnerable host zone. Modern phishing campaigns and targeted attacks rely on malicious attachments and embedded JavaScript payloads packed inside incoming messages. Running an uncontained email client poses a direct threat of host compromise. We will deploy the reference **Thunderbird** client, seal its local message database within an isolated sandbox perimeter, and fully integrate it with our host OpenPGP cryptographic core.
 
-**1.** The default `thunderbird` package in Ubuntu repositories is a transitional dummy package that forcefully requires the `snapd` subsystem we previously purged. To bypass this system deadlock and instruct our package manager to pull the clean binary directly from the official Mozilla Team PPA, we establish a strict APT priority configuration file:
+**1.** The default `thunderbird` package in Ubuntu repositories is a transitional stub requiring the presence of the `snapd` framework—which has been completely removed from our system setup. To bypass this deadlock and force the package manager to fetch native binaries directly from the official Mozilla Team PPA, create a strict pin priority file:
 ```bash
 sudo tee /etc/apt/preferences.d/mozilla-thunderbird <<EOF
 Package: thunderbird*
@@ -5034,29 +5052,28 @@ Pin-Priority: -10
 EOF
 ```
 
-* **For Ubuntu 24.04 LTS Noble Numbat Users:**
-**2a.** We protect our upcoming native package from accidental deletion, rollback, or forced replacement by a Snap dummy package during background system updates:
+**2.** Protect our future native package from accidental deletion, rollback, or forced replacement by Snap dummy stubs during background operating system updates:
+
+* **For Ubuntu 24.04 LTS (Noble Numbat) Users:**
 ```bash
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:noble";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 ```
-
-* **For Ubuntu 26.04 LTS Resolute Raccoon Users:**
-**2b.** Activate an equivalent system rule for the package base of the 26.04 distribution:
+* **For Ubuntu 26.04 LTS (Resolute Raccoon) Users:**
 ```bash
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 ```
 
-**3.** We update our package repositories and install the native Thunderbird build:
+**3.** Update the local package cache and install native Thunderbird:
 ```bash
 sudo apt update && sudo apt install thunderbird -y
 ```
 
-**4.** We create a custom Firejail profile for Thunderbird:
+**4.** Create a Firejail isolation profile for Thunderbird:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/thunderbird.profile
 ```
 
-**5.** We write our baseline isolation rules into the opened profile file:
+**5.** Append baseline container isolation rules into the opened configuration file:
 ```ini
 caps.drop all
 nonewprivs
@@ -5064,32 +5081,32 @@ nonewprivs
 whitelist ~/.thunderbird
 whitelist ~/Downloads/Mail_Attachments
 
-# Force container teardown immediately upon application exit
+# Rapid container teardown upon application exit
 deterministic-shutdown
 ```
 
-To save changes in `nano`, we press **«Ctrl + O»** → **«Enter»**, then **«Ctrl + X»** to exit.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
 
 > [!WARNING]
-> **We must not click** the Thunderbird icon while the system is connected to the network. Upon its initial start, the client will immediately transmit baseline telemetry packets across the wire.
+> It is **strictly prohibited** to launch Thunderbird while the system remains connected to the internet. Upon its very first launch, the application will immediately transmit initial telemetry payloads outbound across the network.
 
-**6.** We completely disconnect networking so the email client cannot call home during initialization, then launch Thunderbird to generate its baseline internal profile structure:
+**6.** Disable all network interfaces to prevent the mail client from "calling home" during initialization, then launch Thunderbird to establish its baseline internal profile architecture:
 ```bash
 nmcli networking off
 ```
-**After executing the command, we launch Thunderbird manually from our applications menu.** We wait 2–3 seconds while it creates its default directory structure, then close the application completely.
+**Following execution of this command, launch Thunderbird manually from the applications menu.** Wait 2–3 seconds for directory structure generation to complete, then close the application entirely.
 
-**7.** We navigate into the generated UUID profile directory and instantiate a clean configuration file:
+**7.** Navigate to the generated UUID profile directory and initialize a clean configuration file:
 ```bash
 cd ~/.thunderbird/*default-release && touch user.js
 ```
 
-**8.** We open our newly created `user.js` in the `nano` terminal editor:
+**8.** Open the newly created `user.js` file in the `nano` terminal editor:
 ```bash
 nano user.js
 ```
 
-**9.** We copy our ultimate OPSEC array of security settings, completely blinding the Gecko engine's surveillance modules, and paste it entirely into the editor window:
+**9.** Copy our ultimate OPSEC security directive array—completely blinding Gecko core telemetry modules—and paste it into the editor buffer:
 ```javascript
 // ============================================================================
 // HARDENING CONFIG FOR MOZILLA THUNDERBIRD (USER.JS)
@@ -5177,85 +5194,85 @@ user_pref("geo.enabled", false);
 user_pref("webgl.disabled", true);
 ```
 
-To save the configuration in the `nano` editor, we press **«Ctrl + O»** → **«Enter»**, and then **«Ctrl + X»** to exit back to the console.
+To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit back to the console shell.
 
-**10.** We lock down file permissions by applying a strict read-only POSIX mask (`0400`), ensuring no background host process can silently modify our security matrix:
+**10.** Lock file access permissions by applying a strict read-only POSIX mask for the file owner (`0400`), preventing any background host process from silently modifying our hardened security profile:
 ```bash
 chmod 0400 user.js
 ```
 
-**11.** To prevent files downloaded from incoming emails from scattering across the system and silently modifying host files, we initialize a strictly dedicated exchange gateway:
+**11.** To prevent mail attachments from scattering across the system and silently modifying host configuration paths, initialize a dedicated landing zone directory:
 ```bash
 mkdir -p ~/Downloads/Mail_Attachments
 ```
-**12.** We restore our internet connection (replacing `enp0s1` with your specific interface name):
+
+**12.** Restore host internet connectivity (replacing `enp0s1` with your specific interface identifier):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
 
-**13.** We launch an isolated instance of Thunderbird without using buggy default profiles (the `--noprofile` flag). To prevent heavy email rendering on NVIDIA GPUs from causing interface crashes under Wayland, we wrap the launch in a universal wrapper: the script checks for proprietary drivers in the system and whitelists paths on the fly, while maintaining the default paranoid file perimeter whitelist for Intel/AMD integrated graphics users:
-
+**13.** Execute the isolated Thunderbird instance using our custom profile. To ensure heavy email rendering on NVIDIA hardware under Wayland does not trigger interface crashes, wrap application execution in a universal wrapper that dynamically detects active proprietary drivers and unblinds necessary device nodes while preserving strict file system whitelisting for Intel/AMD setups:
 ```bash
 firejail --profile=thunderbird /usr/bin/thunderbird
 ```
 
 > [!IMPORTANT]
-> *Secure Encrypted Mail Workflow* **(Air-Gapped Setup)**: Since permanently storing a private key on the host or inside the sandbox constitutes a critical security vulnerability, we employ a temporary isolated import tactic in full offline mode:
+> **Air-Gapped Encrypted Mail Processing Protocol:** Storing private cryptographic keys permanently on the host system or inside application sandboxes introduces a critical security vulnerability. We mitigate this risk by applying a temporary, offline key import workflow:
 > 
-> **1.** We launch Thunderbird inside the Firejail sandbox to perform an initial fetch and download of encrypted incoming mail from remote servers.
-> **2.** We completely disable the host's network interface, bringing the entire system and Thunderbird into an isolated offline state:
+> **1.** Launch Thunderbird within the Firejail sandbox container to fetch and synchronize inbound encrypted messages from remote servers.
+> **2.** Disable all host network interfaces, bringing the entire operating system and Thunderbird into a completely isolated offline state:
 > ```bash
 > nmcli networking off
 > ```
-> **3.** We connect our secure external USB drive and copy the key files exclusively into our single open exchange gateway: `~/Downloads/Mail_Attachments`.
-> **4.** In the top-right corner of Thunderbird, we click the **hamburger menu**, navigate to **Tools** → **OpenPGP Key Manager** → **File**, and sequentially select **Import Public Key(s) From File** and **Import Secret Key(s) From File**.
-> **5.** We import the keys from the gateway, decrypt, and inspect the required confidential emails.
-> **6.** After reading, we completely delete the private key from the Thunderbird interface itself.
-> **7.** We completely destroy the key files in the exchange directory by executing a 3-pass kernel-level secure wipe tool in the host terminal (for full protection against residual data recovery):
+> **3.** Connect an encrypted external USB storage medium and transfer required key files exclusively into our designated file landing zone: `~/Downloads/Mail_Attachments`.
+> **4.** Inside the Thunderbird interface, click the top-right **burger menu**, navigate to **Tools** ➔ **OpenPGP Key Manager** ➔ **File**, and select **Import Public Key(s) From File** and **Import Secret Key(s) From File** respectively.
+> **5.** Import the target key blocks, then decrypt and review confidential messages offline.
+> **6.** Once reading is complete, purge the private key pair directly from Thunderbird's key store interface.
+> **7.** Permanently destroy residual key files located in the landing zone by running a 3-pass secure overwrite routine from the host terminal:
 > ```bash
 > shred -u -n 3 ~/Downloads/Mail_Attachments/PRIVATE_key.asc
 > ```
-> **8.** Only after confirming the shredding of cryptographic traces do we restore the host's network connection. In Ubuntu 24.04/26.04 distributions, automatic link re-establishment after severing the network stack often breaks. To restore internet connectivity, we use an explicit command (replacing `netplan-enp0s1` with the name of your physical interface):
+> **8.** Re-enable host network connectivity only after verifying complete erasure of cryptographic material. On Ubuntu 24.04/26.04 builds, network state re-initialization can stall after interface teardown. Force network link recovery using the following explicit command string (replacing `netplan-enp0s1` with your physical interface name):
 > ```bash
 > nmcli networking on && nmcli connection up netplan-enp0s1
 > ```
 > 
-> Email traffic remains completely transparent to Portmaster eBPF lenses, but the host filesystem operates under near-complete protection: even if an incoming encrypted message contained a zero-day exploit payload, the attack would completely stall inside the isolated container, lacking any network egress channel for data exfiltration and unable to break through the kernel's Strict Read-Only perimeter!
+> Mail traffic remains fully visible to Portmaster's eBPF filtering driver, while the host file system is completely shielded: even if an incoming encrypted message packs a zero-day exploit payload, execution remains contained inside the isolated sandbox, lacking outbound network channels for data exfiltration and blocked by strict kernel-level read-only boundaries!
 
-* Towards the end of this chapter, we will establish persistent sandboxed execution for the application via a desktop shortcut, embedding the execution rules directly into a user `.desktop` file.
+* Toward the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
 
 #### Automating the Defensive Perimeter (Firecfg Utility) and Customizing System Icons:
 
-Constantly typing long commands manually in the terminal quickly becomes exhausting. To automate this process, we use the built-in `firecfg` tool. It scans the system and automatically wraps the execution of standard applications (browsers, torrent clients, mail agents) inside isolated sandbox containers.
+Repeatedly entering long commands manually into the terminal quickly becomes exhausting. To automate this process, we leverage the built-in `firecfg` tool. It scans the operating system and automatically wraps standard applications (browsers, torrent clients, email clients) inside isolated sandbox containers.
 
 > [!IMPORTANT]
-> In modern Firejail releases, local passwordless automation mode has been removed. Running `firecfg` requires superuser privileges because the utility generates global symlinks inside the system directory `/usr/local/bin`.
+> Modern Firejail releases omit local unprivileged automation modes. Executing `firecfg` requires elevated root privileges because the utility constructs global symbolic links within the `/usr/local/bin` system directory.
 >
-> While `sudo firecfg` is convenient for bulk-enabling Firejail, we do not recommend applying it blindly without reviewing which applications will run inside the sandbox. We favor targeted and controlled isolation—setting up individual profiles and user `.desktop` files strictly for software that actually requires containment.
+> While `sudo firecfg` provides convenient bulk sandbox enrollment, running it blindly without auditing targeted applications is discouraged. Controlled, targeted isolation via explicit profile definitions and dedicated user `.desktop` files remains the preferred security approach.
 
-**1.** We activate the global protective desktop entry perimeter across the system:
+**1.** Enable the global application launcher sandbox integration:
 ```bash
 sudo firecfg
 ```
 
-**2.** To completely eliminate hidden path conflicts, legacy symlink layering, and cascading failures when coexisting with AppArmor, we execute a dual-command pipeline via the `&&` operator. This cleanly purges stale system symlink caches and deploys updated sandbox protection from scratch:
+**2.** To prevent path collisions, stale symlink layering, and cascade failures when operating alongside AppArmor, execute an atomic reset sequence using the `&&` operator. This completely purges legacy symlinks before deploying fresh sandbox wrappers from scratch:
 ```bash
 sudo firecfg --clean && sudo firecfg
 ```
 
-This command first resets and purges older, potentially conflicting symlinks, then deploys a clean, conflict-free sandbox layout in a single pass. Now, launching Firefox or Evince directly from the GNOME application launcher will automatically route execution through an isolated container.
+This command first flushes obsolete, potentially conflicting symlinks, then deploys a clean sandbox execution framework in a single pass. Clicking application icons (e.g., Firefox or Evince) within the GNOME application launcher will now transparently spawn those binaries inside isolated container environments.
 
-To eliminate human error, visually differentiate sandboxed applications from the uncontained host, and replace default GNOME icons, we deploy independent local desktop entries paired with custom icon sets for our browser and local AI environment.
+To eliminate human error, visually distinguish hardened sandbox containers from unprotected host processes, and replace default generic GNOME icons, deploy isolated user-level launchers featuring custom visual assets for our web browser and local AI stack.
 
-**3.** We create our local hidden icon structure and populate it with our downloaded 256px (256x256) and 512px (512x512) PNG assets:
+**3.** Create the user icon directory hierarchy and copy downloaded 256px (`256x256`) and 512px (`256x256@2x`) PNG assets into their respective destination paths:
 ```bash
 mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
 ```
 
 > [!WARNING]
-> After modifying `Exec=` lines for applications such as LibreOffice, Image Viewer, Document Viewer, and others to integrate Firejail, we must end the active user session (Log Out...). Alternatively, rebooting the system ensures modified `Exec=` targets take effect across all desktop environments.
+> After modifying `Exec=` directives for applications such as LibreOffice, Image Viewer, or Document Viewer, log out of your desktop session ("Log Out...") or reboot the host system to force desktop environment menu caching routines to register updated entry points.
 
-* We generate our primary isolated **Mozilla Firefox (Firejail Sandbox)** launcher, binding it directly to our local security profile and custom icon path:
+* Generate the primary hardened launcher for **Mozilla Firefox running inside Firejail**, strictly bound to our hardened security profile and explicit icon path:
 ```bash
 cat <<EOF> ~/.local/share/applications/firefox-secure.desktop
 [Desktop Entry]
@@ -5271,57 +5288,57 @@ MimeType=text/html;text/xml;application/xhtml+xml;
 EOF
 ```
 
-* We update our host administrative **Mozilla Firefox (Unsecured Host)** launcher (used for downloading heavy files), assigning it our custom bronze fox icon:
+* Modify the uncontained **Mozilla Firefox launcher** (reserved for downloading large files directly to the host), assigning it a distinct visual icon:
 
 ```bash
 sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
 
-* **For Ubuntu 24.04 LTS Noble Numbat Users (Documents and Images):**
+* **For Ubuntu 24.04 LTS (Noble Numbat) Users (Document and Image Viewers):**
 
-We configure Firejail sandbox wrapping in the **Evince Document Viewer** launcher:
+Configure Firejail sandbox wrapping for the **Evince Document Viewer** launcher:
 ```bash
 sudo sed -i 's|^Exec=evince.*$|Exec=firejail evince|' /usr/share/applications/org.gnome.Evince.desktop
 ```
 
-We verify our modifications:
+Verify configuration changes:
 ```bash
 grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
 ```
 
-We configure Firejail sandbox wrapping in the **Eog Image Viewer** launcher:
+Configure Firejail sandbox wrapping for the **Eye of GNOME (Eog) Image Viewer** launcher:
 ```bash
 sudo sed -i 's|^Exec=eog.*$|Exec=firejail eog|' /usr/share/applications/org.gnome.eog.desktop
 ```
 
-We verify our modifications:
+Verify configuration changes:
 ```bash
 grep 'Exec=' /usr/share/applications/org.gnome.eog.desktop
 ```
 
-* **For Ubuntu 26.04 LTS Resolute Raccoon Users (Documents and Images):**
+* **For Ubuntu 26.04 LTS (Resolute Raccoon) Users (Document and Image Viewers):**
 
-We configure Firejail sandbox wrapping in the **Papers Document Viewer** launcher:
+Configure Firejail sandbox wrapping for the **Papers Document Viewer** launcher:
 ```bash
 sudo sed -i 's|^Exec=papers.*$|Exec=firejail papers|' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
-We verify our modifications:
+Verify configuration changes:
 ```bash
 grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
-We configure Firejail sandbox wrapping in the **Loupe Image Viewer** launcher:
+Configure Firejail sandbox wrapping for the **Loupe Image Viewer** launcher, disabling D-Bus activation to force binary interception:
 ```bash
 sudo sed -i 's|^Exec=loupe.*$|Exec=firejail loupe %U|; s|^DBusActivatable=true$|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-We verify our modifications:
+Verify configuration changes:
 ```bash
 grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-* We update our security launcher for **KeePassXC**, linking it to our database and blocking external network egress (optionally backing up the standard entry):
+* Harden the **KeePassXC** application launcher, isolating its execution context and network access (optionally backing up the original desktop entry):
 ```bash
 sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak
 ```
@@ -5330,9 +5347,9 @@ sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/appli
 sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
 ```
 
-* We generate default **LibreOffice** hardened desktop launchers:
+* Apply Firejail sandbox execution across the entire **LibreOffice** productivity suite:
 
-We update default execution paths to launch seamlessly under Firejail control by adjusting the primary and secondary `Exec` parameters in each launcher file.
+This process updates binary invocation targets across desktop entries to launch under Firejail isolation by modifying primary and secondary `Exec` entries:
 
 ```bash
 sudo sed -i 's|^Exec=libreoffice|Exec=firejail libreoffice|' /usr/share/applications/libreoffice-startcenter.desktop
@@ -5343,9 +5360,9 @@ sudo sed -i 's|^Exec=libreoffice --draw|Exec=firejail libreoffice --draw|' /usr/
 sudo sed -i 's|^Exec=libreoffice --math|Exec=firejail libreoffice --math|' /usr/share/applications/libreoffice-math.desktop
 sudo sed -i 's|^Exec=libreoffice --base|Exec=firejail libreoffice --base|' /usr/share/applications/libreoffice-base.desktop
 ```
-Following this modification, all office suite tools will launch restricted by our custom `libreoffice.profile`.
+All office suite binaries will now execute within the boundary constraints specified inside `libreoffice.profile`.
 
-We verify each desktop launcher file:
+Verify each updated desktop launcher:
 ```bash
 grep 'Exec=' /usr/share/applications/libreoffice-writer.desktop
 grep 'Exec=' /usr/share/applications/libreoffice-calc.desktop
@@ -5355,23 +5372,23 @@ grep 'Exec=' /usr/share/applications/libreoffice-math.desktop
 grep 'Exec=' /usr/share/applications/libreoffice-base.desktop
 ```
 
-* We generate a default hardened desktop launcher for **GIMP**:
-We locate the target `gimp.desktop` file:
+* Enforce sandbox isolation for **GIMP**:
+Locate the system target desktop entry:
 ```bash
 find /usr/share/applications -iname '*gimp*'
 ```
 
-We prepend our Firejail execution string (if system package updates alter the target file name from `gimp.desktop`, update the command target accordingly):
+Modify the execution path (adjusting target filename if package variations exist):
 ```bash
 sudo sed -i 's|^Exec=|Exec=firejail |' /usr/share/applications/gimp.desktop
 ```
 
-We verify our modifications:
+Verify launcher modifications:
 ```bash
 grep 'Exec=' /usr/share/applications/gimp.desktop
 ```
 
-* We generate a hardened launcher for **VS Codium without network access (Air-Gapped Mode)**:
+* Generate an isolated desktop entry for **VS Codium without network access (Offline Mode)**:
 ```bash
 cat <<EOF> ~/.local/share/applications/vscodium-offline.desktop
 [Desktop Entry]
@@ -5386,7 +5403,7 @@ MimeType=text/plain;
 EOF
 ```
 
-* We generate a hardened launcher for **VS Codium with network access (Plugin Installation Mode)**:
+* Generate an isolated desktop entry for **VS Codium with network access (Online Mode for extension management)**:
 ```bash
 cat <<EOF> ~/.local/share/applications/vscodium-online.desktop
 [Desktop Entry]
@@ -5401,7 +5418,7 @@ MimeType=text/plain;
 EOF
 ```
 
-* We generate an administrative launcher for **LM Studio with internet access** (for discovering and fetching large LLM model weights from Hugging Face), configured to dynamically adapt to NVIDIA GPU or CPU inference modes:
+* Create an online launcher for **LM Studio** with network access (for downloading model weights from Hugging Face), dynamically adapting to hardware configurations (NVIDIA GPU or CPU fallback):
 ```bash
 cat <<EOF> ~/.local/share/applications/lm-online.desktop
 [Desktop Entry]
@@ -5415,7 +5432,7 @@ Categories=Development;Science;
 EOF
 ```
 
-* We update our desktop launcher for our local AI engine **LM Studio for air-gapped offline operation**. The launcher script checks for NVIDIA hardware, exposes CUDA paths, forces network isolation via Linux kernel Kill Switch logic, and attaches our high-resolution icon:
+* Construct an air-gapped launcher for **LM Studio (Offline AI Mode)**. The underlying wrapper dynamically detects NVIDIA hardware, passes through CUDA inference interfaces, isolates execution behind network kill switches, and applies HiDPI visual assets:
 ```bash
 cat <<EOF> ~/.local/share/applications/lm-offline.desktop
 [Desktop Entry]
@@ -5430,9 +5447,9 @@ EOF
 ```
 
 > [!WARNING]
-> Background processes for LM Studio (`node-Main`) remain active in the system tray after closing the main application window. If not fully terminated from memory, launching an alternate entry will attach to the existing active instance. Completely quit the tray icon before switching between online and offline profiles.
+> Background processes such as LM Studio's `node-Main` remain active in the system tray after closing the graphical UI. Failing to fully terminate running instances causes secondary launchers to hook into existing background sessions. Fully quit tray processes before switching between online and offline profiles.
 
-* We generate a hardened desktop launcher for **Telegram**, linking execution to our lightweight sandbox profile paired with kernel-level `seccomp` filtering:
+* Generate a hardened launcher for **Telegram**, configuring sandbox constraints and `seccomp` kernel filtering:
 ```bash
 cat <<EOF> ~/.local/share/applications/telegramdesktop.desktop
 [Desktop Entry]
@@ -5448,7 +5465,7 @@ MimeType=x-scheme-handler/tg;
 EOF
 ```
 
-* We generate a hardened launcher for the **Psi+** XMPP client. This command registers the application within GNOME menus, restricts access across the user home directory (including downloads), while selectively whitelisting paths to preserve OMEMO keys and chat logs while exposing a secure bridge to the host GnuPG engine:
+* Generate an isolated entry for the **Psi+** XMPP client. This entry registers the application within GNOME menus, restricts access to the general home directory structure (including default downloads), whitelists strict state paths required for OMEMO keys and chat history, and routes cryptographic operations directly to the host GnuPG engine:
 ```bash
 cat <<EOF> ~/.local/share/applications/psi-plus.desktop
 [Desktop Entry]
@@ -5464,9 +5481,9 @@ EOF
 ```
 
 > [!WARNING]
-> Background processes for Psi+ (`psi-plus`) remain active in the system tray after closing the main window. If not fully terminated, launching an alternate entry will attach to the background session. Always quit the application from the system tray before toggling execution contexts.
+> The `psi-plus` background process minimizes to the system tray upon closing the window. Completely terminate active tray instances before launching alternate profile modes to avoid process session hijacking.
 
-* We generate a hardened desktop entry for **Thunderbird**, deploying a optimized path whitelist profile with LPE protection that properly exposes NVIDIA graphics libraries when running under discrete GPUs:
+* Generate a hardened **Thunderbird** desktop entry delivering path whitelisting, LPE attack mitigation, and NVIDIA driver passthrough for Wayland environments:
 ```bash
 cat <<EOF> ~/.local/share/applications/thunderbird.desktop
 [Desktop Entry]
@@ -5482,67 +5499,67 @@ MimeType=message/rfc822;x-scheme-handler/mailto;
 EOF
 ```
 
-* For **Ubuntu 24.04**, we update the **Terminal** icon path:
+* Update the **Terminal** application icon on **Ubuntu 24.04 LTS**:
 ```bash
 sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop
 ```
 
-* For **Ubuntu 26.04**, we update the **Ptyxis** icon path:
+* Update the **Ptyxis Terminal** application icon on **Ubuntu 26.04 LTS**:
 ```bash
 sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
 ```
 
-* Optionally, we update our **Trash** icons to custom assets (where `PATH-TO-FILES` maps to your local icon assets inside your home directory, e.g., `/.local/share/`):
+* (Optional) Customize system **Trash** icon resources (replacing `PATH-TO-FILES` with your relative icon path, e.g., `.local/share/`):
 ```bash
 for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
 ```
 
-We restore standard read permissions across updated system icons:
+Restore standard POSIX read permissions across updated icon assets:
 ```bash
 sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
 ```
 
-**4.** We instruct the desktop shell database parser to re-index all updated applications, ensuring our modified launchers take effect across application menus without requiring a system restart:
+**4.** Force GNOME Shell to reindex the application database, instantly reflecting updated launcher entry points without requiring a full system reboot:
 ```bash
 update-desktop-database ~/.local/share/applications/
 ```
 
-**5.** We update the user icon cache:
+**5.** Refresh the system icon cache index:
 ```bash
 gtk-update-icon-cache -f ~/.local/share/icons/
 ```
 
 >[!NOTE]
-> For applications handling multiple file extensions, we recommend verifying supported MIME types directly via `grep` in the terminal. Supported MIME bindings change between software releases. Querying entries directly ensures file associations remain valid without system conflicts.
+> For applications handling diverse file types, query active MIME type bindings directly via terminal using `grep`. Format support varies across package revisions; auditing file associations ensures proper file handler bindings across desktop environments.
 >
-> Example for retrieving active MIME bindings for the GIMP image editor:
+> Example query to extract active MIME type bindings for GIMP:
 > ```bash
 > grep '^MimeType=' /usr/share/applications/gimp.desktop
 > ```
 
-* Once configuration files and custom launcher icons are applied, we reboot our system:
+* Upon completing profile and launcher modifications, reboot the operating system:
 ```bash
 sudo reboot
 ```
 
 >[!IMPORTANT]
-> Let's review enforcing application isolation via user-space `.desktop` overrides.
+> Let's analyze user-level application launcher override configurations via `.desktop` files.
 >
-> Direct modification of system files within `/usr/share/applications/` can lead to changes being overwritten whenever upstream packages update.
+> Direct modification of system-wide launchers located in `/usr/share/applications/` is discouraged because upstream package updates overwrite custom edits.
 >
-> The recommended approach is establishing local user overrides in:
+> The recommended method involves creating user-level overrides inside:
 > ```bash
 > ~/.local/share/applications/
 > ```
 >
-> Local user paths take priority over system-wide desktop entries defined in:
+> Entries in this directory take operational precedence over global system definitions stored in:
 > ```bash
 > /usr/share/applications/
 > ```
 >
-> To locate an application's original `.desktop` entry, we use:
+> Locate target system `.desktop` files using `find`:
 > ```bash
-> find /usr/share/applications/ ~/.local/share/applications/ -name "APP_NAME.desktop" 2>/dev/null
+> find /usr/share/applications/ ~/.local/share/applications/ -name "APP-NAME.desktop" 2>/dev/null
 > ```
 >
 > Alternatively, query installed package manifests via `dpkg`:
@@ -5550,35 +5567,35 @@ sudo reboot
 > dpkg -L APP_NAME | grep "\.desktop$"
 > ```
 >
-> **Example:** Locating the GIMP desktop launcher:
+> **Example:** Locating GIMP launcher files:
 > ```bash
 > dpkg -L gimp | grep "\.desktop$"
 > ```
 >
-> We create a local user copy:
+> Create a local user-space copy:
 > ```bash
 > cp /usr/share/applications/gimp.desktop ~/.local/share/applications/gimp.desktop
 > ```
 >
-> We open the local entry file:
+> Open the localized desktop file:
 > ```bash
 > nano ~/.local/share/applications/gimp.desktop
 > ```
 > 
-> We locate `Exec=gimp %U` and update it to `Exec=firejail --quiet gimp %U`.
+> Replace the existing `Exec=gimp %U` directive with `Exec=firejail --quiet gimp %U`.
 > 
-> Optionally, update the display name: `Name=GIMP (Sandbox)`
+> Optionally update display parameters, e.g., `Name=GIMP (Sandbox)`.
 > 
-> After saving changes, update the local application launcher index:
+> Rebuild the local desktop database to apply modifications:
 > ```bash
 > update-desktop-database ~/.local/share/applications/
 > ```
 >
-> Executing the application from graphical menus will now automatically launch inside Firejail.
+> Launching the target application through desktop menus will now execute inside Firejail.
 >
-> To hide an original system entry from desktop menus entirely, instantiate a local `.desktop` override file:
+> To hide duplicate or redundant system application entries from desktop menus entirely, deploy a localized override file:
 > ```ini
-> cat <<EOF> ~/.local/share/applications/APP_NAME.desktop
+> cat <<EOF> ~/.local/share/applications/APP-NAME.desktop
 > [Desktop Entry]
 > Type=Application
 > Name=Hidden System Link
@@ -5586,39 +5603,39 @@ sudo reboot
 > EOF
 > ```
 >
-> This technique manages application menu visibility and removes duplicate launcher entries.
+> This entry suppresses redundant menu listings while preserving underlying system functionality.
 
 > [!TIP]
-> To hide desktop icons or restore defaults without deleting files, modify GNOME Shell configuration keys directly.
+> Use native GNOME Shell configuration keys to toggle desktop icon displays without removing underlying file assets.
 > 
-> Desktop Trash icon:
+> Desktop Trash Icon:
 > ```bash
 > gsettings set org.gnome.shell.extensions.ding show-trash false  # Hide
-> gsettings set org.gnome.shell.extensions.ding show-trash true   # Show
+> gsettings set org.gnome.shell.extensions.ding show-trash true   # Display
 > ```
 > 
-> Desktop Home directory:
+> Desktop Home Folder:
 > ```bash
-> gsettings set org.gnome.shell.extensions.ding show-home false  # Hide
-> gsettings set org.gnome.shell.extensions.ding show-home true   # Show
+> gsettings set org.gnome.shell.extensions.ding show-home false   # Hide
+> gsettings set org.gnome.shell.extensions.ding show-home true    # Display
 > ```
 
 > [!IMPORTANT]
-> GNOME 46+ running on Wayland maintains aggressive internal application indexing caches. If existing desktop entries share matching filenames while arguments or execution paths are updated, GNOME may silently block execution from menus, flagging entries as invalid. Direct execution tests via `gtk-launch` will run cleanly under terminal debugging.
+> GNOME 46+ running on Wayland maintains strict internal application launcher caching. Modifying existing `.desktop` files with altered launch flags, parameters, or binary targets can cause GNOME Shell to reject menu clicks, treating modified profiles as untrusted—even when direct invocation via `gtk-launch` works as expected.
 > 
-> The most reliable fix to force GNOME Shell to purge cached metadata is assigning unique application desktop entry IDs distinct from the underlying executable binary.
+> The most reliable fix to clear stale desktop launcher metadata is renaming the target desktop file identifier, bypassing cached desktop entries.
 > 
-> If desktop icons fail to launch after updating paths, force a cache purge by renaming desktop entries (demonstrated below using LM Studio):
+> If newly deployed desktop launchers fail to respond to click events within application menus, purge the GNOME launcher cache by renaming the entry files (illustrated using LM Studio):
 > 
-> * For LM Studio running in Firejail without network access (offline LLM mode):
+> * For offline LM Studio Firejail sessions:
 > ```bash
 > mv ~/.local/share/applications/lm-studio.desktop ~/.local/share/applications/lm-offline.desktop 2>/dev/null || true
 > ```
-> * For LM Studio running in Firejail with network access (online downloader mode):
+> * For online LM Studio Firejail sessions:
 > ```bash
 > mv ~/.local/share/applications/lm-studio-unsecure.desktop ~/.local/share/applications/lm-online.desktop 2>/dev/null || true
 > ```
-> * Rebuild the application desktop entry index:
+> * Rebuild the global application menu index:
 > ```bash
 > update-desktop-database ~/.local/share/applications/
 > ```
@@ -5627,37 +5644,27 @@ sudo reboot
 > gtk-update-icon-cache -f ~/.local/share/icons/
 > ```
 > 
-> Opening the GNOME application grid will now register the updated **LM Studio (Offline AI)** and **LM Studio (Online Downloader)** entries, re-validate launcher execution permissions, and restore smooth sandboxed execution on click.
+> Opening the application grid ("Show Apps") forces GNOME to discover **LM Studio (Offline AI)** and **LM Studio (Online Downloader)** as distinct entities, re-validate execution permissions, and enable reliable UI execution.
 
 #### Advanced Paranoia Mode: Sandboxing with Session Persistence via Overlay:
 
-Using the `--private` flag is ideal for one-off sessions. But what should we do when we need to inspect the behavior of a suspicious utility in detail, persist its configuration files or plugins, while still strictly guaranteeing that the host operating system is protected from infection?
+Using the `--private` flag is ideal for ephemeral, single-use sessions. But what should you do when you need to rigorously audit a questionable utility's behavior, retain its configuration files or plugins, while guaranteeing absolute protection for the underlying operating system against infection?
 
-To achieve this, we deploy Firejail's hidden killer feature—**Overlay Mode**. It creates a temporary virtual "layer" on top of our real file system. The application sees all of our files, but it physically cannot modify a single byte on the actual disk: any write attempts, configuration creation, or stealthy malware persistence will be redirected into an isolated, hidden sandbox directory.
+For this, we tap into a hidden killer feature of Firejail—**Overlay Mode**. This mechanism constructs a temporary virtual layer over your actual file system. The application perceives your files as fully accessible, yet remains physically incapable of modifying a single byte on the physical disk: every write attempt, configuration creation, or stealthy malware persistence routine is transparently redirected into an isolated sandbox overlay directory.
 
-> [!IMPORTANT]
-> Utilizing `overlay` modes requires OverlayFS file system support at the Linux kernel level (included in the standard Ubuntu kernel build) as well as unprivileged user namespaces enabled either in the profile or via command-line flags.
-
-**1.** We launch the application while persisting all modifications to an overlay layer:
+**1.** Execute an application while redirecting state changes to a dedicated overlay layer:
 ```bash
 firejail --overlay-dir=~/.sandbox_overlay --seccomp --nonewprivs telegram-desktop
 ```
-*(The `--overlay-dir=` parameter specifies the directory path where absolutely all changes made by the application during its execution will be recorded).*
+*(The `--overlay-dir=` parameter defines the target directory path where all file system modifications generated during the session will be intercepted and stored).*
 
-> [!TIP]
-> If you require a completely ephemeral session that instantly wipes all traces upon closing the application (without persisting anything to disk), use the `--overlay` flag without specifying a directory:
-> ```bash
-> firejail --overlay --seccomp --nonewprivs telegram-desktop
-> ```
-> In this case, the virtual layer is constructed exclusively in RAM (`tmpfs`) and vanishes without a trace once the process terminates.
-
-**2.** After closing the application, we can open the generated directory and manually inspect its structure:
+**2.** After terminating the application, inspect the isolated overlay directory structure to audit runtime modifications:
 ```bash
 ls -la ~/.sandbox_overlay
 ```
-We can directly observe which hidden files the utility attempted to create or modify inside `/etc`, `/var`, or our home profile!
+This grants full visibility into any hidden files or configuration changes the utility attempted to write across `/etc`, `/var`, or your user home directory!
 
-**3.** If we confirm that the software behaved safely, we can keep the overlay layer for subsequent launches. However, if the utility exhibited suspicious activity, we completely purge all traces of its actions from the operating system with a single command:
+**3.** If the audit confirms benign application behavior, retain the overlay directory for subsequent launches. Conversely, if malicious or suspicious activity is detected, completely purge all runtime traces from the host operating system with a single command:
 ```bash
 rm -rf ~/.sandbox_overlay
 ```
@@ -5666,23 +5673,23 @@ rm -rf ~/.sandbox_overlay
 
 ## Installing Rkhunter and Hunting Rootkits
 
-Next, we will focus on internal operating system security—protecting and scanning the environment for hidden malware and rootkits. Rootkits represent a dangerous class of malicious software that embeds deeply into the operating system kernel and disguises its presence by replacing standard system utilities.
+Next, we will focus on internal host operating system security—fortifying the system against potential compromise and auditing it for hidden malware and rootkits. Rootkits represent a dangerous class of malicious software that deeply embeds into the OS kernel and conceals its presence by modifying or replacing core system binaries.
 
-To scan for rootkits and monitor file integrity, we will use the `Rkhunter` utility. To detect viruses and classic threats, we will deploy `ClamAV`—a battle-tested open-source antivirus engine that does not telemetry-transmit private user files to third-party corporate servers. For maximum security, we will run both utilities headless, launching them directly from the console.
+To perform rootkit scanning and system file integrity verification, we will deploy `Rkhunter`. To scan for viruses and general threats, we will implement `ClamAV`—a battle-tested, open-source antivirus engine that does not exfiltrate private user data to third-party corporate servers. For operational security, both utilities will be run strictly via the command line interface without graphical wrappers.
 
-**1.** We install the rootkit scanning utility:
+**1.** Install the rootkit scanner utility:
 ```bash
 sudo apt install rkhunter -y
 ```
 
-**2.** In the blue pseudo-graphical `debconf` installer menu that appears, we forcibly select **"No configuration"** and press **"Enter"**. This completely blocks background mail services from initiating automated report delivery, eliminating stealth de-anonymization of the host network matrix.
+**2.** In the interactive `debconf` pseudo-graphical prompt that appears, explicitly select **"No configuration"** and press **"Enter"**. This completely blocks the installation of background mail-routing daemons for automated reporting, eliminating unintended network exposure.
 
-**3.** We open the main configuration file:
+**3.** Open the primary application configuration file:
 ```bash
 sudo nano /etc/rkhunter.conf
 ```
 
-Inside the file, we locate and modify the following parameters to configure proper database updates via secure mirrors:
+Locate and modify the following configuration keys to ensure signature updates are fetched exclusively through secure mirror nodes:
 ```ini
 UPDATE_MIRRORS=1
 MIRRORS_MODE=0
@@ -5690,68 +5697,68 @@ AUTO_X_DETECT=0
 WEB_CMD=""
 ```
 
-To prevent the scanner from throwing false positive warnings on our forcibly purged system bloatware (`snapd`) and our custom security rules (the YubiKey Kill Switch), we navigate to the absolute end of the file and append strict security exceptions:
+To prevent the scanner from throwing false positive warnings on purged system components (`snapd`) and our custom security directives (such as the YubiKey Kill Switch), append strict security exceptions to the bottom of the file:
 ```ini
-# Whitelist purged Snap directories so the utility does not inspect empty paths
+# Whitelist purged Snap directories so the scanner does not flag missing paths
 EXISTWHITELIST="/var/lib/snapd/*"
 EXISTWHITELIST="/snap"
 
-# Whitelist our custom emergency session termination udev rule
+# Authorize our custom session kill switch udev rule
 FILEWHITELIST="/etc/udev/rules.d/80-yubikey-kill.rules"
 
-# Disable false positive checks on specific hidden Ubuntu desktop shell scripts
+# Suppress false positives on specific Ubuntu shell script wrappers
 SCRIPTWHITELIST="/usr/bin/egrep"
 SCRIPTWHITELIST="/usr/bin/fgrep"
 ```
 
-We save the configuration in `nano` by pressing **"Ctrl + O"** → **"Enter"**, followed by **"Ctrl + X"** to return to the console.
+Save your changes in `nano` by pressing **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the shell.
 
-**4.** We verify that the application version is current:
+**4.** Verify that `rkhunter` is running the latest engine release:
 ```bash
 sudo rkhunter --versioncheck
 ```
 
-**5.** We download and apply the latest signature databases and current check rules:
+**5.** Download and install updated detection signatures and test rules:
 ```bash
 sudo rkhunter --update
 ```
 
-**6.** We generate an initial property snapshot of known clean system files:
+**6.** Generate an initial baseline snapshot of known-good system binary properties:
 ```bash
 sudo rkhunter --propupd
 ```
-This step builds the baseline hash database for the target environment.
+This step creates an authoritative reference database of file cryptographic hashes across the current system.
 
-**7.** We execute an interactive audit of the operating system:
+**7.** Launch an interactive system audit:
 ```bash
 sudo rkhunter --check --sk
 ```
-The `--sk` (*skip-keypress*) flag automatically bypasses prompts to press **"Enter"** after completing each testing section, running the scan in a single pass.
+The `--sk` (*skip-keypress*) flag automatically bypasses prompts to press **"Enter"** between test sections, running the entire audit in a single pass.
 
-To prevent the utility from causing unnecessary resource overhead and executing silently without user awareness, we disable automated background cron checks.
+To prevent unnecessary system overhead and eliminate unprompted background execution, disable automated scheduled scans.
 
-**8.** We open the daily task configuration file:
+**8.** Open the daily task configuration file:
 ```bash
 sudo nano /etc/default/rkhunter
 ```
 
-**9.** We locate the `CRON_DAILY_RUN` directive and explicitly set it to an inactive state:
+**9.** Locate the `CRON_DAILY_RUN` key and set its value to `false`:
 ```ini
 CRON_DAILY_RUN="false"
 ```
 
-We save the configuration in `nano` by pressing **"Ctrl + O"** → **"Enter"**, followed by **"Ctrl + X"** to exit.
+Save the configuration in `nano` by pressing **"Ctrl + O"** ➔ **"Enter"**, then **"Ctrl + X"** to exit.
 
 > [!IMPORTANT]
-> Note that `Rkhunter` relies on heuristic analysis, which carries a baseline rate of false positives. If the utility alerts on a suspicious file (*Possible rootkit*) on a freshly installed system, it is a false alarm with 99% probability.
+> Note that `Rkhunter` relies on heuristic analysis and produces a baseline level of false positives. If the tool reports a *Possible rootkit* alert on a fresh, pristine system setup, it is almost certainly a false alarm.
 > 
-> Strict AppArmor hardening, telemetry removal, and the Snapd purge executed in previous steps significantly alter the structure of system configuration paths inside `/etc`. The initial scan will flag these modifications and trigger several warnings—this is legitimate software behavior and should not cause concern.
+> The aggressive AppArmor hardening, telemetry removal, and Snapd purging performed in previous steps significantly altered system configurations under `/etc`. The initial scan will flag these modifications and trigger a few *Warnings*—this is expected system behavior.
 > 
-> We must document the baseline results of this clean initial scan. If subsequent routine audits reveal unexpected hash modifications, that signals a requirement for a thorough manual investigation. Keep in mind that `Rkhunter` operates strictly as a scanner—it does not remove malicious software. In the event of a genuine breach, purging malicious kernel modules requires manual remediation per specialized incident response documentation.
+> Document the baseline output of this initial "clean" scan. If subsequent routine audits reveal unexpected cryptographic hash discrepancies, perform a targeted manual investigation. Remember that `Rkhunter` functions strictly as an auditing engine—it does not remove infected files. In the event of an actual compromise, remediating rogue kernel modules requires manual intervention following security incident response procedures.
 > 
-> Paying strict attention to `sudo rkhunter --propupd` is essential. This command creates a baseline hash snapshot of all core system binaries (stored in the `/var/lib/rkhunter/db/rkhunter.dat` database). Maintain an operational rule: execute `sudo rkhunter --propupd` immediately after every legitimate system upgrade performed via `sudo apt upgrade`.
+> Pay special attention to the `sudo rkhunter --propupd` command. This directive generates the reference hash database stored at `/var/lib/rkhunter/db/rkhunter.dat`. Always observe this core rule: re-run `sudo rkhunter --propupd` immediately after every legitimate package upgrade via `sudo apt upgrade`.
 > 
-> Skipping this step causes the subsequent `Rkhunter` run to throw a massive avalanche of critical warnings across standard system utilities (such as `ls`, `ps`, and `top`), as their cryptographic hashes legitimately changed during official package updates. The correct operational lifecycle is: update system → verify stability → deploy `sudo rkhunter --propupd` to update the baseline snapshot in the database.
+> Skipping this step causes subsequent `Rkhunter` scans to emit critical false warnings across basic system binaries (such as `ls`, `ps`, or `top`), as their file hashes naturally change during official package updates. The correct administrative workflow is: upgrade system packages ➔ verify overall system stability ➔ execute `sudo rkhunter --propupd` to refresh the reference snapshot in the database.
 
 <br>
 
@@ -5759,224 +5766,224 @@ We save the configuration in `nano` by pressing **"Ctrl + O"** → **"Enter"**, 
 
 #### Introduction:
 
-ClamAV is a full-featured open-source antivirus engine. On Linux-based operating systems, we deploy it primarily to inspect incoming mail flow, audit external encrypted USB media, or scan network downloads for hidden Windows-targeted malware, ensuring we eliminate accidental cross-platform threat vector propagation to adjacent workstations.
+ClamAV is a fully featured, open-source antivirus engine. Within Linux operating systems, it is primarily deployed to inspect incoming mail attachments, scan external encrypted USB drives, or audit web downloads for embedded malware targeting Windows environments, ensuring malicious payloads are not inadvertently transferred to other workstations across the network.
 
 #### Installing ClamAV:
 
-**1.** We install the core ClamAV antivirus engine along with its background system daemon:
+**1.** Install the ClamAV antivirus engine and its background system daemon:
 ```bash
 sudo apt install clamav clamav-daemon -y
 ```
 
-**2.** We verify deployment integrity and confirm the active release version of the scanner engine:
+**2.** Verify the installation and check the active scanner version:
 ```bash
 clamscan --version
 ```
 
-**3.** Installing the official Graphical User Interface (GUI) is an optional step for operators who prefer working within a visual container:
+**3.** Install the official Graphical User Interface (GUI)—an optional step for users who prefer visual management:
 ```bash
 sudo apt install clamtk -y
 ```
 
-**4.** We launch the graphical shell of the antivirus scanner:
+**4.** Launch the antivirus GUI frontend:
 ```bash
 clamtk
 ```
 
 #### Updating Signature Databases and Bypassing Network Blocks:
 
-The background automated updater daemon may hit network errors or upstream geographic IP blocks (returning a `403 Forbidden` system code). To ensure guaranteed, secure delivery of fresh signature databases, we suspend the automated daemon and execute manual database synchronization:
+The background automatic update service for the antivirus engine may encounter network delivery failures or regional endpoint restrictions (manifesting as HTTP *403 Forbidden* errors). To guarantee secure and reliable database retrieval, disable the automated updater daemon and perform manual synchronization:
 
-**1.** We temporarily halt the background auto-update service before performing manual database maintenance:
+**1.** Temporarily stop the background automatic update daemon prior to performing manual database operations:
 ```bash
 sudo systemctl stop clamav-freshclam
 ```
 
-**2.** We launch the standard console-driven database signature update:
+**2.** Initiate the standard CLI signature update sequence:
 ```bash
 sudo freshclam
 ```
 
 > [!NOTE]
-> **Author's Note:** If the utility returns an access error, Cisco Talos developer servers are actively blocking incoming connection requests. In this scenario, we must manually fetch the latest signature database files (`main.cvd`, `daily.cvd`, `bytecode.cvd`) over a secure proxy tunnel from the official `database.clamav.net` mirror or pull them from trusted community security mirrors. As a high-availability, fast, fully open alternative source, we recommend using the official Microsoft repository mirror: `https://packages.microsoft.com/clamav/`.
+> **Author's Note:** If the updater emits access restriction errors, upstream Cisco Talos servers are actively blocking incoming connection requests. Under this scenario, current signature database files (`main.cvd`, `daily.cvd`, `bytecode.cvd`) must be downloaded manually over a secure proxy tunnel from the official mirror at `database.clamav.net` or retrieved from trusted community security mirrors. The official Microsoft technology repository serves as a fast, reliable, fully open alternative mirror: `https://packages.microsoft.com/clamav/`.
 
-Once the download finishes, we open a terminal session inside `~/Downloads` and forcibly move the database assets into the system antivirus directory:
+Once the download finishes, open a terminal in the `~/Downloads` folder and transfer the files directly into the system antivirus database directory using the following commands:
 
-**3.** We copy all three downloaded signature database files in a single pass:
+**3.** Copy all three downloaded signature database files using a single command:
 ```bash
 sudo cp main.cvd daily.cvd bytecode.cvd /var/lib/clamav/
 ```
 
-**4.** We explicitly transfer ownership of the signature files to the system user `clamav`, without which the antivirus engine physically cannot parse them:
+**4.** Explicitly grant file ownership to the system `clamav` service account, as the antivirus engine cannot read the signature set without proper permissions:
 ```bash
 sudo chown clamav:clamav /var/lib/clamav/*
 ```
 
-**5.** We re-enable and launch the automated update background service:
+**5.** Re-enable and start the background update daemon:
 ```bash
 sudo systemctl enable clamav-freshclam --now
 ```
 
 #### Structuring System Scans:
 
-**1.** We launch a full system root filesystem audit under elevated privileges:
+**1.** Launch a full root partition scan with elevated superuser privileges:
 ```bash
 sudo clamscan -r -i --max-filesize=100M --max-scansize=100M --exclude-dir="^/sys" --exclude-dir="^/proc" --exclude-dir="^/dev" --exclude-dir="^/snap" --exclude-dir="^/run" /
 ```
 
-Let's break down the filtering parameters of this heavy scan pipeline:
-* **`-r`** (*recursive*)—enforces deep directory traversal across nested file structures.
-* **`--bell`**—triggers an audible system bell notification upon threat detection.
-* **`-i`** (*infected*)—restricts output strictly to infected file hits, keeping the console buffer clean of millions of uninfected file logs.
-* **`--exclude-dir`**—forcibly excludes virtual kernel pseudo-filesystems (`/sys`, `/proc`, `/dev`) and container mounts (`/snap`, if not purged in previous hardening chapters) to prevent infinite system interface loop locks.
+Break down the filtering parameters of this heavy scan command:
+* **`-r`** (*recursive*) — Perform deep inspection across nested subdirectories.
+* **`--bell`** — Sound an audible terminal bell alert upon detecting any threat.
+* **`-i`** (*infected*) — Output strictly infected file entries to screen stdout, keeping the console free of millions of clean file logs.
+* **`--exclude-dir`** — Explicitly bypass virtual kernel filesystems (`/sys`, `/proc`, `/dev`) and container mounts (`/snap`, if not purged in previous chapters) to prevent execution loops across pseudo-filesystem interfaces.
 
-**2.** We execute a fast audit of the active user's home directory (personal documents and user data):
+**2.** Perform a rapid audit of the current user's home directory (personal documents and data files):
 ```bash
 clamscan -r /home/$USER
 ```
 
-**3.** We display a concise interactive summary of available operational flags:
+**3.** Display a concise CLI reference for available tool options:
 ```bash
 clamscan --help
 ```
 
-**4.** We pull up the comprehensive official system manual detailing configuration flags and engine options:
+**4.** Open the official system manual detailing all advanced scanner flags and fine-tuning options:
 ```bash
 man clamscan
 ```
 
-If the antivirus component is no longer required, we perform a clean, complete purge of the software along with all leftover configuration profiles in a single operation:
+If the antivirus component is no longer required, execute a complete purge to remove the package along with all leftover configuration files in a single step:
 
-**5.** We completely purge ClamAV and its graphical interface wrapper:
+**5.** Completely purge ClamAV and its graphical GUI frontend:
 ```bash
 sudo apt purge clamav clamav-base clamav-daemon clamav-freshclam clamtk -y && sudo apt autoremove --purge -y
 ```
 
 #### Multithreaded Scanning (Hardening):
 
-By default, the standard `clamscan` binary operates strictly single-threaded. Auditing high-capacity system drives can take 5 to 8 hours while maxing out a single CPU core at 100%. To multiply throughput, we deploy the multithreaded daemon `clamdscan`, backed by the running `clamav-daemon` service. It parallelizes the workload across all available processor cores, accelerating file inspection by 4x–6x!
+By default, the standard `clamscan` command operates strictly single-threaded, causing full system disk audits to take anywhere from 5 to 8 hours while pegging a single CPU core at 100%. To dramatically boost execution efficiency, leverage the multi-threaded `clamdscan` engine powered by the running `clamav-daemon` service. It parallelizes the workload across all available CPU cores, accelerating scan speeds by 4x to 6x!
 
-**1.** We launch a multithreaded system-wide filesystem audit:
+**1.** Execute a multi-threaded system-wide filesystem audit:
 ```bash
 sudo clamdscan -m --fdpass --stream --config-file=/etc/clamav/clamd.conf /
 ```
-The `-m` (*multiscan*) flag handles parallelized core execution.
+The `-m` (*multiscan*) flag enables parallel processing.
 
 > [!WARNING]
-> Exercise extreme caution when executing the aggressive `--remove` flag for instant physical destruction of flagged malware. In the event of a false positive, the engine can permanently obliterate critical operating system files, instantly destabilizing system integrity.
+> Exercise extreme caution when using the aggressive `--remove` flag for instantaneous destruction of detected threats. In the event of a false positive, the engine could permanently delete a critical system binary, immediately compromising operating system stability.
 
-If we need to isolate potential threats into a secure, restricted quarantine area rather than destroying them, we first establish a target directory and transfer ownership permissions to the antivirus daemon:
+To safely isolate potential threats into a secure quarantine zone rather than destroying them immediately, create a dedicated directory and assign ownership permissions to the antivirus daemon:
 
-**2.** We establish the isolation quarantine directory:
+**2.** Create the quarantine directory:
 ```bash
 sudo mkdir -p /var/lib/clamav/quarantine
 ```
 
-**3.** We grant ownership rights over the quarantine path to the antivirus daemon:
+**3.** Assign directory ownership to the antivirus service account:
 ```bash
 sudo chown clamav:clamav /var/lib/clamav/quarantine
 ```
 
-Only after securing the quarantine zone do we initiate high-speed multithreaded scanning with automated threat isolation:
+Only after establishing the target isolation directory, execute high-speed multi-threaded scanning with automatic threat quarantine movement:
 
-**4.** We execute a multithreaded drive scan, routing flagged threats straight into quarantine:
+**4.** Launch multi-threaded disk scanning with threat quarantine redirection:
 ```bash
 sudo clamdscan -m --fdpass --move=/var/lib/clamav/quarantine --stream /
 ```
 
 > [!NOTE]
-> Passing the `--fdpass` (*file descriptor passing*) flag in multithreaded scan commands is strictly mandatory. It forces the terminal process to pass target file descriptors to the background daemon, enabling seamless inspection of protected system paths that the unprivileged `clamav` system user lacks direct read access to by default.
+> Including the `--fdpass` (*file descriptor passing*) flag in multi-threaded scan invocations is strictly required. It forces the terminal to pass target file descriptors directly to the background daemon, allowing seamless auditing of protected filesystem paths that the unprivileged `clamav` system user cannot access directly.
 
 <br>
 
 ## Installing and Configuring the VirtualBox Virtualization Environment
 
-VirtualBox serves as an ideal framework for spinning up isolated virtual machines and safely testing third-party operating systems (such as Kali Linux, Parrot OS, Windows, etc.). To maintain maximum stability, we deploy the official engine build directly from Oracle's repositories.
+The ideal tool for creating isolated virtual machines and safely testing third-party operating systems (such as Kali Linux, Parrot OS, Windows, and others) is VirtualBox. To ensure maximum stability, deploy the official release directly from Oracle's repositories.
 
-**1.** We prevent critical package manager desynchronization. Because we enforced strict PAM stack hardening and disabled biometric authentication in previous chapters, routine updates to fingerprint reader libraries will trigger a permanent runtime deadlock at the 78% mark. We forcibly unlock, purge from the host, and clean up residual configuration artifacts for both the biometric daemon and automated background update services:
+**1.** Prevent critical package manager deadlocks. Previous chapters implemented strict PAM stack hardening and disabled biometric authentication; consequently, scheduled updates for fingerprint reader libraries will cause an indefinite runtime hang at 78%. Explicitly unhold, completely purge, and erase leftover configuration traces for the biometric daemon and background auto-updaters:
 ```bash
 sudo apt-get purge fprintd libfprint-2-2 libfprint-2-tod1 libpam-fprintd unattended-upgrades --allow-change-held-packages -y
 ```
 
-**2.** We execute a clean index refresh and upgrade system modules across the host WITHOUT risking interactive terminal hangs:
+**2.** Perform a clean update of package indices and core OS modules without triggering interactive terminal stalls:
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
 
-**3.** We install base compilation tools (`gcc`, `make`) alongside the `dkms` utility, which is required to automatically rebuild VirtualBox kernel modules during routine Linux kernel updates:
+**3.** Install base compilers (`gcc`, `make`) and the `dkms` framework, required to build VirtualBox kernel modules automatically during scheduled Linux kernel updates:
 ```bash
 sudo apt install wget dkms build-essential -y
 ```
 
-**4.** We integrate Oracle's official repository into the `apt` sources configuration. To completely eliminate dependency on vendor-side cryptographic desyncs (short 32-bit PGP key collisions) and bypass stuck signature checks under strict 4x4 host isolation, we forcibly inject the `[trusted=yes]` mandatory flag. Packages will be securely pulled over a protected HTTPS TLS channel directly from Oracle's official domain.
+**4.** Integrate the official Oracle repository into `apt` sources. To eliminate reliance on vendor-side cryptographic discrepancies (such as short 32-bit PGP key collisions) and bypass stuck signature checks under strict 4x4 host isolation, force the `[trusted=yes]` override flag. Packages will be securely pulled over an encrypted TLS HTTPS channel directly from Oracle's official domain.
 
-For **Ubuntu 24.04 LTS** (Noble Numbat), we target the `noble` branch:
+For **Ubuntu 24.04 LTS (Noble Numbat)**, declare the `noble` branch:
 ```bash
 echo "deb [arch=amd64 trusted=yes] https://download.virtualbox.org/virtualbox/debian noble contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 ```
 
-For **Ubuntu 26.04 LTS** (Resolute Raccoon), we lock the release path to the stable parent LTS base `noble`, as a dedicated release directory for the 2026 tree is not present on Oracle servers:
+For **Ubuntu 26.04 LTS (Resolute Racoon)**, explicitly lock the sources to the stable parent LTS base (`noble`), as Oracle servers do not maintain a distinct directory for the 2026 release cycle:
 ```bash
 echo "deb [arch=amd64 trusted=yes] https://download.virtualbox.org/virtualbox/debian resolute contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
 ```
 
-**5.** We update system package indexes. The `[trusted=yes]` directive instructs the package manager to bypass vendor signature checks and cleanly commit repository metadata into runtime:
+**5.** Update the system package repository lists. The `[trusted=yes]` directive forces the system to bypass vendor key validation and seamlessly ingest repository metadata into runtime:
 ```bash
 sudo apt update
 ```
 
 > [!NOTE]
-> Because we deliberately bypassed importing legacy Oracle keyrings, `apt` will reliably display warnings during index refreshes such as: `W: GPG error...` or `Signed file isn't valid, got 'NODATA'`. We disregard these notifications entirely. The mandatory `[trusted=yes]` flag forces the subsystem to bypass warnings, maintain pipeline execution, and ingest the `contrib` package lists for deployment.
+> Having intentionally bypassed importing legacy Oracle signing keys, the `apt` package manager will emit index warnings such as `W: GPG error...` or `Signed file isn't valid, got 'NODATA'`. **Ignore these completely.** The mandatory `[trusted=yes]` flag instructs the system to ignore these warnings, keep the execution pipeline active, and ingest `contrib` branch package lists for subsequent installation.
 
-**6.** We install the current stable VirtualBox release, optimized for modern Linux kernel trees (the package manager pulls the legitimate binary over a secure HTTPS TLS channel):
+**6.** Install the current stable release of VirtualBox, fully optimized for modern Linux kernels (the system pulls the authentic package over a secure TLS HTTPS channel):
 ```bash
 sudo apt install virtualbox-7.2 -y
 ```
 
-**7.** We append the active user account to the virtualization management group, granting guest operating systems direct pass-through access to host USB ports (the `$USER` variable automatically resolves the local account username):
+**7.** Add the current user account to the system virtualization management group to enable direct, pass-through access for guest operating systems to host USB ports (the `$USER` variable expands your username automatically):
 ```bash
 sudo usermod -aG vboxusers $USER
 ```
 
 > [!NOTE]
-> Upon initial VirtualBox installation on physical hardware with Secure Boot enabled, the inline module builder compiles kernel objects in an uncompressed `.ko` format, placing them inside `/lib/modules/$(uname -r)/misc/`.
+> During initial VirtualBox deployment on bare metal running active Secure Boot, the internal builder compiles modules in uncompressed `.ko` format, placing them under `/lib/modules/$(uname -r)/misc/`. 
 > 
-> Due to kernel dependency map indexing delays, running standard verification commands like `modinfo -n vboxdrv` may return a false-positive error: `ERROR: Module vboxdrv not found`. There is no reason for alarm—the utility simply hasn't reindexed the new paths yet.
+> Due to timing delays in updating the kernel dependency map, running `modinfo -n vboxdrv` may return a false-positive `ERROR: Module vboxdrv not found`. This is not an issue—the utility simply has not reindexed the new paths yet. 
 > 
-> The sole, absolute indicator that Secure Boot successfully ingested the MOK key and kernel modules were legally injected into Ring 0 is active memory inspection:
+> The sole definitive indicator that Secure Boot successfully accepted the MOK key and loaded modules into kernel Ring 0 is inspecting active kernel memory:
 > ```bash
 > lsmod | grep vbox
-> ```
-> If output streams confirm `vboxdrv`, `vboxnetflt`, and `vboxnetadp` loaded into memory, the hypervisor is autonomous, hardware-isolated, and ready to host guest workloads safely.
+> ``` 
+> If the output lists `vboxdrv`, `vboxnetflt`, and `vboxnetadp`, the hypervisor is fully autonomous, hardware-isolated, and ready to host guest operating systems safely.
 
-Upon system reboot, the blue-grey **Perform MOK management** screen will trigger. Rapidly press any key and complete MOK enrollment via the following sequence: **Enroll MOK** ➔ **Continue** ➔ **Yes** ➔ enter the password (configured during `mokutil` setup) ➔ **Reboot**.
+During system reboot, the blue-and-gray **Perform MOK management** screen will appear. Quickly press any key and complete the enrollment process step-by-step: **Enroll MOK** ➔ **Continue** ➔ **Yes** ➔ enter the password (configured previously via `mokutil`) ➔ **Reboot**.
 
-**8.** We initiate host reboot to complete MOK enrollment steps:
+**8.** Reboot the system and complete **Enroll MOK**:
 ```bash
 systemctl reboot -i
 ```
 
-**9.** We build and initialize low-level virtualization drivers inside the Linux kernel core:
+**9.** Compile and initialize low-level virtualization drivers inside the Linux kernel:
 ```bash
 sudo /sbin/vboxconfig
 ```
 
-**10.** We disable startup services for automatic virtual machine provisioning and the web API management service:
+**10.** Prevent the virtual machine autostart service and the web API management daemon from launching at boot:
 ```bash
 sudo systemctl disable --now vboxautostart-service && sudo systemctl disable --now vboxweb-service
 ```
 
 > [!WARNING]
-> Never set a virtual machine's network adapter to **Bridged Adapter** mode unless out-of-band direct network routing without host VPN encapsulation is explicitly required. Under Bridged mode, the guest OS (whether a unvetted Windows image or a Kali Linux testing build) receives an uncontained local IP address on the physical host LAN. It directly exposes the local router, network storage, and adjacent LAN nodes, introducing a major attack surface into local network security.
+> Never configure a virtual machine network adapter to **Bridged Adapter** mode unless explicitly requiring un-VPNed network access within the guest OS. In Bridged mode, the guest OS (whether a suspicious Windows build or a testing Kali Linux instance) acquires a direct, unmanaged IP address on the host's physical local network. This exposes host home routers, network printers, and internal devices directly, introducing a severe local security breach.
 > 
-> Always verify settings: configure virtual machine network adapters strictly to **NAT** or **Host-only** modes. **NAT** mode isolates guest traffic inside the host environment, forcing outbound flows through the UFW firewall Kill Switch and the secure `tun0` VPN tunnel configured in prior chapters.
+> Always verify settings to ensure virtual machine network adapters are bound to **NAT** or **Host-only** modes. **NAT** mode safely isolates guest OS traffic inside the host environment, routing all outbound connections through the UFW firewall's strict Kill Switch and the secure `tun0` VPN tunnel configured in earlier chapters.
+>
+> The **sole exception** to this operational rule is deploying the specialized anonymous OS *Whonix*. Its architecture relies on two isolated virtual machines with custom network bindings:
 > 
-> **The sole exception** to this operational rule is deploying the specialized anonymous OS suite *Whonix*. Its architecture relies on two isolated virtual machines with custom interface topologies:
+> * **On Whonix-Gateway:** The primary network adapter accesses external networks via **NAT** (automatically wrapped in host-level VPN and UFW firewall rules), while the secondary adapter is assigned to an **Internal Network** labeled `whonix`.
+> * **On Whonix-Workstation:** The single network adapter is similarly bound to the **Internal Network** on the same isolated `whonix` segment.
 > 
-> * **Whonix-Gateway:** Interface 1 faces outbound networks via secure **NAT** mode (automatically routed through host VPN and UFW firewall boundaries), while Interface 2 is explicitly assigned to **Internal Network** mode using the designated segment name `whonix`.
-> * **Whonix-Workstation:** The single network adapter is identically configured to **Internal Network** mode mapped to the same isolated `whonix` virtual segment.
-> 
-> This architecture ensures that the workstation physically lacks direct access to host networks or local gateway routers, forcing 100% of outbound traffic through the Tor anonymity network via the isolated gateway node.
+> This architecture ensures the workstation lacks direct physical access to the local router or host system, forcing all outbound traffic through the Tor anonymous network via the isolated gateway.
 
 <br>
 
@@ -5984,85 +5991,85 @@ sudo systemctl disable --now vboxautostart-service && sudo systemctl disable --n
 
 #### Introduction:
 
-During active operation, virtual machine disk files continuously expand. Installing software packages or downloading files inside a guest OS naturally inflates the size of the dynamic virtual disk (`*.vdi`) on the host's physical storage. However, subsequently deleting those files within the guest OS does not automatically shrink the host `*.vdi` file.
+During active operation, virtual machine disk files naturally expand over time. Installing software or downloading data inside a guest OS causes the dynamically allocated `*.vdi` virtual disk file to grow on the physical host storage. However, deleting those files within the guest operating system does not automatically reduce the size of the `*.vdi` container on the physical drive.
 
-This occurs because the guest operating system's file system merely marks disk sectors as "free" without physically clearing their contents. For the VirtualBox hypervisor, these blocks remain populated with legacy data. To reclaim free gigabytes on the real SSD, disk zeroing and optimization must be executed manually.
+This overhead occurs because the guest filesystem merely marks deleted sectors as "free" without physically clearing their contents. From the perspective of the VirtualBox hypervisor, those storage blocks still contain residual data. Reclaiming unused storage back to the physical host SSD requires manual disk zeroing and compaction.
 
 #### Sanitizing a Windows Guest Virtual Machine:
 
-1. Launch the target Windows virtual machine.
-2. Download the official `SDelete` CLI utility from the legitimate Microsoft Sysinternals repository (`microsoft.com`).
-3. Extract the `sdelete64.exe` binary (for 64-bit architectures) directly into the root directory of drive `C:\`.
-4. Open Command Prompt (`cmd.exe`) with mandatory administrative privileges and execute:
+**1.** Launch the target Windows virtual machine.
+**2.** Download the official `SDelete` CLI utility directly from Microsoft `https://learn.microsoft.com/en-us/sysinternals/downloads/sdelete`.
+**3.** Extract the `sdelete64.exe` binary (for 64-bit operating systems) and move it directly into the root directory of the `C:\` drive.
+**4.** Open Command Prompt (`cmd.exe`) with elevated administrative privileges and execute the following command:
 ```cmd
 C:\sdelete64.exe -z C:
 ```
 
-5. Await task completion (the utility forcibly overwrites unallocated disk space with zero-byte patterns), then issue a full shutdown of the Windows guest.
+**5.** Wait for the operation to complete (the utility forcibly writes binary zeroes across all unallocated disk space), then perform a complete shutdown of the Windows virtual machine.
 
 > [!IMPORTANT]
-> The `-z` flag of `SDelete` populates unallocated space strictly with zeros, which is mandatory for subsequent VirtualBox disk compression. However, if the operational goal is forensic data destruction rather than storage optimization, deploy the `-c` flag instead.
+> The `-z` flag in `SDelete` fills free storage exclusively with binary zeroes, which is a mandatory requirement for subsequent VirtualBox container compression. However, if the operational goal is forensic data destruction rather than disk space optimization, use the `-c` flag instead of `-z`.
 > 
-> The `-c` parameter overwrites free space using random patterns per the US Department of Defense *DoD 5220.22-M* standard. Note: after applying `-c`, the VirtualBox compression algorithm will be unable to reduce the size of the `*.vdi` file, as random bits are parsed as valid payload data. For storage reduction, enforce `-z` exclusively.
+> The `-c` flag overwrites free space with random bit patterns adhering to the US Department of Defense *DoD 5220.22-M* sanitization standard. Note that applying the `-c` flag prevents VirtualBox compression routines from shrinking the `*.vdi` image, as random bit arrays are processed as valid payload data. Use `-z` exclusively for space optimization.
 
 #### Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux):
 
-Instead of running slow, aggressive zero-fill operations via `dd` (which degrades physical host SSD lifespan by churning hundreds of gigabytes of empty payload), deploying the specialized `zerofree` utility under Linux guest environments is significantly more efficient. It targets only modified blocks containing deleted file references, zeroing them in seconds without inflicting unnecessary write amplification on the host drive.
+Instead of using the slow and aggressive method of filling the disk with zeroes via `dd` (which wears down the physical host SSD by writing hundreds of gigabytes of empty data), Linux virtual machines benefit far more from using the specialized `zerofree` utility. It targetedly identifies only modified blocks where files were deleted and zeroes them in seconds without unnecessary write endurance strain on the SSD.
 
-To execute `zerofree`, the guest filesystem must be unmounted or remounted in Read-Only mode. Achieving this is most straightforward via Recovery Mode. We configure the GRUB bootloader parameters directly from the active OS:
+To execute the utility, the guest filesystem must be unmounted or remounted in **Read-Only** mode. The easiest way to achieve this is via **Recovery Mode**. Configure the GRUB bootloader menu directly from the running guest system:
 
-**1.** Inside the guest Linux environment, we open the bootloader configuration file:
+**1.** Inside the guest Linux environment, open the bootloader configuration file:
 ```bash
 sudo nano /etc/default/grub
 ```
 
-**2.** We locate `GRUB_TIMEOUT=0` and adjust the parameter to `5` (allowing a 5-second window at boot to access the menu). Additionally, if `GRUB_TIMEOUT_STYLE=hidden` is active, comment out the directive by prefixing it with a `#` symbol. Save the file in `nano` via **"Ctrl + O"** → **"Enter"**, and exit using **"Ctrl + X"**.
+**2.** Locate the line `GRUB_TIMEOUT=0` and change its value to `5` (providing a 5-second window at boot to access the menu). Additionally, if `GRUB_TIMEOUT_STYLE=hidden` is active, comment it out by adding a `#` character at the beginning of the line. Save the file in `nano` with **"Ctrl + O"** ➔ **"Enter"**, then exit via **"Ctrl + X"**.
 
-**3.** We update the system bootloader configuration:
+**3.** Update the bootloader configuration in the OS:
 ```bash
 sudo update-grub
 ```
 
-**4.** We reboot the virtual machine. As the system initializes, the textual GRUB menu displays. We navigate via arrow keys to the second entry: **"Advanced options for Ubuntu"**, press **"Enter"**, and select the kernel entry appended with **"(recovery mode)"**.
+**4.** Reboot the virtual machine. Upon boot, the text-based GRUB menu will appear. Use the arrow keys to select the second entry: **"Advanced options for Ubuntu"**, press **"Enter"**, and from the subsequent list select the option appended with **"(recovery mode)"**.
 
-**5.** The system boots into the graphical recovery menu. Select the **"drop to root shell prompt"** option and press **"Enter"**.
+**5.** The system will boot into a graphical recovery menu. Select **"drop to root shell prompt"** using the arrow keys and press **"Enter"**.
 
-**6.** A root shell initializes at the bottom of the screen. We execute the command to remount the root filesystem read-only:
+**6.** A root console will open at the bottom of the screen. Remount the root partition in read-only mode:
 ```bash
 mount -o remount,ro /
 ```
 
-**7.** We execute immediate zero-filling across unallocated filesystem blocks:
+**7.** Launch instantaneous zeroing of free filesystem blocks:
 ```bash
 zerofree -v /dev/sda1
 ```
 
 > [!TIP]
-> **Author's Note:** You can identify the exact target block device (e.g., `/dev/sda1` or `/dev/nvme0n1p2`) prior to reboot from the active system via `df -h`. Upon task completion, power off the virtual machine completely.
+> **Author's Note:** Determine the precise name of the target root partition (for example, `/dev/sda1` or `/dev/nvme0n1p2`) beforehand from the running system using `df -h`. Once the zeroing process completes, perform a full shutdown of the virtual machine.
 
 #### Final Virtual Disk Compaction on the Host Machine:
 
-Now that unallocated storage within the virtual disks is zeroed out, we open a terminal session on our primary Ubuntu host system. Navigate to the directory housing the target virtual machine files (e.g., `~/VirtualBox VMs/`), and initiate the final compaction workflow.
+Now that the free space within the virtual disks has been zeroed out, open a terminal on the host Ubuntu system. Navigate to the directory containing the virtual machine files (for example, `~/VirtualBox VMs/`), and initiate the final compaction process.
 
 > [!IMPORTANT]
-> **Attention!** Linux terminals enforce strict case sensitivity. The VirtualBox control utility binary must be invoked precisely as `VBoxManage`.
+> **Attention:** Linux terminal commands are case-sensitive. The VirtualBox management utility binary must be typed precisely as `VBoxManage`.
 
-**1.** We display detailed metadata for all registered virtual storage media along with their unique UUID descriptors:
+**1.** Display a detailed list of all registered virtual hard disks along with their unique UUIDs:
 ```bash
 VBoxManage list hdds
 ```
 
-**2a.** Compaction utilizing the disk UUID: if the target drive UUID reads `21e5b710-6ed1-412f-6313-ac7e6251b3f3`, we execute:
+**2a.** Compact the virtual disk using its UUID. If the drive's UUID is `21e5b710-6ed1-412f-6313-ac7e6251b3f3`, execute:
 ```bash
 VBoxManage modifymedium --compact 21e5b710-6ed1-412f-6313-ac7e6251b3f3
 ```
 
-**2b.** Compaction directly referencing the target file path:
+**2b.** Compact the virtual disk directly using its file path:
 ```bash
-VBoxManage modifymedium --compact "Target_Machine.vdi"
+VBoxManage modifymedium --compact "VM_NAME.vdi"
 ```
 
-Upon task completion, the virtual disk files instantly drop in size—reclaiming gigabytes to tens of gigabytes of host capacity (proportional to previously purged guest files) and restoring physical host SSD storage!
+Once compaction completes, the virtual disk image files will immediately shrink by several gigabytes up to tens of gigabytes (depending on the volume of previously unallocated or deleted data), reclaiming physical storage on the main SSD.
 
 <br>
 
@@ -6070,88 +6077,88 @@ Upon task completion, the virtual disk files instantly drop in size—reclaiming
 
 #### Introduction:
 
-The VirtualBox virtualization domain, which we rigorously architected in the previous chapter, is ideal for running heavy guest operating systems. However, in modern offensive and defensive security operations, containerization via Docker is deployed far more frequently for spinning up isolated utilities, vulnerable target ranges (DVWA, WebGoat), or automated OSINT scrapers.
+The VirtualBox virtualization environment detailed and configured in the previous chapter works exceptionally well for running heavy guest operating systems. However, modern offensive and defensive security workflows rely far more frequently on Docker containerization to deploy isolated utilities, vulnerable lab environments (like DVWA or WebGoat), and OSINT scripts.
 
-A core principle to internalize: vanilla Docker out of the box is a massive architectural security hole in a paranoid desktop environment. Without aggressive, low-level hardening, running it inside a secured system is outright operational suicide.
+Understand the core architectural impact: out-of-the-box Docker introduces a massive security blind spot on a hardened paranoid desktop. Running it in a secured environment without aggressive security tuning is outright fatal.
 
 > [!NOTE]
-> Personally, I still favor full OS virtualization via virtual machines, so Docker stress-testing under Ubuntu 26.04 was executed purely superficially! Container deployments were tested strictly on Ubuntu 24.04.4.
+> I still personally lean toward full-OS virtualization via traditional virtual machines, so Docker testing on Ubuntu 26.04 was performed only at a surface level. Container deployment was validated exclusively on Ubuntu 24.04.4.
 
 #### What Is the Hidden Danger of Default Docker?
 
-* **The Omnipotent Root Daemon:** By default, the background Docker service (`dockerd`) executes at the highest kernel level with full `root` privileges. Containers spawn under superuser context. If a zero-day or critical flaw hits software running inside a container, an attacker can execute a Container Escape and immediately take full control of our guest kernel.
-* **Network Hijacking Bypassing UFW:** The most critical OPSEC flaw. Upon initialization, Docker provisions its own network bridge and injects routing rules directly into the top of the Linux kernel's `iptables/nftables` chains, completely circumventing UFW rules. If we fire up any containerized service and map a port (e.g., `-p 80:80`), Docker exposes that socket to the open internet, bypassing our Kill Switch and UFW restrictions. Traffic hits the container directly through the physical interface, completely bypassing our active `tun0` VPN tunnel. This is a textbook, purebred OPSEC failure in action.
+* **The Omnipotent Root Daemon:** By default, the Docker background service (`dockerd`) executes with unrestricted `root` privileges. Containers launch under superuser context. Should a critical vulnerability emerge within containerized software, an attacker can execute a sandbox escape (Container Escape) and instantly capture full control over the host Linux kernel.
+* **Network Hijacking Bypassing UFW:** This represents the most dangerous architectural risk. Upon initialization, Docker creates its own network bridge and injects routing rules directly into the Linux kernel's `iptables/nftables` tables at the highest priority level, completely bypassing UFW rules. Exposing a service port via Docker (e.g., `-p 80:80`) causes Docker to open that port directly to the public internet, completely ignoring the Kill Switch and UFW rules. Traffic routes into the container directly via the physical interface, bypassing the active `tun0` VPN tunnel entirely. This is a classic, textbook OPSEC failure in practice.
 
-To neutralize these threat vectors, we execute a two-tier hardening strategy: shift Docker into a unprivileged Rootless Mode and strictly lock down its ability to tamper with the host network stack.
+To mitigate these threats, deploy a two-stage defensive strategy: transition Docker into secure Rootless Mode and strictly forbid it from autonomously modifying the host network stack.
 
-To maintain absolute environment purity, we utilize the standard APT package manager while strictly pinning Canonical's official, secure update mirrors to ensure the system never pulls rogue software from third-party PPA repositories. Keep track of release codenames: **24.04 LTS is Noble Numbat** (`noble`), while the upcoming **26.04 LTS is Resolute Raccoon** (`resolute`).
+To maintain absolute system hygiene, rely exclusively on the standard APT package manager while locking down official, verified Canonical update mirrors. This prevents the system from pulling untrusted third-party binaries from external PPA repositories. Pay strict attention to release codenames: **Ubuntu 24.04 LTS is Noble Numbat** (`noble`), while **Ubuntu 26.04 LTS is Resolute Raccoon** (`resolute`).
 
 #### Deploying Docker in Rootless Mode:
 
-Rootless Mode forces the Docker daemon and all child containers to execute entirely inside isolated User Namespaces. The daemon runs under an unprivileged user context. Even if an attacker breaches a container and gains "root" inside the sandbox, to the host OS they remain an unprivileged user with zero access to system files.
+Rootless Mode forces the Docker daemon and all child containers to execute entirely within an isolated User Namespace (`userns`). The daemon runs strictly under an unprivileged user context. Even if an attacker compromises a container and achieves "root" within the sandbox, the host operating system still treats the process as an unprivileged local user, denying any access to raw system files.
 
-**1.** To pin official mirrors in modern Ubuntu releases, we open the DEB822-formatted repository configuration file using a text editor with superuser rights:
+**1.** To enforce verified official mirrors on modern Ubuntu releases, open the DEB822-formatted repository configuration file using a text editor with elevated privileges:
 ```bash
 sudo nano /etc/apt/sources.list.d/ubuntu.sources
 ```
 
-**2.** We verify that the `URIs` field references exclusively official endpoints (`http://archive.ubuntu.com/ubuntu/` and `http://security.ubuntu.com/ubuntu/`) matching our OS codename (`noble` for 24.04 or `resolute` for 26.04), fully locking down third-party attack vectors.
+**2.** Verify that the `URIs` field strictly points to official mirror endpoints (`http://archive.ubuntu.com/ubuntu/` and `http://security.ubuntu.com/ubuntu/`) matching your operating system release codename (`noble` for 24.04 or `resolute` for 26.04), mitigating untrusted third-party attack vectors.
 
-**3.** We update the local APT index and pull the upstream Docker engine along with essential user-space networking components, network encapsulation tools, and `curl` from Canonical's trusted mirror:
+**3.** Refresh local APT package indices and install the upstream Docker engine along with user-space networking components, network encapsulation utilities, and `curl` from Canonical's trusted mirror:
 ```bash
 sudo apt update && sudo apt install docker.io docker-buildx docker-compose-v2 docker-doc uidmap dbus-user-session slirp4netns fuse-overlayfs curl -y
 ```
 
-**4.** We forcibly disable and purge the system-wide root Docker service from auto-start so it never initializes at the host kernel level:
+**4.** Disable and stop the host-level root Docker service to prevent background daemon execution at boot:
 ```bash
 sudo systemctl disable --now docker.service docker.socket
 ```
 
-**5.** We apply hard masking to the root service and its socket, binding them with symlinks to a digital black hole to prevent rogue system triggers from invoking the root daemon:
+**5.** Mask the system root service and its listening socket, symlinking them directly to `/dev/null` so external system triggers cannot activate the privileged daemon:
 ```bash
 sudo systemctl mask docker.service docker.socket
 ```
 
-**6.** We bypass the new restrictions in Ubuntu 24.04/26.04 LTS by disabling the global kernel block on unprivileged user namespaces, persisting the setting in the host's sysctl configuration to survive system reboots:
+**6.** Bypass the restrictive default policy in Ubuntu 24.04/26.04 LTS by disabling the global kernel restriction on unprivileged user namespaces, locking the rule into the host's `sysctl` configuration to persist across system reboots:
 ```bash
 sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0 && echo 'kernel.apparmor_restrict_unprivileged_userns=0' | sudo tee /etc/sysctl.d/99-rootless-docker.conf
 ```
 
-**7.** We execute the official rootless setup script directly from the upstream source (run this command strictly as our standard unprivileged user without `sudo`):
+**7.** Execute the official, independent rootless environment setup script directly from its upstream source (run strictly under your unprivileged user account without `sudo`):
 ```bash
 curl -fsSL https://get.docker.com/rootless | sh
 ```
 
-**8.** We inject the paths for isolated rootless binaries and our new user-space Docker socket into our shell config—dynamically mapping the current user ID via `$UID`—and refresh our terminal environment:
+**8.** Append paths for isolated rootless binaries and the user-space Docker socket to your shell configuration file—dynamically resolving your user ID via `$UID`—then reload the current environment:
 ```bash
 echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc && echo 'export DOCKER_HOST=unix:///run/user/$UID/docker.sock' >> ~/.bashrc && source ~/.bashrc
 ```
 
-**9.** We instruct the operating system to keep our user-space processes running in the background even after closing the terminal session:
+**9.** Grant system authorization to preserve long-running user processes in the background after terminating the active terminal session:
 ```bash
 loginctl enable-linger $USER
 ```
 
-**10.** We reload systemd user-configuration files and place our isolated rootless Docker service on active duty in auto-start:
+**10.** Reload the user-space `systemd` daemon configuration and enable the isolated rootless Docker service on boot:
 ```bash
 systemctl --user daemon-reload && systemctl --user enable --now docker.service
 ```
 
-**11.** We run a verification check on the containerization engine to confirm Docker officially acknowledges our rootless status:
+**11.** Perform a final audit on the containerization engine to confirm that Docker explicitly reports active rootless status:
 ```bash
 docker info | grep -i rootless
 ```
 
-#### TTaming the Network and Binding Docker to UFW:
+#### Securing Docker Networking: Preventing UFW Firewall Bypass:
 
-Now for the critical security enforcement: we completely revoke Docker's ability to manipulate kernel routing tables and force its network traffic to obey our UFW firewall. At this stage, we can re-enable the network interface in NetworkManager.
+Now for the critical security enforcement: revoke Docker's ability to manipulate kernel routing tables completely and force its network traffic to obey host UFW firewall rules. At this stage, re-enable the network interface in NetworkManager.
 
-**1.** We create a hidden configuration directory and open the Docker daemon config file under our user profile:
+**1.** Create a hidden configuration directory and open the Docker daemon configuration file under the local user profile:
 ```bash
 mkdir -p ~/.config/docker/ && nano ~/.config/docker/daemon.json
 ```
 
-**2.** We insert the JSON block to strip Docker of `iptables/nftables` modification privileges while locking in privacy-focused, non-logging Quad9 DNS servers. Save via **"Ctrl + O"** → **"Enter"** and exit with **"Ctrl + X"**:
+**2.** Insert the JSON payload to strip Docker of `iptables/nftables` modification privileges while enforcing privacy-focused, non-logging Quad9 DNS servers. Save via **"Ctrl + O"** ➔ **"Enter"** and exit with **"Ctrl + X"**:
 ```json
 {
   "iptables": false,
@@ -6159,28 +6166,28 @@ mkdir -p ~/.config/docker/ && nano ~/.config/docker/daemon.json
 }
 ```
 
-**3.** We restart our user-space Docker daemon to apply these strict network restrictions:
+**3.** Restart the user-space Docker daemon to apply network restrictions:
 ```bash
 systemctl --user restart docker.service
 ```
 
-**4.** We selectively allow UFW packet forwarding (`FORWARD`) exclusively for the isolated Docker subnet based on our active network architecture:
+**4.** Selectively allow UFW packet forwarding (`FORWARD`) exclusively for the isolated Docker subnet based on active network architecture:
 
 * **If operating WITH an active VPN via `tun0`:**
 ```bash
 sudo ufw route allow in on lo out on tun0 from 172.17.0.0/16
 ```
-* **If operating DIRECTLY via physical NIC (replace `enp0s1` with your interface name):**
+* **If operating DIRECTLY via physical NIC (replace `enp0s1` with target interface name):**
 ```bash
 sudo ufw route allow in on lo out on enp0s1 from 172.17.0.0/16
 ```
 
-**5.** We open UFW's low-level post-routing and filtering rule file:
+**5.** Open UFW's low-level post-routing and filtering rules configuration file:
 ```bash
 sudo nano /etc/ufw/before.rules
 ```
 
-**6.** We scroll to the bottom, add a single blank line right after the final default `COMMIT` keyword (which closes the filter table), and append an isolated NAT rule block that masquerades the Docker subnet and forces its traffic through the designated interface. Save and close:
+**6.** Scroll to the bottom, append a single blank line right after the final default `COMMIT` statement (which closes the main filter table), and append an isolated NAT rule block to masquerade the Docker subnet and force traffic through the designated interface. Save and close:
 
 * **If routing traffic STRICTLY through the `tun0` VPN interface to prevent IP leaks:**
 ```ini
@@ -6192,95 +6199,95 @@ COMMIT
 ```
 * **If testing the setup DIRECTLY without VPN via host physical NIC:**
 ```ini
-# Route and masquerade Rootless Docker traffic DIRECTLY through physical NIC (replace enp0s1 with your interface name)
+# Route and masquerade Rootless Docker traffic DIRECTLY through physical NIC (replace enp0s1 with target interface name)
 *nat
 :POSTROUTING ACCEPT [0:0]
 -A POSTROUTING -s 172.17.0.0/16 -o enp0s1 -j MASQUERADE
 COMMIT
 ```
 
-**7.** We reload UFW to apply our low-level modifications, isolate the subnet, and reload routing tables:
+**7.** Reload UFW to apply low-level NAT modifications, isolate the subnet, and update routing tables:
 ```bash
 sudo ufw reload
 ```
 
-**8.** We force Ubuntu's NetworkManager to re-read our physical network interface configuration to restore the hypervisor gateway connection post-firewall activation (replace `enp0s1` with your interface name):
+**8.** Force NetworkManager to re-read physical network interface configurations to restore hypervisor gateway connectivity post-firewall activation (replace `enp0s1` with target interface name):
 ```bash
 sudo nmcli device reapply enp0s1
 ```
 
-**9.** We verify outbound WAN stability by sending an application-layer TCP request through the firewall and Portmaster eBPF filters (raw ICMP/ping is intentionally avoided here as paranoid network drivers drop it for CLI tools):
+**9.** Verify outbound WAN connectivity by executing an application-layer TCP request through the firewall and Portmaster eBPF filters (raw ICMP/ping is intentionally bypassed as hardened network profiles drop raw sockets for CLI binaries):
 ```bash
 curl -I https://google.com
 ```
 
-**10.** We restart Portmaster to immediately apply eBPF socket-interception rules and establish full control over unprivileged daemon activity at the kernel level:
+**10.** Restart Portmaster to re-bind eBPF socket-interception hooks and enforce kernel-level control over unprivileged daemon activity:
 ```bash
 sudo systemctl restart portmaster
 ```
 
-**11.** We manually launch the Portmaster GUI from the application menu (**"Show Apps"**); otherwise, the kernel eBPF filter remains in a hard-lock state and drops all outbound system traffic until the GUI session initializes.
+**11.** Manually launch the Portmaster GUI from the application desktop menu (**"Show Apps"**); otherwise, the kernel eBPF driver remains in a strict lock state, dropping outbound system traffic until the GUI user-session initializes.
 
-Click "Allow" on Portmaster's pop-up prompt. We now hold absolute perimeter control: UFW masquerades and routes Docker traffic strictly through the chosen interface (mandatorily bound to the VPN in operational mode), Portmaster intercepts telemetry in real time, and Docker is physically locked inside host rules—incapable of opening any external ports on its own.
+Acknowledge the prompt by clicking "Allow" on Portmaster's pop-up alert. Absolute perimeter control is now established: UFW masquerades and routes Docker traffic strictly through the chosen network interface (bound mandatorily to the VPN tunnel in operational environments), Portmaster intercepts telemetry in real time, and Docker is physically contained within host firewall parameters—incapable of autonomously exposing external host ports.
 
 #### Hardened Container Deployment in Practice:
 
-Stripping root privileges and locking down the network covers baseline security. However, when spinning up individual containers, we must apply additional "paranoia flags" to restrict process privileges inside the sandbox as tightly as possible.
+Stripping root privileges and restricting network routing provide essential baseline protection. However, when deploying specific containers, implement additional hardening flags to constrain process permissions within the sandbox.
 
-**1.** We deploy a reference Nginx web server container in maximum isolation mode. Note that the `127.0.0.1:` prefix attached to the port is our primary network shield, locking the socket strictly to localhost. We also set the container filesystem to read-only (`--read-only`), block privilege escalation at the hardware level, and mount temporary in-memory directories:
+**1.** Deploy a reference Nginx web server container under strict isolation constraints. Note that prefixing the port binding with `127.0.0.1:` serves as the primary network boundary, locking the exposed socket strictly to the local loopback interface (`localhost`). Additionally, enforce a read-only root filesystem (`--read-only`), explicitly block process privilege escalation, and mount isolated temporary RAM filesystems for essential runtimes:
 ```bash
 docker run -d --name secure_web -p 127.0.0.1:8080:80 --read-only --security-opt=no-new-privileges --tmpfs /tmp --tmpfs /var/cache/nginx --tmpfs /run nginx
 ```
 
-**2.** We inspect active network sockets on the host to verify that our security setup held, the socket bound strictly to localhost, and its owner lists as `rootlesskit`:
+**2.** Inspect active listening sockets on the host machine to confirm that the socket is bound exclusively to `localhost` and owned solely by the `rootlesskit` process:
 ```bash
 ss -tulpn | grep 8080
 ```
 
 #### Experimental Proof of Security (Verifying Non-Root Execution):
 
-To prove that the container is fully isolated and possesses zero superuser rights on the host, we conduct a practical security validation experiment. We will simulate an attacker trying to compromise the host system by creating files under a fake container "root" account.
+To definitively confirm that the container is fully isolated and lacks superuser privileges on the host system, conduct a practical security experiment. Simulate an attacker attempting to compromise the underlying system by creating files under the context of an "internal" root user.
 
-**1.** We create a clean local directory on the host machine to capture our test results:
+**1.** Create a clean local directory on the host machine to log experiment results:
 ```bash
 mkdir -p ~/host_share
 ```
 
-**2.** We launch an isolated Alpine Linux container, mount the local folder into the sandbox using the volume flag `-v`, and generate a test file from within the container's "root" context:
+**2.** Launch an isolated Alpine Linux container, mount the created directory inside the sandbox via the volume flag `-v`, and generate a payload file from within the containerized "root" context:
 ```bash
 docker run --rm -v ~/host_share:/tmp/container_share alpine touch /tmp/container_share/evil_payload.txt
 ```
 
-**3.** We inspect real file permissions directly on the host machine's drive:
+**3.** Inspect real file ownership attributes directly on the host filesystem:
 ```bash
 ls -l ~/host_share/evil_payload.txt
 ```
-*And there it is—the fundamental security mechanics of User Namespaces in action! Output shows file ownership as `user user`. The Linux kernel remapped the UIDs: "fake root" inside the container is, to the underlying host OS, an unprivileged process unable to write files with superuser rights! A container escape from this setup is technically impossible.*
+*This demonstrates the fundamental security mechanics of User Namespaces in practice. The output reveals file ownership as `user user`. The Linux kernel dynamically remapped process identifiers: the containerized "pseudo-root" is recognized by the underlying OS as a completely unprivileged user process, incapable of writing root-owned binaries to host storage. Container escapes under this architecture are rendered technically impossible.*
 
-**4.** We completely purge all artifacts of our security test from disk:
+**4.** Completely purge all testing artifacts from the disk:
 ```bash
 rm -rf ~/host_share
 ```
 
 > [!NOTE]
-> **Orchestration Architecture Note:** Unlike an isolated Nginx instance, the Portainer management UI requires persistent disk writes for logs and database maintenance; thus, `--read-only` cannot be applied. Instead, Portainer security relies on strict localhost binding, blocking privilege escalation, and executing via the current user's unprivileged rootless socket.
+> **Important Orchestration Note:** Unlike an isolated Nginx web server, the Portainer management interface requires continuous database writes and logging to persistent storage, rendering the `--read-only` flag inapplicable. Instead, Portainer security is built on strict loopback interface binding (`localhost`), process privilege escalation restriction, and execution via the unprivileged user-space rootless socket.
 
-**5.** We deploy the Portainer web management dashboard in high-security mode—strictly bound to localhost (`127.0.0.1:`), blocking all privilege escalation attempts, and dynamically passing the user socket via `$UID`:
+**5.** Deploy the Portainer web management interface in a hardened configuration: strictly bind listening ports to `localhost` (`127.0.0.1:`), block process privilege escalation, and dynamically mount the unprivileged user-space socket using the system `$UID` variable:
 ```bash
 docker run -d --name portainer --restart always -p 127.0.0.1:9443:9443 --security-opt=no-new-privileges -v /run/user/$UID/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
 ```
 
-**6.** We verify host network ports once more to ensure Portainer's web UI (port 9443) is locked inside `127.0.0.1` and completely hidden from external LAN discovery:
+**6.** Re-inspect host listening sockets to verify that Portainer's administrative web interface (port 9443) is bound exclusively to 127.0.0.1 and completely shielded from external network scanning:
 ```bash
 ss -tulpn | grep 9443
 ```
 
 > [!WARNING]
-> If we port this configuration from an isolated guest VM to a bare-metal host, the threat model shifts fundamentally. To avoid compromising a hardened host environment, strictly observe these three rules:
+> Transporting this configuration from an isolated virtual machine directly onto a bare-metal host fundamentally alters the threat model. To avoid compromising host OS integrity, strictly enforce three mandatory rules:
 > 
-> 1. **Never use `sysctl=0` on the host:** Globally disabling kernel protections via `sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0` on your primary machine is strictly forbidden. Doing so creates an attack vector for local malware. Host rootless setups must be launched *exclusively* via targeted AppArmor profiles for `rootlesskit`.
-> 2. **Directory Mount Hygiene (`-v` flag):** Never mount the system root (`/`) or the user home directory (`~`) inside containers. In the event of a container escape, an attacker—even if bound by Rootless Mode—gains immediate read, write, and purge capabilities over all personal files, SSH keys, and credentials on the physical machine.
-> 3. **User-Level Isolation:** The optimal host security architecture is creating a dedicated system account (e.g., `isolated-docker`) without admin rights and running Rootless Docker strictly inside its environment. This isolates containerized workloads completely from your primary operational environment.
+> 1. **Avoid global sysctl overrides on the host:** Never execute `sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0` globally on a bare-metal host environment. Disabling this restriction opens security surface area to any malware. On bare-metal hosts, Rootless environments must execute *strictly* via targeted AppArmor profiles tailored for the `rootlesskit` binary.
+> 2. **Enforce directory mount hygiene (the `-v` flag):** Never mount the host root partition (`/`) or home directory root (`~`) inside containers. In the event of a container escape, an adversary—even while restricted by Rootless Mode boundaries—gains immediate read, write, and deletion access to local documents, SSH keys, and stored credentials on the physical machine.
+> 3. **Implement account isolation:** The optimal host security posture requires provisioning a dedicated unprivileged service user (e.g., `isolated-docker`) without `sudo` privileges, running Rootless Docker strictly within that isolated user context. This enforces total segregation between container runtimes and the primary workstation account.
 
 <br>
 
@@ -6288,28 +6295,28 @@ ss -tulpn | grep 9443
 
 #### Introduction:
 
-A powerful tool for host internal security management is AIDE (*Advanced Intrusion Detection Environment*) — an advanced host-based intrusion detection system (HIDS). It performs continuous monitoring of file system changes across Linux and is deployed to detect stealthy malware, rootkits, and unauthorized adversary activity in real time.
+A powerful tool for host internal security monitoring is AIDE (*Advanced Intrusion Detection Environment*)—an advanced host-based intrusion detection system (HIDS). It performs continuous filesystem monitoring across Linux to detect stealthy malware, rootkits, and unauthorized adversary activity in real time.
 
-The architecture of AIDE relies on generating a digital baseline snapshot (a cryptographic hash database) of a clean operating system state, against which current file attributes are evaluated. This allows us to pinpoint exactly which binaries or configuration files were modified, deleted, or introduced. To calculate these baselines, the system leverages strong hashing algorithms including SHA-256 and SHA-512.
+The architecture of AIDE relies on generating a digital baseline snapshot (a cryptographic hash database) of a clean operating system state, against which current filesystem attributes are routinely compared. This instantaneously pinpoints exactly which binaries or configuration files were modified, deleted, or introduced. To calculate these baselines, the system leverages strong hashing algorithms, including SHA-256 and SHA-512.
 
 > [!IMPORTANT]
-> Deploying and initializing the primary AIDE database must be executed at the absolute end of host provision — strictly after installing and fully hardening all necessary tooling (VPN, Portmaster, VeraCrypt, Firejail). This guarantees that legitimate binaries and configs are indexed into the reference "clean" system snapshot, completely preventing a flood of false positives during routine integrity checks.
+> Deploying and initializing the primary AIDE database must be executed at the absolute end of host deployment—strictly after installing and fully hardening all necessary tooling (VPN, Portmaster, VeraCrypt, Firejail). This guarantees that legitimate binaries and configs are indexed into the reference "clean" system snapshot, completely preventing a flood of false positives during routine integrity checks.
 
 #### Installing and Configuring AIDE:
 
-We open a terminal as an unprivileged user and initiate the installation workflow.
+Open the terminal under an unprivileged user account and proceed with the installation.
 
-**1.** We install the file integrity monitoring package:
+**1.** Install the file integrity monitoring system:
 ```bash
 sudo apt update && sudo apt install aide -y
 ```
 
-**2.** We create a custom configuration snippet to specifically exclude noisy runtime paths from global host monitoring:
+**2.** Create a custom configuration snippet to exclude noisy runtime directories from overall system integrity auditing:
 ```bash
 sudo nano /etc/aide/aide.conf.d/99_custom
 ```
 
-**3.** Inside the empty file, we append our native security exclusions. We explicitly prohibit AIDE from scanning rapidly shifting temporary directories, caches, system logs, and Portmaster eBPF firewall databases to completely neutralize False Positives:
+**3.** Insert custom security exclusion rules into the empty file. Explicitly restrict AIDE from scanning rapidly changing temporary directories, caches, system logs, and Portmaster eBPF firewall databases to completely prevent false positive alerts:
 ```ini
 !/var/log/.*
 !/var/log/portmaster/.*
@@ -6330,394 +6337,393 @@ sudo nano /etc/aide/aide.conf.d/99_custom
 !/var/lib/upower/.*
 ```
 
-To save our configuration in `nano`, press **"Ctrl + O"** → **"Enter"**, and exit using **"Ctrl + X"**.
+To save the configuration in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, then **"Ctrl + X"** to exit back to the terminal.
 
-In AIDE's native configuration syntax, exclusion rules (negation rules) must be written strictly without spaces! Placing a space between the exclamation mark `!` and the leading slash `/` breaks the engine parser, causing an immediate syntax crash dump.
+Native AIDE exclusion rules (negation rules) must be formatted without spaces! Do not insert a space between the exclamation mark `!` and the initial path slash `/`; otherwise, the parser will fail with a syntax error.
 
-**4.** We compile the global system configuration from the active snippets and trigger the initial baseline snapshot generation (on high-capacity drives, computing SHA-512 cryptographic hashes can take substantial time):
+**4.** Rebuild the global system configuration file from the modular snippets and generate the primary baseline cryptographic snapshot (computing SHA-512 hashes across large storage volumes may take considerable time):
 ```bash
 sudo aideinit
 ```
 
-**5.** We copy the newly generated database to production baseline status (the `-p` flag preserves original file ownership and permissions):
+**5.** Copy the newly generated database into position as the primary active baseline (the `-p` flag preserves original file permissions):
 ```bash
 sudo cp /var/lib/aide/aide.db.new /var/lib/aide/aide.db
 ```
 
-Under Ubuntu, AIDE database artifacts must remain gzipped and carry the `.gz` file extension.
+On Ubuntu systems, AIDE database files must remain compressed using gzip and retain the `.gz` file extension.
 
-**6.** We run a dry-run integrity check across the host:
+**6.** Run an initial integrity audit against the host filesystem:
 ```bash
 sudo aide -c /etc/aide/aide.conf --check
 ```
 
-In a completely pristine setup, the command returns a green status reporting zero integrity violations, confirming the dynamic state matches our baseline snapshot. However, on active workstations with multiple background dependencies, runtime drift occurs naturally. Modifications will show up in `/home/$USER/` and its subdirectories: `/.config/dconf/*`, `/.config/tiling-assistant/*`, `/.local/share/`, `.bash_history`...
+Normally, the audit output would confirm zero integrity violations—indicating that the active database perfectly matches the current filesystem state. However, due to complex runtime dependencies, minor diffs will appear. Tracked modifications will report under `/home/$USER/` and its nested subdirectories, including `/.config/dconf/*`, `/.config/tiling-assistant/*`, `/.local/share/`, `.bash_history`, and others.
 
 #### Executing a Penetration Test (Validating Defense Mechanisms):
 
-Let us verify that our host intrusion detection system responds correctly under attack scenarios. We simulate a stealthy backdoor payload drop into a restricted superuser system path:
+Verify that the host intrusion detection system functions as expected. Simulate a covert payload drop inside a restricted superuser system directory:
 
-**1.** We drop a fake backdoor payload into the restricted `/root` directory:
+**1.** Plant a simulated backdoor file inside the protected `/root` directory:
 ```bash
 sudo touch /root/test_virus.txt
 ```
 
-**2.** We re-run system integrity inspection:
+**2.** Execute a manual filesystem integrity check:
 ```bash
 sudo aide -c /etc/aide/aide.conf --check
 ```
 
-AIDE instantly flags the unauthorized directory tree modification, isolates the suspicious file artifact, highlights the warning string, and outputs the exact creation timestamp to the log.
+AIDE instantaneously detects unauthorized alterations within the directory structure, flags the hidden file, highlights the alert, and logs the precise timestamp of creation.
 
-When legitimate OS modifications occur (e.g., intentional package upgrades or installing new binaries via APT), we must update our cryptographic hash database:
+When system changes occur legitimately (e.g., intentionally upgrading or installing a binary via the package manager), refresh the cryptographic baseline database:
 
-**3.** We trigger a baseline recalculation to generate an updated database snapshot:
+**3.** Recalculate file hashes and generate an updated baseline database:
 ```bash
 sudo aideinit
 ```
 
-**4.** We promote the updated system snapshot as our new operational baseline:
+**4.** Promote the newly generated database to serve as the active reference snapshot:
 ```bash
 sudo cp /var/lib/aide/aide.db.new /var/lib/aide/aide.db
 ```
 
-**5.** We lock down the baseline file by setting the immutable attribute (prohibiting modifications or deletion even by `root`):
+**5.** Lock the database file (prohibiting modifications or deletion, even by the `root` account):
 ```bash
 sudo chattr +i /var/lib/aide/aide.db
 ```
 
-**6.** We unlock the immutable flag when performing authorized system maintenance or updating baselines post-`apt upgrade`:
+**6.** Unlock the database file (required prior to updating the baseline after running `apt upgrade`):
 ```bash
 sudo chattr -i /var/lib/aide/aide.db
 ```
 
 > [!WARNING]
-> We must account for the fundamental architectural limitation inherent to local integrity monitoring systems. If an adversary bypasses our outer defensive perimeter (UFW, AppArmor, Firejail) and escalates privileges to full `root`, they can trivially disarm local AIDE protections. An attacker can simply execute `sudo aide --update` immediately after dropping a payload, effectively legitimizing malicious state changes inside the local database.
+> Keep in mind a fundamental logical limitation inherent to all local host-based integrity control systems. Should an adversary successfully breach every defensive boundary (UFW, AppArmor, Firejail) and achieve full root privileges on the operating system, they can neutralize AIDE's protections. An attacker can simply execute `sudo aide --update` immediately after dropping a malicious payload, effectively legitimizing the changes within the local database.
 > 
-> To guarantee uncompromising integrity enforcement for the baseline data, immediately after executing Step 4, back up your primary `/var/lib/aide/aide.db.gz` file onto a physically isolated, hardware-configured **Write-Protect** USB drive.
+> To enforce strict, uncompromised integrity for the database file, immediately following Step 4, copy the active `/var/lib/aide/aide.db.gz` file onto an air-gapped physical USB drive equipped with a hardware **Write-Protect** switch.
 
-During routine integrity sweeps, we mount this write-protected drive in read-only mode and execute inspection by passing the path of the isolated external database:
+During routine audits, mount this write-protected USB drive in read-only mode and execute the scan using the path to the protected external database file:
 
-**7.** We execute an integrity sweep pointing strictly to our air-gapped, write-protected media:
+**7.** Run an integrity check referencing an externally secured baseline database:
 ```bash
 sudo aide --config=/media/user/secure_flash/aide.conf --check
 ```
 
-Replace `/media/user/secure_flash/` with your real mount path. This offline verification strategy renders any local attempt by an attacker to overwrite or tamper with local baseline logs entirely useless.
+Replace `/media/user/secure_flash/` with the actual mount path of the write-protected USB drive on your system. This strategy renders any adversary attempt to tamper with or re-legitimize disk modifications completely futile.
 
 > [!NOTE]
-> Out of the box, Ubuntu's default AIDE detection rules enforce aggressive security baselines (using `Hbrps` and `High` macro policies). The engine verifies not just file size changes, but tracks `inode` shifts, hard link counts, extended permission attributes (`Mtime`/`Ctime`), and most critically, SHA-256/SHA-512 cryptographic hashes. This completely neutralizes Trojan Horse attacks where critical system binaries (such as `/usr/bin/sudo` or `/bin/ls`) are swapped with rogue variants while spoofing original file sizes.
+> By default, Ubuntu's native AIDE detection rules enforce strict auditing (utilizing `Hbrps` and `High` macros). The engine verifies not only changes in file size, but also `inode` numbers, hard link counts, extended access attributes (`Mtime`/`Ctime`), and, most importantly, SHA-256/SHA-512 cryptographic hashes. This completely neutralizes Trojan horse attacks, where critical system binaries (such as `/usr/bin/sudo` or `/bin/ls`) are replaced with malicious variants crafted to match the original file size.
   
 <br>
 
 ## Automated System Security Auditing with Lynis
 
-To put the final touch on our deep base OS hardening workflow, we must execute a comprehensive, independent security audit of our active deployment. To accomplish this, we utilize Lynis, an automated enterprise-grade security auditing tool. Installing the `lynis` package via standard `apt` repositories is strongly discouraged—distro-maintained database indexes age rapidly, triggering false positives while missing cutting-edge attack vectors. Instead, we pull the scanner direct from the developers' official Git repository, ensuring maximum signature acuity alongside total OS package sterility.
+To finalize the deep hardening of the base operating system, conduct a comprehensive independent security audit of the current deployment. For this task, leverage Lynis—a professional automated scanner. Installing the `lynis` package via standard `apt` repositories is strongly discouraged: distribution repositories lag behind, triggering false positives and missing novel attack vectors. Instead, deploy the scanner directly from the developers' official Git repository to ensure maximum signature freshness and preserve absolute OS package hygiene.
 
-Since the scanner deploys temporary runtime binary modules during execution, we must completely purge the framework immediately post-audit and securely sanitize all local diagnostic artifacts using `shred`.
+Because the scanner deploys temporary binary modules inside the runtime directory during execution, immediately remove the utility upon completion and securely erase all local report files using `shred`.
 
-**1.** We launch our unprivileged user terminal session to provision a dedicated configuration path, embedding a custom desktop-hardened profile in a single monolithic command. This blinds the scanner to server bloat, false-positive GRUB triggers, and password rotation metrics, focusing runtime analysis exclusively on real workstation vulnerabilities:
-
+**1.** Create a hidden directory under the user home path and populate it with a custom exclusion profile heavily optimized for desktop threat models. This isolates the runtime from irrelevant server-level checks, false GRUB warnings, and password rotation policies, focusing scan runtime strictly on actionable local vulnerabilities:
 ```bash
 mkdir -p ~/.config/lynis && nano ~/.config/lynis/custom.prf
 ```
 
-**2.** We populate the file with explicit exclusions tailored to disarm server-centric checks:
+**2.** Insert custom exception rules to suppress server-oriented audit modules:
 ```ini
-# --- Desktop Exclusions for YubiKey & LUKS Architectures ---
+# --- Exceptions for Desktop setups with YubiKey and Encryption ---
 
-# Disable password expiration enforcement (90-day rotation checks are irrelevant on hardened desktops)
+# Disable password expiration policy checks (90-day password rotation is unnecessary on a desktop)
 skip-test=AUTH-9222
 skip-test=AUTH-9226
 skip-test=AUTH-9282
 skip-test=AUTH-9286
 
-# Disable brute-force account lockout requirements (faillock/tally handling)
+# Disable account lockout policy requirements during brute-force attempts (faillock/tally)
 skip-test=AUTH-9230
 
-# Ignore false GRUB alert (GRUB is hardened via custom.cfg)
+# Suppress false positive GRUB warnings (configured independently via custom.cfg)
 skip-test=BOOT-5122
 
-# Bypass server-side ban daemons, PAM restrictions, and limits (obsolete with hardware keys)
+# Suppress server-oriented ban, restriction, and PAM utilities (redundant with hardware tokens)
 skip-test=DEB-0880
 skip-test=AUTH-9229
 skip-test=KRNL-5820
 
-# Partitioning rules (irrelevant for unified LUKS desktop builds)
+# Partition layout warnings (irrelevant under full LUKS disk encryption)
 skip-test=FILE-6310
 
-# Disable USB port lockout (unusable for workstation environments reliant on hardware tokens)
+# Disable USB port restriction checks (essential for workstation peripheral usage)
 skip-test=USB-1000
 
-# Obscure network protocols
+# Suppress uncommon network protocol auditing
 skip-test=NETW-3200
 
-# Console legal login banners (unnecessary for personal workstations)
+# Suppress legal console login banners (unnecessary for personal workstations)
 skip-test=BANN-7126
 skip-test=BANN-7130
 
-# Remote SIEM log forwarding
+# Suppress remote log aggregation checks (SIEM integration)
 skip-test=LOGG-2154
 
-# Total process accounting daemons (causes severe CPU overhead and battery drain on laptops)
+# Disable continuous process auditing systems (prevents heavy CPU and battery drain on laptops)
 skip-test=ACCT-9622
 skip-test=ACCT-9626
 skip-test=ACCT-9628
 
-# Domain DNS validation
+# Suppress domain DNS audit checks
 skip-test=NAME-4028
 
-# Automation management engines (Ansible/Puppet—irrelevant for standalone hosts)
+# Suppress configuration management framework checks (Ansible/Puppet—redundant on a standalone PC)
 skip-test=TOOL-5002
 
-# Compiler restrictions (blocks legitimate user-space software compilation)
+# Suppress compiler restrictions (which would prevent user-level software builds)
 skip-test=HRDN-7222
 
-# Pre-install APT bug notifications (frequent spam vectors)
+# Suppress pre-installation APT bug notification alerts
 skip-test=DEB-0810
 skip-test=TIME-3104
 skip-test=PKGS-7394
 skip-test=PKGS-7396
 
-# Disable kernel module loading restrictions (preventing hardware token/Ledger blinding)
+# Suppress strict kernel module loading prohibitions (avoids breaking Ledger/YubiKey hardware drivers)
 skip-test=KRNL-5788
 skip-test=KRNL-5622
 
-# Bypass iptables checks—firewall logic is handled externally
+# Suppress IPTables auditing (network controls are already configured independently)
 skip-test=FIRE-4513
 
-# Bypass generic desktop file permission checks—already hardened throughout our setup
+# Suppress desktop file/folder permission auditing (permissions were assigned during manual setup)
 skip-test=FILE-7524
 
-# Ignore default AIDE checksum check—our configuration enforces the H macro for max coverage
+# Suppress AIDE hash algorithm warnings (default 'H' macro enforces maximum checksum coverage)
 skip-test=FINT-4402
 
-# Disable deep audit of systemd service configurations (unnecessary overhead for desktop builds)
+# Suppress deep systemd service configuration auditing (unnecessary overhead for desktop environments)
 skip-test=SRV-2300
 
-# Disable server-centric update notifications and service restart triggers
+# Suppress server-level update and service restart prompts
 skip-test=PKGS-7394
 skip-test=PKGS-7396
 
-# Disable suggestions for scheduled cron-based debsums execution
+# Suppress recommendations for scheduled debsums cron execution
 skip-test=PKGS-7370
 ```
 
 > [!NOTE]
-> This custom Lynis exclusion profile is meticulously tuned for desktop environments backed by YubiKey hardware authentication and full-disk LUKS encryption. Filtering out server-side metrics (password lifespans, USB disables) and heavy audit frameworks directs scanner intelligence straight to actionable workstation vulnerabilities.
+> This custom Lynis exclusion profile is specifically tailored for a hardened desktop environment protected by YubiKey hardware tokens and LUKS full-disk encryption. Suppressing server-centric constraints (password expiration, USB lockdowns) and system audit daemons allows the scanner to focus strictly on realistic local workstation attack vectors.
 
-**3.** We clone the latest upstream release of Lynis from its official repository into an isolated `/tmp/` host path:
+**3.** Clone the latest upstream Lynis release directly from the official repository into an isolated temporary directory (`/tmp/`) on the host:
 ```bash
-sudo apt update && sudo apt install git && git clone [https://github.com/CISOfy/lynis.git](https://github.com/CISOfy/lynis.git) /tmp/lynis
+sudo apt update && sudo apt install git && git clone https://github.com/CISOfy/lynis.git /tmp/lynis
 ```
 
-**4.** We elevate to an interactive `root` session to grant the scanner low-level visibility across kernel interfaces and system logs:
+**4.** Executing a thorough audit of the kernel and system logs requires elevated privileges. Switch to an interactive `root` session:
 ```bash
 sudo -i
 ```
 
-**5.** **Critical OPSEC Step:** Because the source repository was cloned under an unprivileged user context, Lynis's strict internal security checks will trip an ownership error (Fatal error) when invoked as `root`. We explicitly reassign directory ownership of the temporary path to the superuser:
+**5.** **Critical Security Step:** Because the repository was cloned under an unprivileged user context, Lynis's paranoid strict-security engine will abort execution with a fatal permission error when run as `root`. Reassign ownership of the temporary directory to the superuser:
 ```bash
 chown -R root:root /tmp/lynis
 ```
 
-**6.** We enter the working directory and launch an interactive full-system audit, explicitly feeding our custom desktop profile into the scanner engine:
+**6.** Navigate to the utility directory and execute a full system security audit in standard interactive mode, explicitly passing the custom desktop profile:
 ```bash
 sh -c "cd /tmp/lynis && ./lynis audit system --profile /home/$SUDO_USER/.config/lynis/custom.prf"
 ```
 
-*(The `$SUDO_USER` variable dynamically resolves your primary account name, mapping the exact path to your custom configuration).*
+*(The `$SUDO_USER` environment variable dynamically resolves your primary username to locate the custom configuration profile).*
 
-During execution, the scanner streams real-time telemetry to the console. Interpreting status indicators is straightforward:
-* **Green Indicators** (*OK/Success*) — Security controls are properly hardened; no vulnerabilities detected.
-* **Yellow Indicators** (*Warnings/Suggestions*) — Non-critical alerts or debatable parameters requiring review.
-* **Red Indicators** (*Critical/Danger*) — Severe security vulnerabilities requiring immediate remediation.
+During execution, the scanner streams audit results to the stdout console. Interpret the color-coded markers as follows:
+* **Green Markers** (*OK/Success*)—Parameters are properly hardened; no vulnerabilities detected.
+* **Yellow Markers** (*Warnings/Suggestions*)—Non-critical warnings or debatable configurations requiring review.
+* **Red Markers** (*Critical/Danger*)—Critical security risks that demand immediate remediation.
 
-Upon completing the scan, Lynis computes a normalized **Hardening Index** metric percentage and outputs a prioritized list of actionable **Suggestions**, each assigned a unique numeric identifier. Quoting these reference IDs into the search engine at `https://cisofy.com` provides vendor-backed step-by-step remediation procedures.
+At the conclusion of the audit run, Lynis outputs an overall numerical percentage score (**Hardening Index**) alongside an itemized list of specific recommendations (**Suggestions**), each tagged with a unique alphanumeric identifier. Querying these codes on the official project portal (`https://cisofy.com`) provides actionable remediation steps for each reported finding.
 
-Once we review the audit metrics, we purge the scanner framework and all diagnostic output from the host to prevent leaving a digital blueprint of our security posture.
+Once the audit review is complete, purge the scanner and all generated log files from the host filesystem to eliminate any residual forensic trace of the security assessment.
 
 > [!WARNING]
-> Leaving raw audit logs and scan reports unencrypted on disk is a severe operational security hazard. Should an attacker compromise user-space access, these detailed technical logs serve as an attacker-ready map detailing every defense gap across your host.
+> Storing unencrypted scan logs and audit reports on disk is strictly forbidden. Should an account compromise occur, an adversary could leverage these detailed logs as a read-made roadmap targeting residual system weaknesses and configuration quirks.
 
-**7.** We terminate the privileged superuser shell, dropping back to our standard unprivileged user session:
+**7.** Terminate the `root` interactive session and return to your unprivileged user account:
 ```bash
 exit
 ```
 
-**8.** We destroy all local diagnostic artifacts, system logs, and the scanner tree via a 3-pass `shred` sweep before unlinking the temporary workspace entirely:
+**8.** Overwrite and erase local report files, logs, and the scanner repository directory using a 3-pass `shred` pattern before purging the host temporary directory:
 ```bash
 find /tmp/lynis/ -type f -exec shred -v -u -z -n 3 {} \; && rm -rf /tmp/lynis
 ```
 
 > [!IMPORTANT]
-> Even after completing rigorous kernel, file permission, and network hardening, Lynis will still output several yellow or red alerts (*Suggestions*) at the conclusion of the run. This is expected and legitimate scanner behavior. The Lynis platform was natively architected to audit high-exposure, enterprise-grade Linux servers.
+> Expect Lynis to report several yellow or red findings (*Suggestions*) even after applying extensive kernel, access control, and network hardening measures. This behavior is expected and legitimate: the Lynis assessment platform is engineered primarily around high-availability corporate Linux servers.
 > 
-> Consequently, on a hardened desktop environment, the engine natively complains about missing local mail transfer agents (*Postfix/Sendmail*) or the absence of centralized log collectors (*Syslog-ng*). On a defensive workstation, spawning these background daemons introduces unnecessary attack surface by binding extra network sockets. This is precisely why we omitted them.
+> Consequently, on a hardened desktop setup, the scanner naturally triggers warnings for absent server infrastructure—such as local MTA daemons (*Postfix/Sendmail*) or dedicated log aggregation daemons (*Syslog-ng*). On a personal security workstation, these background services introduce unnecessary risk by opening additional network sockets and expanding attack surface area. They were omitted deliberately.
 > 
-> Our operational goal is driving the desktop **Hardening Index past the 75% threshold**, which represents an elite security posture for a local workstation.
+> The primary metric is achieving a desktop **Hardening Index** above **75%**, which represents an exceptionally strong security posture for a standalone personal workstation.
 
-At this stage, the base system security architecture and kernel hardening workflow for our Ubuntu Desktop host is complete. In the next section of the guide, we move on to provisioning isolated environments, running guest operating systems inside VirtualBox, and securely passing through hardware crypto wallets like the Ledger.
- 
+This completes the overall security configuration and host-level hardening of the base Ubuntu Desktop operating system. The following chapter covers isolated environment deployment, guest OS provisioning inside VirtualBox, and safe hardware cryptocurrency wallet passthrough using Ledger devices.
+
 <br>
 
 ## Configuring Ubuntu/Xubuntu/Lubuntu Guest Systems in VirtualBox
 
 #### Installing Guest Additions:
 
-Following successful deployment and initial boot of an Ubuntu or lightweight variant (Xubuntu/Lubuntu) guest OS inside a virtual machine, installing official Guest Additions (*VirtualBox Guest Additions*) is the top priority. This enables video hardware acceleration, fluid GUI responsiveness, bidirectional shared clipboard support, and dynamic automatic display resolution scaling upon window resizing.
+Following a successful deployment and initial boot of a guest Ubuntu operating system (or lightweight derivatives like Xubuntu/Lubuntu) within a virtual machine, the immediate priority is installing the official *VirtualBox Guest Additions* package. This enables hardware video acceleration, smooth UI performance, bidirectional clipboard sharing, and dynamic display auto-resizing when adjusting the window parameters.
 
-In the top menu bar of the VirtualBox management window, navigate to: **"Devices"** → **"Insert Guest Additions CD image..."**. Then open a system terminal inside the guest OS and execute the following sequence:
+In the top menu bar of the VirtualBox window, navigate to **"Devices"** ➔ **"Insert Guest Additions CD image..."**. Then, open the terminal inside the guest OS and execute the following steps in sequence:
 
-**1.** We update local repository indexes and install core compilation utilities, alongside the `bzip2` archiver (forcing a dependency update):
+**1.** Update local repository indices and install baseline compilation toolchains along with the `bzip2` archiver (forcing an update of its underlying dependencies):
 ```bash
 sudo apt update && sudo apt install -y gcc make perl dkms tar build-essential libbz2-1.0 bzip2
 ```
 
-**2.** We dynamically fetch matching kernel headers for the active Linux kernel (using standard environment variable expansion to guarantee copy-paste compatibility):
+**2.** Dynamically pull the exact kernel headers corresponding to the currently active Linux kernel (leveraging environmental variable expansion to guarantee copy-paste compatibility):
 ```bash
 sudo apt install -y linux-headers-$(env uname -r)
 ```
 
 > [!WARNING]
-> Modern distributions mount virtual optical drives and home directories with a restrictive `noexec` flag (prohibiting execution of binary assets) or outright block superuser script execution for operational security. Running the installer directly causes the Linux kernel to return a deceptive and misleading *«failed to open/No such file or directory»* error, even when the file resides right in front of us. To reliably bypass this system control, we must copy the installer into memory-backed temporary storage at `/tmp` and forcibly execute it from there using the `sh` interpreter:
+> Modern Linux distributions enforce security hardening policies that mount optical drives and home partitions with the strict `noexec` flag (prohibiting binary execution), or restrict direct script invocation under superuser contexts. Launching the installer directly off the mounted media causes the Linux kernel to throw a deceptive *«failed to open/No such file or directory»* error—even when the file is visibly present. To bypass this restriction, copy the setup binary into the RAM-backed temporary directory (`/tmp`) and explicitly execute it via the `sh` shell interpreter:
 
-**3.** We identify the block device identifier assigned to our Guest Additions drive (typically `sr0`):
+**3.** Identify the block device designation assigned to the mounted Guest Additions optical media (typically `sr0`):
 ```bash
 lsblk
 ```
 
-**4.** We unmount stale mountpoints (if present), forcibly mount the optical drive to `/mnt`, copy the additions installer to the system sandbox via `sudo`, switch context, and trigger driver compilation:
+**4.** Unmount any existing stale mount points, force-mount the optical device to `/mnt`, copy the setup installer into the system temporary directory using `sudo`, change directory into `/tmp`, and execute driver compilation:
 ```bash
 sudo umount /mnt 2>/dev/null; sudo mount /dev/sr0 /mnt && sudo cp /mnt/VBoxLinuxAdditions.run /tmp/ && cd /tmp/ && sudo sh ./VBoxLinuxAdditions.run
 ```
-*(Note: Explicit `sudo` invocation during copying is required to access the contents of the mounted media, which is owned by `root` by default; execution from `/tmp` guarantees bypassing the `noexec` restriction).*
+*(Note: Explicitly using `sudo` during the file copy step is required to read contents from the mounted optical media owned by `root`, while executing out of `/tmp` successfully bypasses `noexec` mount restrictions).*
 
-**5.** We issue a mandatory virtual machine reboot to fully initialize the newly compiled VirtualBox kernel drivers:
+**5.** Reboot the virtual machine to complete kernel module initialization and load the newly compiled VirtualBox drivers:
 ```bash
 sudo reboot now
 ```
 
 #### Installing Mozilla Firefox:
 
-In select minimalist desktop distributions (such as Lubuntu), a pre-installed web browser may be entirely absent. We deploy the official classic binary build of Mozilla Firefox by bypassing native Snap packages and PPA repositories using a direct, isolated deployment methodology:
+In certain minimal Linux desktop flavors (such as Lubuntu), a pre-installed web browser may be completely absent by default. Deploy the official classic build of the Mozilla Firefox browser, bypassing default Snap packages and third-party PPA repositories via direct standalone extraction:
 
-**6.** We pull the latest stable release archive directly into the root of the home directory:
+**6.** Download the latest binary archive of the stable Firefox release directly into the root of the home directory:
 ```bash
 wget -O ~/FirefoxSetup.tar.bz2 "https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang=en-US"
 ```
 
-**7.** We unpack the downloaded archive directly into the current user's home folder (strictly without `sudo` privileges), fully preserving original access controls and filesystem security limits:
+**7.** Extract the downloaded archive directly into the current user's home directory (strictly without `sudo` privileges), preserving native file permissions and filesystem security constraints:
 ```bash
 tar xjf ~/FirefoxSetup.tar.bz2 -C ~/
 ```
 
-Our home directory now hosts a clean `firefox` folder containing the compiled `firefox` binary. The browser stands fully prepared for its initial standalone run and subsequent deep, uncompromising privacy and hardening configuration via the `about:config` engineering menu detailed in prior chapters.
+This creates a clean `firefox` directory inside your personal home path, containing the self-contained `firefox` executable binary. The browser is fully prepared for its initial standalone launch and subsequent deep, uncompromising privacy tuning via the `about:config` engineering menu, as detailed in the previous chapters of this book.
 
 #### Configuring Shared Folders in VirtualBox:
 
-To establish secure configuration, script, and audit log exchange between our isolated guest environment and host OS, we leverage the Shared Folders interface. By default, Ubuntu security policies restrict access to hypervisor-mounted directories.
+Shared Folders serve as the primary mechanism for securely exchanging configuration files, scripts, and audit logs between the isolated guest environment and the host system. By default, Ubuntu's access control policies restrict unprivileged access to hypervisor-mounted directories.
 
-To grant read and write privileges, we execute the following steps in a terminal **inside the guest machine**:
+To grant read and write permissions **inside the guest virtual machine**, execute the following steps in the terminal:
 
-**1.** We add the current active user to the trusted VirtualBox system group using a universal command:
+**1.** Add the current active user to the trusted VirtualBox system group using a dynamic variable:
 ```bash
 sudo usermod -aG vboxsf $USER
 ```
-*(Note: On Windows host architectures, access rights are managed automatically by the hypervisor installer; permission controls are configured strictly inside the guest Linux OS).*
+*(Note: On a Windows host, directory permissions are handled automatically by the hypervisor installer; access control enforcement must be configured strictly inside the guest Linux OS).*
 
-**2.** We reload user group memberships without requiring a full system reboot by re-initializing the active session:
+**2.** Refresh the current user session to re-evaluate group memberships without requiring a full system reboot:
 ```bash
 su - $USER
 ```
 
 > [!NOTE]
-> When defining shared directories within VirtualBox settings, enforce the **"Auto-mount"** and **"Make Permanent"** flags. This ensures the shared directory automatically mounts upon every system boot under `/media/sf_FOLDER_NAME/`.
+> When adding a shared directory in the VirtualBox GUI settings, always enable both the **"Auto-mount"** and **"Make Permanent"** options. This ensures the shared folder automatically mounts on system boot under the `/media/sf_FOLDER_NAME/` directory path.
 
 <br>
 
 #### Installing Ledger Live in VirtualBox with Ubuntu/Xubuntu/Lubuntu:
 
-For ultimate, zero-compromise cryptographic asset management, we deploy the official Ledger Live software client. Open the browser and pull the latest stable Linux build directly from the official developer endpoints: `https://download.live.ledger.com/latest/linux`.
+To establish secure control over cryptocurrency assets, deploy the official Ledger Live application suite. Open the browser and download the latest stable Linux package directly from the official developer servers: `https://download.live.ledger.com/latest/linux`.
 
-Once the download finishes, open a system terminal in the guest OS and execute the following sequence:
- 
-**1.** We provision an isolated directory inside the home folder to house our cryptographic software stack:
+Once the download completes, open a system terminal inside the guest OS and execute the following steps in sequence:
+
+**1.** Provision a dedicated directory within the user home path to isolate cryptographic software:
 ```bash
 mkdir ~/ledger_live
 ```
 
-**2.** We change directory to the system downloads path where the executable payload landed:
+**2.** Change directory into the system downloads location where the executable payload was stored:
 ```bash
 cd ~/Downloads
 ```
 
-**3.** We relocate the downloaded binary into our target path (wildcard `*` matching handles any release version tag):
+**3.** Relocate the downloaded package into the target directory (the wildcard character `*` dynamically resolves any version string):
 ```bash
 mv ledger-live-desktop-*-linux-x86_64.AppImage ~/ledger_live/
 ```
 
-**4.** We enter the target directory and grant execution rights to the binary container:
+**4.** Change directory into the workspace path and explicitly grant executable permissions to the binary payload:
 ```bash
 cd ~/ledger_live && chmod +x ledger-live-desktop-*-linux-x86_64.AppImage
 ```
 
-**5.** We download and inject official hardware `udev` rules directly into the Linux kernel for Ledger hardware tokens:
+**5.** Fetch and apply the official hardware `udev` rules to the Linux kernel for Ledger devices:
 ```bash
 wget -q -O - https://raw.githubusercontent.com/LedgerHQ/udev-rules/master/add_udev_rules.sh | sudo bash
 ```
 
 > [!IMPORTANT]
-> Without deploying these rules, the operating system and VirtualBox hypervisor cannot physically detect or mount the hardware wallet over USB.
+> Omitting this step prevents the guest operating system and the VirtualBox hypervisor from identifying or interfacing with the hardware wallet over the USB bus.
 
-**6.** We install the active user-space filesystem mounting hardware libraries (a mandatory prerequisite for modern Ubuntu 24.04/26.04 LTS environments):
+**6.** Install the user-space filesystem mounting library required by modern Ubuntu releases (mandatory for Ubuntu 24.04/26.04 LTS environments):
 ```bash
 sudo apt install libfuse2t64 && sudo apt install fuse3 -y
 ```
 
 > [!NOTE]
-> Without this dependency layer, binary containers wrapped in the `AppImage` format cannot initialize or launch across the system.
+> Without this runtime dependency, self-contained `AppImage` binary packages fail to initialize and execute.
 
-**7.** We execute Ledger Live inside our fully isolated, sterile guest deployment:
+**7.** Launch Ledger Live within the isolated guest environment:
 ```bash
 ./ledger-live-desktop-*-linux-x86_64.AppImage
 ```
 
 > [!WARNING]
-> Ensuring Ledger Live recognizes physical hardware devices inside guest environments requires more than `udev` configuration. We must physically attach the Ledger token via USB, input the secret PIN code on the physical hardware interface, and enter the target application context (such as *Bitcoin* or *Ethereum*). 
+> Configuring `udev` rules alone is insufficient for the Ledger Live instance inside the guest VM to establish a connection with the physical device. Connect the Ledger wallet via USB cable to the host machine, enter your PIN code directly on the hardware unit, and navigate into the target application interface (e.g., *Bitcoin* or *Ethereum*). 
 > 
-> Only then do we right-click the USB icon in the bottom-right status tray of the active VirtualBox window and select the listed Ledger hardware entry. The hypervisor will detach the token from the host and securely pass through a direct hardware tunnel into the isolated virtual host.
+> Once unlocked, right-click the USB icon in the bottom-right corner of the active VirtualBox window and select the Ledger device entry from the pop-up menu. The hypervisor detaches the device from the physical host OS and passes the raw USB bus connection directly into the isolated virtual machine.
 
 <br>
 
-#### Running Ledger Live on the Primary Ubuntu Host OS
+#### Running Ledger Live on the Main Host System (Ubuntu)
 
-If we need to run Ledger Live directly on the primary host operating system rather than inside a virtual machine, we download the Linux build of Ledger Live via browser from `https://download.live.ledger.com/latest/linux` into the `Downloads` home directory.
+If you need to run Ledger Live directly on the primary host operating system rather than within a virtual machine, download the Linux binary via your browser from `https://download.live.ledger.com/latest/linux` into the home `Downloads` directory.
 
-**1.** We deploy additional Fuse dependencies:
+**1.** Install the required Fuse runtime libraries:
 ```bash
 sudo apt install libfuse2t64
 ```
 
-**2.** We launch the Ledger Live AppImage container:
+**2.** Launch the Ledger Live AppImage container:
 ```bash
 ./ledger-live-desktop-*-linux-x86_64.AppImage --no-sandbox
 ```
 
-On this strong cryptographic note, we put the final touch on engineering our personal, hardened computing environment.
+And on this cryptographic note, we conclude the construction of our secure, hardened digital architecture.
 
-**Stay tuned and Hack the Planet!!!** 🚀
+**Stay tuned and Hack the Planet!** 🚀
 
 <br>
 <br>
 <br>
 
-## About the Author and Legal Information
+## About the Author & Legal Information
 
-**Guide Author:** EugeXo  
+**Author:** EugeXo  
 **Specialization:** Information Security, Linux Hardening, OPSEC.
 
-#### Contact Information and Community Resources:
+#### Contact Information & Community Resources:
 
 * **GitHub:** `https://github.com/EugeXo/`
 * **Telegram:** `@EugeXoSecurity`
@@ -6725,6 +6731,6 @@ On this strong cryptographic note, we put the final touch on engineering our per
 * **Email:** `eugexo@proton.me`
 
 > [!NOTE]
-> This work represents an entirely independent, non-commercial Open-Source initiative. This guide was authored not out of financial incentive, but to consolidate hands-on field experience and equip the InfoSec community with a vetted, deterministic blueprint for establishing trusted digital environments.
+> This guide is a completely independent, non-commercial open-source initiative. It was authored not for financial gain, but to consolidate practical field experience and provide the security community with a verified, reliable blueprint for building a trusted digital environment.
 > 
-> All materials are distributed freely and transparently. If this guide saved you time, spared you sleepless nights, and helped safeguard your personal data, then writing this book was worth every effort!
+> All materials are distributed freely and openly. If this guide saved you time, spared you sleepless nights, or protected your personal data, its purpose has been fulfilled!
