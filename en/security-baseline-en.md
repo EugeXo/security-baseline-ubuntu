@@ -3309,6 +3309,15 @@ Payload security relies on cryptography rather than algorithm secrecy. If a cont
 wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-linux-x86_64
 ```
 
+> [!IMPORTANT]
+> Do not execute the downloaded binary blindly. To prevent supply-chain attacks, always verify the integrity of the file by checking its SHA-256 checksum against the official hash provided by the vendor on their release page.
+>
+> Verify the SHA-256 checksum of the downloaded binary:
+> ```bash
+> sha256sum stegoforge-linux-x86_64
+> ```
+> Ensure the output matches the cryptographic signature hosted on the official StegoForge release matrix.
+
 **2.** Create a directory for local user binaries, move the executable file, grant execution permissions, and update system PATH settings:
 ```bash
 mkdir -p ~/.local/bin && mv ~/stegoforge-linux-x86_64 ~/.local/bin/stegoforge && chmod +x ~/.local/bin/stegoforge && grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
