@@ -3100,6 +3100,13 @@ nmcli networking on && nmcli connection up netplan-enp0s1
 
 We will dissect how the `shred` and `wipe` utilities physically overwrite bytes on a storage drive, protecting our host from forensic analysis in the event of device loss or seizure. However, engineering security does not end at the perimeter of your local disk. We must enforce an ironclad rule of operational hygiene: **every file leaving your system and transmitting across the network must be completely sterile**.
 
+> [!WARNING]
+> **CRITICAL OPSEC RULE:** Before executing any manual anti-forensic or sanitization commands (shred, wipe, mat2, secure-delete, steghide, stegoforge), you must enter `set +o history` to disable terminal logging.
+> 
+> **NEVER** chain these commands into a single line using `&&` or `;` operators (e.g., `set +o history && shred ...`). Doing so forces Bash to record the ENTIRE command string into the history buffer first. Once the terminal closes, that full string will be permanently written to the disk inside `~/.bash_history`, completely exposing your anti-forensic activities!
+> 
+> Once all tasks are completed, re-enable terminal logging using a **separate standalone line**: `set -o history`.
+
 #### Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:
 
 Most users make a fatal mistake. They assume that creating a text document, taking a screenshot of firewall settings, or editing an image in a graphics editor results in a file containing only what is visible to the eye. This is a dangerous misconception.
