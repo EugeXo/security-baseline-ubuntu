@@ -3134,33 +3134,44 @@ The utility is written in Python, runs completely locally, and requires no file 
 sudo apt install mat2 -y
 ```
 
-**2.** Prior to cleaning a file, inspect its contents to examine what hidden metadata is embedded. Command the utility to display all hidden metadata (for example, within a screenshot):
+**2.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
+
+**3.** Prior to cleaning a file, inspect its contents to examine what hidden metadata is embedded. Command the utility to display all hidden metadata (for example, within a screenshot):
 ```bash
 mat2 --show screenshot.png
 ```
+
 The terminal will display a detailed log ranging from graphics editor versions to the exact date and timestamp of the screenshot creation.
 
 Proceed to data sanitization. By default, `mat2` operates in a fail-safe mode: it preserves the original file and generates a sterile copy alongside it appended with the `.cleaned` suffix.
 
-**3.** Sanitize a single document or image:
+**4.** Sanitize a single document or image:
 ```bash
 mat2 screenshot.png
 ```
 A new file named `screenshot.cleaned.png` will be generated alongside the original. This sanitized file is safe for network transmission. If the original file is no longer required, destroy it immediately using `shred` (commands detailed below).
 
-**4.** To sanitize an entire folder containing reports, screenshots, or logs prior to transmission, execute batch processing across all files in the designated directory:
+**5.** To sanitize an entire folder containing reports, screenshots, or logs prior to transmission, execute batch processing across all files in the designated directory:
 ```bash
 mat2 /PATH-TO-FOLDER/*
 ```
 
-**5.** For high-security requirements where original files must not persist on disk, enforce in-place overwriting using the `--inplace` flag:
+**6.** For high-security requirements where original files must not persist on disk, enforce in-place overwriting using the `--inplace` flag:
 ```bash
 mat2 --inplace screenshot.png
 ```
 
-**6.** Perform in-place metadata sanitization across all files within a directory:
+**7.** Perform in-place metadata sanitization across all files within a directory:
 ```bash
 mat2 --inplace /PATH-TO-FOLDER/*
+```
+
+**8.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
 ```
 
 > [!IMPORTANT]
