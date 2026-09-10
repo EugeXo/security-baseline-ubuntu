@@ -3185,14 +3185,19 @@ Open the terminal and execute the following steps:
 sudo apt install wipe -y
 ```
 
-**2.** Recursively purge a target directory along with all contained subitems (replace the `FOLDERNAME` placeholder with the target directory name):
+**2.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
+
+**3.** Recursively purge a target directory along with all contained subitems (replace the `FOLDERNAME` placeholder with the target directory name):
 ```bash
 wipe -rfi FOLDERNAME
 ```
 
 The `-r` flag enables recursive operation, `-f` suppresses confirmation prompts, and `-i` activates verbose interactive mode to monitor sector overwrite progress.
 
-**3.** Initiate destruction of all files within the active terminal directory (**Execute with caution!**):
+**4.** Initiate destruction of all files within the active terminal directory (**Execute with caution!**):
 ```bash
 sudo shred -v -u -z -n 3 *
 ```
@@ -3202,14 +3207,19 @@ sudo shred -v -u -z -n 3 *
 > 
 > To ensure deterministic execution, couple the command with the `find` utility:
 
-**4.** Safely purge all regular files limited strictly to the current working directory level without altering nested folder structures:
+**5.** Safely purge all regular files limited strictly to the current working directory level without altering nested folder structures:
 ```bash
 find . -maxdepth 1 -type f -exec shred -v -u -z -n 3 {} \;
 ```
 
-**5.** Permanently destroy a specific isolated file (replace the `FILENAME` placeholder with the exact case-sensitive filename and extension):
+**6.** Permanently destroy a specific isolated file (replace the `FILENAME` placeholder with the exact case-sensitive filename and extension):
 ```bash
 shred -v -u -z -n 3 FILENAME
+```
+
+**7.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
 ```
 
 #### Operational Parameters for the shred Utility:
@@ -3233,9 +3243,19 @@ If the operating system has been running for an extended period and sensitive fi
 sudo apt install secure-delete -y
 ```
 
-**2.** Initiate total sanitization of unallocated space on the current system partition:
+**3.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
+
+**4.** Initiate total sanitization of unallocated space on the current system partition:
 ```bash
 sudo sfill -v -z -l /
+```
+
+**5.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
 ```
 
 > [!NOTE]
@@ -3266,25 +3286,34 @@ Start with the classic approach. `steghide` is a fully command-line utility resi
 ```bash
 sudo apt update && sudo apt install steghide -y
 ```
+**2.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
 
-**2.** Hide the secret file `secret.txt` inside a regular image `photo.jpg`:
+**3.** Hide the secret file `secret.txt` inside a regular image `photo.jpg`:
 ```bash
 steghide embed -cf photo.jpg -ef secret.txt
 ```
 
-**3.** Permanently remove the original `secret.txt` file remaining outside the steganographic container:
+**4.** Permanently remove the original `secret.txt` file remaining outside the steganographic container:
 ```bash
 shred -v -u -z -n 3 secret.txt
 ```
 
 The system will prompt for and confirm a strong passphrase. The resulting `photo.jpg` file remains visually identical to its original state.
 
-**4.** To extract the hidden payload from the container, execute:
+**5.** To extract the hidden payload from the container, execute:
 ```bash
 steghide extract -sf photo.jpg
 ```
 
 Enter the secret passphrase defined during creation to extract the original file back to disk.
+
+**6.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
+```
 
 > [!IMPORTANT]
 > The `steghide` utility operates exclusively with legacy formats: **JPEG, BMP, WAV, and AU**. Attempting to process modern formats like **PNG** or **MP3** will fail. This limitation stems from format-specific compression mechanics:
@@ -3330,7 +3359,12 @@ wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-l
 mkdir -p ~/.local/bin && mv ~/stegoforge-linux-x86_64 ~/.local/bin/stegoforge && chmod +x ~/.local/bin/stegoforge && grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
-**3.** Launch the framework executable:
+**3.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
+
+**4.** Launch the framework executable:
 ```bash
 stegoforge
 ```
@@ -3371,19 +3405,31 @@ Reference this structural guide for routine operational workflows:
 > 
 > Within the console menu, select option 6 (6 — Web UI). Once initialized, open `http://127.0.0.1:5000/` in your browser.
 
+**5.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
+```
+
 #### Archive Concatenation (Quick Hack Without Third-Party Software):
 
 This method leverages the structural properties of binary files. Most image viewers parse files from the beginning, whereas archive managers process structure strictly from the end of the file. Merge both components physically using the host terminal.
 
-**1.** Pack secret documents into an encrypted ZIP archive:
+**1.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
+
+**2.** Pack secret documents into an encrypted ZIP archive:
 ```bash
 zip -e secret.zip secret.txt
 ```
 
-**2.** Concatenate the cover image and the archive into a single target file using `cat`:
+**3.** Concatenate the cover image and the archive into a single target file using `cat`:
 ```bash
 cat cat.jpg secret.zip > final_photo.jpg
 ```
+
+Dont forget re-enable history!
 
 * **Hardening Outcome:** Opening `final_photo.jpg` via standard GUI file managers renders the original cat image cleanly.
 * **Extraction Workflow:** Right-click the file ➔ *Open With "Archive Manager"* (or execute `unzip final_photo.jpg` directly in the terminal). The archive utility skips leading image bytes, reading and extracting the hidden archive structure from the end of the file.
