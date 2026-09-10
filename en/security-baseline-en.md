@@ -3408,9 +3408,9 @@ The terminal executes the layout override, rendering the deceptive output: `File
 
 **2.** To detect hidden manipulation, pipe the output into `cat` using the `-v` flag (displaying non-printing and control characters):
 ```bash
-echo -e "File_name_\u202Efdp.exe" | cat -v
+echo -e "Filename_\u202Efdp.exe" | env LANG=C cat -v
 ```
-*The output strips the visual illusion, exposing explicit Unicode control codes (such as `^[[~` or its hex equivalent) and immediately revealing the manipulation.*
+*Instead of the clean visual deception, we will see raw text garbage embedded directly inside the filename:* `Filename_M-bM-^@M-^Nfdp.exe`
 
 > [!WARNING]
 > When handling files originating from external or untrusted sources, never rely on file extensions rendered within GUI file managers. Open a terminal and inspect the file using the native `file` utility:
