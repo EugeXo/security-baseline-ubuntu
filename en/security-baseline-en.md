@@ -3333,11 +3333,11 @@ nmcli networking on && nmcli connection up netplan-enp0s1
 We will dissect how the `shred` and `wipe` utilities physically overwrite bytes on a storage drive, protecting our host from forensic analysis in the event of device loss or seizure. However, engineering security does not end at the perimeter of your local disk. We must enforce an ironclad rule of operational hygiene: **every file leaving your system and transmitting across the network must be completely sterile**.
 
 > [!WARNING]
-> **CRITICAL OPSEC RULE:** Before executing any manual anti-forensic or sanitization commands (shred, wipe, mat2, secure-delete, steghide, stegoforge), you must first run `set +o history` to temporarily disable terminal logging.
-> 
-> **IT IS STRICTLY FORBIDDEN** chain these commands into a single line using `&&` or `;` operators (e.g., `set +o history && shred ...`). Doing so forces Bash to record the ENTIRE command string into the history buffer first. Once the terminal closes, that full string will be permanently written to the disk inside `~/.bash_history`, completely exposing your anti-forensic activities!
-> 
-> Once all sensitive operations are complete, re-enable command logging by running: `set -o history`.
+> **CRITICAL OPSEC RULE:** Before executing any manual anti-forensic or sanitization commands (shred, wipe, mat2, secure-delete, steghide, stegoforge), first run `set +o history` to disable terminal logging.
+>
+> **IT IS STRICTLY FORBIDDEN** to chain these commands into a single line using `&&` or `;` operators (e.g., `set +o history && shred ...`). Doing so forces Bash to record the entire command string into the history buffer before it executes. Once the terminal closes, that full string will be permanently written to disk inside `~/.bash_history`, exposing your anti-forensic activities!
+>
+> Once all sensitive operations are complete, re-enable command logging on a separate standalone line: `set -o history`.
 
 #### Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:
 
@@ -3428,7 +3428,10 @@ Open the terminal and execute the following steps:
 sudo apt install wipe -y
 ```
 
-**2.** Prevent terminal commands from being saved to the history file on disk
+**2.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
 ```bash
 set +o history
 ```
@@ -3460,7 +3463,10 @@ find . -maxdepth 1 -type f -exec shred -v -u -z -n 3 {} \;
 shred -v -u -z -n 3 FILENAME
 ```
 
-**7.** Resume command history logging once tasks are finished:
+**7.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
+```
 ```bash
 set -o history
 ```
@@ -3486,7 +3492,10 @@ If the operating system has been running for an extended period and sensitive fi
 sudo apt install secure-delete -y
 ```
 
-**3.** Prevent terminal commands from being saved to the history file on disk:
+**3.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
 ```bash
 set +o history
 ```
@@ -3496,7 +3505,10 @@ set +o history
 sudo sfill -v -z -l /
 ```
 
-**5.** Re-enable shell history logging after finishing sensitive operations
+**5.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
+```
 ```bash
 set -o history
 ```
@@ -3602,7 +3614,10 @@ wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-l
 mkdir -p ~/.local/bin && mv ~/stegoforge-linux-x86_64 ~/.local/bin/stegoforge && chmod +x ~/.local/bin/stegoforge && grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
-**3.** Stop logging shell commands to the disk-based history file:
+**3.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
 ```bash
 set +o history
 ```
@@ -3648,7 +3663,10 @@ Reference this structural guide for routine operational workflows:
 > 
 > Within the console menu, select option 6 (6 — Web UI). Once initialized, open `http://127.0.0.1:5000/` in your browser.
 
-**5.** Restore standard command history tracking after you are done:
+**5.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
+```
 ```bash
 set -o history
 ```
@@ -3657,7 +3675,10 @@ set -o history
 
 This method leverages the structural properties of binary files. Most image viewers parse files from the beginning, whereas archive managers process structure strictly from the end of the file. Merge both components physically using the host terminal.
 
-**1.** Turn off command history before proceeding:
+**1.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
 ```bash
 set +o history
 ```
