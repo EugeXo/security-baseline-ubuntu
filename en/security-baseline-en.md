@@ -56,6 +56,7 @@
   * [Blocking Rare Network Protocols and Legacy Filesystems](#blocking-rare-network-protocols-and-legacy-filesystems)
   * [Filesystem Access Control Hardening](#filesystem-access-control-hardening)
   * [Securely Mounting Shared Memory](#securely-mounting-shared-memory)
+  * [Creating an Isolated RAM Disk for Volatile Logs](#creating-an-isolated-ram-disk-for-volatile-logs)
   * [Configuring Wi-Fi to Default Off on Boot](#configuring-wi-fi-to-default-off-on-boot)
   * [Cutting Off Video Streams and Audio Recording](#cutting-off-video-streams-and-audio-recording)
   * [Removing Printing Services and Local Network Discovery Services](#removing-printing-services-and-local-network-discovery-services)
@@ -70,6 +71,7 @@
   * [Purging Snap](#purging-snap)
   * [Ripping Out Canonical Telemetry](#ripping-out-canonical-telemetry)
   * [Purging the Background Firmware Tracker fwupd](#purging-the-background-firmware-tracker-fwupd)
+* [Setting Up an Emergency Panic Button for Rapid Session Termination](#setting-up-an-emergency-panic-button-for-rapid-session-termination)
 * [Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor](#installing-security-utilities-libpam-tmpdir-debsums-and-the-btop-system-monitor)
   * [The libpam-tmpdir Security Utility](#the-libpam-tmpdir-security-utility)
   * [The debsums Utility](#the-debsums-utility)
@@ -313,7 +315,7 @@ An encrypted laptop with a strong password improves security. However, if the us
 
 #### Introduction:
 
-This chapter covers installing the Linux operating system with security requirements in mind. It also includes the option to deploy the system onto external USB and Thunderbolt storage drives.
+This chapter covers installing the Ubuntu operating system with security requirements in mind. It also includes the option to deploy the system onto external USB and Thunderbolt storage drives.
 
 Before starting the installation, several critical factors must be taken into account. One of the most common risks is selecting the wrong drive for the bootloader installation.
 
@@ -850,7 +852,7 @@ nano /etc/rc.local
 #!/bin/bash
 # Kernel-level strict MAC spoofing executed during boot (replace enp0s1 with target interface name)
 ip link set dev enp0s1 down
-ip link set dev enp0s1 address 28:80:8A:8F:32:7D
+ip link set dev enp0s1 address 28:80:8A:8F:32:7D # Example MAC-address
 ip link set dev enp0s1 up
 exit 0
 ```
@@ -1665,6 +1667,39 @@ To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then p
 > [!NOTE]
 > Unlike Chromium-engine browsers that crash instantly on launch under `noexec`, Firefox will launch and render simple websites. Issues manifest when rendering complex content: tabs crash when initializing WebAssembly (WASM) or WebGL graphics, and internal sandbox isolation operates in a degraded, less secure state.
 
+#### Creating an Isolated RAM Disk for Volatile Logs:
+
+To enforce the "Zero Persistence" principle, we will allocate a dedicated area in RAM for logging sensitive applications, by setting a hard RAM limit for log storage used by selected system services and user applications.
+
+**1.** Prepare the mount point in advance:
+```bash
+sudo mkdir -p /mnt/ramlog && sudo chmod 0755 /mnt/ramlog
+```
+
+**2.** Open the file system table again:
+```bash
+sudo nano /etc/fstab
+```
+
+**3.** Append the following line directly after the previous `/dev/shm` entry:
+```ini
+tmpfs /mnt/ramlog tmpfs rw,nosuid,nodev,noexec,size=256M,mode=0755 0 0
+```
+The `size=256M` value defines the maximum file growth threshold (Safety Interlock). It can be reduced (for example, to 128M) or increased to 512M based on specific needs. However, text logs typically consume only a few megabytes, so setting a limit higher than indicated usually makes no sense.
+
+**4.** Apply the settings and mount the disk to the system:
+```bash
+sudo mount -a && df -h /mnt/ramlog
+```
+
+**5.** Redirect the UFW firewall logs to the created RAM disk:
+```bash
+sudo touch /mnt/ramlog/ufw.log && sudo rm -f /var/log/ufw.log && sudo ln -s /mnt/ramlog/ufw.log /var/log/ufw.log && sudo systemctl restart rsyslog
+```
+ 
+> [!TIP]
+> You can check the mount point, disk size, and used space using `df -h /mnt/ramlog`, and view the log files along with their sizes using `ls -la /mnt/ramlog`.
+
 #### Configuring Wi-Fi to Default Off on Boot:
 
 To guarantee that wireless modules do not emit hidden over-the-air network probes during system boot, block them at the system daemon level. This completely eliminates probe request leaks and prevents accidental deanonymization of the factory MAC address in public spaces:
@@ -2197,12 +2232,15 @@ nano telemetryoff.sh
 **4.** Insert the following consolidated telemetry purging script into the open file inside `nano`:
 ```bash
 #!/bin/bash
-# Ubuntu 24.04/26.04 Telemetry & Pro Hardening Script (Ultimate Edition)
-
+# ===============================================================
+# Ubuntu 24.04/26.04 Telemetry & Pro Hardening Script
 # Designed for Ubuntu Desktop and its flavors (Xubuntu, Lubuntu)
+# ===============================================================
+
+CYAN='\033[1;36m'
+NC='\033[0m'
 
 # Check for root privileges
-
 if [ "$EUID" -ne 0 ]; then
  echo "[-] Error: Please run this script as root: sudo $0"
  exit 1
@@ -2211,11 +2249,9 @@ fi
 echo "[+] Aggressively stopping and masking telemetry services..."
 systemctl stop apport.service whoopsie.service ubuntu-advantage.service pro-client.service 2>/dev/null
 systemctl disable apport.service whoopsie.service ubuntu-advantage.service pro-client.service 2>/dev/null
-
 systemctl mask apport.service whoopsie.service ubuntu-advantage.service pro-client.service 2>/dev/null
 
 echo "[+] Disabling kernel crash reporting..."
-
 if [ -f /etc/default/apport ]; then
  sed -i 's/enabled=1/enabled=0/g' /etc/default/apport
 fi
@@ -2228,11 +2264,9 @@ apt-mark manual ubuntu-desktop xubuntu-desktop lubuntu-desktop gdm3 lightdm 2>/d
 apt purge ubuntu-report whoopsie popularity-contest ubuntu-pro-client ubuntu-advantage-tools -y
 
 # Safely purge apport without cascading GUI removal
-
 apt purge apport -y --allow-remove-essential 2>/dev/null || apt remove apport -y
 
 # Clear system triggers for ESM update caches that query Canonical servers
-
 rm -f /etc/apt/apt.conf.d/20ubuntu-pro-esm 2>/dev/null
 
 # Automatically clean up orphaned dependencies while verifying GUI integrity
@@ -2265,7 +2299,7 @@ Pin: release a=*
 Pin-Priority: -10
 EOF
 
-echo "[+] Telemetry and Ubuntu Pro hardening completed successfully!"
+echo -e "${CYAN}[+] Telemetry hardening and Ubuntu Pro prompt removal completed successfully!${NC}"
 ```
 
 To save the file in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`Ctrl + X`** to exit back to the terminal shell.
@@ -2319,6 +2353,163 @@ sudo systemctl mask fwupd fwupd-refresh.service fwupd-refresh.timer
 > Applying systemd masking unloads the background `fwupd` process from RAM and prevents it from binding network sockets. Covert connections targeting external `cdn.fwupd.org` endpoints are permanently blocked.
 
 **Chapter Assets:** *_assets/images/7_systemcut_telemetry*
+
+## Setting Up an Emergency Panic Button for Rapid Session Termination
+
+All was quiet on the front lines. The thunder of artillery that had been tearing through the sky had long since faded. The war correspondent sat in the headquarters, enjoying a rare moment of peace while sipping his favorite black coffee. Hearing the heavy thud of combat boots and gunfire down the hallway, he instantly realized something was terribly wrong. "Dammit," the journalist muttered, quickly lunging toward his powered-on PC. At that very moment, armed men in body armor, wearing camouflage, and carrying assault rifles burst into the room. His hand missed the power button by literally a split second before he could see the screen go dark. A brutal blow to the jaw threw him off balance, his brain contracting and violently exploding inside his skull: a ringing in his ears, total disorientation... Only a minute later did he begin to realize that the system had failed to shut down in time, leaving all critical data in enemy hands.
+
+**1.** Create the shell script `panic.sh`:
+```bash
+sudo touch /usr/local/bin/panic.sh
+```
+
+**2.** Navigate to the directory and open the newly created script:
+```bash
+cd /usr/local/bin/ && sudo nano panic.sh
+```
+
+From here, you can choose between two operational modes: **Paranoic** mode, which triggers an immediate computer shutdown by fully cutting power upon clicking the desktop icon or pressing the hotkey shortcut, and **Safemode**, which introduces a safety interlock requiring a double-press of the Enter key before proceeding (pressing any other key cancels the operation).
+
+**Paranoic** mode powers off the system instantly without asking any questions upon invocation. This option is vital for individuals operating under high-risk conditions (e.g., military personnel, war correspondents, intelligence operators, human rights activists, defense attorneys, or traders) where law enforcement, hostile forces, or criminals might raid the premises unexpectedly without warning.
+
+Safemode is well-suited for most users, for whom the likelihood of the aforementioned scenario is virtually zero. This is a safer approach, as it prevents shutdown upon an accidental click on the launcher icon. It functions exactly the same as the previous mode, but includes a safety interlock at the initial stage to prevent unintended execution.
+
+> [!TIP]
+> You can combine both approaches. For instance, assign **Safemode** to the GUI desktop shortcut while binding **Paranoic** to global hotkeys. To do this, simply create separate script files with distinct names: instead of a single `panic.sh`, create `panic-paranoic.sh` and `panic-safemode.sh`.
+
+**3.** Select one of the variants for your newly created file:
+
+**Paranoic Mode (Immediate Shutdown):**
+
+```bash
+#!/bin/bash
+# =========================================
+# EMERGENCY PANIC BUTTON («Paranoic Mode»)
+# =========================================
+
+# 1. Instantly wipe master keys for all LUKS devices in RAM
+for dev in $(dmsetup ls --target crypt | awk '{print $1}'); do
+    cryptsetup luksSuspend "$dev" 2>/dev/null || dmsetup suspend "$dev" --noblock 2>/dev/null
+done
+
+# 2. Remount filesystems as Read-Only (takes microseconds)
+echo u > /proc/sysrq-trigger
+
+# 3. Instant motherboard power cut
+echo o > /proc/sysrq-trigger
+```
+
+**Safemode (Shutdown After Double Confirmation):**
+
+```bash
+#!/bin/bash
+# =========================================
+# EMERGENCY PANIC BUTTON («Safemode»)
+# =========================================
+
+echo -e "\033[1;31m"
+echo "====================================================================="
+echo "[!!!] EMERGENCY FULL SYSTEM POWER-OFF PROTOCOL ACTIVATED [!!!]"
+echo "====================================================================="
+echo "WARNING: THE NEXT STEP WILL WIPE LUKS MASTER KEYS FROM RAM AND POWER OFF."
+echo "===================================================================="
+echo -e " \033[1;97;41m PRESS [ENTER] TWICE TO CONFIRM\033[0;31m"
+echo "===================================================================="
+echo "!!! PRESS ANY OTHER KEY TO CANCEL THEN [ENTER] TO EXIT !!!"
+
+# First [ENTER] confirmation check
+read -r -s -p "CONFIRMATION 1/2 [ENTER]: " key1
+if [ -n "$key1" ]; then
+    echo -e "\n\n[CANCELLED] Unexpected input detected. Emergency mode reset.\033[0m"
+    exit 1
+fi
+
+echo -e "\n"
+echo "============================================================================="
+echo -e "\033[1;5;31m"FINAL WARNING! PRESS [ENTER] FOR INSTANT SHUTDOWN!"\033[0;31m"
+echo "============================================================================="
+
+# Second [ENTER] confirmation check
+read -r -s -p "CONFIRMATION 2/2 [ENTER]: " key2
+if [ -n "$key2" ]; then
+    echo -e "\n\n[CANCELLED] Unexpected input detected. Emergency mode reset.\033[0m"
+    exit 1
+fi
+
+echo -e "\033[0m"
+
+# --- EXECUTION LOGIC ---
+# 1. Wipe LUKS master keys in RAM without waiting for disk writes
+for dev in $(dmsetup ls --target crypt | awk '{print $1}'); do
+    cryptsetup luksSuspend "$dev" 2>/dev/null || dmsetup suspend "$dev" --noblock 2>/dev/null
+done
+
+# 2. Remount filesystems as Read-Only
+echo u > /proc/sysrq-trigger
+
+# 3. Instant power cut
+echo o > /proc/sysrq-trigger
+```
+
+**4.** Set proper ownership and execution permissions:
+```bash
+sudo chown root:root /usr/local/bin/panic.sh && sudo chmod 700 /usr/local/bin/panic.sh
+```
+
+**5.** Allow passwordless execution for the script:
+```bash
+sudo visudo -f /etc/sudoers.d/panic-button
+```
+
+**6.** Add the following line, replacing `USERNAME` with your actual username:
+```text
+USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
+```
+
+**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu:
+```bash
+sudo cat <<EOF> /usr/share/applications/panic.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Emergency Panic Button
+Comment=Instant PC shutdown and LUKS RAM key destruction
+Exec=sudo /usr/local/bin/panic.sh
+Icon=/home/$USER/.local/share/icons/256x256@2x/panic.png
+Terminal=true
+Categories=Utility;
+X-GNOME-Autostart-enabled=true
+EOF
+```
+
+**8.** Make the desktop shortcut file executable:
+```bash
+chmod +x /usr/share/applications/panic.desktop
+```
+
+Next, let's configure global hotkeys for emergency execution. The setup steps differ slightly depending on the chosen mode. Open **Settings**, navigate to **Keyboard**, scroll to the bottom to click **View and Customize Shortcuts**, scroll down again to select **Custom Shortcuts**, and click **+**.
+
+The hotkey parameters for **Paranoic** and **Safemode** are structured as follows:
+
+**Paranoic Mode (Immediate Shutdown):**
+* **Name:** `Emergency Panic (Paranoic)`
+* **Command:** `sudo /usr/local/bin/panic-paranoic.sh`
+* **Shortcut:** For example, `Ctrl` + `Shift` + `End` or `Ctrl` + `Pause`.
+
+**Safemode (Shutdown After Double Confirmation):**
+* **Name:** `Emergency Panic (Safemode)`
+* **Command for Terminal:** `gnome-terminal -- sudo /usr/local/bin/panic-safemode.sh`
+* **Command for Ptyxis:** `ptyxis -e "sudo /usr/local/bin/panic-safemode.sh"`
+* **Command for Ghostty:** `ghostty -e "sudo /usr/local/bin/panic-safemode.sh"`
+* **Shortcut:** `Ctrl` + `End` (or any preferred combination).
+
+**9.** Finally, test the execution of the script:
+```bash
+sudo /usr/local/bin/panic.sh
+```
+
+> [!IMPORTANT]
+> Once you verify that the core script works properly, I strongly recommend testing the desktop launcher and hotkey shortcuts as well!
 
 <br>
 
@@ -2508,7 +2699,7 @@ Execute the following commands in sequence from a standard user shell session:
 
 **1.** Purge residual directories, caches, and legacy profiles left behind by the Snap package build inside the home folder:
 ```bash
-rm -rf ~/snap/firefox ~/.mozilla/firefox
+rm -rf ~/snap ~/.mozilla/firefox
 ```
 
 **2.** Import the official Mozilla Team PPA repository into the host package manager:
@@ -2528,8 +2719,6 @@ Pin: release o=Ubuntu
 Pin-Priority: -10
 EOF
 ```
-
-To save the configuration in the `nano` editor, press **`Ctrl + O`** -> **`Enter`**, and then **`Ctrl + X`** to exit.
 
 **4.** Refresh the local package index to apply the newly configured package pinning rules:
 ```bash
@@ -2987,7 +3176,7 @@ To deploy the current version of Portmaster without cascading kernel panics, UFW
 
 **1.** Open our configured Firefox browser. Navigate to the official developer website `https://safing.io`. Download the full offline installer for Portmaster v2 in `.deb` format (for Debian/Ubuntu systems). Once the download completes, close Firefox entirely.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.1_amd64.deb \\ Direct link valid as of August 27, 2026 (release from July 17, 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.3_amd64.deb \\ Direct link valid as of September 13, 2026 (release from August 24, 2026).
 ```
 
 **2.** Open the host terminal. Download the official stable `.deb` installer of the legacy version from Safing update servers to deploy the initial system structures:
@@ -3040,43 +3229,86 @@ cd ~/Downloads/
 sudo apt install ./Portmaster_*.deb -y
 ```
 
-**9.** Reboot the host to properly initialize the updated eBPF driver within the Linux kernel:
+**9.** Prepare clean system log directories for Portmaster:
+```bash
+sudo rm -rf /var/log/portmaster /var/lib/portmaster/log /var/lib/portmaster/logs && sudo mkdir -p /var/log/portmaster /var/lib/portmaster/log
+```
+
+**10.** Configure automatic `tmpfs` mounting in `/etc/fstab`:
+```bash
+sudo bash -c 'cat <<EOF >> /etc/fstab
+tmpfs /var/lib/portmaster/log tmpfs defaults,noatime,mode=0755,size=32M 0 0
+tmpfs /var/log/portmaster tmpfs defaults,noatime,mode=0755,size=32M 0 0
+EOF'
+```
+
+**11.** Configure a strict systemd dependency (ensures the RAM disk is mounted BEFORE the service starts):
+```bash
+sudo mkdir -p /etc/systemd/system/portmaster.service.d/
+```
+
+**12.** Write the override configuration values:
+```bash
+sudo bash -c 'cat <<EOF > /etc/systemd/system/portmaster.service.d/override.conf
+[Unit]
+RequiresMountsFor=/var/lib/portmaster/log /var/log/portmaster
+EOF'
+```
+
+**13.** Reload the systemd daemon:
+```bash
+sudo systemctl daemon-reload
+```
+
+**14.** Apply mounts and start the service:
+```bash
+sudo mount -a && sudo systemctl start portmaster
+```
+
+**15.** Reboot the system to properly initialize the new eBPF driver in the Linux kernel:
 ```bash
 sudo reboot now
 ```
-> [!NOTE]
-> **Important note:** Upon reaching the desktop interface on initial boot, the firewall GUI will request authorization for internal connections to the local loopback interface (`localhost 127.0.0.1`). Grant this action by clicking **Allow**.
 
-**10.** To ensure full functionality for Firefox, temporarily remove the strict read-only lock from its configuration file to modify the DNS resolver operational mode:
+**16.** Verify that logs are actively writing to `tmpfs`:
+```bash
+df -T /var/lib/portmaster/log
+```
+
+> [!NOTE]
+> **Important Note:** Upon first arriving at the desktop, the graphical firewall interface will request permission for an internal connection to the loopback interface (`localhost 127.0.0.1`). Allow this action by clicking **Allow**.
+
+**17.** Temporarily unlock Firefox's configuration file permissions to adjust its DNS resolver behavior:
 ```bash
 chmod 600 ~/.config/mozilla/firefox/*-release/user.js
 ```
 
-**11.** Open `user.js` using the `nano` terminal editor:
+**18.** Open `user.js` using the `nano` text editor:
 ```bash
 nano ~/.config/mozilla/firefox/*-release/user.js
 ```
 
-**12.** Locate block **16. DNS PROTECTION, NAME ENCRYPTION, AND ENFORCED DoH MODE**. Change the value of the low-level parameter `network.trr.mode` from the isolated value `3` to the default **`0`**:
+**19.** Locate block **16. DNS PROTECTION, NAME ENCRYPTION, AND CRITICAL DOH MODE**. Change the value of the low-level `network.trr.mode` parameter from the isolated `3` back to the default **`0`**:
 ```javascript
 user_pref("network.trr.mode", 0);
 ```
+
 > [!NOTE]
-> **Author's OpSec Analysis:** Setting this parameter to `0` disables Firefox's standalone DoH engine. The browser ceases sending independent encrypted requests, which Portmaster v2 flags as traffic leaks and blocks by default. Firefox then routes DNS queries through the host operating system, where they are intercepted by Portmaster eBPF hooks, evaluated against active filters, and encrypted host-wide.
+> **Security Analysis:** Setting this parameter to `0` disables Firefox's standalone DoH engine. The browser stops attempting to route independent encrypted DNS queries, which Portmaster v2 flags as potential traffic leaks and blocks. Instead, Firefox passes DNS queries directly to the OS, where Portmaster's eBPF hooks intercept, filter, and securely encrypt them system-wide.
 
-To save changes in `nano`, press **`Ctrl + O`** → **`Enter`**, followed by **`Ctrl + X`** to exit the editor.
+To save changes in `nano`, press **`Ctrl + O`** → **`Enter`**, then press **`Ctrl + X`** to exit back to the terminal.
 
-**13.** Lock the `user.js` file against unauthorized modifications by the browser, updates, or malware:
+**20.** Relock `user.js` to read-only mode to prevent modifications by the browser, updates, or malware:
 ```bash
 chmod 0400 ~/.config/mozilla/firefox/*-release/user.js
 ```
 
-**14.** Remove the installation `.deb` packages from the local directory to prevent digital clutter:
+**21.** Remove the installer `.deb` packages from your local folder to keep the system clean:
 ```bash
 rm ~/Downloads/Portmaster_*.deb && rm ~/portmaster-installer.deb
 ```
 
-**15.** Re-enable the operating system network stack. To ensure the link connects (if "Connect automatically" is disabled in Ubuntu settings), launch NetworkManager and activate the target interface using a single command string (replacing `enp0s1` with the active interface name):
+**22.** Restore the OS network stack. Because automatic connections are disabled in Ubuntu settings, re-enable NetworkManager and force-bring up your connection interface in one chain (replace `enp0s1` with your interface name):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
@@ -3099,6 +3331,13 @@ nmcli networking on && nmcli connection up netplan-enp0s1
 #### Introduction:
 
 We will dissect how the `shred` and `wipe` utilities physically overwrite bytes on a storage drive, protecting our host from forensic analysis in the event of device loss or seizure. However, engineering security does not end at the perimeter of your local disk. We must enforce an ironclad rule of operational hygiene: **every file leaving your system and transmitting across the network must be completely sterile**.
+
+> [!WARNING]
+> **CRITICAL OPSEC RULE:** Before executing any manual anti-forensic or sanitization commands (shred, wipe, mat2, secure-delete, steghide, stegoforge), you must first run `set +o history` to temporarily disable terminal logging.
+> 
+> **IT IS STRICTLY FORBIDDEN** chain these commands into a single line using `&&` or `;` operators (e.g., `set +o history && shred ...`). Doing so forces Bash to record the ENTIRE command string into the history buffer first. Once the terminal closes, that full string will be permanently written to the disk inside `~/.bash_history`, completely exposing your anti-forensic activities!
+> 
+> Once all sensitive operations are complete, re-enable command logging by running: `set -o history`.
 
 #### Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:
 
@@ -3127,33 +3366,44 @@ The utility is written in Python, runs completely locally, and requires no file 
 sudo apt install mat2 -y
 ```
 
-**2.** Prior to cleaning a file, inspect its contents to examine what hidden metadata is embedded. Command the utility to display all hidden metadata (for example, within a screenshot):
+**2.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
+
+**3.** Prior to cleaning a file, inspect its contents to examine what hidden metadata is embedded. Command the utility to display all hidden metadata (for example, within a screenshot):
 ```bash
 mat2 --show screenshot.png
 ```
+
 The terminal will display a detailed log ranging from graphics editor versions to the exact date and timestamp of the screenshot creation.
 
 Proceed to data sanitization. By default, `mat2` operates in a fail-safe mode: it preserves the original file and generates a sterile copy alongside it appended with the `.cleaned` suffix.
 
-**3.** Sanitize a single document or image:
+**4.** Sanitize a single document or image:
 ```bash
 mat2 screenshot.png
 ```
 A new file named `screenshot.cleaned.png` will be generated alongside the original. This sanitized file is safe for network transmission. If the original file is no longer required, destroy it immediately using `shred` (commands detailed below).
 
-**4.** To sanitize an entire folder containing reports, screenshots, or logs prior to transmission, execute batch processing across all files in the designated directory:
+**5.** To sanitize an entire folder containing reports, screenshots, or logs prior to transmission, execute batch processing across all files in the designated directory:
 ```bash
 mat2 /PATH-TO-FOLDER/*
 ```
 
-**5.** For high-security requirements where original files must not persist on disk, enforce in-place overwriting using the `--inplace` flag:
+**6.** For high-security requirements where original files must not persist on disk, enforce in-place overwriting using the `--inplace` flag:
 ```bash
 mat2 --inplace screenshot.png
 ```
 
-**6.** Perform in-place metadata sanitization across all files within a directory:
+**7.** Perform in-place metadata sanitization across all files within a directory:
 ```bash
 mat2 --inplace /PATH-TO-FOLDER/*
+```
+
+**8.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
 ```
 
 > [!IMPORTANT]
@@ -3178,14 +3428,19 @@ Open the terminal and execute the following steps:
 sudo apt install wipe -y
 ```
 
-**2.** Recursively purge a target directory along with all contained subitems (replace the `FOLDERNAME` placeholder with the target directory name):
+**2.** Prevent terminal commands from being saved to the history file on disk
+```bash
+set +o history
+```
+
+**3.** Recursively purge a target directory along with all contained subitems (replace the `FOLDERNAME` placeholder with the target directory name):
 ```bash
 wipe -rfi FOLDERNAME
 ```
 
 The `-r` flag enables recursive operation, `-f` suppresses confirmation prompts, and `-i` activates verbose interactive mode to monitor sector overwrite progress.
 
-**3.** Initiate destruction of all files within the active terminal directory (**Execute with caution!**):
+**4.** Initiate destruction of all files within the active terminal directory (**Execute with caution!**):
 ```bash
 sudo shred -v -u -z -n 3 *
 ```
@@ -3195,14 +3450,19 @@ sudo shred -v -u -z -n 3 *
 > 
 > To ensure deterministic execution, couple the command with the `find` utility:
 
-**4.** Safely purge all regular files limited strictly to the current working directory level without altering nested folder structures:
+**5.** Safely purge all regular files limited strictly to the current working directory level without altering nested folder structures:
 ```bash
 find . -maxdepth 1 -type f -exec shred -v -u -z -n 3 {} \;
 ```
 
-**5.** Permanently destroy a specific isolated file (replace the `FILENAME` placeholder with the exact case-sensitive filename and extension):
+**6.** Permanently destroy a specific isolated file (replace the `FILENAME` placeholder with the exact case-sensitive filename and extension):
 ```bash
 shred -v -u -z -n 3 FILENAME
+```
+
+**7.** Resume command history logging once tasks are finished:
+```bash
+set -o history
 ```
 
 #### Operational Parameters for the shred Utility:
@@ -3226,9 +3486,19 @@ If the operating system has been running for an extended period and sensitive fi
 sudo apt install secure-delete -y
 ```
 
-**2.** Initiate total sanitization of unallocated space on the current system partition:
+**3.** Prevent terminal commands from being saved to the history file on disk:
+```bash
+set +o history
+```
+
+**4.** Initiate total sanitization of unallocated space on the current system partition:
 ```bash
 sudo sfill -v -z -l /
+```
+
+**5.** Re-enable shell history logging after finishing sensitive operations
+```bash
+set -o history
 ```
 
 > [!NOTE]
@@ -3259,25 +3529,34 @@ Start with the classic approach. `steghide` is a fully command-line utility resi
 ```bash
 sudo apt update && sudo apt install steghide -y
 ```
+**2.** Disable writing current commands to the hard drive (history file):
+```bash
+set +o history
+```
 
-**2.** Hide the secret file `secret.txt` inside a regular image `photo.jpg`:
+**3.** Hide the secret file `secret.txt` inside a regular image `photo.jpg`:
 ```bash
 steghide embed -cf photo.jpg -ef secret.txt
 ```
 
-**3.** Permanently remove the original `secret.txt` file remaining outside the steganographic container:
+**4.** Permanently remove the original `secret.txt` file remaining outside the steganographic container:
 ```bash
 shred -v -u -z -n 3 secret.txt
 ```
 
 The system will prompt for and confirm a strong passphrase. The resulting `photo.jpg` file remains visually identical to its original state.
 
-**4.** To extract the hidden payload from the container, execute:
+**5.** To extract the hidden payload from the container, execute:
 ```bash
 steghide extract -sf photo.jpg
 ```
 
 Enter the secret passphrase defined during creation to extract the original file back to disk.
+
+**6.** Once the lengthy process is complete, re-enable terminal logging:
+```bash
+set -o history
+```
 
 > [!IMPORTANT]
 > The `steghide` utility operates exclusively with legacy formats: **JPEG, BMP, WAV, and AU**. Attempting to process modern formats like **PNG** or **MP3** will fail. This limitation stems from format-specific compression mechanics:
@@ -3309,12 +3588,26 @@ Payload security relies on cryptography rather than algorithm secrecy. If a cont
 wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-linux-x86_64
 ```
 
+> [!IMPORTANT]
+> Do not execute the downloaded binary blindly. To prevent supply-chain attacks, always verify the integrity of the file by checking its SHA-256 checksum against the official hash provided by the vendor on their release page.
+>
+> Verify the SHA-256 checksum of the downloaded binary:
+> ```bash
+> sha256sum stegoforge-linux-x86_64
+> ```
+> Ensure the output matches the cryptographic signature hosted on the official StegoForge release matrix.
+
 **2.** Create a directory for local user binaries, move the executable file, grant execution permissions, and update system PATH settings:
 ```bash
 mkdir -p ~/.local/bin && mv ~/stegoforge-linux-x86_64 ~/.local/bin/stegoforge && chmod +x ~/.local/bin/stegoforge && grep -qxF 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc && source ~/.bashrc
 ```
 
-**3.** Launch the framework executable:
+**3.** Stop logging shell commands to the disk-based history file:
+```bash
+set +o history
+```
+
+**4.** Launch the framework executable:
 ```bash
 stegoforge
 ```
@@ -3355,18 +3648,33 @@ Reference this structural guide for routine operational workflows:
 > 
 > Within the console menu, select option 6 (6 — Web UI). Once initialized, open `http://127.0.0.1:5000/` in your browser.
 
+**5.** Restore standard command history tracking after you are done:
+```bash
+set -o history
+```
+
 #### Archive Concatenation (Quick Hack Without Third-Party Software):
 
 This method leverages the structural properties of binary files. Most image viewers parse files from the beginning, whereas archive managers process structure strictly from the end of the file. Merge both components physically using the host terminal.
 
-**1.** Pack secret documents into an encrypted ZIP archive:
+**1.** Turn off command history before proceeding:
+```bash
+set +o history
+```
+
+**2.** Pack secret documents into an encrypted ZIP archive:
 ```bash
 zip -e secret.zip secret.txt
 ```
 
-**2.** Concatenate the cover image and the archive into a single target file using `cat`:
+**3.** Concatenate the cover image and the archive into a single target file using `cat`:
 ```bash
 cat cat.jpg secret.zip > final_photo.jpg
+```
+
+**4.** Remember to re-enable history once done:
+```bash
+set -o history
 ```
 
 * **Hardening Outcome:** Opening `final_photo.jpg` via standard GUI file managers renders the original cat image cleanly.
@@ -3399,9 +3707,9 @@ The terminal executes the layout override, rendering the deceptive output: `File
 
 **2.** To detect hidden manipulation, pipe the output into `cat` using the `-v` flag (displaying non-printing and control characters):
 ```bash
-echo -e "File_name_\u202Efdp.exe" | cat -v
+echo -e "Filename_\u202Efdp.exe" | env LANG=C cat -v
 ```
-*The output strips the visual illusion, exposing explicit Unicode control codes (such as `^[[~` or its hex equivalent) and immediately revealing the manipulation.*
+*Instead of the clean visual deception, we will see raw text garbage embedded directly inside the filename:* `Filename_M-bM-^@M-^Nfdp.exe`
 
 > [!WARNING]
 > When handling files originating from external or untrusted sources, never rely on file extensions rendered within GUI file managers. Open a terminal and inspect the file using the native `file` utility:
@@ -3467,7 +3775,7 @@ veracrypt
 
 #### Deep Security Tuning: RAM Key Protection (Paranoia Mode):
 
-By default, when mounting encrypted volumes, VeraCrypt retains master decryption keys in RAM in plaintext. If an adversary gains physical access to a powered-on host, they could attempt to extract these keys using low-level attacks such as a *Cold Boot* attack (freezing and reading memory chips) or via hardware DMA interfaces.
+By default, when mounting encrypted volumes, VeraCrypt retains master encryption and decryption keys in RAM in plaintext. If an adversary gains physical access to a powered-on host, they could attempt to extract these keys using low-level attacks such as a *Cold Boot* attack (freezing and reading memory chips) or via hardware DMA interfaces.
 
 To eliminate this compromise vector entirely, navigate within the VeraCrypt GUI along the following path: **Settings** ➔ **Preferences** (under the **Security** tab) and force-enable the available protection setting:
 
@@ -4093,7 +4401,7 @@ sudo aa-logprof
 > `Profile: ubuntu_pro_esm_cache_systemd_detect_virt`  
 > `Capability: perfmon`
 > 
-> The interactive utility will then present all blocked calls, allowing operators to grant legitimate capabilities or enforce denials with a single keypress. Full isolation and conflict-free execution of the Firefox browser will be addressed in the subsequent Firejail deployment chapter.
+> The interactive utility will then visually present all other blocked calls, allowing you to grant permissions or keep blocks in place with a single click. Full adaptation and conflict-free execution of both the Firefox browser and other programs will be covered later in the chapters on Firejail and Bubblewrap.
 
 <br>
 
@@ -5669,6 +5977,175 @@ This grants full visibility into any hidden files or configuration changes the u
 rm -rf ~/.sandbox_overlay
 ```
 
+## Application Isolation with Bubblewrap and Its Advantages Over Firejail
+
+#### Introduction:
+
+Although we have already configured **Firejail**, which many find complex to master, from an information security standpoint we are obligated to cover **Bubblewrap** (`bwrap`).
+
+The primary advantage of **Bubblewrap** over **Firejail** is its minimalism. Unlike the monolithic **Firejail**—which contains tens of thousands of lines of code, a complex profile parser, and historically relied on SUID binaries (frequently leading to Local Privilege Escalation vulnerabilities)—`bwrap` is designed as a concise, easily auditable utility. It contains no embedded business logic or predefined rule sets; the tool relies strictly on unprivileged Linux kernel user namespaces (Unprivileged User Namespaces).
+
+This minimal codebase drastically reduces the attack surface. In a Zero Persistence architecture, `bwrap` acts as the ideal low-level primitive: rather than building heavy abstractions, it requires every allowed system resource to be explicitly declared, guaranteeing strict isolation.
+
+> [!IMPORTANT]
+> **Bubblewrap** serves as the core isolation foundation, while **AppArmor** provides an optional secondary defense layer. Do not ignore profile installations or exclude AppArmor from your security stack.
+
+#### Bubblewrap Flags Cheat Sheet:
+
+Unlike Firejail, where many options create entire isolated environments automatically, in `bubblewrap` every step must be built manually like a construction set. By default, `bwrap` restricts **everything**, and we must explicitly specify what the application is allowed to run.
+
+* **`--as-pid-1`** — forces the launched application to run as the main container process (PID 1). If this application exits or crashes, the entire sandbox is instantly destroyed along with all child processes.
+* **`--bind <SRC> <DEST>`** — mounts a directory or file with **read-write** permissions. Used for directories where the application strictly needs to save data (e.g., Downloads or cache folders).
+* **`--cap-drop ALL`** — drops all Linux capabilities inside the sandbox. Even if a process inside the container gains virtual `root`, it cannot perform a single administrative action on the system.
+* **`--dev <PATH>`** — generates a minimal safe set of system devices (`/dev/null`, `/dev/urandom`, etc.) without exposing the actual host hardware.
+* **`--dev-bind <SRC> <DEST>`** — creates a virtual directory of system devices (equivalent to `--private-dev` in Firejail). Allows granular exposure of specific hardware files directly from the host system (e.g., `/dev/dri` or `/dev/nvidia*` for GPU functionality).
+* **`--die-with-parent`** — ensures automatic destruction of the sandbox if the parent process (e.g., your launcher script or terminal) is unexpectedly terminated. Prevents orphan/zombie processes.
+* **`--dir <PATH>`** — creates an empty directory inside the sandbox. Used to prepare the filesystem structure before mounting directories.
+* **`--hostname <NAME>`** — sets a virtual hostname inside the sandbox (requires `--unshare-uts` or `--unshare-all`).
+* **`--proc <PATH>`** — mounts an isolated `/proc` filesystem. Essential for proper operation when isolating processes via `--unshare-pid`.
+* **`--ro-bind <SRC> <DEST>`** — mounts a directory or file from the real OS (`SRC`) inside the sandbox (`DEST`) in **read-only** mode. A secure way to expose system libraries (e.g., `/usr` or `/lib`) to the application while guaranteeing they remain unmodifiable.
+* **`--seccomp <FD>`** — activates Linux kernel secure computing mode. Blocks dangerous system calls. Unlike Firejail, `bwrap` does not feature built-in rule lists — it requires passing a precompiled binary filter via a file descriptor.
+* **`--setenv <VAR> <VALUE>`** — explicitly defines environment variables inside the sandbox (e.g., `HOME` or `DISPLAY`), hiding actual user profile data.
+* **`--tmpfs <PATH>`** — mounts a clean, empty temporary directory in RAM at the specified path inside the sandbox (similar to RAM folders in Firejail's `--private`).
+* **`--unshare-all`** — the most critical flag for security. Simultaneously activates isolation across all available namespaces: user privileges, network, processes, IPC, UTS (hostname), and cgroups. Creates a maximum-isolation sandbox.
+* **`--unshare-cgroup`** — creates an isolated cgroup namespace, preventing the application from viewing or modifying host system resource limits (CPU, RAM).
+* **`--unshare-ipc`** — isolates Inter-Process Communication mechanisms (Shared Memory, Unix sockets). Protects host memory from sniffing, though it may reduce GPU performance.
+* **`--unshare-net`** — completely disables the kernel network stack for the container (equivalent to `--net=none` in Firejail). The application loses all access to the internet and local network.
+* **`--unshare-pid`** — isolates the process tree. The application inside the container will be unable to view other running processes on your system (hides `ps` / `top` output).
+* **`--unshare-user`** — creates a new user namespace. Allows a process inside the sandbox to possess virtual `root` privileges while remaining a standard unprivileged user to the real OS.
+
+#### Installing Bubblewrap:
+
+**1.** Install the necessary dependencies and compilation packages:
+```bash
+sudo apt update && sudo apt install -y git meson ninja-build cmake pkg-config libcap-dev libselinux1-dev xsltproc docbook-xsl docbook-xml
+```
+
+**2.** Navigate to `tmp`, clone clean tag v0.12.0, and switch to the `bubblewrap` directory:
+```bash
+cd /tmp && git clone --depth 1 --branch v0.12.0 https://github.com/containers/bubblewrap.git && cd bubblewrap
+```
+
+**3.** Build without SUID (pure namespaces mode):
+```bash
+meson setup builddir && ninja -C builddir && sudo ninja -C builddir install
+```
+
+**4.** Clean up temporary files:
+```bash
+cd /tmp && rm -rf bubblewrap
+```
+
+**5.** Verify the installed application version:
+```bash
+bwrap --version
+```
+
+**6.** Create a universal AppArmor profile for Bubblewrap:
+```bash
+sudo tee /etc/apparmor.d/usr.local.bin.bwrap <<EOF
+abi <abi/4.0>,
+include <tunables/global>
+
+/usr/local/bin/bwrap flags=(unconfined) {
+  userns,
+}
+EOF
+```
+
+After creating this universal profile, we will be able to sandbox almost any application in **Bubblewrap**, including all those we covered in **Firejail**. Many of these applications can also be used in "Amnesia" mode, allowing us to run programs in a pristine state without saving history or logs, leaving the application entirely clean every time.
+
+**7.** Reload AppArmor to apply the changes immediately:
+```bash
+sudo systemctl reload apparmor
+```
+
+#### Creating a Firefox Profile inside Bubblewrap:
+
+**1.** If you do not have an existing *mozilla-hardened* profile from a previous Firejail setup, create one specifically for Bubblewrap:
+```bash
+mkdir -p ~/.mozilla-hardened && cp -r ~/.config/mozilla/firefox ~/.mozilla-hardened/ 2>/dev/null || true
+```
+
+**2.** Create a shell script to launch Firefox:
+```bash
+sudo nano /usr/local/bin/firefox-bwrap.sh
+```
+
+**3.** Populate the script with the sandbox configuration parameters:
+```ini
+#!/usr/bin/env bash
+/usr/local/bin/bwrap \
+  --die-with-parent \
+  --unshare-all \
+  --share-net \
+  --dev /dev \
+  --proc /proc \
+  \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind /usr/lib /usr/lib \
+  --ro-bind /lib64 /lib64 \
+  --ro-bind /usr/share/fonts /usr/share/fonts \
+  --ro-bind /usr/share/icons /usr/share/icons \
+  \
+  --ro-bind /etc/ssl /etc/ssl \
+  --ro-bind /etc/ca-certificates /etc/ca-certificates \
+  --ro-bind /etc/fonts /etc/fonts \
+  --ro-bind /etc/resolv.conf /etc/resolv.conf \
+  --ro-bind-try /run/systemd/resolve /run/systemd/resolve \
+  \
+  --tmpfs /tmp \
+  --tmpfs /run \
+  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
+  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+  \
+  --bind $HOME/.mozilla-hardened $HOME/.mozilla \
+  --tmpfs $HOME/.cache \
+  --dir $HOME/Downloads \
+  --bind $HOME/Downloads $HOME/Downloads \
+  \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
+  \
+  /usr/lib/firefox/firefox --no-remote "$@"
+```
+
+Save the file in `nano` by pressing **`Ctrl + O`** ➔ **`Enter`**, then **`Ctrl + X`** to exit.
+
+**4.** Make the launcher script executable:
+```bash
+sudo chmod +x /usr/local/bin/firefox-bwrap.sh && sudo chmod 755 /usr/local/bin/firefox-bwrap.sh
+```
+
+**5.** Create a desktop shortcut for Firefox linked to your custom icon:
+```bash
+cat <<EOF > ~/.local/share/applications/firefox-secure.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Firefox (Secure Sandbox)
+Comment=Amnesic Hardened Firefox inside Bubblewrap
+Exec=/usr/local/bin/firefox-bwrap.sh %u
+Icon=firefox-secure
+Terminal=false
+StartupNotify=true
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+EOF
+```
+
+**6.** Set proper file permissions on the desktop entry (to prevent potential permission issues):
+```bash
+sudo chmod 644 ~/.local/share/applications/firefox-secure.desktop
+```
+
+**7.** Reindex and update the application database and icon cache:
+```bash
+sudo update-desktop-database ~/.local/share/applications && gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor 2>/dev/null || true
+```
+
 <br>
 
 ## Installing Rkhunter and Hunting Rootkits
@@ -5760,13 +6237,64 @@ Save the configuration in `nano` by pressing **"Ctrl + O"** ➔ **"Enter"**, the
 > 
 > Skipping this step causes subsequent `Rkhunter` scans to emit critical false warnings across basic system binaries (such as `ls`, `ps`, or `top`), as their file hashes naturally change during official package updates. The correct administrative workflow is: upgrade system packages ➔ verify overall system stability ➔ execute `sudo rkhunter --propupd` to refresh the reference snapshot in the database.
 
+#### Installing Chkrootkit Alongside Rkhunter
+
+While **Rkhunter** relies on a baseline hash database of system binaries, **Chkrootkit** performs dynamic auditing: it checks for known LKM (Loadable Kernel Module) rootkit signatures, scans `/proc` for hidden processes, and cross-references `ps` output with the process tree. Combining both tools fulfills the Defense-in-Depth security architecture.
+
+**1.** Install the package from the official Ubuntu repository:
+```bash
+sudo apt update && sudo apt install chkrootkit -y
+```
+
+**2.** Verify the installed version:
+```bash
+chkrootkit -V
+```
+
+**3.** Run an initial scan in quiet mode to display only warnings and suspicious matches:
+```bash
+sudo chkrootkit -q
+```
+ 
+Running `chkrootkit` on modern Ubuntu Desktop releases frequently triggers non-critical warnings:
+
+* **`Possible Linux.Xor.DDoS installed`**: Heuristic rules incorrectly flag legitimate binaries residing in temporary directories (`/tmp`), such as freshly downloaded software executables or installer artifacts.
+* **`PACKET SNIFFER(/usr/sbin/NetworkManager)`**: Promiscuous mode detection triggers naturally as `NetworkManager` manages Wi-Fi scanning and DHCP leases.
+* **`RTNETLINK answers: Invalid argument`**: Legacy netlink syntax inside `chkrootkit` failing against updated Linux kernel networking interfaces.
+* **`/usr/lib/modules/.../vdso/.build-id`**: Misidentification of virtual dynamic shared objects (vDSO) within kernel module paths.
+
+**4.** Configure exclusions in `/etc/chkrootkit/chkrootkit.conf`:
+
+To eliminate log noise during regular security audits, define standard bypass parameters for `NetworkManager`:
+
+```bash
+sudo bash -c 'cat << EOF > /etc/chkrootkit/chkrootkit.conf
+RUN_DAILY="false"
+RUN_DAILY_OPTS="-q"
+DIFF_MODE="false"
+BACKEND="chroot"
+IGNORE_PACKET_SNIFFER="/usr/sbin/NetworkManager"
+EOF'
+```
+
+**5.** Run a detailed full system scan to inspect each individual verification stage:
+```bash
+sudo chkrootkit
+```
+
+> [!TIP]
+> Unlike Rkhunter, `chkrootkit` does not require updating a file hash baseline (`propupd`). However, clearing temporary directories (`sudo rm -rf /tmp/tmp.*`) prior to executing a scan prevents false positive triggers from the `Linux.Xor.DDoS` signature engine.
+
 <br>
 
 ## Installing and Configuring the ClamAV Antivirus Scanner
 
 #### Introduction:
 
-ClamAV is a fully featured, open-source antivirus engine. Within Linux operating systems, it is primarily deployed to inspect incoming mail attachments, scan external encrypted USB drives, or audit web downloads for embedded malware targeting Windows environments, ensuring malicious payloads are not inadvertently transferred to other workstations across the network.
+ClamAV is a fully featured, open-source antivirus engine. Within Linux operating systems, it is primarily deployed to inspect incoming mail attachments, scan external USB drives, or audit web downloads for embedded malware targeting Windows environments, ensuring known malicious payloads are not inadvertently transferred to other workstations.
+
+> [!IMPORTANT]
+> ClamAV is not a silver bullet and is ineffective against zero-day exploits or targeted malware attacks. However, it serves as an essential baseline for digital hygiene for journalists, lawyers, and human rights defenders who regularly deal with an influx of untrusted files.
 
 #### Installing ClamAV:
 
@@ -5782,7 +6310,7 @@ clamscan --version
 
 **3.** Install the official Graphical User Interface (GUI)—an optional step for users who prefer visual management:
 ```bash
-sudo apt install clamtk -y
+sudo apt install clamtk clamtk-gnome -y
 ```
 
 **4.** Launch the antivirus GUI frontend:
@@ -6561,7 +7089,75 @@ find /tmp/lynis/ -type f -exec shred -v -u -z -n 3 {} \; && rm -rf /tmp/lynis
 > 
 > Consequently, on a hardened desktop setup, the scanner naturally triggers warnings for absent server infrastructure—such as local MTA daemons (*Postfix/Sendmail*) or dedicated log aggregation daemons (*Syslog-ng*). On a personal security workstation, these background services introduce unnecessary risk by opening additional network sockets and expanding attack surface area. They were omitted deliberately.
 > 
-> The primary metric is achieving a desktop **Hardening Index** above **75%**, which represents an exceptionally strong security posture for a standalone personal workstation.
+> The primary metric is achieving a desktop **Hardening Index** above **80%**, which represents an exceptionally strong security posture for a standalone personal workstation.
+
+<br>
+
+## Installing and Configuring the Trivy Vulnerability and Secret Scanner
+
+While **Lynis** audits the overall security configuration and hardening settings of the operating system itself, **Trivy** by Aqua Security serves a distinct and vital purpose. We use it to scan installed software for known vulnerabilities (**CVEs**) and inspect local text files for accidental leaks of personal passwords, API tokens, and private access keys.
+
+**1.** Install the necessary system dependencies:
+```bash
+sudo apt update && sudo apt install curl
+```
+
+**2.** Download and install the official Trivy binary directly from the developer repository:
+```bash
+curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
+```
+
+**3.** Verify the Trivy version:
+```bash
+trivy --version
+```
+
+**4.** Create a global YAML configuration file to ensure scans focus on relevant output without overwhelming you with unnecessary system warnings:
+
+```yaml
+cat << 'EOF' > ~/trivy.yaml
+scan:
+  vuln-type:
+    - 'os'
+    - 'library'
+
+report:
+  severity:
+    - 'UNKNOWN'
+    - 'LOW'
+    - 'MEDIUM'
+    - 'HIGH'
+    - 'CRITICAL'
+  format: 'table'
+EOF
+```
+
+> [!WARNING]
+> `.yaml` configuration files are extremely sensitive to indentation structures. Do not use tabs—use spaces only (two spaces per indentation level). Always double-check your config formatting before copying.
+
+If you need to suppress a specific known vulnerability (for example, one where the attack vector is already blocked at the kernel level via `sysctl` parameters), create a `.trivyignore` file in your home directory and add the specific identifiers:
+```text
+# CVE-2024-12345: Protected via Bubblewrap isolation
+CVE-2024-12345
+
+# CVE-2024-67890: Compensated by UFW firewall rules
+CVE-2024-67890
+```
+
+> [!NOTE]
+> Documenting the rationale for ignoring a vulnerability is an information security gold standard. This approach prevents guesswork in the future regarding why a specific CVE was temporarily bypassed and how it was mitigated.
+
+**5.** Run a full scan of the filesystem applying your custom configuration file:
+```bash
+trivy rootfs --config ~/trivy.yaml /
+```
+
+**6.** Scan home directories for accidentally exposed plaintext passwords and private keys:
+```bash
+trivy fs --scanners secret ~/
+```
+
+**Lynis** and **Trivy** operate on fundamentally different workflows after completing all security hardening steps. Trivy does not store persistent audit reports that reveal your internal security configuration. Its local database acts simply as a global CVE lookup reference. Consequently, Trivy remains an essential desktop utility for routine OS update checks, pre-installation application testing, and Docker container auditing.
 
 This completes the overall security configuration and host-level hardening of the base Ubuntu Desktop operating system. The following chapter covers isolated environment deployment, guest OS provisioning inside VirtualBox, and safe hardware cryptocurrency wallet passthrough using Ledger devices.
 
