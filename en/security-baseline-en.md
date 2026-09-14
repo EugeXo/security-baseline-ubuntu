@@ -3432,9 +3432,6 @@ sudo apt install wipe -y
 ```bash
 set +o history
 ```
-```bash
-set +o history
-```
 
 **3.** Recursively purge a target directory along with all contained subitems (replace the `FOLDERNAME` placeholder with the target directory name):
 ```bash
@@ -3467,9 +3464,6 @@ shred -v -u -z -n 3 FILENAME
 ```bash
 set -o history
 ```
-```bash
-set -o history
-```
 
 #### Operational Parameters for the shred Utility:
 
@@ -3493,9 +3487,6 @@ sudo apt install secure-delete -y
 ```
 
 **3.** Disable writing current commands to the hard drive (history file):
-```bash
-set +o history
-```
 ```bash
 set +o history
 ```
@@ -3618,9 +3609,6 @@ mkdir -p ~/.local/bin && mv ~/stegoforge-linux-x86_64 ~/.local/bin/stegoforge &&
 ```bash
 set +o history
 ```
-```bash
-set +o history
-```
 
 **4.** Launch the framework executable:
 ```bash
@@ -3667,18 +3655,12 @@ Reference this structural guide for routine operational workflows:
 ```bash
 set -o history
 ```
-```bash
-set -o history
-```
 
 #### Archive Concatenation (Quick Hack Without Third-Party Software):
 
 This method leverages the structural properties of binary files. Most image viewers parse files from the beginning, whereas archive managers process structure strictly from the end of the file. Merge both components physically using the host terminal.
 
 **1.** Disable writing current commands to the hard drive (history file):
-```bash
-set +o history
-```
 ```bash
 set +o history
 ```
@@ -3724,12 +3706,14 @@ To the operating system, the file remains a fully functional executable binary (
 ```bash
 echo -e "File_name_\u202Efdp.exe"
 ```
+
 The terminal executes the layout override, rendering the deceptive output: `Filename_exe.pdf`.
 
 **2.** To detect hidden manipulation, pipe the output into `cat` using the `-v` flag (displaying non-printing and control characters):
 ```bash
 echo -e "Filename_\u202Efdp.exe" | env LANG=C cat -v
 ```
+
 *Instead of the clean visual deception, we will see raw text garbage embedded directly inside the filename:* `Filename_M-bM-^@M-^Nfdp.exe`
 
 > [!WARNING]
