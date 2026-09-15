@@ -2480,7 +2480,7 @@ sudo visudo -f /etc/sudoers.d/panic-button
 USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
 ```
 
-**7.** Создадим удобный ярлык для моментального запуска из Dock или меню программ (указать свое имя пользователя):
+**7.** Создадим удобный ярлык для моментального запуска из Dock или меню программ (изменим значение `ИМЯ-ПОЛЬЗОВАТЕЛЯ` на своё):
 ```bash
 sudo tee /usr/share/applications/panic.desktop > /dev/null << 'EOF'
 [Desktop Entry]

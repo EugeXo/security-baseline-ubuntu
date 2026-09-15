@@ -2484,7 +2484,7 @@ sudo visudo -f /etc/sudoers.d/panic-button
 USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
 ```
 
-**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu (change `YOUR-USERNAME`):
+**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu (replace `YOUR-USERNAME` with your actual username):
 ```bash
 sudo cat <<EOF> /usr/share/applications/panic.desktop
 [Desktop Entry]
