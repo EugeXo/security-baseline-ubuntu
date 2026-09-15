@@ -4438,6 +4438,9 @@ Firejail is a lightweight Linux security sandbox that leverages namespaces, cgro
 
 In this chapter, we will install Firejail, launch previously installed applications (Firefox, KeePassXC, Document Viewer, and Image Viewer) within isolated sandboxes, and proceed to install and confine LibreOffice, GIMP, VSCodium, LM Studio, Telegram, Psi+, and Thunderbird. Furthermore, Psi+ and Thunderbird will be configured to handle OpenPGP (GnuPG) end-to-end encryption. Finally, we will generate custom desktop launchers (`.desktop` entries) to enforce transparent sandbox confinement across all desktop shortcuts.
 
+> [!NOTE]
+> According to the standards of this book, **Firejail** remains a solid and convenient choice for everyday tasks. However, from an information security perspective, it trails behind **Bubblewrap** in several key areas. Strictly speaking, recent years have revealed fairly serious vulnerabilities within **Firejail**'s sprawling codebase, leading many security researchers to recommend abandoning it entirely in favor of more modern alternatives. Nevertheless, a radical refusal to use it is not always justified: for most standard tasks, **Firejail** covers user requirements completely. Should personal preference or policy prevent its use, the following chapter thoroughly breaks down isolating these exact same applications using **Bubblewrap**.
+
 #### Installing Firejail and Preparing the Sandbox:
 
 **1.** Retrieve the current stable build of Firejail from the project's official repository. First, install the requisite dependency utilities, then automatically resolve the latest available `.deb` release asset and deploy it:
