@@ -56,7 +56,7 @@ This guide provides step-by-step instructions to transform a standard Linux dist
 
 * **System Integrity & Security Auditing:** Deploying a cryptographic baseline for system files via AIDE (File Integrity Monitoring), hunting rootkits with Rkhunter, and validating the overall defensive posture using automated compliance stress-tests via Lynis.
 
-* **Sandboxing & Mandatory Access Control (MAC):** Enforcing granular application containment by deploying strict AppArmor security policies and isolation chambers using the Firejail sandbox framework (covering utilities, local LLMs like LM Studio, and core dev tools).
+* **Sandboxing & Mandatory Access Control (MAC):** Enforcing granular application containment by deploying strict AppArmor security policies and isolated execution environments via Firejail and Bubblewrap (covering utilities, local LLMs like LM Studio, and core dev tools).
 
 * **Network Perimeter Isolation:** Engineering bulletproof MAC address spoofing, disabling the IPv6 stack, and building an uncompromising UFW firewall architecture with a strict Kill Switch to completely eliminate traffic leaks outside the virtual boundary of the tun0 VPN interface, layered with Portmaster firewall integration for real-time application-level egress visualization.
 
