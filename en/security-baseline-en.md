@@ -2533,7 +2533,12 @@ sudo /usr/local/bin/panic.sh
 ```
 
 > [!IMPORTANT]
-> Once you verify that the core script works properly, I strongly recommend testing the desktop launcher and hotkey shortcuts as well!
+> If the test fails (i.e., the system hangs or freezes instead of cutting power completely), the issue is likely caused by our previous kernel memory subsystem hardening, where `kernel.sysrq` was set to `0`. The fix is to selectively enable bitmask `176` (Read-Only + Poweroff permissions only) using the following command:
+> ```bash
+> echo "kernel.sysrq = 176" | sudo tee /etc/sysctl.d/99-panic-sysrq.conf && sudo sysctl --system
+> ```
+
+After successfully testing the execution script, I highly recommend verifying the functionality of the desktop shortcut and hotkey triggers as well!
 
 <br>
 
