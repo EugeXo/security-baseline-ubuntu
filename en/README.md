@@ -33,7 +33,7 @@ The entire book is divided into logical blocks that form a defense-in-depth arch
 1. **Foundation and Hardware:** 12 rules of operational hygiene, manual LUKS deployment without TPM, GRUB hardening, and RAM protection against DMA attacks.
 2. **Network Vacuum:** UFW configuration in a hardened Kill Switch mode (binding to the `tun0` interface), MAC address spoofing, total IPv6 purging, and Portmaster integration.
 3. **Deep Disinfection:** Purging Canonical telemetry, the complete destruction of Snapd, and manual hardening of the Firefox browser core (`user.js`).
-4. **Hardware and Cryptographic Control:** YubiKey integration (TTY/GUI), hidden VeraCrypt containers, Firejail sandboxing, and Docker/VirtualBox isolation.
+4. **Hardware and Cryptographic Control:** YubiKey integration (TTY/GUI), hidden VeraCrypt containers, Firejail ans Bubblewrap sandboxing, and Docker/VirtualBox isolation.
 5. **Auditing and Trace Destruction:** Metadata wiping via MAT2, guaranteed file shredding (`shred`/`wipe`), deploying AIDE integrity control, and a final stress test via Lynis.
 
 ---
