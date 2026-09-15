@@ -2484,7 +2484,7 @@ sudo visudo -f /etc/sudoers.d/panic-button
 USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
 ```
 
-**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu:
+**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu (change `YOUR-USERNAME`):
 ```bash
 sudo cat <<EOF> /usr/share/applications/panic.desktop
 [Desktop Entry]
@@ -2493,7 +2493,7 @@ Type=Application
 Name=Emergency Panic Button
 Comment=Instant PC shutdown and LUKS RAM key destruction
 Exec=sudo /usr/local/bin/panic.sh
-Icon=/home/$USER/.local/share/icons/256x256@2x/panic.png
+Icon=/home/YOUR-USERNAME/.local/share/icons/256x256@2x/panic.png
 Terminal=true
 Categories=Utility;
 X-GNOME-Autostart-enabled=true
@@ -2504,6 +2504,12 @@ EOF
 ```bash
 sudo chmod 644 /usr/share/applications/panic.desktop
 ```
+
+> [!NOTE]
+> Create the user icon directory hierarchy and copy downloaded 256px (256x256) and 512px (256x256@2x) PNG assets into their respective destination paths (replace PATH-TO-FILES with your actual path):
+> ```bash
+> mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
+> ```
 
 Next, let's configure global hotkeys for emergency execution. The setup steps differ slightly depending on the chosen mode. Open **Settings**, navigate to **Keyboard**, scroll to the bottom to click **View and Customize Shortcuts**, scroll down again to select **Custom Shortcuts**, and click **+**.
 
