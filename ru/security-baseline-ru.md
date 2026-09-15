@@ -163,6 +163,17 @@
   * [Шпаргалка по флагам Bubblewrap (Справочник):](#шпаргалка-по-флагам-bubblewrap-справочник)
   * [Установка Bubblewrap:](#установка-bubblewrap)
   * [Создание профиля Firefox в Bubblewrap:](#создание-профиля-firefox-в-bubblewrap)
+  * [Запечатываем Document Viewer для чтения PDF в Bubblewrap:](#запечатываем-document-viewer-для-чтения-pdf-в-bubblewrap)
+  * [Оборачиваем в Bubblewrap просмотрщик графических файлов Image Viewer:](#оборачиваем-в-bubblewrap-просмотрщик-графических-файлов-image-viewer)
+  * [Изолируем KeePassXC:](#изолируем-keepassxc)
+  * [Установим и изолируем офисный пакет LibreOffice:](#установим-и-изолируем-офисный-пакет-libreoffice)
+  * [Установка и изоляция GIMP:](#установка-и-изоляция-gimp)
+  * [Установка и изоляция редактора кода VS Codium:](#установка-и-изоляция-редактора-кода-vs-codium)
+  * [Установка и изоляция нейросети LM Studio Bionic:](#установка-и-изоляция-нейросети-lm-studio-bionic)
+  * [Установка и изоляция Telegram:](#установка-и-изоляция-telegram-1)
+  * [Установка и изоляция Signal:](#установка-и-изоляция-signal)
+  * [Установка и изоляция Jabber-клиента Psi+:](#установка-и-изоляция-jabber-клиента-psi-1)
+  * [Установка и изоляция Почтового клиента Thunderbird:](#установка-и-изоляция-почтового-клиента-thunderbird)
 * [Установка Rkhunter и поиск руткитов](#установка-rkhunter-и-поиск-руткитов)
   * [Устанавливаем Chkrootkit в дополнение к Rkhunter:](#устанавливаем-chkrootkit-в-дополнение-к-rkhunter)
 * [Установка и настройка антивирусного сканера ClamAV](#установка-и-настройка-антивирусного-сканера-clamav)
@@ -172,6 +183,7 @@
   * [Организация системного сканирования:](#организация-системного-сканирования)
   * [Многопоточное сканирование (Hardening):](#многопоточное-сканирование-hardening)
 * [Установка и настройка среды виртуализации VirtualBox](#установка-и-настройка-среды-виртуализации-virtualbox)
+  * [Защита от форензики: Изоляция журналов VirtualBox в RAM (`tmpfs`):](#защита-от-форензики-изоляция-журналов-virtualbox-в-ram-tmpfs)
 * [Сжатие и оптимизация виртуальных дисков VDI](#сжатие-и-оптимизация-виртуальных-дисков-vdi)
   * [Введение:](#введение-13)
   * [Зачистка виртуальной машины под управлением Windows:](#зачистка-виртуальной-машины-под-управлением-windows)
@@ -188,6 +200,7 @@
   * [Установка и настройка AIDE:](#установка-и-настройка-aide)
   * [Проведение теста на проникновение (Валидация защиты):](#проведение-теста-на-проникновение-валидация-защиты)
 * [Автоматизированный аудит безопасности системы с помощью Lynis](#автоматизированный-аудит-безопасности-системы-с-помощью-lynis)
+* [Установка и настройка сканера уязвимостей и утечек паролей Trivy](#установка-и-настройка-сканера-уязвимостей-и-утечек-паролей-trivy)
 * [Настройка гостевых систем Ubuntu/Xubuntu/Lubuntu в VirtualBox](#настройка-гостевых-систем-ubuntuxubuntulubuntu-в-virtualbox)
   * [Установка Guest Additions:](#установка-guest-additions)
   * [Установка Mozilla Firefox:](#установка-mozilla-firefox)
@@ -4826,7 +4839,7 @@ firejail keepassxc
 
 **1.** Устанавливаем LibreOffice:
 ```bash
-sudo apt install libreoffice -y
+sudo aptupdate && sudo apt install libreoffice -y
 ```
 
 **2.** Открываем в редакторе `nano` конфиг libreoffice.profile:
@@ -4901,7 +4914,7 @@ firejail libreoffice --base
 
 **1.** Установим GIMP:
 ```bash
-sudo apt install gimp -y
+sudo aptupdate && sudo apt install gimp -y
 ```
 
 Допустим, мы скачали сомнительный графический файл для дальнейшего редактирования ~/Downloads/unsafe.png.
@@ -5056,14 +5069,14 @@ sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "htt
 > [!TIP]
 > **Совет от автора:** Файл весит ~1 ГБ, поэтому дождитесь 100% завершения шкалы загрузки в терминале. Благодаря статическому URL-адресу, команда всегда будет выкачивать самую актуальную сборку нейросети.
 
-**2.** Выдаем скачанному файлу легитипные права на исполнение в системе и извлекаем его внутреннюю структуру во временную директорию пользователя:
+**2.** Выдаем файлу права на исполнение, распаковываем его во временный каталог и переносим бинарники в пользовательскую директорию:
 ```bash
-chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract
+chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract && rm -rf ~/.lmstudio_gui && cp -rL squashfs-root ~/.lmstudio_gui && rm -rf squashfs-root LM-Studio.AppImage AppDir
 ```
 
-**3.** Переносим извлеченные файлы графической оболочки из временной папки в скрытый изолированный каталог нашего профиля:
+**3.** Подготавливаем скрытые папки конфигурации и загрузки моделей в домашней директории:
 ```bash
-mv squashfs-root ~/.lmstudio_gui
+mkdir -p ~/.config/LMStudio ~/.cache/lm-studio ~/.lmstudio ~/Documents && chmod -R 755 ~/.lmstudio_gui
 ```
 
 **4.** Создаем папку, если не создана, и открываем конфиг в редакторе nano:
@@ -5254,19 +5267,14 @@ shred -u -v -n 3 ~/Downloads/my_PRIVATE_key.asc
 
 Так как у нас прописаны жесткие настройки в UFW, нам потребуется добавить правила:
 
-**1.** Открываем стандартный порт XMPP (5222) на выход ко всем серверам для базового подключения Psi+:
+**1.** Открываем порты XMPP (5222 и 5223) на выход ко всем серверам для базового подключения Psi+:
 ```bash
-sudo ufw allow out to any port 5222 proto tcp
-```
-
-**2.** Опциональный порт для серверов с таким способом подключения. Открываем защищенный TLS-порт XMPP (5223) на выход ко всем серверам для безопасного соединения:
-```bash
-sudo ufw allow out to any port 5223 proto tcp
+sudo ufw allow out to any port 5222 proto tcp && sudo ufw allow out to any port 5223 proto tcp
 ```
 
 * **Для пользователей Ubuntu 24.04 LTS Noble Numbat:**
 
-**3a.** Дефолтный нативный пакет в репозиториях Ubuntu 24.04 страдает от критических ошибок линковки Qt-библиотек к дисплейному серверу Wayland (что приводит к аварийному падению *Segmentation fault*). Чтобы обойти этот системный баг, мы принудительно подключаем официальный PPA-репозиторий разработчиков Psi+, выкачиваем адаптированную стабильную сборку мессенджера версии Psi+ v1.5.2068, пак плагинов (включая OMEMO) и системную базу GnuPG одной командой:
+**2.** Дефолтный нативный пакет в репозиториях Ubuntu 24.04 страдает от критических ошибок линковки Qt-библиотек к дисплейному серверу Wayland (что приводит к аварийному падению *Segmentation fault*). Чтобы обойти этот системный баг, мы принудительно подключаем официальный PPA-репозиторий разработчиков Psi+, выкачиваем адаптированную стабильную сборку мессенджера версии Psi+ v1.5.2068, пак плагинов (включая OMEMO) и системную базу GnuPG одной командой:
 ```bash
 sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
 ```
@@ -5279,14 +5287,14 @@ sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt insta
 
 **Вариант 1:**
 
-**3b1** Psi+ версии 1.4.1456 без проблем устанавливается из стандартного репозитория одной командой:
+**2.** Psi+ версии 1.4.1456 без проблем устанавливается из стандартного репозитория одной командой:
 ```bash
 sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
 ```
 
 **Вариант 2:**
 
-**3.b2-1.** Скачиваем .deb пакет из авторского репозитория `github.com/eugexo`:
+**2.** Скачиваем .deb пакет из авторского репозитория `github.com/eugexo`:
 ```bash
 wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 ```
@@ -5310,7 +5318,7 @@ wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_ass
 > ```
 > Совпадение SHA-256 с известной контрольной суммой подтверждает целостность полученного файла относительно проверенного эталона, но само по себе не доказывает безопасность программы. Поэтому контрольная сумма является одним из уровней проверки, а не абсолютной гарантией доверия к пакету.
 
-**3.b2-2.** После проверки контрольной суммы запускаем установку Psi+. При установке Ubuntu подтянет недостающие библиотеки в систему для корректной работы клиента:
+**3.** После проверки контрольной суммы запускаем установку Psi+. При установке Ubuntu подтянет недостающие библиотеки в систему для корректной работы клиента:
 ```bash
 sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
 ```
@@ -5582,7 +5590,6 @@ EOF
 ```
 
 * Отредактируем административный ярлык **Mozilla Firefox для работы без песочницы** (для скачивания тяжелых файлов). Ему мы присвоим нашу бронзовую кастомную иконку лисы:
-
 ```bash
 sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
@@ -5631,13 +5638,9 @@ sudo sed -i 's|^Exec=loupe.*$|Exec=firejail loupe %U|; s|^DBusActivatable=true$|
 grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-* Изменим ИБ-ярлык для **KeePassXC**, связав его с базой и закрыв доступ извне (по желанию сохраним backup стандартного профиля):
+* Изменим ИБ-ярлык для **KeePassXC**, связав его с базой и закрыв доступ извне сохранив backup стандартного профиля:
 ```bash
-sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak
-```
-
-```bash
-sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
 ```
 
 * Генерируем ИБ-ярлыки **LibreOffice** для работы программы по умолчанию :
@@ -5807,7 +5810,7 @@ sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x25
 for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
 ```
 
-Восстановить стандартные права чтения для системных иконок:
+Восстановим стандартные права чтения для системных иконок:
 ```bash
 sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
 ```
@@ -5968,7 +5971,7 @@ rm -rf ~/.sandbox_overlay
 
 #### Введение:
 
-Несмотря на то что мы уже настроили **Firejail**, который для многих является сложным в освоении, с точки зрения информационной безопасности мы обязаны разобрать Bubblewrap (bwrap).
+Несмотря на то что для изоляции приложений в песочнице мы рассматриваем **Firejail**, который для многих является сложным в освоении, с точки зрения информационной безопасности мы обязаны разобрать **Bubblewrap** (bwrap) имеющего ряд преимуществ.
 
 Главный козырь **Bubblewrap** перед **Firejail** это его минимализм. В отличие от монолитного **Firejail**, содержащего десятки тысяч строк кода, сложный парсер профилей и работа через SUID (что приводило к локальным повышением привилегий), bwrap спроектирован как лаконичная и легко-аудируемая утилита. Он не содержит никакой бизнес-логики или встроенных правил: инструмент полагается исключительно на непривилегированные пространства имён ядра Linux (Unprivileged User Namespaces).
 
@@ -6047,6 +6050,11 @@ EOF
 sudo systemctl reload apparmor
 ```
 
+* Разворачиваем скрытую локальную директорию иконок пользователя и принудительно перемещаем туда наши скачанные PNG на 256px (256x256) и 512px (512x512) соответственно:
+```bash
+mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
+```
+
 #### Создание профиля Firefox в Bubblewrap:
 
 **1.** Если у нас нет созданного профиля *mozilla-hardened* для Firejail, создаем его, но уже для Bubblewrap: 
@@ -6115,12 +6123,17 @@ Type=Application
 Name=Firefox (Secure Sandbox)
 Comment=Amnesic Hardened Firefox inside Bubblewrap
 Exec=/usr/local/bin/firefox-bwrap.sh %u
-Icon=firefox-secure
+Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-secure.png
 Terminal=false
 StartupNotify=true
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 EOF
+```
+
+* Отредактируем административный ярлык Mozilla Firefox для работы без песочницы (для скачивания тяжелых файлов). Ему мы присвоим нашу бронзовую кастомную иконку лисы:
+```bash
+sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
 
 **6.** Задаем права на desktop файл (при возникновении проблемы с правами):
@@ -6133,24 +6146,968 @@ sudo chmod 644 /usr/share/applications/firefox-secure.desktop
 sudo update-desktop-database ~/.local/share/applications && gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor 2>/dev/null || true
 ```
 
+> [!TIP]
+> Для автоматизации создания шеллов-оберток и установки корректных прав доступа (755) при строгой umask, можем использовать единую конструкцию sudo bash -c. Для этого копируем и выполняем нижеследующий блок в терминале подставив туда свой скрипт:
+> ```bash
+> sudo bash -c 'cat << "EOF" > /usr/local/bin/НАЗВАНИЕ_СКРИПТА.sh
+> #!/bin/bash
+> # ТЕЛО_СКРИПТА
+> EOF' && sudo chmod 755 /usr/local/bin/НАЗВАНИЕ_СКРИПТА.sh
+> ```
 
+#### Запечатываем Document Viewer для чтения PDF в Bubblewrap:
 
+**1.** Создадим скрипт обертку для **Document Viewer (Evince/Papers)**:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/pdf-bwrap.sh
+#!/usr/bin/env bash
+exec /usr/bin/bwrap \
+  --die-with-parent \
+  --unshare-all \
+  --dev /dev \
+  --proc /proc \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind /lib64 /lib64 \
+  --ro-bind /etc /etc \
+  --tmpfs /tmp \
+  --tmpfs /run \
+  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
+  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+  --ro-bind "$1" "$1" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
+  /usr/bin/papers "$@" 2>/dev/null || /usr/bin/evince "$@"
+EOF' && sudo chmod 755 /usr/local/bin/pdf-bwrap.sh
+```
 
+**2.** Делаем скрипт исполняемым:
+```bash
+sudo chmod +x /usr/local/bin/pdf-bwrap.sh
+```
 
+**3.** Привяжем программу к постоянному запуску через Bubblewrap:
 
+* **Для пользователей Ubuntu 24.04 LTS Noble Numbat:**
 
+Прописываем правила запуска в ярлык **Document Viewer Evince** для работы программы в песочнице firejail:
+```bash
+sudo sed -i 's|^Exec=evince.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Evince.desktop
+```
 
+Проведем проверку изменений:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
+```
 
+* **Для пользователей Ubuntu 26.04 LTS Resolute Racoon:**
 
+Прописываем правила запуска в ярлык **Document Viewer Papers** для работы программы в песочнице firejail:
+```bash
+sudo sed -i 's|^Exec=papers.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Papers.desktop
+```
 
+Проведем проверку изменений:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
+```
 
+#### Оборачиваем в Bubblewrap просмотрщик графических файлов Image Viewer:
 
+**1.** Создадим скрипт обертку для Image Viewer (Loupe/EOG):
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/image-bwrap.sh
+#!/usr/bin/env bash
+exec /usr/bin/bwrap \
+  --die-with-parent \
+  --unshare-all \
+  --dev /dev \
+  --proc /proc \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind /lib64 /lib64 \
+  --ro-bind /etc /etc \
+  --tmpfs /tmp \
+  --tmpfs /run \
+  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
+  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+  --ro-bind "$1" "$1" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
+  /usr/bin/loupe "$@" 2>/dev/null || /usr/bin/eog "$@"
+EOF' && sudo chmod 755 /usr/local/bin/image-bwrap.sh
+```
 
+**2.** Делаем скрипт исполняемым:
+```bash
+sudo chmod +x /usr/local/bin/image-bwrap.sh
+```
 
+**3.** Привязываем программу к постоянному запуску через Bubblewrap:
 
+* **Для пользователей Ubuntu 24.04 LTS Noble Numbat:**
 
+Прописываем правила запуска в ярлык **Image Viever Eog** для работы программы в песочнице firejail:
+```bash
+sudo sed -i 's|^Exec=eog.*$|Exec=/usr/local/bin/image-bwrap.sh %U|' /usr/share/applications/org.gnome.eog.desktop
+```
 
+Проведем проверку изменений:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.eog.desktop
+```
 
+* **Для пользователей Ubuntu 26.04 LTS Resolute Racoon:**
+
+Прописываем правила запуска в ярлык **Image Viever Loupe** для работы программы в песочнице firejail:
+```bash
+sudo sed -i 's|^Exec=loupe.*$|Exec=/usr/local/bin/image-bwrap.sh %U|; s|^DBusActivatable=true$|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
+```
+
+Проведем проверку изменений:
+```bash
+grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
+```
+
+#### Изолируем KeePassXC:
+
+**1.** Изолируем KeePassXC через шелл (keepassxc-bwrap.sh):
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/keepassxc-bwrap.sh
+#!/bin/bash
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/.config/KeePassXC" "$HOME/.config/KeePassXC" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --unshare-all \
+  --share-net=none \
+  --die-with-parent \
+  -- /usr/bin/keepassxc "$@"
+EOF' && sudo chmod 755 /usr/local/bin/keepassxc-bwrap.sh
+```
+
+**2.** Повышаем права чтобы скрипт был исполняемым:
+```bash
+sudo chmod +x /usr/local/bin/keepassxc-bwrap.sh
+```
+
+* Изменим ярлык для **KeePassXC**, связав его с базой и закрыв доступ извне сохранив backup стандартного профиля:
+```bash
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+```
+
+#### Установим и изолируем офисный пакет LibreOffice:
+
+**1.** Установка пакета:
+```bash
+sudo apt update && sudo apt install -y libreoffice
+```
+
+**2.** Создание единой обертки libreoffice-bwrap.sh:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/libreoffice-bwrap.sh
+#!/bin/bash
+# Создаем рабочую папку для документов, если ее нет
+mkdir -p "$HOME/Documents" "$HOME/.config/libreoffice"
+
+# Запуск LibreOffice в песочнице без сети на чистом Wayland
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/Documents" "$HOME/Documents" \
+  --bind "$HOME/.config/libreoffice" "$HOME/.config/libreoffice" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv SAL_USE_VCLPLUGIN "gtk3" \
+  --setenv GDK_BACKEND "wayland" \
+  --unshare-net \
+  --die-with-parent \
+  -- /usr/bin/libreoffice "$@"
+EOF' && sudo chmod 755 /usr/local/bin/libreoffice-bwrap.sh
+```
+
+* Переопределение ярлыка запуска в системном меню:
+```bash
+sudo bash -c 'mkdir -p /usr/local/share/applications && for f in /usr/share/applications/libreoffice-*.desktop; do name=$(basename "$f"); sed "s|^Exec=libreoffice|Exec=/usr/local/bin/libreoffice-bwrap.sh|" "$f" > "/usr/local/share/applications/$name"; done && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/libreoffice-*.desktop
+```
+
+#### Установка и изоляция GIMP:
+
+**1.** Установка GIMP:
+```bash
+sudo apt update && sudo apt install -y gimp
+```
+
+**2.** Создание изолирующего оболочечного скрипта (gimp-bwrap.sh) с отключением сети с прямым доступом к видеокарте:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/gimp-bwrap.sh
+#!/bin/bash
+# Автоматическое создание рабочих каталогов
+mkdir -p "$HOME/Pictures" "$HOME/.config/GIMP"
+
+# Запуск GIMP в песочнице Bubblewrap (без сети, чистый Wayland, ускорение GPU)
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/Pictures" "$HOME/Pictures" \
+  --bind "$HOME/.config/GIMP" "$HOME/.config/GIMP" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  --unshare-net \
+  --die-with-parent \
+  -- /usr/bin/gimp "$@"
+EOF' && sudo chmod 755 /usr/local/bin/gimp-bwrap.sh
+```
+
+* Переопределение ярлыка запуска в системном меню:
+```bash 
+sudo bash -c 'mkdir -p /usr/local/share/applications && sed "s|^Exec=gimp|Exec=/usr/local/bin/gimp-bwrap.sh|" /usr/share/applications/gimp.desktop > /usr/local/share/applications/gimp.desktop && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/gimp.desktop
+```
+
+#### Установка и изоляция редактора кода VS Codium:
+
+**1.** Устанавливаем необходимые системные утилиты, переходим в каталог загрузок и скачиваем самый свежий стабильный AppImage-контейнер VS Codium с официального репозитория:
+```bash
+sudo apt install curl jq -y && cd ~/Downloads && API_HOST="api.github.com" && LATEST_URL=$(curl -s "https://${API_HOST}/repos/VSCodium/vscodium/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E 'x86_64.*\.AppImage$' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
+```
+
+**2.** Делаем скачанный файл исполняемым, распаковываем AppImage-контейнер с принудительным сбросом маски `umask 022`, переносим полученные бинарники в системный каталог `/opt/` и подготавливаем скрытые папки настроек в домашней директории:
+```bash
+chmod +x VSCodium.AppImage && (umask 022 && ./VSCodium.AppImage --appimage-extract) && sudo rm -rf /opt/vscodium && sudo cp -rL squashfs-root /opt/vscodium && rm -rf squashfs-root VSCodium.AppImage AppDir && (umask 022 && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions ~/.vscode-oss-shared)
+```
+
+**3.** Назначаем корректные права на каталог `/opt/vscodium`, восстанавливаем SUID-бит для встроенной хром-песочницы и рекурсивно передаем права на конфигурационные папки текущему пользователю и его реальной основной группе (учитывая `USERGROUPS_ENAB no`):
+```bash
+sudo chown -R root:root /opt/vscodium && sudo chmod -R 755 /opt/vscodium && sudo chmod 4755 /opt/vscodium/chrome-sandbox && sudo chown -R $USER:$(id -gn) ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared && chmod -R 755 ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
+```
+
+**4.** Создаем скрипт для **VS Codium (Online)** для обслуживания и обновления плагинов и программы:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-online.sh
+#!/bin/bash
+mkdir -p "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind /opt/vscodium /opt/vscodium \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
+  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
+  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/codium-online.sh
+```
+
+* Прописываем к ней ярлык с нашей кастомной иконкой с онлайн доступом:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/codium-online.desktop
+[Desktop Entry]
+Name=VSCodium (Maintenance / Online)
+Comment=Install Extensions and Sync
+Exec=/usr/local/bin/codium-online.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-online.png
+Terminal=false
+Type=Application
+StartupWMClass=vscodium
+Categories=Development;
+EOF' && sudo chmod 644 /usr/local/share/applications/codium-online.desktop
+```
+
+**5.** Создаем скрипт для **VS Codium (Offline)** для безопасной работы с проектами и исходниками:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-offline.sh
+#!/bin/bash
+mkdir -p "$HOME/Documents" "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind /opt/vscodium /opt/vscodium \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --unshare-net \
+  --bind "$HOME/Documents" "$HOME/Documents" \
+  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
+  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
+  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/codium-offline.sh
+```
+
+* Прописываем к ней ярлык с нашей кастомной оффлайновой иконкой:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/codium-offline.desktop
+[Desktop Entry]
+Name=VSCodium (Workspace / Offline)
+Comment=Secure Sandbox Working Environment
+Exec=/usr/local/bin/codium-offline.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
+Terminal=false
+Type=Application
+StartupWMClass=vscodium
+Categories=Development;
+EOF' && sudo chmod 644 /usr/local/share/applications/codium-offline.desktop
+```
+
+#### Установка и изоляция нейросети LM Studio Bionic
+
+**1.** Скачиваем актуальный AppImage-контейнер напрямую с официального сервера разработчиков:
+```bash
+sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "https://lmstudio.ai/download/latest/linux/x64?format=AppImage"
+```
+
+**2.** Выдаем файлу права на исполнение, распаковываем его во временный каталог и переносим бинарники в пользовательскую директорию:
+```bash
+chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract && rm -rf ~/.lmstudio_gui && cp -rL squashfs-root ~/.lmstudio_gui && rm -rf squashfs-root LM-Studio.AppImage AppDir
+```
+
+**3.** Подготавливаем скрытые папки конфигурации и загрузки моделей в домашней директории:
+```bash
+mkdir -p ~/.config/LMStudio ~/.cache/lm-studio ~/.lmstudio ~/Documents && chmod -R 755 ~/.lmstudio_gui
+```
+
+**4.** Создаем скрипт для LM Studio (Online) для скачивания моделей с Hugging Face с сетью но без доступа к файлам и GPU:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-online.sh
+#!/bin/bash
+mkdir -p "$HOME/.config/LMStudio" "$HOME/.cache/lm-studio" "$HOME/.lmstudio" "$HOME/.lmstudio_gui"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --ro-bind "$HOME/.lmstudio_gui" "$HOME/.lmstudio_gui" \
+  --bind "$HOME/.config/LMStudio" "$HOME/.config/LMStudio" \
+  --bind "$HOME/.cache/lm-studio" "$HOME/.cache/lm-studio" \
+  --bind "$HOME/.lmstudio" "$HOME/.lmstudio" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- "$HOME/.lmstudio_gui/lm-studio" --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/lmstudio-online.sh
+```
+
+* Прописываем к нему Online ярлык:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/lmstudio-online.desktop
+[Desktop Entry]
+Name=LM Studio (Downloader / Online)
+Comment=Download LLM models safely without GPU access
+Exec=/usr/local/bin/lmstudio-online.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/lm-unsecure.png
+Terminal=false
+Type=Application
+Categories=Utility;Science;ArtificialIntelligence;
+EOF' && sudo chmod 644 /usr/local/share/applications/lmstudio-online.desktop
+```
+
+**5.** Создаем скрипт для LM Studio (Offline) с аппаратно проброшенной Видеокартой, без доступа к интернету:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-offline.sh
+#!/bin/bash
+mkdir -p "$HOME/Documents" "$HOME/.config/LMStudio" "$HOME/.cache/lm-studio" "$HOME/.lmstudio" "$HOME/.lmstudio_gui"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --unshare-net \
+  --bind /dev/dri /dev/dri \
+  --ro-bind-try /sys /sys \
+  --ro-bind "$HOME/.lmstudio_gui" "$HOME/.lmstudio_gui" \
+  --bind "$HOME/Documents" "$HOME/Documents" \
+  --bind "$HOME/.config/LMStudio" "$HOME/.config/LMStudio" \
+  --bind "$HOME/.cache/lm-studio" "$HOME/.cache/lm-studio" \
+  --bind "$HOME/.lmstudio" "$HOME/.lmstudio" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- "$HOME/.lmstudio_gui/lm-studio" --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/lmstudio-offline.sh
+```
+
+* Прописываем к нему offline ярлык:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/lmstudio-offline.desktop
+[Desktop Entry]
+Name=LM Studio (Inference / Offline)
+Comment=Secure Local LLM Execution with Hardware Acceleration
+Exec=/usr/local/bin/lmstudio-offline.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/lm-secure.png
+Terminal=false
+Type=Application
+Categories=Utility;Science;ArtificialIntelligence;
+EOF' && sudo chmod 644 /usr/local/share/applications/lmstudio-offline.desktop
+```
+
+#### Установка и изоляция Telegram Desktop:
+
+**1.** Переходим в каталог загрузок, скачиваем официальный стабильный архив мессенджера одной командой напрямую через официальный шлюз `telegram.org`, распаковываем его структуру, переносим чистый исполняемый файл в каноничный системный каталог путей `/usr/bin/` и автоматически удаляем за собой весь временный мусор:
+```bash
+sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "https://telegram.org/dl/desktop/linux" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
+```
+
+Команда через утилиту `curl -L` послушно последует за HTTP-редиректом официального шлюза скачивания, выкачает оригинальный тяжелый Tarball последней версии, распакует его и переместит чистый статический бинарник в каталог `/usr/bin/` под именем `telegram-desktop`. Это легитимный путь выполнения в ядре Linux, что гарантирует бесконфликтный запуск исполняемого файла графической оболочкой.
+
+**2.** Чтобы скачанные из чатов файлы не разлетались по всему диску, создаем для них выделенный безопасный шлюз в каталоге пользователя:
+```bash
+mkdir -p ~/Downloads/Telegram_Downloads
+```
+
+**3.** Обеспечение целостности исполняемого файла (POSIX-защита):
+```bash
+sudo chown root:root /usr/bin/telegram-desktop
+```
+
+**4.** Выставим права на исполнение (Принцип наименьших привилегий):
+```bash
+sudo chmod 755 /usr/bin/telegram-desktop
+```
+
+**5.** Создаем скрипт-обертку /usr/local/bin/telegram-bwrap.sh:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/telegram-bwrap.sh
+#!/bin/bash
+mkdir -p "$HOME/Downloads/Telegram_Downloads" "$HOME/.local/share/TelegramDesktop" "$HOME/.config/TelegramDesktop"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/Downloads/Telegram_Downloads" "$HOME/Downloads/Telegram_Downloads" \
+  --bind "$HOME/.local/share/TelegramDesktop" "$HOME/.local/share/TelegramDesktop" \
+  --bind "$HOME/.config/TelegramDesktop" "$HOME/.config/TelegramDesktop" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv QT_QPA_PLATFORM "wayland" \
+  --die-with-parent \
+  -- /usr/bin/telegram-desktop "$@"
+EOF' && sudo chmod 755 /usr/local/bin/telegram-bwrap.sh
+```
+
+* Ярлык запуска /usr/local/share/applications/telegram-bwrap.desktop:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/telegram-bwrap.desktop
+[Desktop Entry]
+Name=Telegram Desktop (Sandbox)
+Comment=Official Telegram Desktop client in bwrap sandbox
+Exec=/usr/local/bin/telegram-bwrap.sh -- %u
+Icon=/home/$USER/.local/share/icons/256x256@2x/telegram-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+MimeType=x-scheme-handler/tg;
+Keywords=tg;chat;messaging;messenger;sms;telecom;telephony;
+StartupWMClass=telegram-desktop
+EOF' && sudo chmod 644 /usr/local/share/applications/telegram-bwrap.desktop
+```
+
+#### Установка и изоляция Signal:
+
+**1.** Скачивание дистрибутива, подписи и публичного ключа:
+```bash
+curl -L -O https://updates.signal.org/desktop/signal-desktop.AppImage && curl -s -o signal-appimage.asc https://updates.signal.org/static/desktop/appimage.asc && gpg --import signal-appimage.asc && curl -L -O https://updates.signal.org/desktop/signal-desktop.AppImage.gpg && gpg --verify signal-desktop.AppImage.gpg signal-desktop.AppImage
+```
+
+**2.** Распаковка и размещение в /opt/signal:
+```bash
+chmod +x signal-desktop.AppImage && ./signal-desktop.AppImage --appimage-extract && sudo rm -rf /opt/signal && sudo mv squashfs-root /opt/signal && sudo chmod -R 755 /opt/signal && rm -rf signal-desktop.AppImage signal-desktop.AppImage.gpg signal-appimage.asc
+```
+
+**3.**Постоянная изоляция Signal Messenger через shell (signal-bwrap.sh):
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/signal-bwrap.sh
+#!/bin/bash
+# Автоматическое создание рабочей папки профиля
+mkdir -p "$HOME/.config/Signal"
+
+# Запуск Signal из /opt/signal в песочнице Bubblewrap
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind /opt/signal /opt/signal \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/.config/Signal" "$HOME/.config/Signal" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --share-net \
+  --die-with-parent \
+  -- /opt/signal/signal-desktop --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/signal-bwrap.sh
+```
+
+**4.** Создадим ярлык Signal и поставим нашу кастомную иконку:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/share/applications/signal-bwrap.desktop
+[Desktop Entry]
+Name=Signal (Sandbox)
+Comment=Private messaging application in Bubblewrap
+Exec=/usr/local/bin/signal-bwrap.sh %U
+Icon=/home/$USER/.local/share/icons/256x256@2x/signal-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+StartupWMClass=Signal
+EOF' && sudo chmod 644 /usr/share/applications/signal-bwrap.desktop
+```
+
+#### Установка и изоляция Jabber-клиента Psi+:
+
+Так как у нас прописаны жесткие настройки в UFW, нам потребуется добавить правила:
+
+**1.** Открываем порты XMPP (5222 и 5223) на выход ко всем серверам для базового подключения Psi+:
+```bash
+sudo ufw allow out to any port 5222 proto tcp && sudo ufw allow out to any port 5223 proto tcp
+```
+
+* **Для пользователей Ubuntu 24.04 LTS Noble Numbat:**
+
+**2.** Дефолтный нативный пакет в репозиториях Ubuntu 24.04 страдает от критических ошибок линковки Qt-библиотек к дисплейному серверу Wayland (что приводит к аварийному падению *Segmentation fault*). Чтобы обойти этот системный баг, мы принудительно подключаем официальный PPA-репозиторий разработчиков Psi+, выкачиваем адаптированную стабильную сборку мессенджера версии Psi+ v1.5.2068, пак плагинов (включая OMEMO) и системную базу GnuPG одной командой:
+```bash
+sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
+```
+
+* **Для пользователей Ubuntu 26.04 LTS Resolute Racoon:**
+
+В Ubuntu 26.04 штатный Psi+ представлен веткой 1.4.1456. Требуемую версию 1.5.2068 нельзя было просто перенести из Noble: готовые Noble-плагины были собраны против устаревших ABI. Поэтому Psi+ 1.5.2068 был пересобран непосредственно на Ubuntu 26.04 Resolute из исходного архива версии 1.5.2068. Клиент и плагины были затем объединены в единый пакет psi-plus-resolute-client-and-plugins_1.5.2068-1~resolute1_amd64.deb. В результате OMEMO, OTR и OpenPGP используют библиотеки, доступные непосредственно в Resolute, без переноса старых Noble-библиотек.
+
+У нас есть два пути установки. Первый вариант это установить из штатного репозитория более старую, но в целом рабочую версию клиента Psi+ v1.4.1456. Тогда как второй вариант подразумевает установку версии из авторского Github репозитория книги собранную мной на основе версии `noble`.
+
+**Вариант 1:**
+
+**2А.** Psi+ версии 1.4.1456 без проблем устанавливается из стандартного репозитория одной командой:
+```bash
+sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
+```
+
+**Вариант 2:**
+
+**2Б.** Скачиваем .deb пакет из авторского репозитория `github.com/eugexo`:
+```bash
+wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+```
+
+> [!IMPORTANT]
+> Перед установкой готового `.deb` не будем просто безоговорочно доверять полученному файлу. Сначала проверим его контрольную сумму и содержимое. Это не доказывает отсутствие вредоносного кода, но позволяет убедиться в целостности файла и понять, что именно мы собираемся установить. **Эта процедура должна применяться к любым недоверенным источникам (особенно неофициальным).**
+> 
+> Проверяем SHA-256 контрольную сумму пакета:
+> ```bash
+> sha256sum psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+> ```
+> 
+> Просматриваем метаданные .deb перед установкой:
+> ```bash
+> dpkg-deb -I psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+> ```
+> 
+> Проверяем содержимое пакета:
+> ```bash
+> dpkg-deb -c psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+> ```
+> Совпадение SHA-256 с известной контрольной суммой подтверждает целостность полученного файла относительно проверенного эталона, но само по себе не доказывает безопасность программы. Поэтому контрольная сумма является одним из уровней проверки, а не абсолютной гарантией доверия к пакету.
+
+**3.** После проверки контрольной суммы запускаем установку Psi+. При установке Ubuntu подтянет недостающие библиотеки в систему для корректной работы клиента:
+```bash
+sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
+```
+
+Далее переходим к изоляции нашего Psi+ Jabber-клиента в песочнице **Bubblewrap**.
+
+**4.** Создаем изолирующий скрипт /usr/local/bin/psi-bwrap.sh:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/psi-bwrap.sh
+#!/bin/bash
+mkdir -p "$HOME/Downloads/Psi_Downloads" \
+         "$HOME/.config/psi-plus" \
+         "$HOME/.local/share/psi-plus" \
+         "$HOME/.gnupg"
+
+XAUTH="${XAUTHORITY:-$HOME/.Xauthority}"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind-try /var /var \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/Downloads/Psi_Downloads" "$HOME/Downloads/Psi_Downloads" \
+  --bind "$HOME/.config/psi-plus" "$HOME/.config/psi-plus" \
+  --bind "$HOME/.local/share/psi-plus" "$HOME/.local/share/psi-plus" \
+  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/at-spi" "$XDG_RUNTIME_DIR/at-spi" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
+  --ro-bind-try "$XAUTH" "$XAUTH" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "$XAUTH" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv QT_QPA_PLATFORM "xcb" \
+  --die-with-parent \
+  -- /usr/bin/psi-plus "$@"
+EOF' && sudo chmod 755 /usr/local/bin/psi-bwrap.sh
+```
+
+* Создаем ярлык /usr/local/share/applications/psi-bwrap.desktop:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/psi-bwrap.desktop
+[Desktop Entry]
+Name=Psi+ (Sandbox)
+Comment=Jabber/XMPP Client in bwrap sandbox
+Exec=/usr/local/bin/psi-bwrap.sh %u
+Icon=/home/$USER/.local/share/icons/256x256@2x/psi-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+StartupWMClass=psi-plus
+EOF' && sudo chmod 644 /usr/local/share/applications/psi-bwrap.desktop
+```
+
+#### Установка и изоляция Почтового клиента Thunderbird:
+
+**1.** Дефолтный пакет `thunderbird` в репозиториях Ubuntu является транзитной пустышкой, которая принудительно требует наличия вырезанной нами пакетной базы `snapd`. Чтобы обойти этот системный дедлок и заставить пакетный менеджер выкачать чистый бинарник напрямую из репозитория Mozilla Team PPA, мы создаем жесткий конфигурационный файл приоритетов:
+```bash
+sudo tee /etc/apt/preferences.d/mozilla-thunderbird <<EOF
+Package: thunderbird*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+Package: thunderbird*
+Pin: release o=Ubuntu
+Pin-Priority: -10
+EOF
+```
+
+**2.** Защищаем наш будущий нативный пакет от случайного удаления, отката или принудительного замещения Snap-пустышкой при фоновых апдейтах операционной системы:
+
+* **Для пользователей Ubuntu 24.04 LTS Noble Numbat:**
+```bash
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:noble";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
+```
+
+* **Для пользователей Ubuntu 26.04 LTS Resolute Racoon:**
+```bash
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
+```
+
+**3.** Обновляем пакетную базу и устанавливаем нативный Thunderbird:
+```bash
+sudo apt update && sudo apt install thunderbird -y
+```
+
+> [!WARNING]
+> **Категорически запрещено** кликать на иконку Thunderbird, пока система находится в онлайне. При первом же старте «птичка» мгновенно выбросит в сеть пакеты первичной телеметрии.
+
+**4.** Полностью отключаем интернет, чтобы почтовик не успел «позвонить домой» при инициализации, и запускаем Thunderbird для первичного создания внутренней структуры профиля:
+```bash
+nmcli networking off
+```
+
+**После выполнения команды запускаем Thunderbird руками из меню приложений.** Ждем 2-3 секунды пока он сгенерирует папки, после чего полностью закроем программу.
+
+**5.** Переходим в созданную UUID-директорию профиля и инициализируем чистый конфигурационный файл:
+```bash
+cd ~/.thunderbird/*default-release && touch user.js
+```
+
+**6.** Открываем созданный `user.js` в терминальном редакторе `nano`:
+```bash
+nano user.js
+```
+
+**7.** Скопируем наш ультимативный OPSEC-массив настроек безопасности, полностью ослепляющий модули слежки ядра Gecko, и вставляем его целиком в окно редактора:
+```javascript
+// ============================================================================
+// HARDENING CONFIG FOR MOZILLA THUNDERBIRD (USER.JS)
+// ОПТИМИЗИРОВАННЫЙ OPSEC-КОНТУР ТИШИНЫ И КОНФИДЕНЦИАЛЬНОСТИ ПОЧТЫ
+// ============================================================================
+
+// 1. ТОТАЛЬНОЕ ВЫРЕЗАНИЕ СИСТЕМНОЙ ТЕЛЕМЕТРИИ И ОТЧЕТОВ СБОЕВ (BREAKPAD)
+user_pref("toolkit.telemetry.unified", false);
+user_pref("toolkit.telemetry.enabled", false);
+user_pref("toolkit.telemetry.archive.enabled", false);
+user_pref("toolkit.telemetry.rejected", true);
+user_pref("toolkit.telemetry.server", "data:text/plain,");
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("datareporting.healthreport.service.enabled", false);
+user_pref("browser.tabs.crashReporting.sendReport", false);
+user_pref("toolkit.crashreporter.enabled", false);
+user_pref("breakpad.reportURL", "data:text/plain,");
+user_pref("security.ssl.errorReporting.automatic", false);
+user_pref("network.allow-experiments", false);
+
+// Очистка истории сборок и уникальных UUID-идентификаторов профиля (DAU)
+user_pref("toolkit.telemetry.cachedClientID", "");
+user_pref("toolkit.telemetry.cachedProfileGroupID", "");
+user_pref("toolkit.telemetry.previousBuildID", "");
+user_pref("datareporting.dau.cachedUsageProfileGroupID", "");
+user_pref("datareporting.dau.cachedUsageProfileID", "");
+
+// 2. ОТКЛЮЧЕНИЕ СКРЫТЫХ ИССЛЕДОВАНИЙ (MOZILLA STUDIES/EXPERIMENTS/NIMBUS)
+user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("app.normandy.enabled", false);
+user_pref("app.normandy.api_url", "");
+user_pref("nimbus.telemetry.targetingContextEnabled", false);
+
+// 3. БАЗОВАЯ КОНФИДЕНЦИАЛЬНОСТЬ И БЛОКИРОВКА ТРЕКЕРОВ В ПИСЬМАХ
+user_pref("privacy.trackingprotection.enabled", true);
+user_pref("privacy.trackingprotection.socialtracking.enabled", true);
+user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
+user_pref("dom.private-attribution.submission.enabled", false);
+user_pref("dom.netinfo.enabled", false);
+user_pref("beacon.enabled", false);
+
+// 4. ЗАПРЕТ ФОНОВОЙ АКТИВНОСТИ СЕТИ И ПРЕДЗАГРУЗОК (PREDICTION/PREFETCH)
+user_pref("network.predictor.enabled", false);
+user_pref("network.predictor.enable-hover", false);
+user_pref("network.prefetch-next", false);
+user_pref("network.dns.disablePrefetch", true);
+user_pref("network.dns.disablePrefetchFromHTTPS", true);
+user_pref("network.http.speculative-parallel-limit", 0);
+
+// 5. ОЧИСТКА ОТ РЕКОМЕНДАЦИЙ И КЭША ДОПОЛНЕНИЙ
+user_pref("extensions.getAddons.cache.enabled", false);
+user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
+user_pref("browser.discovery.enabled", false);
+
+// 6. ПОЛНЫЙ ПЕРЕНОС КЭША В ОПЕРАТИВНУЮ ПАМЯТЬ (ЗАЩИТА СРОКА СЛУЖБЫ SSD)
+user_pref("browser.cache.disk.enabled", false);
+user_pref("browser.cache.memory.enabled", true);
+user_pref("browser.cache.memory.capacity", 262144);
+
+// 7. ИЗОЛЯЦИЯ ПЕРЕФЕРИИ, СТАРТОВОЙ СТРАНИЦЫ И ЗВОНОК ДОМОЙ
+user_pref("mailnews.start_page.enabled", false);
+user_pref("mailnews.start_page.url", "about:blank");
+user_pref("mail.shell.checkDefaultClient", false);
+user_pref("media.peerconnection.enabled", false);
+user_pref("media.peerconnection.use_document_iceservers", false);
+user_pref("dom.gamepad.enabled", false);
+user_pref("device.sensors.enabled", false);
+
+// 8. ПЕРЕКРЫТИЕ МИКРО-УТЕЧЕК ДАННЫХ И ОЧИСТКА ССЫЛОК (QUERY STRIPPING)
+user_pref("privacy.query_stripping.enabled", true);
+user_pref("privacy.query_stripping.enabled.pbmode", true);
+user_pref("layout.css.font-visibility", 1);
+user_pref("network.http.referer.XOriginPolicy", 2);
+
+// 9. ОПТИМИЗАЦИЯ ИНТЕРФЕЙСА И АППАРАТНОЕ УСКОРЕНИЕ WEBRENDER (НАГРУЗКА НА GPU)
+user_pref("general.smoothScroll", true);
+user_pref("mousewheel.min_line_scroll_amount", 20);
+user_pref("gfx.webrender.all", true);
+user_pref("dom.ipc.processCount", 8);
+
+// 10. МАСКИРОВКА СЕТЕВОГО СЛЕДА И ИЗОЛЯЦИЯ СЛУЖЕБНЫХ ЗАПРОСОВ
+// Пересаживаем внутренний скрытый механизм проверки сетевого коннекта Gecko с коммерческих серверов Cloudflare на защищенный контур Quad9. Дополнительно стираем региональный след (локаль), принудительно маскируя систему под нейтральный регион US
+user_pref("browser.search.region", "US");
+user_pref("geo.enabled", false);
+user_pref("webgl.disabled", true);
+```
+
+Чтобы сохранить конфигурацию в редакторе `nano`, нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, а затем **«Ctrl + X»** для выхода обратно в консоль.
+
+**8.** Запечатываем права доступа, выставляя жесткую POSIX-маску «только чтение для владельца», чтобы ни один фоновый процесс хоста не смог скрытно модифицировать наш ИБ-контур:
+```bash
+chmod 0400 user.js
+```
+
+**9.** Чтобы файлы, скачанные из входящих писем, не разлетались по системе и не смогли скрытно модифицировать системные файлы хоста, инициализируем для них строго выделенный шлюз:
+```bash
+mkdir -p ~/Downloads/Mail_Attachments
+```
+
+**10.** Восстанавливаем соединение с интернетом (где enp0s1 меняем на имя своего интерфейса):
+```bash
+nmcli networking on && nmcli connection up netplan-enp0s1
+``` 
+
+**11.** Собираем итоговый скрипт песочницы для Thunderbird:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/thunderbird-bwrap.sh
+#!/bin/bash
+mkdir -p "$HOME/Downloads/Mail_Attachments" "$HOME/.thunderbird"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind-try /var /var \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/Downloads/Mail_Attachments" "$HOME/Downloads/Mail_Attachments" \
+  --bind "$HOME/.thunderbird" "$HOME/.thunderbird" \
+  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
+  --ro-bind-try "${XAUTHORITY:-$HOME/.Xauthority}" "${XAUTHORITY:-$HOME/.Xauthority}" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "${XAUTHORITY:-$HOME/.Xauthority}" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv MOZ_ENABLE_WAYLAND "1" \
+  --die-with-parent \
+  -- /usr/bin/thunderbird "$@"
+EOF' && sudo chmod 755 /usr/local/bin/thunderbird-bwrap.sh
+```
+
+* Создаем .desktop-файл, чтобы запускать Thunderbird сразу в песочнице:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/thunderbird-bwrap.desktop
+[Desktop Entry]
+Name=Thunderbird (Hardened Sandbox)
+Comment=Hardened Mail Client inside Bubblewrap
+Exec=/usr/local/bin/thunderbird-bwrap.sh %u
+Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Terminal=false
+Type=Application
+Categories=Network;Email;
+StartupWMClass=thunderbird
+EOF' && sudo chmod 644 /usr/local/share/applications/thunderbird-bwrap.desktop
+```
+
+В конце заменим системные иконки для более лучшего сочетания с кастомными.
+
+* Для **Ubuntu 24.04** заменим иконку **Terminal**:
+```bash
+sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop 
+```
+
+* Сменим иконку **Ptyxis** для **Ubuntu 26.04**
+```bash
+sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
+```
+
+* Поменяем иконку **Корзины (Trash)** на кастомную:
+```bash
+for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
+```
+
+* Восстановим стандартные права чтения для системных иконок:
+```bash
+sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
+```
+
+* Принудительно заставляем графическую оболочку переиндексировать созданную базу данных, и обновляем кэш иконок:
+```bash
+update-desktop-database ~/.local/share/applications/ && gtk-update-icon-cache -f ~/.local/share/icons/
+```
 
 <br>
 
@@ -6518,6 +7475,37 @@ sudo systemctl disable --now vboxautostart-service && sudo systemctl disable --n
 > * **На Whonix-Workstation (рабочей станции):** единственный сетевой адаптер аналогично настраивается в режим **Internal Network** внутри этой же изолированной виртуальной сети `whonix`.
 > 
 > Такая профессиональная схема гарантирует, что рабочая станция физически не имеет доступа к реальному роутеру или хост-машине, а полностью весь ее исходящий трафик принудительно и бескомпромиссно заворачивается в анонимную сеть Tor через изолированный шлюз-Gateway.
+
+#### Защита от форензики: Изоляция журналов VirtualBox в RAM (`tmpfs`):
+
+По умолчанию VirtualBox очень агрессивно ведет логи (`VBoxSVC.log`, `selector.log` и `VBox.log` внутри папки конкретной ВМ). В этих журналах в открытом виде фиксируются: метаданные хоста, пути к образу диска, тайминги сессий, параметры CPU/RAM и дампы сбоев. Для осущетсвления полноценного харднинга оседание этих данных на носителе недопустимо.
+
+**1.** Подготавливаем выделенный каталог на ранее созданном RAM-диске `/mnt/ramlog`, выставляя строгие права доступа (только для владельца) с использованием переменных группы (учитывая политику `USERGROUPS_ENAB no`):
+```bash
+sudo mkdir -p /mnt/ramlog/virtualbox && sudo chown -R $USER:$(id -gn) /mnt/ramlog/virtualbox && chmod 700 /mnt/ramlog/virtualbox
+```
+
+**2.** Инициализируем системный профиль окружения для перенаправления потоков логирования служб VirtualBox в оперативную память:
+```bash
+cat << "EOF" >> ~/.profile
+
+# VirtualBox Anti-Forensics RAM Logging Overrides
+export VBOX_LOG_DEST="/mnt/ramlog/virtualbox/vbox.log"
+export VBOX_RELEASE_LOG_DEST="/mnt/ramlog/virtualbox/vbox-release.log"
+export VBOX_SVC_LOG_DEST="/mnt/ramlog/virtualbox/vbox-svc.log"
+EOF
+source ~/.profile
+```
+
+**3.** Заменим дефолтный каталог журналирования для всех зарегистрированных виртуальных машин в системе, заставляя их сбрасывать лог-файлы сессий в RAM:
+```bash
+VBoxManage list vms | awk -F '"' '{print $2}' | while read -r vm; do
+    VBoxManage modifyvm "$vm" --log-folder="/mnt/ramlog/virtualbox"
+done
+```
+
+> [!WARNING]
+> При создании любых новых виртуальных машин в будущем, VirtualBox по умолчанию пытается создать папку `Logs/` рядом с `.vdi`-диском на накопителе. Для новых ВМ необходимо либо повторно выполнять команду из **Шага 3**, либо явно перенаправлять логи через параметры CLI (`VBoxManage modifyvm "Имя_ВМ" --log-folder="/mnt/ramlog/virtualbox"`).
 
 <br>
 

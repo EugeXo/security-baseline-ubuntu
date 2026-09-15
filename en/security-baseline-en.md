@@ -158,7 +158,23 @@
   * [Installing and Sandboxing Thunderbird (Encrypted Email Workflow)](#installing-and-sandboxing-thunderbird-encrypted-email-workflow)
   * [Automating the Defensive Perimeter (Firecfg Utility) and Customizing System Icons](#automating-the-defensive-perimeter-firecfg-utility-and-customizing-system-icons)
   * [Advanced Paranoia Mode: Sandboxing with Session Persistence via Overlay](#advanced-paranoia-mode-sandboxing-with-session-persistence-via-overlay)
+* [Application Isolation with Bubblewrap and Its Advantages Over Firejail](#application-isolation-with-bubblewrap-and-its-advantages-over-firejail)
+  * [Bubblewrap Flags Cheat Sheet:](#bubblewrap-flags-cheat-sheet)
+  * [Installing Bubblewrap:](#installing-bubblewrap)
+  * [Creating a Firefox Profile inside Bubblewrap:](#creating-a-firefox-profile-inside-bubblewrap)
+  * [Hardening the Document Viewer for PDF files using Bubblewrap](#hardening-the-document-viewer-for-pdf-files-using-bubblewrap)
+  * [Wrapping the Image Viewer inside Bubblewrap:](#wrapping-the-image-viewer-inside-bubblewrap)
+  * [Isolating KeePassXC Password Manager:](#isolating-keepassxc-password-manager)
+  * [Installing and Isolating the LibreOffice Suite:](#installing-and-isolating-the-libreoffice-suite)
+  * [Installing and Isolating GIMP:](#installing-and-isolating-gimp)
+  * [Installing and Isolating VS Codium Code Editor:](#installing-and-isolating-vs-codium-code-editor)
+  * [Installing and Isolating LM Studio (Local AI Runtime):](#installing-and-isolating-lm-studio-local-ai-runtime)
+  * [Installing and Isolating Telegram Desktop:](#installing-and-isolating-telegram-desktop)
+  * [Installing and Isolating Signal Messenger:](#installing-and-isolating-signal-messenger)
+  * [Installing and Isolating Psi+ Jabber Client:](#installing-and-isolating-psi-jabber-client)
+  * [Installing and Isolating Thunderbird Email Client:](#installing-and-isolating-thunderbird-email-client)
 * [Installing Rkhunter and Hunting Rootkits](#installing-rkhunter-and-hunting-rootkits)
+  * [Installing Chkrootkit Alongside Rkhunter](#installing-chkrootkit-alongside-rkhunter)
 * [Installing and Configuring the ClamAV Antivirus Scanner](#installing-and-configuring-the-clamav-antivirus-scanner)
   * [Introduction](#introduction-11)
   * [Installing ClamAV](#installing-clamav)
@@ -166,6 +182,7 @@
   * [Structuring System Scans](#structuring-system-scans)
   * [Multithreaded Scanning (Hardening)](#multithreaded-scanning-hardening)
 * [Installing and Configuring the VirtualBox Virtualization Environment](#installing-and-configuring-the-virtualbox-virtualization-environment)
+  * [Anti-Forensics Protection: Isolating VirtualBox Logs in RAM (`tmpfs`)](#anti-forensics-protection-isolating-virtualbox-logs-in-ram-tmpfs)
 * [Shrinking and Optimizing VDI Virtual Disks](#shrinking-and-optimizing-vdi-virtual-disks)
   * [Introduction](#introduction-12)
   * [Sanitizing a Windows Guest Virtual Machine](#sanitizing-a-windows-guest-virtual-machine)
@@ -182,6 +199,7 @@
   * [Installing and Configuring AIDE](#installing-and-configuring-aide)
   * [Executing a Penetration Test (Validating Defense Mechanisms)](#executing-a-penetration-test-validating-defense-mechanisms)
 * [Automated System Security Auditing with Lynis](#automated-system-security-auditing-with-lynis)
+* [Installing and Configuring the Trivy Vulnerability and Secret Scanner](#installing-and-configuring-the-trivy-vulnerability-and-secret-scanner)
 * [Configuring Ubuntu/Xubuntu/Lubuntu Guest Systems in VirtualBox](#configuring-ubuntuxubuntulubuntu-guest-systems-in-virtualbox)
   * [Installing Guest Additions](#installing-guest-additions)
   * [Installing Mozilla Firefox](#installing-mozilla-firefox)
@@ -4848,7 +4866,7 @@ Office documents represent one of the most common vectors for organizational dat
 
 **1.** Install LibreOffice:
 ```bash
-sudo apt install libreoffice -y
+sudo aptupdate && sudo apt install libreoffice -y
 ```
 
 **2.** Open the `libreoffice.profile` configuration file in the `nano` editor:
@@ -4923,7 +4941,7 @@ To mitigate operational risks when opening visual assets from untrusted sources,
 
 **1.** Install GIMP via the package manager:
 ```bash
-sudo apt install gimp -y
+sudo aptupdate && sudo apt install gimp -y
 ```
 
 Assume an untrusted visual asset has been downloaded for inspection at `~/Downloads/unsafe.png`.
@@ -4984,19 +5002,19 @@ Unlike static document viewers, full home directory masking via `--private` is o
 
 VSCodium is a free-software fork of Microsoft’s Visual Studio Code (VS Code) featuring completely purged telemetry, tracking scripts, and proprietary licensing. It provides a clean development environment built with respect for user privacy. However, as with any complex IDE, it requires broad host file system access and spawns numerous child processes; strictly containing it within a hardened sandbox is therefore essential.
 
-**1.** Install requisite system dependencies, navigate to the downloads directory, and fetch the latest stable VSCodium AppImage container from the official repository:
+**1.** Install the required system utilities, navigate to the Downloads directory, and download the latest stable VSCodium AppImage container from the official repository:
 ```bash
 sudo apt install curl jq -y && cd ~/Downloads && API_HOST="api.github.com" && LATEST_URL=$(curl -s "https://${API_HOST}/repos/VSCodium/vscodium/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E 'x86_64.*\.AppImage$' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
 ```
 
-**2.** Mark the downloaded binary executable, extract the AppImage payload, deploy the extracted tree to `/opt/vscodium`, and initialize hidden user-space configuration directories:
+**2.** Make the downloaded file executable, extract the AppImage container while forcibly temporarily overriding the mask to `umask 022`, move the resulting binaries to the `/opt/` system directory, and prepare the hidden configuration folders in the home directory:
 ```bash
-chmod +x VSCodium.AppImage && ./VSCodium.AppImage --appimage-extract && sudo mv squashfs-root /opt/vscodium && rm VSCodium.AppImage && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions && mkdir -p ~/.vscode-oss-shared
+chmod +x VSCodium.AppImage && (umask 022 && ./VSCodium.AppImage --appimage-extract) && sudo rm -rf /opt/vscodium && sudo cp -rL squashfs-root /opt/vscodium && rm -rf squashfs-root VSCodium.AppImage AppDir && (umask 022 && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions ~/.vscode-oss-shared)
 ```
 
-**3.** Enforce baseline setuid permissions for the internal Chromium sandbox binary, and recursively restore current user ownership across all hidden configuration paths via the `$USER` variable to eliminate potential *EACCES: permission denied* runtime faults:
+**3.** Set correct permissions on the `/opt/vscodium` directory, restore the SUID bit for the built-in Chrome sandbox, and recursively assign ownership of the configuration folders to the current user and their real primary group (accounting for `USERGROUPS_ENAB no`):
 ```bash
-sudo chown root:root /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chmod u+s /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chown -R $USER:$USER ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
+sudo chown -R root:root /opt/vscodium && sudo chmod -R 755 /opt/vscodium && sudo chmod 4755 /opt/vscodium/chrome-sandbox && sudo chown -R $USER:$(id -gn) ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared && chmod -R 755 ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
 ```
 
 **4.** Create the Firejail configuration directory if not already present, and open the custom profile in `nano`:
@@ -6065,6 +6083,11 @@ After creating this universal profile, we will be able to sandbox almost any app
 sudo systemctl reload apparmor
 ```
 
+Create the user icon directory hierarchy and copy downloaded 256px (256x256) and 512px (256x256@2x) PNG assets into their respective destination paths:
+```bash
+mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
+```
+
 #### Creating a Firefox Profile inside Bubblewrap:
 
 **1.** If you do not have an existing *mozilla-hardened* profile from a previous Firejail setup, create one specifically for Bubblewrap:
@@ -6133,12 +6156,16 @@ Type=Application
 Name=Firefox (Secure Sandbox)
 Comment=Amnesic Hardened Firefox inside Bubblewrap
 Exec=/usr/local/bin/firefox-bwrap.sh %u
-Icon=firefox-secure
+Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-secure.png
 Terminal=false
 StartupNotify=true
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 EOF
+```
+* Modify the uncontained Mozilla Firefox launcher (reserved for downloading large files directly to the host), assigning it a distinct visual icon:
+```bash
+sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
 
 **6.** Set proper file permissions on the desktop entry (to prevent potential permission issues):
@@ -6149,6 +6176,961 @@ sudo chmod 644 ~/.local/share/applications/firefox-secure.desktop
 **7.** Reindex and update the application database and icon cache:
 ```bash
 sudo update-desktop-database ~/.local/share/applications && gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor 2>/dev/null || true
+```
+
+
+#### Hardening the Document Viewer for PDF files using Bubblewrap:
+
+**1.** Create a wrapper script for **Document Viewer (Evince/Papers)**:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/pdf-bwrap.sh
+#!/usr/bin/env bash
+exec /usr/bin/bwrap \
+  --die-with-parent \
+  --unshare-all \
+  --dev /dev \
+  --proc /proc \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind /lib64 /lib64 \
+  --ro-bind /etc /etc \
+  --tmpfs /tmp \
+  --tmpfs /run \
+  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
+  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+  --ro-bind "$1" "$1" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
+  /usr/bin/papers "$@" 2>/dev/null || /usr/bin/evince "$@"
+EOF' && sudo chmod 755 /usr/local/bin/pdf-bwrap.sh
+```
+
+**2.** Make the script executable:
+```bash
+sudo chmod +x /usr/local/bin/pdf-bwrap.sh
+```
+
+**3.** Bind the application to launch exclusively via Bubblewrap:
+
+* **For Ubuntu 24.04 LTS Noble Numbat users:**
+
+Update the launch parameters in the **Document Viewer Evince** desktop entry to run the application inside the sandbox:
+```bash
+sudo sed -i 's|^Exec=evince.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Evince.desktop
+```
+
+Verify the modifications:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
+```
+
+* **For Ubuntu 26.04 LTS Resolute Racoon users:**
+
+Update the launch parameters in the **Document Viewer Papers** desktop entry to run the application inside the sandbox:
+```bash
+sudo sed -i 's|^Exec=papers.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Papers.desktop
+```
+
+Verify the modifications:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
+```
+
+#### Wrapping the Image Viewer inside Bubblewrap:
+
+**1.** Create a wrapper script for **Image Viewer (Loupe/EOG)**:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/image-bwrap.sh
+#!/usr/bin/env bash
+exec /usr/bin/bwrap \
+  --die-with-parent \
+  --unshare-all \
+  --dev /dev \
+  --proc /proc \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind /lib64 /lib64 \
+  --ro-bind /etc /etc \
+  --tmpfs /tmp \
+  --tmpfs /run \
+  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
+  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+  --ro-bind "$1" "$1" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
+  /usr/bin/loupe "$@" 2>/dev/null || /usr/bin/eog "$@"
+EOF' && sudo chmod 755 /usr/local/bin/image-bwrap.sh
+```
+
+**2.** Make the script executable:
+```bash
+sudo chmod +x /usr/local/bin/image-bwrap.sh
+```
+
+**3.** Bind the application to launch exclusively via Bubblewrap:
+
+* **For Ubuntu 24.04 LTS Noble Numbat users:**
+
+Update the launch parameters in the **Image Viewer EOG** desktop entry to run the application inside the sandbox:
+```bash
+sudo sed -i 's|^Exec=eog.*$|Exec=/usr/local/bin/image-bwrap.sh %U|' /usr/share/applications/org.gnome.eog.desktop
+```
+
+Verify the modifications:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.eog.desktop
+```
+
+* **For Ubuntu 26.04 LTS Resolute Racoon users:**
+
+Update the launch parameters in the **Image Viewer Loupe** desktop entry to run the application inside the sandbox:
+```bash
+sudo sed -i 's|^Exec=loupe.*$|Exec=/usr/local/bin/image-bwrap.sh %U|; s|^DBusActivatable=true$|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
+```
+
+Verify the modifications:
+```bash
+grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
+```
+
+#### Isolating KeePassXC Password Manager:
+
+**1.** Isolate KeePassXC using a shell wrapper (`keepassxc-bwrap.sh`):
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/keepassxc-bwrap.sh
+#!/bin/bash
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/.config/KeePassXC" "$HOME/.config/KeePassXC" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --unshare-all \
+  --share-net=none \
+  --die-with-parent \
+  -- /usr/bin/keepassxc "$@"
+EOF' && sudo chmod 755 /usr/local/bin/keepassxc-bwrap.sh
+```
+
+**2.** Make the script executable:
+```bash
+sudo chmod +x /usr/local/bin/keepassxc-bwrap.sh
+```
+
+* Modify the **KeePassXC** desktop entry to link it with the database and restrict outside access, while preserving a backup of the default profile:
+```bash
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+```
+
+#### Installing and Isolating the LibreOffice Suite:
+
+**1.** Package Installation:
+```bash
+sudo apt update && sudo apt install -y libreoffice
+```
+
+**2.** Create a Unified Wrapper `libreoffice-bwrap.sh`:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/libreoffice-bwrap.sh
+#!/bin/bash
+# Create the working folder for documents if it does not exist
+mkdir -p "$HOME/Documents" "$HOME/.config/libreoffice"
+
+# Launch LibreOffice in an offline sandbox on pure Wayland
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/Documents" "$HOME/Documents" \
+  --bind "$HOME/.config/libreoffice" "$HOME/.config/libreoffice" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv SAL_USE_VCLPLUGIN "gtk3" \
+  --setenv GDK_BACKEND "wayland" \
+  --unshare-net \
+  --die-with-parent \
+  -- /usr/bin/libreoffice "$@"
+EOF' && sudo chmod 755 /usr/local/bin/libreoffice-bwrap.sh
+```
+
+* Override System Launcher Entries:
+```bash
+sudo bash -c 'mkdir -p /usr/local/share/applications && for f in /usr/share/applications/libreoffice-*.desktop; do name=$(basename "$f"); sed "s|^Exec=libreoffice|Exec=/usr/local/bin/libreoffice-bwrap.sh|" "$f" > "/usr/local/share/applications/$name"; done && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/libreoffice-*.desktop
+```
+
+#### Installing and Isolating GIMP:
+
+**1.** GIMP Installation:
+```bash
+sudo apt update && sudo apt install -y gimp
+```
+
+**2.** Create an Isolating Shell Wrapper Script (`gimp-bwrap.sh`) with Network Isolation and Direct GPU Access:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/gimp-bwrap.sh
+#!/bin/bash
+# Automatic creation of working directories
+mkdir -p "$HOME/Pictures" "$HOME/.config/GIMP"
+
+# Launch GIMP in a Bubblewrap sandbox (offline, pure Wayland, GPU acceleration)
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/Pictures" "$HOME/Pictures" \
+  --bind "$HOME/.config/GIMP" "$HOME/.config/GIMP" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  --unshare-net \
+  --die-with-parent \
+  -- /usr/bin/gimp "$@"
+EOF' && sudo chmod 755 /usr/local/bin/gimp-bwrap.sh
+```
+
+* Override System Launcher Entry:
+```bash
+sudo bash -c 'mkdir -p /usr/local/share/applications && sed "s|^Exec=gimp|Exec=/usr/local/bin/gimp-bwrap.sh|" /usr/share/applications/gimp.desktop > /usr/local/share/applications/gimp.desktop && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/gimp.desktop
+```
+
+#### Installing and Isolating VS Codium Code Editor:
+
+**1.** Install the necessary system utilities, navigate to the Downloads directory, and download the latest stable VSCodium AppImage container from the official repository:
+```bash
+sudo apt install curl jq -y && cd ~/Downloads && API_HOST="api.github.com" && LATEST_URL=$(curl -s "https://${API_HOST}/repos/VSCodium/vscodium/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E 'x86_64.*\.AppImage$' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
+```
+
+**2.** Make the downloaded file executable, extract the AppImage container, move the extracted binaries to the `/opt/` system directory, and immediately prepare the hidden configuration folders in the home directory:
+```bash
+chmod +x VSCodium.AppImage && (umask 022 && ./VSCodium.AppImage --appimage-extract) && sudo rm -rf /opt/vscodium && sudo cp -rL squashfs-root /opt/vscodium && rm -rf squashfs-root VSCodium.AppImage AppDir && (umask 022 && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions ~/.vscode-oss-shared)
+```
+
+**3.** Execute commands on the host to set reference permissions for the embedded Chrome sandbox, and recursively restore ownership to the current user for all hidden internal configuration files and directories using the universal `$USER` variable (this completely eliminates any hidden *EACCES: permission denied* errors):
+```bash
+sudo chown -R root:root /opt/vscodium && sudo chmod -R 755 /opt/vscodium && sudo chmod 4755 /opt/vscodium/chrome-sandbox && sudo chown -R $USER:$(id -gn) ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared && chmod -R 755 ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
+```
+
+**4.** Create a wrapper script for **VSCodium (Online)** to handle extension maintenance and updates:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-online.sh
+#!/bin/bash
+mkdir -p "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind /opt/vscodium /opt/vscodium \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
+  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
+  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/codium-online.sh
+```
+
+* Create a desktop launcher entry for the online maintenance mode:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/codium-online.desktop
+[Desktop Entry]
+Name=VSCodium (Maintenance / Online)
+Comment=Install Extensions and Sync
+Exec=/usr/local/bin/codium-online.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-online.png
+Terminal=false
+Type=Application
+StartupWMClass=vscodium
+Categories=Development;
+EOF' && sudo chmod 644 /usr/local/share/applications/codium-online.desktop
+```
+
+**5.** Create a wrapper script for **VSCodium (Offline)** for secure work with projects and source code:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-offline.sh
+#!/bin/bash
+mkdir -p "$HOME/Documents" "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind /opt/vscodium /opt/vscodium \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --unshare-net \
+  --bind "$HOME/Documents" "$HOME/Documents" \
+  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
+  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
+  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/codium-offline.sh
+```
+
+* Create a desktop launcher entry for the isolated offline workspace:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/codium-offline.desktop
+[Desktop Entry]
+Name=VSCodium (Workspace / Offline)
+Comment=Secure Sandbox Working Environment
+Exec=/usr/local/bin/codium-offline.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
+Terminal=false
+Type=Application
+StartupWMClass=vscodium
+Categories=Development;
+EOF' && sudo chmod 644 /usr/local/share/applications/codium-offline.desktop
+```
+
+#### Installing and Isolating LM Studio (Local AI Runtime):
+
+**1.** Download the latest AppImage container directly from the official developer server:
+```bash
+sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "[https://lmstudio.ai/download/latest/linux/x64?format=AppImage](https://lmstudio.ai/download/latest/linux/x64?format=AppImage)"
+```
+
+**2.** Grant execution permissions to the file, extract it into a temporary directory, and move the binaries to the user folder:
+```bash
+chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract && rm -rf ~/.lmstudio_gui && cp -rL squashfs-root ~/.lmstudio_gui && rm -rf squashfs-root LM-Studio.AppImage AppDir
+```
+
+**3.** Prepare the hidden configuration and model download directories in the home directory:
+```bash
+mkdir -p ~/.config/LMStudio ~/.cache/lm-studio ~/.lmstudio ~/Documents && chmod -R 755 ~/.lmstudio_gui
+```
+
+**4.** Create a wrapper script for **LM Studio (Online)** to safely download models from Hugging Face with network access enabled, but without filesystem or GPU access:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-online.sh
+#!/bin/bash
+mkdir -p "$HOME/.config/LMStudio" "$HOME/.cache/lm-studio" "$HOME/.lmstudio" "$HOME/.lmstudio_gui"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --ro-bind "$HOME/.lmstudio_gui" "$HOME/.lmstudio_gui" \
+  --bind "$HOME/.config/LMStudio" "$HOME/.config/LMStudio" \
+  --bind "$HOME/.cache/lm-studio" "$HOME/.cache/lm-studio" \
+  --bind "$HOME/.lmstudio" "$HOME/.lmstudio" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- "$HOME/.lmstudio_gui/lm-studio" --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/lmstudio-online.sh
+```
+
+* Create a desktop launcher entry for the online downloader mode:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/lmstudio-online.desktop
+[Desktop Entry]
+Name=LM Studio (Online)
+Comment=Download LLM models safely without GPU access
+Exec=/usr/local/bin/lmstudio-online.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/lm-unsecure.png
+Terminal=false
+Type=Application
+Categories=Utility;Science;ArtificialIntelligence;
+EOF' && sudo chmod 644 /usr/local/share/applications/lmstudio-online.desktop
+```
+
+**5.** Create a wrapper script for **LM Studio (Offline)** with hardware GPU pass-through enabled, but with network access completely isolated:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-offline.sh
+#!/bin/bash
+mkdir -p "$HOME/Documents" "$HOME/.config/LMStudio" "$HOME/.cache/lm-studio" "$HOME/.lmstudio" "$HOME/.lmstudio_gui"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --unshare-net \
+  --bind /dev/dri /dev/dri \
+  --ro-bind-try /sys /sys \
+  --ro-bind "$HOME/.lmstudio_gui" "$HOME/.lmstudio_gui" \
+  --bind "$HOME/Documents" "$HOME/Documents" \
+  --bind "$HOME/.config/LMStudio" "$HOME/.config/LMStudio" \
+  --bind "$HOME/.cache/lm-studio" "$HOME/.cache/lm-studio" \
+  --bind "$HOME/.lmstudio" "$HOME/.lmstudio" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv GDK_BACKEND "wayland" \
+  -- "$HOME/.lmstudio_gui/lm-studio" --no-sandbox --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/lmstudio-offline.sh
+```
+
+* Create a desktop launcher entry for the isolated offline inference mode:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/lmstudio-offline.desktop
+[Desktop Entry]
+Name=LM Studio (Offline)
+Comment=Secure Local LLM Execution with Hardware Acceleration
+Exec=/usr/local/bin/lmstudio-offline.sh %F
+Icon=/home/$USER/.local/share/icons/256x256@2x/lm-secure.png
+Terminal=false
+Type=Application
+Categories=Utility;Science;ArtificialIntelligence;
+EOF' && sudo chmod 644 /usr/local/share/applications/lmstudio-offline.desktop
+```
+
+#### Installing and Isolating Telegram Desktop:
+
+**1.** Navigate to the Downloads directory, download the official stable messenger archive directly via the official gateway `telegram.org` in a single command, unpack its structure, move the clean executable binary to the canonical system path `/usr/bin/`, and automatically clean up temporary files:
+```bash
+sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "[https://telegram.org/dl/desktop/linux](https://telegram.org/dl/desktop/linux)" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
+```
+
+The `curl -L` command automatically follows HTTP redirects from the official download gateway, fetches the original tarball release, extracts it, and places the static binary into `/usr/bin/` as `telegram-desktop`. This standard deployment approach in Linux ensures seamless execution by the desktop graphical shell.
+
+**2.** To prevent files downloaded from chats from scattering across the system, create a dedicated isolated directory in the user profile:
+```bash
+mkdir -p ~/Downloads/Telegram_Downloads
+```
+
+**3.** Enforce executable binary integrity (POSIX security standard):
+```bash
+sudo chown root:root /usr/bin/telegram-desktop
+```
+
+**4.** Assign execution permissions following the Principle of Least Privilege:
+```bash
+sudo chmod 755 /usr/bin/telegram-desktop
+```
+
+**5.** Create the wrapper script `/usr/local/bin/telegram-bwrap.sh`:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/telegram-bwrap.sh
+#!/bin/bash
+mkdir -p "$HOME/Downloads/Telegram_Downloads" "$HOME/.local/share/TelegramDesktop" "$HOME/.config/TelegramDesktop"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/Downloads/Telegram_Downloads" "$HOME/Downloads/Telegram_Downloads" \
+  --bind "$HOME/.local/share/TelegramDesktop" "$HOME/.local/share/TelegramDesktop" \
+  --bind "$HOME/.config/TelegramDesktop" "$HOME/.config/TelegramDesktop" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv QT_QPA_PLATFORM "wayland" \
+  --die-with-parent \
+  -- /usr/bin/telegram-desktop "$@"
+EOF' && sudo chmod 755 /usr/local/bin/telegram-bwrap.sh
+```
+
+* Create the desktop launcher entry `/usr/local/share/applications/telegram-bwrap.desktop`:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/telegram-bwrap.desktop
+[Desktop Entry]
+Name=Telegram Desktop (Sandbox)
+Comment=Official Telegram Desktop client in bwrap sandbox
+Exec=/usr/local/bin/telegram-bwrap.sh -- %u
+Icon=/home/$USER/.local/share/icons/256x256@2x/telegram-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+MimeType=x-scheme-handler/tg;
+Keywords=tg;chat;messaging;messenger;sms;telecom;telephony;
+StartupWMClass=telegram-desktop
+EOF' && sudo chmod 644 /usr/local/share/applications/telegram-bwrap.desktop
+```
+
+#### Installing and Isolating Signal Messenger:
+**1.** Download the distribution binary, signature, and public key:
+
+```bash
+curl -L -O [https://updates.signal.org/desktop/signal-desktop.AppImage](https://updates.signal.org/desktop/signal-desktop.AppImage) && curl -s -o signal-appimage.asc [https://updates.signal.org/static/desktop/appimage.asc](https://updates.signal.org/static/desktop/appimage.asc) && gpg --import signal-appimage.asc && curl -L -O [https://updates.signal.org/desktop/signal-desktop.AppImage.gpg](https://updates.signal.org/desktop/signal-desktop.AppImage.gpg) && gpg --verify signal-desktop.AppImage.gpg signal-desktop.AppImage
+```
+
+**2.** Extract and deploy to `/opt/signal`:
+```bash
+chmod +x signal-desktop.AppImage && ./signal-desktop.AppImage --appimage-extract && sudo rm -rf /opt/signal && sudo mv squashfs-root /opt/signal && sudo chmod -R 755 /opt/signal && rm -rf signal-desktop.AppImage signal-desktop.AppImage.gpg signal-appimage.asc
+```
+
+**3.** Permanent Signal Messenger isolation via shell wrapper (`signal-bwrap.sh`):
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/signal-bwrap.sh
+#!/bin/bash
+# Automatic creation of the profile workspace directory
+mkdir -p "$HOME/.config/Signal"
+
+# Launch Signal from /opt/signal inside a Bubblewrap sandbox
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind /opt/signal /opt/signal \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --bind "$HOME/.config/Signal" "$HOME/.config/Signal" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --share-net \
+  --die-with-parent \
+  -- /opt/signal/signal-desktop --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+EOF' && sudo chmod 755 /usr/local/bin/signal-bwrap.sh
+```
+
+* Create a Signal desktop entry with custom icon integration:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/share/applications/signal-bwrap.desktop
+[Desktop Entry]
+Name=Signal (Sandbox)
+Comment=Private messaging application in Bubblewrap
+Exec=/usr/local/bin/signal-bwrap.sh %U
+Icon=/home/$USER/.local/share/icons/256x256@2x/signal-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+StartupWMClass=Signal
+EOF' && sudo chmod 644 /usr/share/applications/signal-bwrap.desktop
+```
+
+#### Installing and Isolating Psi+ Jabber Client:
+
+Due to strict UFW configuration, required firewall egress rules must be appended:
+
+**1.** Open outbound XMPP ports (5222 and 5223) to all servers for baseline Psi+ connectivity:
+```bash
+sudo ufw allow out to any port 5222 proto tcp && sudo ufw allow out to any port 5223 proto tcp
+```
+
+* **For Ubuntu 24.04 LTS Noble Numbat users:**
+
+**2.** The default native package in Ubuntu 24.04 repositories suffers from critical Qt library linking errors under the Wayland display server (resulting in *Segmentation fault* crashes). To bypass this system bug, add the official Psi+ developers PPA, fetch the adapted stable release Psi+ v1.5.2068, the plugin package (including OMEMO), and the GnuPG system base using a single command:
+```bash
+sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
+```
+
+* **For Ubuntu 26.04 LTS Resolute Racoon users:**
+
+In Ubuntu 26.04, the repository version of Psi+ is locked at branch 1.4.1456. The required version 1.5.2068 could not simply be ported over from Noble because prebuilt Noble plugins were compiled against obsolete ABIs. Therefore, Psi+ 1.5.2068 was rebuilt directly on Ubuntu 26.04 Resolute from the original 1.5.2068 source archive. The client and plugins were merged into a single package named `psi-plus-resolute-client-and-plugins_1.5.2068-1~resolute1_amd64.deb`. As a result, OMEMO, OTR, and OpenPGP utilize native Resolute system libraries without backporting legacy Noble dependencies.
+
+Two installation paths are available. Option 1 installs the older yet functional stock client version 1.4.1456. Option 2 installs the compiled version from the book's repository hosted on GitHub.
+
+**Option 1:**
+
+**2A.** Install Psi+ version 1.4.1456 directly from the standard repository:
+```bash
+sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
+```
+
+**Option 2:**
+
+**2B.** Download the custom `.deb` package from the `github.com/eugexo` repository:
+```bash
+wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+```
+
+> [!IMPORTANT]
+> Before installing the downloaded `.deb` package, do not blindly trust the retrieved file. Verify its checksum and package contents first. While this does not guarantee the complete absence of malicious code, it ensures file integrity and provides full visibility into the contents prior to installation. **This procedure should be applied to any untrusted sources (especially unofficial ones).**
+> 
+> Verify the SHA-256 checksum of the package:
+> ```bash
+> sha256sum psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+> ```
+> 
+> Inspect the `.deb` metadata prior to installation:
+> ```bash
+> dpkg-deb -I psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+> ```
+> 
+> Inspect the full contents of the package:
+> ```bash
+> dpkg-deb -c psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+> ```
+> Matching SHA-256 with a known reference checksum confirms file integrity against a trusted baseline, but does not inherently prove software safety. Thus, checksum verification serves as one layer of verification rather than an absolute guarantee of trust.
+
+**3.** Following checksum verification, proceed with the Psi+ installation. Ubuntu will pull in the required missing dependencies automatically:
+```bash
+sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
+```
+
+Next, isolate the Psi+ Jabber client inside a **Bubblewrap** sandbox.
+
+**4.** Create the isolation wrapper script `/usr/local/bin/psi-bwrap.sh`:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/psi-bwrap.sh
+#!/bin/bash
+mkdir -p "$HOME/Downloads/Psi_Downloads" \
+         "$HOME/.config/psi-plus" \
+         "$HOME/.local/share/psi-plus" \
+         "$HOME/.gnupg"
+
+XAUTH="${XAUTHORITY:-$HOME/.Xauthority}"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind-try /var /var \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/Downloads/Psi_Downloads" "$HOME/Downloads/Psi_Downloads" \
+  --bind "$HOME/.config/psi-plus" "$HOME/.config/psi-plus" \
+  --bind "$HOME/.local/share/psi-plus" "$HOME/.local/share/psi-plus" \
+  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/at-spi" "$XDG_RUNTIME_DIR/at-spi" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
+  --ro-bind-try "$XAUTH" "$XAUTH" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "$XAUTH" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv QT_QPA_PLATFORM "xcb" \
+  --die-with-parent \
+  -- /usr/bin/psi-plus "$@"
+EOF' && sudo chmod 755 /usr/local/bin/psi-bwrap.sh
+```
+
+* Create the desktop launcher entry `/usr/local/share/applications/psi-bwrap.desktop`:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/psi-bwrap.desktop
+[Desktop Entry]
+Name=Psi+ (Sandbox)
+Comment=Jabber/XMPP Client in bwrap sandbox
+Exec=/usr/local/bin/psi-bwrap.sh %u
+Icon=/home/$USER/.local/share/icons/256x256@2x/psi-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+StartupWMClass=psi-plus
+EOF' && sudo chmod 644 /usr/local/share/applications/psi-bwrap.desktop
+```
+
+#### Installing and Isolating Thunderbird Email Client:
+
+**1.** The default `thunderbird` package in Ubuntu repositories is a dummy transitional package that enforces the installation of the pruned `snapd` framework. To bypass this system deadlock and force the package manager to fetch the clean binary directly from the official Mozilla Team PPA, create a strict pin configuration:
+```bash
+sudo tee /etc/apt/preferences.d/mozilla-thunderbird <<EOF
+Package: thunderbird*
+Pin: release o=LP-PPA-mozillateam
+Pin-Priority: 1001
+Package: thunderbird*
+Pin: release o=Ubuntu
+Pin-Priority: -10
+EOF
+```
+
+**2.** Protect the native package from accidental removal, downgrade, or automated replacement by Snap dummies during background updates:
+
+* **For Ubuntu 24.04 LTS Noble Numbat users:**
+```bash
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:noble";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
+```
+
+* **For Ubuntu 26.04 LTS Resolute Raccoon users:**
+```bash
+echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
+```
+
+**3.** Update repository indices and install native Thunderbird:
+```bash
+sudo apt update && sudo apt install thunderbird -y
+```
+
+> [!WARNING]
+> Do NOT launch Thunderbird while online. On initial startup, the client immediately transmits initial telemetry packets over the network.
+
+**4.** Disable network connectivity to prevent telemetry initialization, then start Thunderbird once to generate the default profile structure:
+```bash
+nmcli networking off
+```
+
+**After executing the command, launch Thunderbird manually from the applications menu.** Wait 2–3 seconds for directory structure generation, then close the application completely.
+
+**5.** Navigate to the newly created UUID profile directory and initialize an empty `user.js` configuration file:
+```bash
+cd ~/.thunderbird/*default-release && touch user.js
+```
+
+**6.** Open `user.js` using the `nano` terminal text editor:
+```bash
+nano user.js
+```
+
+**7.** Copy the full hardening configuration matrix below to disable Gecko engine telemetry and tracking modules, then paste it into the editor:
+```javascript
+// ============================================================================
+// HARDENING CONFIG FOR MOZILLA THUNDERBIRD (USER.JS)
+// OPTIMIZED OPSEC CONTOUR FOR EMAIL PRIVACY AND SILENCE
+// ============================================================================
+
+// 1. TOTAL TELEMETRY AND BREAKPAD CRASH REPORTING REMOVAL
+user_pref("toolkit.telemetry.unified", false);
+user_pref("toolkit.telemetry.enabled", false);
+user_pref("toolkit.telemetry.archive.enabled", false);
+user_pref("toolkit.telemetry.rejected", true);
+user_pref("toolkit.telemetry.server", "data:text/plain,");
+user_pref("datareporting.healthreport.uploadEnabled", false);
+user_pref("datareporting.policy.dataSubmissionEnabled", false);
+user_pref("datareporting.healthreport.service.enabled", false);
+user_pref("browser.tabs.crashReporting.sendReport", false);
+user_pref("toolkit.crashreporter.enabled", false);
+user_pref("breakpad.reportURL", "data:text/plain,");
+user_pref("security.ssl.errorReporting.automatic", false);
+user_pref("network.allow-experiments", false);
+
+// Clear build history and unique profile UUID identifiers (DAU)
+user_pref("toolkit.telemetry.cachedClientID", "");
+user_pref("toolkit.telemetry.cachedProfileGroupID", "");
+user_pref("toolkit.telemetry.previousBuildID", "");
+user_pref("datareporting.dau.cachedUsageProfileGroupID", "");
+user_pref("datareporting.dau.cachedUsageProfileID", "");
+
+// 2. DISABLE HIDDEN EXPERIMENTS (MOZILLA STUDIES/EXPERIMENTS/NIMBUS)
+user_pref("app.shield.optoutstudies.enabled", false);
+user_pref("app.normandy.enabled", false);
+user_pref("app.normandy.api_url", "");
+user_pref("nimbus.telemetry.targetingContextEnabled", false);
+
+// 3. BASELINE PRIVACY AND IN-MAIL TRACKER BLOCKING
+user_pref("privacy.trackingprotection.enabled", true);
+user_pref("privacy.trackingprotection.socialtracking.enabled", true);
+user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
+user_pref("dom.private-attribution.submission.enabled", false);
+user_pref("dom.netinfo.enabled", false);
+user_pref("beacon.enabled", false);
+
+// 4. BLOCK BACKGROUND NETWORK PREFETCHING AND PREDICTION
+user_pref("network.predictor.enabled", false);
+user_pref("network.predictor.enable-hover", false);
+user_pref("network.prefetch-next", false);
+user_pref("network.dns.disablePrefetch", true);
+user_pref("network.dns.disablePrefetchFromHTTPS", true);
+user_pref("network.http.speculative-parallel-limit", 0);
+
+// 5. PURGE ADD-ON RECOMMENDATIONS AND CACHE
+user_pref("extensions.getAddons.cache.enabled", false);
+user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
+user_pref("browser.discovery.enabled", false);
+
+// 6. RELOCATE CACHE ENTIRELY TO RAM (SSD LIFESPAN PROTECTION)
+user_pref("browser.cache.disk.enabled", false);
+user_pref("browser.cache.memory.enabled", true);
+user_pref("browser.cache.memory.capacity", 262144);
+
+// 7. PERIPHERAL ISOLATION, START PAGE, AND HOME CALL PREVENTION
+user_pref("mailnews.start_page.enabled", false);
+user_pref("mailnews.start_page.url", "about:blank");
+user_pref("mail.shell.checkDefaultClient", false);
+user_pref("media.peerconnection.enabled", false);
+user_pref("media.peerconnection.use_document_iceservers", false);
+user_pref("dom.gamepad.enabled", false);
+user_pref("device.sensors.enabled", false);
+
+// 8. PREVENT MICRO DATA LEAKS AND ENABLE URL QUERY STRIPPING
+user_pref("privacy.query_stripping.enabled", true);
+user_pref("privacy.query_stripping.enabled.pbmode", true);
+user_pref("layout.css.font-visibility", 1);
+user_pref("network.http.referer.XOriginPolicy", 2);
+
+// 9. UI OPTIMIZATION AND WEBRENDER HARDWARE ACCELERATION
+user_pref("general.smoothScroll", true);
+user_pref("mousewheel.min_line_scroll_amount", 20);
+user_pref("gfx.webrender.all", true);
+user_pref("dom.ipc.processCount", 8);
+
+// 10. NETWORK FOOTPRINT MASKING AND SERVICE ISOLATION
+// Rebind internal Gecko connectivity checks to a neutral configuration and enforce a US locale baseline
+user_pref("browser.search.region", "US");
+user_pref("geo.enabled", false);
+user_pref("webgl.disabled", true);
+```
+
+Save the file in `nano` by pressing **Ctrl + O** → **Enter**, then exit with **Ctrl + X**.
+
+**8.** Lock down permissions using a strict POSIX read-only mask to prevent host processes from modifying security settings:
+```bash
+chmod 0400 user.js
+```
+
+**9.** Initialize a dedicated attachment directory to prevent downloaded files from polluting the host filesystem:
+```bash
+mkdir -p ~/Downloads/Mail_Attachments
+```
+
+**10.** Restore network connectivity (replace `enp0s1` with your actual network interface name):
+```bash
+nmcli networking on && nmcli connection up netplan-enp0s1
+```
+
+**11.** Generate the Bubblewrap sandbox wrapper script for Thunderbird:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/bin/thunderbird-bwrap.sh
+#!/bin/bash
+mkdir -p "$HOME/Downloads/Mail_Attachments" "$HOME/.thunderbird"
+
+exec bwrap \
+  --ro-bind /usr /usr \
+  --ro-bind /lib /lib \
+  --ro-bind-try /lib64 /lib64 \
+  --ro-bind /bin /bin \
+  --ro-bind-try /sbin /sbin \
+  --ro-bind /etc /etc \
+  --ro-bind-try /var /var \
+  --dev /dev \
+  --proc /proc \
+  --tmpfs /tmp \
+  --tmpfs "$HOME" \
+  --share-net \
+  --bind "$HOME/Downloads/Mail_Attachments" "$HOME/Downloads/Mail_Attachments" \
+  --bind "$HOME/.thunderbird" "$HOME/.thunderbird" \
+  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
+  --ro-bind-try /sys /sys \
+  --ro-bind-try /dev/dri /dev/dri \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
+  --ro-bind-try "${XAUTHORITY:-$HOME/.Xauthority}" "${XAUTHORITY:-$HOME/.Xauthority}" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "${XAUTHORITY:-$HOME/.Xauthority}" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --setenv MOZ_ENABLE_WAYLAND "1" \
+  --die-with-parent \
+  -- /usr/bin/thunderbird "$@"
+EOF' && sudo chmod 755 /usr/local/bin/thunderbird-bwrap.sh
+```
+
+* Create the desktop launcher entry to execute Thunderbird inside the sandbox:
+```bash
+sudo bash -c 'cat << "EOF" > /usr/local/share/applications/thunderbird-bwrap.desktop
+[Desktop Entry]
+Name=Thunderbird (Hardened Sandbox)
+Comment=Hardened Mail Client inside Bubblewrap
+Exec=/usr/local/bin/thunderbird-bwrap.sh %u
+Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Terminal=false
+Type=Application
+Categories=Network;Email;
+StartupWMClass=thunderbird
+EOF' && sudo chmod 644 /usr/local/share/applications/thunderbird-bwrap.desktop
+```
+
+Finally, replace the system icons to better complement the custom set.
+
+* For **Ubuntu 24.04**, replace the **Terminal** icon:
+```bash
+sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop 
+```
+
+* Change the **Ptyxis** icon for **Ubuntu 26.04**:
+```bash
+sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
+```
+
+* Replace the **Trash** icon with a custom one:
+```bash
+for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
+```
+
+* Restore standard read permissions for system icons:
+```bash
+sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
+```
+
+* Force the graphical desktop environment to reindex the database and refresh the icon cache:
+```bash
+update-desktop-database ~/.local/share/applications/ && gtk-update-icon-cache -f ~/.local/share/icons/
 ```
 
 <br>
@@ -6517,6 +7499,37 @@ sudo systemctl disable --now vboxautostart-service && sudo systemctl disable --n
 > * **On Whonix-Workstation:** The single network adapter is similarly bound to the **Internal Network** on the same isolated `whonix` segment.
 > 
 > This architecture ensures the workstation lacks direct physical access to the local router or host system, forcing all outbound traffic through the Tor anonymous network via the isolated gateway.
+
+#### Anti-Forensics Protection: Isolating VirtualBox Logs in RAM (`tmpfs`)
+
+By default, VirtualBox logs very aggressively (`VBoxSVC.log`, `selector.log`, and `VBox.log` inside the specific VM's folder). These logs record host metadata, disk image paths, session timestamps, CPU/RAM parameters, and crash dumps in plain text. To achieve thorough hardening, allowing this data to accumulate on physical storage is unacceptable.
+
+**1.** Prepare a dedicated directory on the previously created `/mnt/ramlog` RAM disk, setting strict access permissions (owner-only) using group variables (accounting for the `USERGROUPS_ENAB no` policy):
+```bash
+sudo mkdir -p /mnt/ramlog/virtualbox && sudo chown -R $USER:$(id -gn) /mnt/ramlog/virtualbox && chmod 700 /mnt/ramlog/virtualbox
+```
+
+**2.** Initialize the system environment profile to redirect VirtualBox service logging streams into RAM:
+```bash
+cat << "EOF" >> ~/.profile
+
+# VirtualBox Anti-Forensics RAM Logging Overrides
+export VBOX_LOG_DEST="/mnt/ramlog/virtualbox/vbox.log"
+export VBOX_RELEASE_LOG_DEST="/mnt/ramlog/virtualbox/vbox-release.log"
+export VBOX_SVC_LOG_DEST="/mnt/ramlog/virtualbox/vbox-svc.log"
+EOF
+source ~/.profile
+```
+
+**3.** Replace the default logging directory for all registered virtual machines in the system, forcing them to dump session log files into RAM:
+```bash
+VBoxManage list vms | awk -F '"' '{print $2}' | while read -r vm; do
+    VBoxManage modifyvm "$vm" --log-folder="/mnt/ramlog/virtualbox"
+done
+```
+
+> [!WARNING]
+> When creating any new virtual machines in the future, VirtualBox will attempt to create a `Logs/` folder next to the `.vdi` disk on physical storage by default. For new VMs, you must either re-run the command from **Step 3** or explicitly redirect the logs via CLI parameters (`VBoxManage modifyvm "VM_Name" --log-folder="/mnt/ramlog/virtualbox"`).
 
 <br>
 
