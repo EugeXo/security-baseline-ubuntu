@@ -2502,7 +2502,7 @@ EOF
 
 **8.** Make the desktop shortcut file executable:
 ```bash
-chmod +x /usr/share/applications/panic.desktop
+sudo chmod 644 /usr/share/applications/panic.desktop
 ```
 
 Next, let's configure global hotkeys for emergency execution. The setup steps differ slightly depending on the chosen mode. Open **Settings**, navigate to **Keyboard**, scroll to the bottom to click **View and Customize Shortcuts**, scroll down again to select **Custom Shortcuts**, and click **+**.
@@ -4941,6 +4941,9 @@ firejail libreoffice --base
 Image editors represent some of the most complex desktop user space applications. GIMP processes a vast array of graphics formats (including PSD, TIFF, PNG, JPEG, and SVG) while supporting external third-party plugins. Consequently, memory corruption vulnerabilities within file parsers or extension modules could potentially lead to arbitrary code execution.
 
 To mitigate operational risks when opening visual assets from untrusted sources, construct an isolated container perimeter for GIMP. The application will operate with absolute network isolation, stripped Linux capabilities, and file system access strictly bounded to essential target directories.
+
+> [!WARNING]
+> Ubuntu 26.04 ships with GIMP 3.2, which natively isolates file decoding using the Glycin library and Bubblewrap containers. Using Firejail with this version is not recommended: nested sandboxing causes periodic glitches, permission errors, and performance drops. For stable operation, it is recommended to stick with the built-in Bubblewrap sandbox.
 
 **1.** Install GIMP via the package manager:
 ```bash

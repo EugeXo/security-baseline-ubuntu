@@ -2480,16 +2480,16 @@ sudo visudo -f /etc/sudoers.d/panic-button
 USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
 ```
 
-**7.** Создадим удобный ярлык для моментального запуска из Dock или меню программ:
+**7.** Создадим удобный ярлык для моментального запуска из Dock или меню программ (указать свое имя пользователя):
 ```bash
-sudo cat <<EOF> /usr/share/applications/panic.desktop
+sudo tee /usr/share/applications/panic.desktop > /dev/null << 'EOF'
 [Desktop Entry]
 Version=1.0
 Type=Application
 Name=Emergency Panic Button
 Comment=Мгновенное выключение ПК и уничтожение ключей LUKS в ОЗУ
 Exec=sudo /usr/local/bin/panic.sh
-Icon=/home/$USER/.local/share/icons/256x256@2x/panic.png
+Icon=/home/ИМЯ-ПОЛЬЗОВАТЕЛЯ/.local/share/icons/256x256@2x/panic.png
 Terminal=true
 Categories=Utility;
 X-GNOME-Autostart-enabled=true
@@ -2498,7 +2498,7 @@ EOF
 
 **8.** Сделаем файл ярлыка исполняемым:
 ```bash
-chmod +x /usr/share/applications/panic.desktop
+sudo chmod 644 /usr/share/applications/panic.desktop
 ```
 
 Далее рассмотрим назначение горячих клавиш экстренного вызова для обоих вариантов, так как они имеют отличия. Для этого заходим в **Settings**, переходим в раздел **Keyboard**, в самом низу нажимаем **View and Customize Shortcuts**, проматываем до конца и в пункте **Custom Shortcuts** нажимаем **+**.
@@ -4914,6 +4914,9 @@ firejail libreoffice --base
 Графические редакторы являются одними из наиболее сложных пользовательских приложений. GIMP обрабатывает большое количество форматов изображений (PSD, TIFF, PNG, JPEG, SVG и другие), а также использует внешние плагины, поэтому ошибки в парсерах файлов или расширениях могут потенциально привести к выполнению вредоносного кода.
 
 Чтобы снизить риск при открытии изображений из неизвестных источников, создадим для GIMP изолированное окружение. Программа будет работать без доступа в интернет, без Linux capabilities и с ограниченным набором разрешенных каталогов.
+
+> [!WARNING]
+> В **Ubuntu 26.04** используется **GIMP 3.2**, где декодирование файлов по умолчанию изолировано через библиотеку **Glycin** и контейнер **Bubblewrap**. Использование **Firejail** для этой версии не рекомендуется: двойная изоляция приводит к периодическим сбоям, ошибкам доступа и падению производительности. Для стабильной работы рекомендуется остановить выбор на встроенной песочнице **Bubblewrap**.
 
 **1.** Установим GIMP:
 ```bash
