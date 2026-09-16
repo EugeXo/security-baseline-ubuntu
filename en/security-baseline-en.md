@@ -71,7 +71,6 @@
   * [Purging Snap](#purging-snap)
   * [Ripping Out Canonical Telemetry](#ripping-out-canonical-telemetry)
   * [Purging the Background Firmware Tracker fwupd](#purging-the-background-firmware-tracker-fwupd)
-* [Setting Up an Emergency Panic Button for Rapid Session Termination](#setting-up-an-emergency-panic-button-for-rapid-session-termination)
 * [Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor](#installing-security-utilities-libpam-tmpdir-debsums-and-the-btop-system-monitor)
   * [The libpam-tmpdir Security Utility](#the-libpam-tmpdir-security-utility)
   * [The debsums Utility](#the-debsums-utility)
@@ -122,6 +121,8 @@
 * [Installing and Configuring USBGuard](#installing-and-configuring-usbguard)
   * [Introduction](#introduction-6)
   * [Installation and Setup](#installation-and-setup)
+* [Setting Up an Emergency Panic Button for Rapid Session Termination](#setting-up-an-emergency-panic-button-for-rapid-session-termination)
+  * [Emergency Hardware Kill Switch via Any USB Device:](#emergency-hardware-kill-switch-via-any-usb-device)
 * [Installing the KeePassXC Local Password Manager](#installing-the-keepassxc-local-password-manager)
   * [Introduction](#introduction-7)
   * [Vault Protection Scenarios](#vault-protection-scenarios)
@@ -2372,174 +2373,6 @@ sudo systemctl mask fwupd fwupd-refresh.service fwupd-refresh.timer
 
 **Chapter Assets:** *_assets/images/7_systemcut_telemetry*
 
-## Setting Up an Emergency Panic Button for Rapid Session Termination
-
-All was quiet on the front lines. The thunder of artillery that had been tearing through the sky had long since faded. The war correspondent sat in the headquarters, enjoying a rare moment of peace while sipping his favorite black coffee. Hearing the heavy thud of combat boots and gunfire down the hallway, he instantly realized something was terribly wrong. "Dammit," the journalist muttered, quickly lunging toward his powered-on PC. At that very moment, armed men in body armor, wearing camouflage, and carrying assault rifles burst into the room. His hand missed the power button by literally a split second before he could see the screen go dark. A brutal blow to the jaw threw him off balance, his brain contracting and violently exploding inside his skull: a ringing in his ears, total disorientation... Only a minute later did he begin to realize that the system had failed to shut down in time, leaving all critical data in enemy hands.
-
-**1.** Create the shell script `panic.sh`:
-```bash
-sudo touch /usr/local/bin/panic.sh
-```
-
-**2.** Navigate to the directory and open the newly created script:
-```bash
-cd /usr/local/bin/ && sudo nano panic.sh
-```
-
-From here, you can choose between two operational modes: **Paranoic** mode, which triggers an immediate computer shutdown by fully cutting power upon clicking the desktop icon or pressing the hotkey shortcut, and **Safemode**, which introduces a safety interlock requiring a double-press of the Enter key before proceeding (pressing any other key cancels the operation).
-
-**Paranoic** mode powers off the system instantly without asking any questions upon invocation. This option is vital for individuals operating under high-risk conditions (e.g., military personnel, war correspondents, intelligence operators, human rights activists, defense attorneys, or traders) where law enforcement, hostile forces, or criminals might raid the premises unexpectedly without warning.
-
-Safemode is well-suited for most users, for whom the likelihood of the aforementioned scenario is virtually zero. This is a safer approach, as it prevents shutdown upon an accidental click on the launcher icon. It functions exactly the same as the previous mode, but includes a safety interlock at the initial stage to prevent unintended execution.
-
-> [!TIP]
-> You can combine both approaches. For instance, assign **Safemode** to the GUI desktop shortcut while binding **Paranoic** to global hotkeys. To do this, simply create separate script files with distinct names: instead of a single `panic.sh`, create `panic-paranoic.sh` and `panic-safemode.sh`.
-
-**3.** Select one of the variants for your newly created file:
-
-**Paranoic Mode (Immediate Shutdown):**
-
-```bash
-#!/bin/bash
-# =========================================
-# EMERGENCY PANIC BUTTON («Paranoic Mode»)
-# =========================================
-
-# 1. Instantly wipe master keys for all LUKS devices in RAM
-for dev in $(dmsetup ls --target crypt | awk '{print $1}'); do
-    cryptsetup luksSuspend "$dev" 2>/dev/null || dmsetup suspend "$dev" --noblock 2>/dev/null
-done
-
-# 2. Remount filesystems as Read-Only (takes microseconds)
-echo u > /proc/sysrq-trigger
-
-# 3. Instant motherboard power cut
-echo o > /proc/sysrq-trigger
-```
-
-**Safemode (Shutdown After Double Confirmation):**
-
-```bash
-#!/bin/bash
-# =========================================
-# EMERGENCY PANIC BUTTON («Safemode»)
-# =========================================
-
-echo -e "\033[1;31m"
-echo "====================================================================="
-echo "[!!!] EMERGENCY FULL SYSTEM POWER-OFF PROTOCOL ACTIVATED [!!!]"
-echo "====================================================================="
-echo "WARNING: THE NEXT STEP WILL WIPE LUKS MASTER KEYS FROM RAM AND POWER OFF."
-echo "===================================================================="
-echo -e " \033[1;97;41m PRESS [ENTER] TWICE TO CONFIRM\033[0;31m"
-echo "===================================================================="
-echo "!!! PRESS ANY OTHER KEY TO CANCEL THEN [ENTER] TO EXIT !!!"
-
-# First [ENTER] confirmation check
-read -r -s -p "CONFIRMATION 1/2 [ENTER]: " key1
-if [ -n "$key1" ]; then
-    echo -e "\n\n[CANCELLED] Unexpected input detected. Emergency mode reset.\033[0m"
-    exit 1
-fi
-
-echo -e "\n"
-echo "============================================================================="
-echo -e "\033[1;5;31m"FINAL WARNING! PRESS [ENTER] FOR INSTANT SHUTDOWN!"\033[0;31m"
-echo "============================================================================="
-
-# Second [ENTER] confirmation check
-read -r -s -p "CONFIRMATION 2/2 [ENTER]: " key2
-if [ -n "$key2" ]; then
-    echo -e "\n\n[CANCELLED] Unexpected input detected. Emergency mode reset.\033[0m"
-    exit 1
-fi
-
-echo -e "\033[0m"
-
-# --- EXECUTION LOGIC ---
-# 1. Wipe LUKS master keys in RAM without waiting for disk writes
-for dev in $(dmsetup ls --target crypt | awk '{print $1}'); do
-    cryptsetup luksSuspend "$dev" 2>/dev/null || dmsetup suspend "$dev" --noblock 2>/dev/null
-done
-
-# 2. Remount filesystems as Read-Only
-echo u > /proc/sysrq-trigger
-
-# 3. Instant power cut
-echo o > /proc/sysrq-trigger
-```
-
-**4.** Set proper ownership and execution permissions:
-```bash
-sudo chown root:root /usr/local/bin/panic.sh && sudo chmod 700 /usr/local/bin/panic.sh
-```
-
-**5.** Allow passwordless execution for the script:
-```bash
-sudo visudo -f /etc/sudoers.d/panic-button
-```
-
-**6.** Add the following line, replacing `USERNAME` with your actual username:
-```text
-USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
-```
-
-**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu (replace `YOUR-USERNAME` with your actual username):
-```bash
-sudo cat <<EOF> /usr/share/applications/panic.desktop
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Emergency Panic Button
-Comment=Instant PC shutdown and LUKS RAM key destruction
-Exec=sudo /usr/local/bin/panic.sh
-Icon=/home/YOUR-USERNAME/.local/share/icons/256x256@2x/panic.png
-Terminal=true
-Categories=Utility;
-X-GNOME-Autostart-enabled=true
-EOF
-```
-
-**8.** Make the desktop shortcut file executable:
-```bash
-sudo chmod 644 /usr/share/applications/panic.desktop
-```
-
-> [!NOTE]
-> Create the user icon directory hierarchy and copy downloaded 256px (256x256) and 512px (256x256@2x) PNG assets into their respective destination paths (replace PATH-TO-FILES with your actual path):
-> ```bash
-> mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
-> ```
-
-Next, let's configure global hotkeys for emergency execution. The setup steps differ slightly depending on the chosen mode. Open **Settings**, navigate to **Keyboard**, scroll to the bottom to click **View and Customize Shortcuts**, scroll down again to select **Custom Shortcuts**, and click **+**.
-
-The hotkey parameters for **Paranoic** and **Safemode** are structured as follows:
-
-**Paranoic Mode (Immediate Shutdown):**
-* **Name:** `Emergency Panic (Paranoic)`
-* **Command:** `sudo /usr/local/bin/panic-paranoic.sh`
-* **Shortcut:** For example, `Ctrl` + `Shift` + `End` or `Ctrl` + `Pause`.
-
-**Safemode (Shutdown After Double Confirmation):**
-* **Name:** `Emergency Panic (Safemode)`
-* **Command for Terminal:** `gnome-terminal -- sudo /usr/local/bin/panic-safemode.sh`
-* **Command for Ptyxis:** `ptyxis -e "sudo /usr/local/bin/panic-safemode.sh"`
-* **Command for Ghostty:** `ghostty -e "sudo /usr/local/bin/panic-safemode.sh"`
-* **Shortcut:** `Ctrl` + `End` (or any preferred combination).
-
-**9.** Finally, test the execution of the script:
-```bash
-sudo /usr/local/bin/panic.sh
-```
-
-> [!IMPORTANT]
-> If the test fails (i.e., the system hangs or freezes instead of cutting power completely), the issue is likely caused by our previous kernel memory subsystem hardening, where `kernel.sysrq` was set to `0`. The fix is to selectively enable bitmask `176` (Read-Only + Poweroff permissions only) using the following command:
-> ```bash
-> echo "kernel.sysrq = 176" | sudo tee /etc/sysctl.d/99-zx-panic-sysrq.conf && sudo sysctl --system
-> ```
-
-After successfully testing the execution script, I highly recommend verifying the functionality of the desktop shortcut and hotkey triggers as well!
-
 <br>
 
 ## Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor
@@ -3970,12 +3803,20 @@ To achieve ultimate host fortification, construct a kernel-level hardware failsa
 sudo nano /etc/udev/rules.d/80-yubikey-kill.rules
 ```
 
-**2.** Insert the following rule. To ensure the hardware Kill Switch triggers reliably across all token hardware variations (such as flagship YubiKey 5 devices or entry-level Yubico Security Keys) while ignoring transient software interface resets, bind the low-level HID path removal event (`0003:1050`) to a dynamic USB bus query using `lsusb`. Session locking fires strictly when the device physically disconnects from the host ports:
-```ini
+**2.** Insert **one** required instruction of your choice. To ensure the hardware Kill Switch triggers reliably across all token hardware variations (such as flagship YubiKey 5 devices or entry-level Yubico Security Keys) while ignoring transient software interface resets, we bind the low-level HID path removal event (`0003:1050`) to a dynamic USB bus query using `lsusb`. The selected command fires strictly when the device physically disconnects from the host ports.
+
+**Utilizing Log Out (soft mode for regular operational environments):**
+```udev
 ACTION=="remove", DEVPATH=="*/0003:1050:*", RUN+="/bin/sh -c '/usr/bin/lsusb -d 1050: || /usr/bin/loginctl lock-sessions'"
 ```
 
-Save the file in `nano` using **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit.
+**Instant System Shutdown (emergency mode for high-risk tactical environments):**
+```udev
+ACTION=="remove", DEVPATH=="*/0003:1050:*", RUN+="/bin/sh -c '/usr/bin/lsusb -d 1050: || (echo u > /proc/sysrq-trigger && echo o > /proc/sysrq-trigger)'"
+```
+
+To save the configuration within the `nano` editor, press the key combination **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit back to the shell prompt.
+
 
 **3.** Reload udev rules in real time to apply the new kernel trigger immediately:
 ```bash
@@ -3983,7 +3824,7 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 ```
 
 > [!NOTE]
-> Under emergency conditions—such as physical intrusion, forced seizure of an active laptop, or unauthorized access to a workstation—pulling the Yubico token from its USB slot triggers protection instantly. The kernel `udev` subsystem intercepts the hardware interrupt within milliseconds and signals `loginctl` to lock all active user sessions.
+> Under emergency conditions—such as a sudden physical intrusion, a forced attempt to seize an active laptop, or unauthorized access to a workstation—pulling the Yubico token from its USB slot triggers protection instantly. The kernel `udev` subsystem intercepts the hardware interrupt within milliseconds and signals `loginctl` to lock all active user sessions, or in the second case, forces `sysrq` to instantly shut down the machine.
 
 > [!WARNING]
 > Because multi-factor PAM authentication is enforced globally across the operating system, graphical authorization prompts for elevated applications may fail to complete automatically. In these instances, launch elevated utilities manually from a terminal interface (for example: `sudo timeshift-gtk`).
@@ -4090,6 +3931,220 @@ sudo systemctl restart usbguard
 ```
 
 Following the restart, the newly added device transitions to an authorized state and becomes fully accessible to the system.
+
+## Setting Up an Emergency Panic Button for Rapid Session Termination
+
+All was quiet on the front lines. The thunder of artillery that had been tearing through the sky had long since faded. The war correspondent sat in the headquarters, enjoying a rare moment of peace while sipping his favorite black coffee. Hearing the heavy thud of combat boots and gunfire down the hallway, he instantly realized something was terribly wrong. "Dammit," the journalist muttered, quickly lunging toward his powered-on PC. At that very moment, armed men in body armor, wearing camouflage, and carrying assault rifles burst into the room. His hand missed the power button by literally a split second before he could see the screen go dark. A brutal blow to the jaw threw him off balance, his brain contracting and violently exploding inside his skull: a ringing in his ears, total disorientation... Only a minute later did he begin to realize that the system had failed to shut down in time, leaving all critical data in enemy hands.
+
+**1.** Create the shell script `panic.sh`:
+```bash
+sudo touch /usr/local/bin/panic.sh
+```
+
+**2.** Navigate to the directory and open the newly created script:
+```bash
+cd /usr/local/bin/ && sudo nano panic.sh
+```
+
+From here, you can choose between two operational modes: **Paranoic** mode, which triggers an immediate computer shutdown by fully cutting power upon clicking the desktop icon or pressing the hotkey shortcut, and **Safemode**, which introduces a safety interlock requiring a double-press of the Enter key before proceeding (pressing any other key cancels the operation).
+
+**Paranoic** mode powers off the system instantly without asking any questions upon invocation. This option is vital for individuals operating under high-risk conditions (e.g., military personnel, war correspondents, intelligence operators, human rights activists, defense attorneys, or traders) where law enforcement, hostile forces, or criminals might raid the premises unexpectedly without warning.
+
+Safemode is well-suited for most users, for whom the likelihood of the aforementioned scenario is virtually zero. This is a safer approach, as it prevents shutdown upon an accidental click on the launcher icon. It functions exactly the same as the previous mode, but includes a safety interlock at the initial stage to prevent unintended execution.
+
+> [!TIP]
+> You can combine both approaches. For instance, assign **Safemode** to the GUI desktop shortcut while binding **Paranoic** to global hotkeys. To do this, simply create separate script files with distinct names: instead of a single `panic.sh`, create `panic-paranoic.sh` and `panic-safemode.sh`.
+
+**3.** Select one of the variants for your newly created file:
+
+**Paranoic Mode (Immediate Shutdown):**
+
+```bash
+#!/bin/bash
+# =========================================
+# EMERGENCY PANIC BUTTON («Paranoic Mode»)
+# =========================================
+
+# 1. Instantly wipe master keys for all LUKS devices in RAM
+for dev in $(dmsetup ls --target crypt | awk '{print $1}'); do
+    cryptsetup luksSuspend "$dev" 2>/dev/null || dmsetup suspend "$dev" --noblock 2>/dev/null
+done
+
+# 2. Remount filesystems as Read-Only (takes microseconds)
+echo u > /proc/sysrq-trigger
+
+# 3. Instant motherboard power cut
+echo o > /proc/sysrq-trigger
+```
+
+**Safemode (Shutdown After Double Confirmation):**
+
+```bash
+#!/bin/bash
+# =========================================
+# EMERGENCY PANIC BUTTON («Safemode»)
+# =========================================
+
+echo -e "\033[1;31m"
+echo "====================================================================="
+echo "[!!!] EMERGENCY FULL SYSTEM POWER-OFF PROTOCOL ACTIVATED [!!!]"
+echo "====================================================================="
+echo "WARNING: THE NEXT STEP WILL WIPE LUKS MASTER KEYS FROM RAM AND POWER OFF."
+echo "===================================================================="
+echo -e " \033[1;97;41m PRESS [ENTER] TWICE TO CONFIRM\033[0;31m"
+echo "===================================================================="
+echo "!!! PRESS ANY OTHER KEY TO CANCEL THEN [ENTER] TO EXIT !!!"
+
+# First [ENTER] confirmation check
+read -r -s -p "CONFIRMATION 1/2 [ENTER]: " key1
+if [ -n "$key1" ]; then
+    echo -e "\n\n[CANCELLED] Unexpected input detected. Emergency mode reset.\033[0m"
+    exit 1
+fi
+
+echo -e "\n"
+echo "============================================================================="
+echo -e "\033[1;5;31m"FINAL WARNING! PRESS [ENTER] FOR INSTANT SHUTDOWN!"\033[0;31m"
+echo "============================================================================="
+
+# Second [ENTER] confirmation check
+read -r -s -p "CONFIRMATION 2/2 [ENTER]: " key2
+if [ -n "$key2" ]; then
+    echo -e "\n\n[CANCELLED] Unexpected input detected. Emergency mode reset.\033[0m"
+    exit 1
+fi
+
+echo -e "\033[0m"
+
+# --- EXECUTION LOGIC ---
+# 1. Wipe LUKS master keys in RAM without waiting for disk writes
+for dev in $(dmsetup ls --target crypt | awk '{print $1}'); do
+    cryptsetup luksSuspend "$dev" 2>/dev/null || dmsetup suspend "$dev" --noblock 2>/dev/null
+done
+
+# 2. Remount filesystems as Read-Only
+echo u > /proc/sysrq-trigger
+
+# 3. Instant power cut
+echo o > /proc/sysrq-trigger
+```
+
+**4.** Set proper ownership and execution permissions:
+```bash
+sudo chown root:root /usr/local/bin/panic.sh && sudo chmod 700 /usr/local/bin/panic.sh
+```
+
+**5.** Allow passwordless execution for the script:
+```bash
+sudo visudo -f /etc/sudoers.d/panic-button
+```
+
+**6.** Add the following line, replacing `USERNAME` with your actual username:
+```text
+USERNAME ALL=(ALL) NOPASSWD: /usr/local/bin/panic.sh, /usr/local/bin/panic-paranoic.sh, /usr/local/bin/panic-safemode.sh
+```
+
+**7.** Create a handy desktop shortcut for instant launch from the Dock or application menu (replace `YOUR-USERNAME` with your actual username):
+```bash
+sudo cat <<EOF> /usr/share/applications/panic.desktop
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Emergency Panic Button
+Comment=Instant PC shutdown and LUKS RAM key destruction
+Exec=sudo /usr/local/bin/panic.sh
+Icon=/home/YOUR-USERNAME/.local/share/icons/256x256@2x/panic.png
+Terminal=true
+Categories=Utility;
+X-GNOME-Autostart-enabled=true
+EOF
+```
+
+**8.** Make the desktop shortcut file executable:
+```bash
+sudo chmod 644 /usr/share/applications/panic.desktop
+```
+
+> [!NOTE]
+> Create the user icon directory hierarchy and copy downloaded 256px (256x256) and 512px (256x256@2x) PNG assets into their respective destination paths (replace PATH-TO-FILES with your actual path):
+> ```bash
+> mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
+> ```
+
+Next, let's configure global hotkeys for emergency execution. The setup steps differ slightly depending on the chosen mode. Open **Settings**, navigate to **Keyboard**, scroll to the bottom to click **View and Customize Shortcuts**, scroll down again to select **Custom Shortcuts**, and click **+**.
+
+The hotkey parameters for **Paranoic** and **Safemode** are structured as follows:
+
+**Paranoic Mode (Immediate Shutdown):**
+* **Name:** `Emergency Panic (Paranoic)`
+* **Command:** `sudo /usr/local/bin/panic-paranoic.sh`
+* **Shortcut:** For example, `Ctrl` + `Shift` + `End` or `Ctrl` + `Pause`.
+
+**Safemode (Shutdown After Double Confirmation):**
+* **Name:** `Emergency Panic (Safemode)`
+* **Command for Terminal:** `gnome-terminal -- sudo /usr/local/bin/panic-safemode.sh`
+* **Command for Ptyxis:** `ptyxis -e "sudo /usr/local/bin/panic-safemode.sh"`
+* **Command for Ghostty:** `ghostty -e "sudo /usr/local/bin/panic-safemode.sh"`
+* **Shortcut:** `Ctrl` + `End` (or any preferred combination).
+
+**9.** Finally, test the execution of the script:
+```bash
+sudo /usr/local/bin/panic.sh
+```
+
+> [!IMPORTANT]
+> If the test fails (i.e., the system hangs or freezes instead of cutting power completely), the issue is likely caused by our previous kernel memory subsystem hardening, where `kernel.sysrq` was set to `0`. The fix is to selectively enable bitmask `176` (Read-Only + Poweroff permissions only) using the following command:
+> ```bash
+> echo "kernel.sysrq = 176" | sudo tee /etc/sysctl.d/99-zx-panic-sysrq.conf && sudo sysctl --system
+> ```
+
+After successfully testing the execution script, I highly recommend verifying the functionality of the desktop shortcut and hotkey triggers as well!
+
+#### Emergency Hardware Kill Switch via Any USB Device:
+
+This option is a fork of the session termination method discussed earlier in the Yubico chapter, where we implemented this behavior upon removing a Yubico YubiKey or Yubico Security Key from a USB port.
+
+Looking deeper, the architecture presented in that chapter is fully applicable to any type of USB peripheral.
+
+Using the database established in the previous chapter on USBguard, we already know how to locate our hardware identifiers (VendorID:ProductID). Therefore, it will be trivial for us to input the required dataset retrieved from that DB into our command string according to specific syntax rules.
+
+To achieve this, strictly follow the algorithm below:
+
+**1.** Execute the command in your terminal to display all connected devices, or connect the specific device that will be utilized as the KillSwitch:
+```bash
+usbguard list-devices
+```
+
+Review the output and select the target device to which the rule will be applied (multiple devices can be targeted). If this device is connected *after* creating and enforcing rules within USBGuard, it will be blocked by default, so make sure to authorize it.
+
+**2.** Create and open the udev rules custom configuration file:
+```bash
+sudo nano /etc/udev/rules.d/80-usb-kill.rules
+```
+
+**3.** Inject the following rule string, binding it directly to the VENDOR:PRODUCT identifiers of your selected hardware:
+```udev
+ACTION=="remove", DEVPATH=="*/VENDOR:PRODUCT*", RUN+="/bin/sh -c '/usr/bin/lsusb -d VENDOR:PRODUCT || (echo u > /proc/sysrq-trigger && echo o > /proc/sysrq-trigger)'"
+```
+To save the configuration within the `nano` editor, press the key combination **"Ctrl + O"** → **"Enter"**, followed by **"Ctrl + X"** to exit back to the shell prompt.
+
+> [!NOTE]
+> For instance, if the hardware IDs in our database are `0951:1666`, the exact rule string must look strictly like this:
+> ```udev
+> ACTION=="remove", DEVPATH=="*/0951:1666*", RUN+="/bin/sh -c '/usr/bin/lsusb -d 0951:1666 || (echo u > /proc/sysrq-trigger && echo o > /proc/sysrq-trigger)'"
+> ```
+
+**4.** Enforce the newly committed kernel runtime rules immediately:
+```bash
+sudo udevadm control --reload-rules && sudo udevadm trigger
+```
+
+At this point, configuration deployment and rule application are fully complete.
+
+Next, disconnect the device to verify how our new implementation behaves in practice, ensuring full operational readiness.
+
+> [!TIP]
+> We can either combine multiple hardware tokens for emergency shutdown or separate their operational purpose. For instance: you can map the desktop session logging out (Log Out) routine reviewed earlier to your YubiKey for daily use, while assigning the hardware-level forced shutdown (Kill Switch) to another USB device or devices—or vice versa!
 
 <br>
 
