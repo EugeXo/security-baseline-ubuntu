@@ -3888,7 +3888,7 @@ Operational hygiene tolerates no compromises. Maintain absolute vigilance and in
 
 #### Introduction:
 
-Integrating hardware authentication factors—physical security keys inserted into computer USB ports (Type-A or Type-C)—serves as a critical component of privacy and local system hardening.
+An important aspect of ensuring privacy and local security is the integration of hardware authentication factors—physical security keys connected via USB ports (both Type-A and Type-C formats). When it comes to protection against network attacks, considering a hardware key as a defensive perimeter is more redundant than necessary for us, since SSH is disabled by default in Ubuntu Desktop, and we have removed certain compromised network services during the hardening process. However, the elimination of attack vectors can never be reduced to absolute zero; therefore, such paranoia would not be superfluous in certain scenarios, especially regarding local threat models.
 
 The most widely adopted and proven devices across the cybersecurity industry are manufactured by Yubico. For standard implementation tasks, any model featuring hardware FIDO U2F support is suitable (which encompasses virtually the entire product lineup). The most cost-effective option is the basic *Yubico Security Key*, while more advanced variations include the *YubiKey 5* series (including FIPS-certified editions). From the perspective of PAM subsystem configuration logic, the specific hardware model selected is irrelevant.
 
