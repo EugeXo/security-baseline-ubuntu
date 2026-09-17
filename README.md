@@ -62,7 +62,7 @@ This guide provides step-by-step instructions to transform a standard Linux dist
 
 * **Browser Hardening:** Extreme browser core modification via `about:config` and deployment of specialized `user.js` files to neutralize WebRTC leaks, enforce strict DoH Mode 3 + ECH, and block advanced cross-site tracking.
 
-* **Hardware Token Integration:** Elevating physical access controls to the hardware level by binding display managers, interactive shells, and local KeePassXC credential vaults directly to YubiKey 5 cryptographic tokens, complete with a hardware-disconnect session Lock Switch.
+* **Hardware Token Integration:** Elevating physical access controls to the hardware level by binding display managers, interactive shells, and local KeePassXC credential vaults directly to YubiKey 5 cryptographic tokens. Features a hardware-disconnect session Lock Switch and an advanced kernel-level Kill Switch that triggers `cryptsetup luksSuspend` to instantly purge master keys from RAM alongside a Magic SysRq emergency shutdown upon token extraction.
 
 * **Secure Virtualization & Crypto-Asset Protection:** Designing secure workflows for isolated guest operating systems, advanced anti-forensic optimization of VDI virtual containers (zero-filling and compression), and sandboxing desktop interfaces for hardware wallets like Ledger Live.
 
