@@ -18,197 +18,220 @@
 
 ## Table of Contents and Brief Annotations
 
-* [Acknowledgments](#acknowledgments)
-* [Securing the Format (OPSEC Disclaimer)](#securing-the-format-opsec-disclaimer)
-* [From the Author: Why and For Whom Was This Book Written?](#from-the-author-why-and-for-whom-was-this-book-written)
-  * [Core Philosophy](#core-philosophy)
-* [Baseline Protection: 12 Rules of Operational Hygiene](#baseline-protection-12-rules-of-operational-hygiene)
-* [Understanding Anonymity, Privacy, and Security](#understanding-anonymity-privacy-and-security)
-* [Installing Ubuntu 24.04/26.04 LTS](#installing-ubuntu-24042604-lts)
-  * [Introduction](#introduction)
-  * [Hardware Preparation Protocol](#hardware-preparation-protocol)
-  * [Selecting the Distribution](#selecting-the-distribution)
-  * [Step-by-Step Installer Walkthrough](#step-by-step-installer-walkthrough)
-* [First Boot](#first-boot)
-* [System Configuration](#system-configuration)
-* [Getting Started with the Console](#getting-started-with-the-console)
-  * [Initial Setup](#initial-setup)
-  * [Disabling Automounting and Optional Tweaks](#disabling-automounting-and-optional-tweaks)
-  * [Managing Console Shell History](#managing-console-shell-history)
-  * [Configuring a Secure sudo Session Timeout](#configuring-a-secure-sudo-session-timeout)
-  * [Creating the Checks Passed Verification File](#creating-the-checks-passed-verification-file)
-* [Network and VPN Configuration](#network-and-vpn-configuration)
-  * [For Ethernet (Wired Connection)](#for-ethernet-wired-connection)
-  * [For Wi-Fi (Wireless Connection)](#for-wi-fi-wireless-connection)
-  * [NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS](#networkmanager-hardening-suppressing-local-mdns-llmnr-hostname-leaks-and-securing-dns)
-  * [Setting Up a VPN Connection](#setting-up-a-vpn-connection)
-  * [Purging Compromising Bluetooth Components](#purging-compromising-bluetooth-components)
-* [Security Configuration and GRUB Bootloader Hardening](#security-configuration-and-grub-bootloader-hardening)
-  * [Setting a Password to Protect GRUB](#setting-a-password-to-protect-grub)
-  * [Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks](#software-iommu-hardening-protecting-ram-against-kernel-level-dma-attacks)
-* [Configuring the UFW Firewall With and Without a Kill Switch](#configuring-the-ufw-firewall-with-and-without-a-kill-switch)
-  * [Setting Up the Firewall with a Kill Switch](#setting-up-the-firewall-with-a-kill-switch)
-  * [Important Addition on Managing Rule Priority](#important-addition-on-managing-rule-priority)
-  * [Alternative Configuration Setup (Without VPN / For Guest OS)](#alternative-configuration-setup-without-vpn--for-guest-os)
-* [Kernel Tuning, Access Control, and Purging Unnecessary System Services](#kernel-tuning-access-control-and-purging-unnecessary-system-services)
-  * [Protecting the Network Stack and Kernel Memory Subsystem](#protecting-the-network-stack-and-kernel-memory-subsystem)
-  * [Low-Level sysctl Hardening: Mitigating TCP Timestamp Fingerprinting](#low-level-sysctl-hardening-mitigating-tcp-timestamp-fingerprinting)
-  * [Blocking Rare Network Protocols and Legacy Filesystems](#blocking-rare-network-protocols-and-legacy-filesystems)
-  * [Filesystem Access Control Hardening](#filesystem-access-control-hardening)
-  * [Securely Mounting Shared Memory](#securely-mounting-shared-memory)
-  * [Creating an Isolated RAM Disk for Volatile Logs](#creating-an-isolated-ram-disk-for-volatile-logs)
-  * [Configuring Wi-Fi to Default Off on Boot](#configuring-wi-fi-to-default-off-on-boot)
-  * [Cutting Off Video Streams and Audio Recording](#cutting-off-video-streams-and-audio-recording)
-  * [Removing Printing Services and Local Network Discovery Services](#removing-printing-services-and-local-network-discovery-services)
-  * [Masking Geolocation and Timezone](#masking-geolocation-and-timezone)
-* [Configuring Repositories and System Updates](#configuring-repositories-and-system-updates)
-  * [Updating the System](#updating-the-system)
-  * [Deploying the NVIDIA Graphics Stack in Isolated Mode](#deploying-the-nvidia-graphics-stack-in-isolated-mode)
-* [Terminal Environments in Ubuntu](#terminal-environments-in-ubuntu)
-  * [Replacing Gnome Terminal and Ptyxis with Ghostty](#replacing-gnome-terminal-and-ptyxis-with-ghostty)
-  * [Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis](#optional-ubuntu-2604--restoring-gnome-terminal-and-removing-ptyxis)
-* [Removing and Blocking Snap and Telemetry](#removing-and-blocking-snap-and-telemetry)
-  * [Purging Snap](#purging-snap)
-  * [Ripping Out Canonical Telemetry](#ripping-out-canonical-telemetry)
-  * [Purging the Background Firmware Tracker fwupd](#purging-the-background-firmware-tracker-fwupd)
-* [Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor](#installing-security-utilities-libpam-tmpdir-debsums-and-the-btop-system-monitor)
-  * [The libpam-tmpdir Security Utility](#the-libpam-tmpdir-security-utility)
-  * [The debsums Utility](#the-debsums-utility)
-  * [Btop: A Streamlined Resource Monitor](#btop-a-streamlined-resource-monitor)
-  * [Monitoring Network Ports and Active Connections](#monitoring-network-ports-and-active-connections)
-* [Creating Golden Restore Points: Deploying and Configuring Timeshift](#creating-golden-restore-points-deploying-and-configuring-timeshift)
-  * [Introduction](#introduction-1)
-  * [Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB)](#timeshift-mechanics-in-an-encrypted-environment-luks--grub)
-  * [Securely Installing Timeshift](#securely-installing-timeshift)
-  * [Initial Configuration and Creating Snapshot #1 (Sterile Baseline)](#initial-configuration-and-creating-snapshot-1-sterile-baseline)
-  * [Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational)](#ongoing-control-strategy-creating-snapshot-2-pre-operational)
-  * [Emergency Rollback Protocol (System Compromised or Broken)](#emergency-rollback-protocol-system-compromised-or-broken)
-* [Installing a Clean .deb Release of Firefox and Removing the Snap Stub](#installing-a-clean-deb-release-of-firefox-and-removing-the-snap-stub)
-* [Installing and Hardening Privacy Settings in Mozilla Firefox](#installing-and-hardening-privacy-settings-in-mozilla-firefox)
-  * [Preparing the System for Tuning](#preparing-the-system-for-tuning)
-  * [Initial GUI Privacy Configuration (Mandatory for Everyone)](#initial-gui-privacy-configuration-mandatory-for-everyone)
-  * [Configuring Private DNS Providers (DNS over HTTPS)](#configuring-private-dns-providers-dns-over-https)
-  * [Hardening Automation: Creating the user.js Configuration File](#hardening-automation-creating-the-userjs-configuration-file)
-  * [Deploying Ultimate Security Extensions](#deploying-ultimate-security-extensions)
-* [Installing and Configuring the Portmaster Interactive Network Firewall](#installing-and-configuring-the-portmaster-interactive-network-firewall)
-  * [Introduction](#introduction-2)
-  * [Preparation, Initial Kernel Initialization, and Upgrading](#preparation-initial-kernel-initialization-and-upgrading)
-* [Guaranteed Data Destruction and Sterilizing Your Digital Footprint](#guaranteed-data-destruction-and-sterilizing-your-digital-footprint)
-  * [Introduction](#introduction-3)
-  * [Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization](#anatomy-of-a-digital-footprint-why-deleting-files-is-useless-without-metadata-sanitization)
-  * [Installing and Sanitizing Metadata with MAT2](#installing-and-sanitizing-metadata-with-mat2)
-  * [Secure and Irreversible File and Directory Destruction](#secure-and-irreversible-file-and-directory-destruction)
-  * [Operational Parameters for the shred Utility](#operational-parameters-for-the-shred-utility)
-  * [Global Wiping of Unallocated Disk Space](#global-wiping-of-unallocated-disk-space)
-* [Steganography, Obfuscation, and Anti-Forensics Trace Hiding in Ubuntu](#steganography-obfuscation-and-anti-forensics-trace-hiding-in-ubuntu)
-  * [Introduction](#introduction-4)
-  * [Linux Steganography: Concealing Files Within Media Content](#linux-steganography-concealing-files-within-media-content)
-  * [The steghide Command-Line Utility](#the-steghide-command-line-utility)
-  * [Stealth Concealment via the Advanced StegoForge Tool](#stealth-concealment-via-the-advanced-stegoforge-tool)
-  * [Archive Concatenation (Quick Hack Without Third-Party Software)](#archive-concatenation-quick-hack-without-third-party-software)
-  * [Text Obfuscation: Bypassing Automated Inspection Systems (DPI)](#text-obfuscation-bypassing-automated-inspection-systems-dpi)
-  * [Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks)](#analyzing-hidden-threats-file-extension-spoofing-bidi-attacks)
-* [Installing and Configuring the VeraCrypt Cryptographic Suite](#installing-and-configuring-the-veracrypt-cryptographic-suite)
-  * [Introduction to VeraCrypt and Installation](#introduction-to-veracrypt-and-installation)
-  * [Deep Security Tuning: RAM Key Protection (Paranoia Mode)](#deep-security-tuning-ram-key-protection-paranoia-mode)
-  * [A Fundamental Security Tool: Creating Hidden Volumes](#a-fundamental-security-tool-creating-hidden-volumes)
-  * [Ultimate Hardening: Configuring PIM and Hardware Keyfiles](#ultimate-hardening-configuring-pim-and-hardware-keyfiles)
-  * [Real-World Threat Modeling: Why Paranoia Must Be Systemic](#real-world-threat-modeling-why-paranoia-must-be-systemic)
-* [Using Yubico Security Keys](#using-yubico-security-keys)
-  * [Introduction](#introduction-5)
-  * [Installation](#installation)
-  * [Implementing a Hardware Kill Switch via Kernel udev Rules](#implementing-a-hardware-kill-switch-via-kernel-udev-rules)
-* [Installing and Configuring USBGuard](#installing-and-configuring-usbguard)
-  * [Introduction](#introduction-6)
-  * [Installation and Setup](#installation-and-setup)
-* [Setting Up an Emergency Panic Button for Rapid Session Termination](#setting-up-an-emergency-panic-button-for-rapid-session-termination)
-  * [Emergency Hardware Kill Switch via Any USB Device:](#emergency-hardware-kill-switch-via-any-usb-device)
-* [Installing the KeePassXC Local Password Manager](#installing-the-keepassxc-local-password-manager)
-  * [Introduction](#introduction-7)
-  * [Vault Protection Scenarios](#vault-protection-scenarios)
-  * [Installing the Software Suite](#installing-the-software-suite)
-  * [Creating and Hardware-Securing the Database](#creating-and-hardware-securing-the-database)
-  * [Deep Hardening of Internal Security Settings](#deep-hardening-of-internal-security-settings)
-  * [Secure Data Entry via Protected Clipboard](#secure-data-entry-via-protected-clipboard)
-* [Installing and Running the Wireshark Network Analyzer](#installing-and-running-the-wireshark-network-analyzer)
-  * [Introduction](#introduction-8)
-  * [Installing and Launching Wireshark](#installing-and-launching-wireshark)
-  * [Critical Security Concept: Packet Capture Subsystem Security](#critical-security-concept-packet-capture-subsystem-security)
-  * [Stealth Traffic Capture (Headless Console Mode)](#stealth-traffic-capture-headless-console-mode)
-  * [Practical Wireshark Field Guide](#practical-wireshark-field-guide)
-* [Installing and Managing the AppArmor Security System](#installing-and-managing-the-apparmor-security-system)
-  * [Introduction](#introduction-9)
-  * [A New Security Paradigm: Kernel Automation](#a-new-security-paradigm-kernel-automation)
-  * [Practical Hardening of the AppArmor Subsystem](#practical-hardening-of-the-apparmor-subsystem)
-* [Installing and Configuring the Firejail Isolated Sandbox](#installing-and-configuring-the-firejail-isolated-sandbox)
-  * [Introduction](#introduction-10)
-  * [Installing Firejail and Preparing the Sandbox](#installing-firejail-and-preparing-the-sandbox)
-  * [Core Firejail Filtering Options (Reference)](#core-firejail-filtering-options-reference)
-  * [Creating a Dedicated Hardened Firefox Profile](#creating-a-dedicated-hardened-firefox-profile)
-  * [Airtight PDF Vault: Safely Opening Files in an Isolated Offline Mode](#airtight-pdf-vault-safely-opening-files-in-an-isolated-offline-mode)
-  * [Sandboxing Image Viewer for Secure Media Inspection](#sandboxing-image-viewer-for-secure-media-inspection)
-  * [KeePassXC Sandboxing Scenario](#keepassxc-sandboxing-scenario)
-  * [Installing and Sandboxing the LibreOffice Suite](#installing-and-sandboxing-the-libreoffice-suite)
-  * [Installing and Sandboxing GNU Image Manipulation Program (GIMP)](#installing-and-sandboxing-gnu-image-manipulation-program-gimp)
-  * [Installing and Sandboxing VS Codium (Development IDE)](#installing-and-sandboxing-vs-codium-development-ide)
-  * [Installing and Sandboxing LM Studio Bionic Local AI](#installing-and-sandboxing-lm-studio-bionic-local-ai)
-  * [Securing Communications: Mandatory Isolation of Messengers and Crypto Infrastructure (Author's OPSEC Setup)](#securing-communications-mandatory-isolation-of-messengers-and-crypto-infrastructure-authors-opsec-setup)
-  * [Installing and Sandboxing Telegram Desktop](#installing-and-sandboxing-telegram-desktop)
-  * [Host Cryptographic Foundation: Generating and OPSEC-Protecting GnuPG Keys](#host-cryptographic-foundation-generating-and-opsec-protecting-gnupg-keys)
-  * [Installing and Sandboxing the Psi+ Jabber Client](#installing-and-sandboxing-the-psi-jabber-client)
-  * [Installing and Sandboxing Thunderbird (Encrypted Email Workflow)](#installing-and-sandboxing-thunderbird-encrypted-email-workflow)
-  * [Automating the Defensive Perimeter (Firecfg Utility) and Customizing System Icons](#automating-the-defensive-perimeter-firecfg-utility-and-customizing-system-icons)
-  * [Advanced Paranoia Mode: Sandboxing with Session Persistence via Overlay](#advanced-paranoia-mode-sandboxing-with-session-persistence-via-overlay)
-* [Application Isolation with Bubblewrap and Its Advantages Over Firejail](#application-isolation-with-bubblewrap-and-its-advantages-over-firejail)
-  * [Bubblewrap Flags Cheat Sheet:](#bubblewrap-flags-cheat-sheet)
-  * [Installing Bubblewrap:](#installing-bubblewrap)
-  * [Creating a Firefox Profile inside Bubblewrap:](#creating-a-firefox-profile-inside-bubblewrap)
-  * [Hardening the Document Viewer for PDF files using Bubblewrap](#hardening-the-document-viewer-for-pdf-files-using-bubblewrap)
-  * [Wrapping the Image Viewer inside Bubblewrap:](#wrapping-the-image-viewer-inside-bubblewrap)
-  * [Isolating KeePassXC Password Manager:](#isolating-keepassxc-password-manager)
-  * [Installing and Isolating the LibreOffice Suite:](#installing-and-isolating-the-libreoffice-suite)
-  * [Installing and Isolating GIMP:](#installing-and-isolating-gimp)
-  * [Installing and Isolating VS Codium Code Editor:](#installing-and-isolating-vs-codium-code-editor)
-  * [Installing and Isolating LM Studio (Local AI Runtime):](#installing-and-isolating-lm-studio-local-ai-runtime)
-  * [Installing and Isolating Telegram Desktop:](#installing-and-isolating-telegram-desktop)
-  * [Installing and Isolating Signal Messenger:](#installing-and-isolating-signal-messenger)
-  * [Installing and Isolating Psi+ Jabber Client:](#installing-and-isolating-psi-jabber-client)
-  * [Installing and Isolating Thunderbird Email Client:](#installing-and-isolating-thunderbird-email-client)
-* [Installing Rkhunter and Hunting Rootkits](#installing-rkhunter-and-hunting-rootkits)
-  * [Installing Chkrootkit Alongside Rkhunter](#installing-chkrootkit-alongside-rkhunter)
-* [Installing and Configuring the ClamAV Antivirus Scanner](#installing-and-configuring-the-clamav-antivirus-scanner)
-  * [Introduction](#introduction-11)
-  * [Installing ClamAV](#installing-clamav)
-  * [Updating Signature Databases and Bypassing Network Blocks](#updating-signature-databases-and-bypassing-network-blocks)
-  * [Structuring System Scans](#structuring-system-scans)
-  * [Multithreaded Scanning (Hardening)](#multithreaded-scanning-hardening)
-* [Installing and Configuring the VirtualBox Virtualization Environment](#installing-and-configuring-the-virtualbox-virtualization-environment)
-  * [Anti-Forensics Protection: Isolating VirtualBox Logs in RAM (`tmpfs`)](#anti-forensics-protection-isolating-virtualbox-logs-in-ram-tmpfs)
-* [Shrinking and Optimizing VDI Virtual Disks](#shrinking-and-optimizing-vdi-virtual-disks)
-  * [Introduction](#introduction-12)
-  * [Sanitizing a Windows Guest Virtual Machine](#sanitizing-a-windows-guest-virtual-machine)
-  * [Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux)](#sanitizing-a-linux-guest-virtual-machine-ubuntukali-linux)
-  * [Final Virtual Disk Compaction on the Host Machine](#final-virtual-disk-compaction-on-the-host-machine)
-* [Installing and Configuring the Docker Containerization Platform](#installing-and-configuring-the-docker-containerization-platform)
-  * [Introduction](#introduction-13)
-  * [What Is the Hidden Danger of Default Docker](#what-is-the-hidden-danger-of-default-docker)
-  * [Deploying Docker in Rootless Mode](#deploying-docker-in-rootless-mode)
-  * [Securing Docker Networking: Preventing UFW Firewall Bypass](#securing-docker-networking-preventing-ufw-firewall-bypass)
-  * [Experimental Proof of Security (Verifying Non-Root Execution)](#experimental-proof-of-security-verifying-non-root-execution)
-* [Installing and Configuring the AIDE File Integrity Monitoring System](#installing-and-configuring-the-aide-file-integrity-monitoring-system)
-  * [Introduction](#introduction-14)
-  * [Installing and Configuring AIDE](#installing-and-configuring-aide)
-  * [Executing a Penetration Test (Validating Defense Mechanisms)](#executing-a-penetration-test-validating-defense-mechanisms)
-* [Automated System Security Auditing with Lynis](#automated-system-security-auditing-with-lynis)
-* [Installing and Configuring the Trivy Vulnerability and Secret Scanner](#installing-and-configuring-the-trivy-vulnerability-and-secret-scanner)
-* [Configuring Ubuntu/Xubuntu/Lubuntu Guest Systems in VirtualBox](#configuring-ubuntuxubuntulubuntu-guest-systems-in-virtualbox)
-  * [Installing Guest Additions](#installing-guest-additions)
-  * [Installing Mozilla Firefox](#installing-mozilla-firefox)
-  * [Configuring Shared Folders in VirtualBox](#configuring-shared-folders-in-virtualbox)
-  * [Installing Ledger Live in VirtualBox with Ubuntu/Xubuntu/Lubuntu](#installing-ledger-live-in-virtualbox-with-ubuntuxubuntulubuntu)
-  * [Running Ledger Live on the Main Host System (Ubuntu)](#running-ledger-live-on-the-main-host-system-ubuntu)
-* [About the Author and Legal Information](#about-the-author-and-legal-information)
-  * [Contact Information and Community Resources](#contact-information-and-community-resources)
+- [Security Baseline: A Practical Guide to Ubuntu Desktop Security](#security-baseline-a-practical-guide-to-ubuntu-desktop-security)
+  - [Engineering Hardening and Operational Hygiene for Ubuntu Desktop 24.04/26.04 LTS](#engineering-hardening-and-operational-hygiene-for-ubuntu-desktop-24042604-lts)
+    - [Written and published by EugeXo](#written-and-published-by-eugexo)
+  - [Table of Contents and Brief Annotations](#table-of-contents-and-brief-annotations)
+  - [Acknowledgments](#acknowledgments)
+  - [Securing the Format (OPSEC Disclaimer)](#securing-the-format-opsec-disclaimer)
+  - [From the Author: Why and For Whom Was This Book Written?](#from-the-author-why-and-for-whom-was-this-book-written)
+    - [Core Philosophy:](#core-philosophy)
+  - [Baseline Protection: 12 Rules of Operational Hygiene](#baseline-protection-12-rules-of-operational-hygiene)
+  - [Understanding Anonymity, Privacy, and Security](#understanding-anonymity-privacy-and-security)
+  - [Installing Ubuntu 24.04/26.04 LTS](#installing-ubuntu-24042604-lts)
+    - [Introduction:](#introduction)
+    - [Hardware Preparation Protocol:](#hardware-preparation-protocol)
+    - [Selecting the Distribution:](#selecting-the-distribution)
+    - [Step-by-Step Installer Walkthrough:](#step-by-step-installer-walkthrough)
+  - [First Boot](#first-boot)
+  - [System Configuration](#system-configuration)
+  - [Getting Started with the Console](#getting-started-with-the-console)
+    - [Initial Setup:](#initial-setup)
+      - [GNOME Terminal Ubuntu 24.04:](#gnome-terminal-ubuntu-2404)
+      - [Ptyxis Ubuntu 26.04:](#ptyxis-ubuntu-2604)
+    - [Disabling Automounting and Optional Tweaks:](#disabling-automounting-and-optional-tweaks)
+    - [Managing Console Shell History:](#managing-console-shell-history)
+    - [Configuring a Secure sudo Session Timeout:](#configuring-a-secure-sudo-session-timeout)
+    - [Creating the Checks Passed Verification File:](#creating-the-checks-passed-verification-file)
+  - [Network and VPN Configuration](#network-and-vpn-configuration)
+    - [For Ethernet (Wired Connection):](#for-ethernet-wired-connection)
+    - [For Wi-Fi (Wireless Connection):](#for-wi-fi-wireless-connection)
+      - [Bare-Metal PC or Laptop Configuration (Full Randomization):](#bare-metal-pc-or-laptop-configuration-full-randomization)
+      - [Virtual Machine Configuration (Strict Vendor Spoofing):](#virtual-machine-configuration-strict-vendor-spoofing)
+    - [NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS:](#networkmanager-hardening-suppressing-local-mdns-llmnr-hostname-leaks-and-securing-dns)
+    - [Setting Up a VPN Connection:](#setting-up-a-vpn-connection)
+    - [Purging Compromising Bluetooth Components:](#purging-compromising-bluetooth-components)
+  - [Security Configuration and GRUB Bootloader Hardening](#security-configuration-and-grub-bootloader-hardening)
+    - [Setting a Password to Protect GRUB:](#setting-a-password-to-protect-grub)
+    - [Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks:](#software-iommu-hardening-protecting-ram-against-kernel-level-dma-attacks)
+  - [Configuring the UFW Firewall With and Without a Kill Switch](#configuring-the-ufw-firewall-with-and-without-a-kill-switch)
+    - [Setting Up the Firewall with a Kill Switch:](#setting-up-the-firewall-with-a-kill-switch)
+    - [Important Addition on Managing Rule Priority:](#important-addition-on-managing-rule-priority)
+    - [Alternative Configuration Setup (Without VPN / For Guest OS):](#alternative-configuration-setup-without-vpn--for-guest-os)
+  - [Kernel Tuning, Access Control, and Purging Unnecessary System Services](#kernel-tuning-access-control-and-purging-unnecessary-system-services)
+    - [Protecting the Network Stack and Kernel Memory Subsystem:](#protecting-the-network-stack-and-kernel-memory-subsystem)
+    - [Low-Level sysctl Hardening: Defense Against TCP Timestamp Fingerprinting:](#low-level-sysctl-hardening-defense-against-tcp-timestamp-fingerprinting)
+    - [Blocking Rare Network Protocols and Legacy Filesystems:](#blocking-rare-network-protocols-and-legacy-filesystems)
+    - [Filesystem Access Control Hardening:](#filesystem-access-control-hardening)
+    - [Securely Mounting Shared Memory:](#securely-mounting-shared-memory)
+      - [Balanced Profile (Recommended for Daily Desktop Use):](#balanced-profile-recommended-for-daily-desktop-use)
+      - [Paranoid Profile (Maximum Isolation):](#paranoid-profile-maximum-isolation)
+    - [Creating an Isolated RAM Disk for Volatile Logs:](#creating-an-isolated-ram-disk-for-volatile-logs)
+    - [Configuring Wi-Fi to Default Off on Boot:](#configuring-wi-fi-to-default-off-on-boot)
+    - [Cutting Off Video Streams and Audio Recording:](#cutting-off-video-streams-and-audio-recording)
+    - [Removing Printing Services and Local Network Discovery Services:](#removing-printing-services-and-local-network-discovery-services)
+    - [Masking Geolocation and Timezone:](#masking-geolocation-and-timezone)
+  - [Configuring Repositories and System Updates](#configuring-repositories-and-system-updates)
+    - [Updating the System:](#updating-the-system)
+    - [Deploying the NVIDIA Graphics Stack in Isolated Mode:](#deploying-the-nvidia-graphics-stack-in-isolated-mode)
+  - [Terminal Environments in Ubuntu:](#terminal-environments-in-ubuntu)
+    - [Replacing GNOME Terminal and Ptyxis with Ghostty](#replacing-gnome-terminal-and-ptyxis-with-ghostty)
+      - [Installation for Ubuntu 24.04 LTS (Noble Numbat) users:](#installation-for-ubuntu-2404-lts-noble-numbat-users)
+      - [Installation for Ubuntu 26.04 LTS (Resolute Raccoon) users:](#installation-for-ubuntu-2604-lts-resolute-raccoon-users)
+      - [Ghostty Configuration Options for Ubuntu 24.04 / 26.04:](#ghostty-configuration-options-for-ubuntu-2404--2604)
+    - [Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis:](#optional-ubuntu-2604--restoring-gnome-terminal-and-removing-ptyxis)
+  - [Removing and Blocking Snap and Telemetry](#removing-and-blocking-snap-and-telemetry)
+    - [Purging Snap:](#purging-snap)
+    - [Ripping Out Canonical Telemetry:](#ripping-out-canonical-telemetry)
+    - [Purging the Background Firmware Tracker fwupd:](#purging-the-background-firmware-tracker-fwupd)
+  - [Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor](#installing-security-utilities-libpam-tmpdir-debsums-and-the-btop-system-monitor)
+    - [The libpam-tmpdir Security Utility:](#the-libpam-tmpdir-security-utility)
+    - [The debsums Utility:](#the-debsums-utility)
+    - [Btop: A Streamlined Resource Monitor:](#btop-a-streamlined-resource-monitor)
+    - [Monitoring Network Ports and Active Connections:](#monitoring-network-ports-and-active-connections)
+  - [Creating Golden Restore Points: Deploying and Configuring Timeshift](#creating-golden-restore-points-deploying-and-configuring-timeshift)
+    - [Introduction:](#introduction-1)
+    - [Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB):](#timeshift-mechanics-in-an-encrypted-environment-luks--grub)
+    - [Securely Installing Timeshift:](#securely-installing-timeshift)
+    - [Initial Configuration and Creating Snapshot #1 (Sterile Baseline):](#initial-configuration-and-creating-snapshot-1-sterile-baseline)
+    - [Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational):](#ongoing-control-strategy-creating-snapshot-2-pre-operational)
+    - [Emergency Rollback Protocol (System Compromised or Broken):](#emergency-rollback-protocol-system-compromised-or-broken)
+  - [Installing a Clean .deb Release of Firefox and Removing the Snap Stub:](#installing-a-clean-deb-release-of-firefox-and-removing-the-snap-stub)
+  - [Installing and Hardening Privacy Settings in Mozilla Firefox](#installing-and-hardening-privacy-settings-in-mozilla-firefox)
+    - [Preparing the System for Tuning:](#preparing-the-system-for-tuning)
+    - [Initial GUI Privacy Configuration (Mandatory for Everyone):](#initial-gui-privacy-configuration-mandatory-for-everyone)
+    - [Configuring Private DNS Providers (DNS over HTTPS):](#configuring-private-dns-providers-dns-over-https)
+    - [Hardening Automation: Creating the user.js Configuration File:](#hardening-automation-creating-the-userjs-configuration-file)
+    - [Deploying Ultimate Security Extensions:](#deploying-ultimate-security-extensions)
+  - [Installing and Configuring the Portmaster Interactive Network Firewall](#installing-and-configuring-the-portmaster-interactive-network-firewall)
+    - [Introduction:](#introduction-2)
+    - [Preparation, Initial Kernel Initialization, and Upgrading:](#preparation-initial-kernel-initialization-and-upgrading)
+  - [Guaranteed Data Destruction and Sterilizing Your Digital Footprint](#guaranteed-data-destruction-and-sterilizing-your-digital-footprint)
+    - [Introduction:](#introduction-3)
+    - [Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:](#anatomy-of-a-digital-footprint-why-deleting-files-is-useless-without-metadata-sanitization)
+    - [Installing and Sanitizing Metadata with MAT2:](#installing-and-sanitizing-metadata-with-mat2)
+    - [Secure and Irreversible File and Directory Destruction:](#secure-and-irreversible-file-and-directory-destruction)
+    - [Operational Parameters for the shred Utility:](#operational-parameters-for-the-shred-utility)
+    - [Global Wiping of Unallocated Disk Space:](#global-wiping-of-unallocated-disk-space)
+  - [Steganography, Obfuscation, and Anti-Forensics Trace Hiding in Ubuntu](#steganography-obfuscation-and-anti-forensics-trace-hiding-in-ubuntu)
+    - [Introduction:](#introduction-4)
+    - [Linux Steganography: Concealing Files Within Media Content:](#linux-steganography-concealing-files-within-media-content)
+    - [The steghide Command-Line Utility:](#the-steghide-command-line-utility)
+    - [Stealth Concealment via the Advanced StegoForge Tool:](#stealth-concealment-via-the-advanced-stegoforge-tool)
+    - [Archive Concatenation (Quick Hack Without Third-Party Software):](#archive-concatenation-quick-hack-without-third-party-software)
+    - [Text Obfuscation: Bypassing Automated Inspection Systems (DPI):](#text-obfuscation-bypassing-automated-inspection-systems-dpi)
+    - [Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks):](#analyzing-hidden-threats-file-extension-spoofing-bidi-attacks)
+  - [Installing and Configuring the VeraCrypt Cryptographic Suite](#installing-and-configuring-the-veracrypt-cryptographic-suite)
+    - [Introduction to VeraCrypt and Installation:](#introduction-to-veracrypt-and-installation)
+      - [Installation via Community PPA Repository:](#installation-via-community-ppa-repository)
+      - [Installation via Official Distribution Package (Native Method):](#installation-via-official-distribution-package-native-method)
+    - [Deep Security Tuning: RAM Key Protection (Paranoia Mode):](#deep-security-tuning-ram-key-protection-paranoia-mode)
+    - [A Fundamental Security Tool: Creating Hidden Volumes:](#a-fundamental-security-tool-creating-hidden-volumes)
+    - [Ultimate Hardening: Configuring PIM and Hardware Keyfiles:](#ultimate-hardening-configuring-pim-and-hardware-keyfiles)
+  - [Real-World Threat Modeling: Why Paranoia Must Be Systemic:](#real-world-threat-modeling-why-paranoia-must-be-systemic)
+  - [Using Yubico Security Keys](#using-yubico-security-keys)
+    - [Introduction:](#introduction-5)
+    - [Installation:](#installation)
+    - [Implementing a Hardware Kill Switch via Kernel udev Rules:](#implementing-a-hardware-kill-switch-via-kernel-udev-rules)
+  - [Installing and Configuring USBGuard](#installing-and-configuring-usbguard)
+    - [Introduction:](#introduction-6)
+    - [Installation and Setup:](#installation-and-setup)
+  - [Setting Up an Emergency Panic Button for Rapid Session Termination](#setting-up-an-emergency-panic-button-for-rapid-session-termination)
+    - [Emergency Hardware Kill Switch via Any USB Device:](#emergency-hardware-kill-switch-via-any-usb-device)
+  - [Installing the KeePassXC Local Password Manager](#installing-the-keepassxc-local-password-manager)
+    - [Introduction:](#introduction-7)
+    - [Vault Protection Scenarios:](#vault-protection-scenarios)
+    - [Installing the Software Suite:](#installing-the-software-suite)
+    - [Creating and Hardware-Securing the Database:](#creating-and-hardware-securing-the-database)
+    - [Deep Hardening of Internal Security Settings:](#deep-hardening-of-internal-security-settings)
+    - [Secure Data Entry via Protected Clipboard:](#secure-data-entry-via-protected-clipboard)
+  - [Installing and Running the Wireshark Network Analyzer](#installing-and-running-the-wireshark-network-analyzer)
+    - [Introduction:](#introduction-8)
+    - [Installing and Launching Wireshark:](#installing-and-launching-wireshark)
+    - [Critical Security Concept: Packet Capture Subsystem Security:](#critical-security-concept-packet-capture-subsystem-security)
+    - [Stealth Traffic Capture (Headless Console Mode):](#stealth-traffic-capture-headless-console-mode)
+    - [Practical Wireshark Field Guide:](#practical-wireshark-field-guide)
+  - [Installing and Managing the AppArmor Security System](#installing-and-managing-the-apparmor-security-system)
+    - [Introduction:](#introduction-9)
+    - [A New Security Paradigm: Kernel Automation:](#a-new-security-paradigm-kernel-automation)
+    - [Practical Hardening of the AppArmor Subsystem:](#practical-hardening-of-the-apparmor-subsystem)
+  - [Installing and Configuring Isolated Sandboxes: Firejail and Bubblewrap](#installing-and-configuring-isolated-sandboxes-firejail-and-bubblewrap)
+    - [Introduction:](#introduction-10)
+    - [Installing Firejail and Preparing the Sandbox:](#installing-firejail-and-preparing-the-sandbox)
+    - [Core Firejail Filtering Parameters (Reference):](#core-firejail-filtering-parameters-reference)
+    - [Optional: Automating the Firejail Defense Perimeter (`firecfg`):](#optional-automating-the-firejail-defense-perimeter-firecfg)
+    - [Installing Bubblewrap:](#installing-bubblewrap)
+    - [Bubblewrap Flags Cheat Sheet (Reference):](#bubblewrap-flags-cheat-sheet-reference)
+    - [Preparing Custom Sandbox Launchers:](#preparing-custom-sandbox-launchers)
+    - [Creating a Separate Hardened Firefox Profile for Firejail:](#creating-a-separate-hardened-firefox-profile-for-firejail)
+    - [Creating a Hardened Firefox Profile in Bubblewrap:](#creating-a-hardened-firefox-profile-in-bubblewrap)
+    - [Sealed PDF Chamber: Running Document Viewer Safely in Firejail:](#sealed-pdf-chamber-running-document-viewer-safely-in-firejail)
+    - [Sealing Document Viewer for PDF Reading in Bubblewrap:](#sealing-document-viewer-for-pdf-reading-in-bubblewrap)
+    - [Image Viewer for Viewing Graphic Files in Firejail:](#image-viewer-for-viewing-graphic-files-in-firejail)
+    - [Wrapping Image Viewer in Bubblewrap:](#wrapping-image-viewer-in-bubblewrap)
+    - [KeePassXC Isolation Scenario for Firejail:](#keepassxc-isolation-scenario-for-firejail)
+    - [Isolating KeePassXC via Bubblewrap:](#isolating-keepassxc-via-bubblewrap)
+    - [Installing and Isolating the LibreOffice Suite:](#installing-and-isolating-the-libreoffice-suite)
+    - [Configuring LibreOffice via Firejail:](#configuring-libreoffice-via-firejail)
+    - [Wrapping LibreOffice in Bubblewrap:](#wrapping-libreoffice-in-bubblewrap)
+    - [Installing and Isolating GNU Image Manipulation Program (GIMP):](#installing-and-isolating-gnu-image-manipulation-program-gimp)
+    - [Configuring GIMP via Firejail:](#configuring-gimp-via-firejail)
+    - [Configuring GIMP via Bubblewrap:](#configuring-gimp-via-bubblewrap)
+    - [Installing and Isolating the VSCodium Code Editor (IDE):](#installing-and-isolating-the-vscodium-code-editor-ide)
+    - [Isolating VSCodium in Firejail:](#isolating-vscodium-in-firejail)
+    - [Isolating VSCodium in Bubblewrap:](#isolating-vscodium-in-bubblewrap)
+    - [Installing and Isolating the Local LLM Engine LM Studio Bionic:](#installing-and-isolating-the-local-llm-engine-lm-studio-bionic)
+    - [Deploying LM Studio via Firejail:](#deploying-lm-studio-via-firejail)
+    - [Wrapping LM Studio in Bubblewrap:](#wrapping-lm-studio-in-bubblewrap)
+    - [Configuring Secure Communications: Mandatory Isolation of Messengers and the Crypto Contour (Author's OPSEC Contour):](#configuring-secure-communications-mandatory-isolation-of-messengers-and-the-crypto-contour-authors-opsec-contour)
+    - [Installing and Isolating Telegram Desktop:](#installing-and-isolating-telegram-desktop)
+    - [Securing the Telegram Contour via Firejail:](#securing-the-telegram-contour-via-firejail)
+    - [Isolating Telegram via Bubblewrap:](#isolating-telegram-via-bubblewrap)
+    - [Installing and Isolating Signal via Bubblewrap:](#installing-and-isolating-signal-via-bubblewrap)
+    - [Host Cryptographic Foundation: Generating and OPSEC-Hardening GnuPG Keys:](#host-cryptographic-foundation-generating-and-opsec-hardening-gnupg-keys)
+    - [Installing and Isolating the Jabber Client Psi+:](#installing-and-isolating-the-jabber-client-psi)
+    - [Isolating Psi+ in Firejail:](#isolating-psi-in-firejail)
+    - [Isolating the Psi+ Jabber Client in Bubblewrap:](#isolating-the-psi-jabber-client-in-bubblewrap)
+    - [Installing and Isolating the Thunderbird Email Client (Encrypted Email Contour):](#installing-and-isolating-the-thunderbird-email-client-encrypted-email-contour)
+    - [Isolating Thunderbird with Firejail:](#isolating-thunderbird-with-firejail)
+    - [Isolating Thunderbird via Bubblewrap:](#isolating-thunderbird-via-bubblewrap)
+    - [Advanced "Paranoia" Mode: Firejail with Session Persistence via Overlay:](#advanced-paranoia-mode-firejail-with-session-persistence-via-overlay)
+  - [Installing Rkhunter and Hunting Rootkits](#installing-rkhunter-and-hunting-rootkits)
+    - [Installing Chkrootkit Alongside Rkhunter](#installing-chkrootkit-alongside-rkhunter)
+  - [Installing and Configuring the ClamAV Antivirus Scanner](#installing-and-configuring-the-clamav-antivirus-scanner)
+    - [Introduction:](#introduction-11)
+    - [Installing ClamAV:](#installing-clamav)
+    - [Updating Signature Databases and Bypassing Network Blocks:](#updating-signature-databases-and-bypassing-network-blocks)
+    - [Structuring System Scans:](#structuring-system-scans)
+    - [Multithreaded Scanning (Hardening):](#multithreaded-scanning-hardening)
+  - [Installing and Configuring the VirtualBox Virtualization Environment](#installing-and-configuring-the-virtualbox-virtualization-environment)
+    - [Anti-Forensics Protection: Isolating VirtualBox Logs in RAM (`tmpfs`)](#anti-forensics-protection-isolating-virtualbox-logs-in-ram-tmpfs)
+  - [Shrinking and Optimizing VDI Virtual Disks](#shrinking-and-optimizing-vdi-virtual-disks)
+    - [Introduction:](#introduction-12)
+    - [Sanitizing a Windows Guest Virtual Machine:](#sanitizing-a-windows-guest-virtual-machine)
+    - [Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux):](#sanitizing-a-linux-guest-virtual-machine-ubuntukali-linux)
+    - [Final Virtual Disk Compaction on the Host Machine:](#final-virtual-disk-compaction-on-the-host-machine)
+  - [Installing and Configuring the Docker Containerization Platform](#installing-and-configuring-the-docker-containerization-platform)
+    - [Introduction:](#introduction-13)
+    - [What Is the Hidden Danger of Default Docker?](#what-is-the-hidden-danger-of-default-docker)
+    - [Deploying Docker in Rootless Mode:](#deploying-docker-in-rootless-mode)
+    - [Securing Docker Networking: Preventing UFW Firewall Bypass:](#securing-docker-networking-preventing-ufw-firewall-bypass)
+    - [Hardened Container Deployment in Practice:](#hardened-container-deployment-in-practice)
+    - [Experimental Proof of Security (Verifying Non-Root Execution):](#experimental-proof-of-security-verifying-non-root-execution)
+  - [Installing and Configuring the AIDE File Integrity Monitoring System](#installing-and-configuring-the-aide-file-integrity-monitoring-system)
+    - [Introduction:](#introduction-14)
+    - [Installing and Configuring AIDE:](#installing-and-configuring-aide)
+    - [Executing a Penetration Test (Validating Defense Mechanisms):](#executing-a-penetration-test-validating-defense-mechanisms)
+  - [Automated System Security Auditing with Lynis](#automated-system-security-auditing-with-lynis)
+  - [Installing and Configuring the Trivy Vulnerability and Secret Scanner](#installing-and-configuring-the-trivy-vulnerability-and-secret-scanner)
+  - [Configuring Ubuntu/Xubuntu/Lubuntu Guest Systems in VirtualBox](#configuring-ubuntuxubuntulubuntu-guest-systems-in-virtualbox)
+    - [Installing Guest Additions:](#installing-guest-additions)
+    - [Installing Mozilla Firefox:](#installing-mozilla-firefox)
+    - [Configuring Shared Folders in VirtualBox:](#configuring-shared-folders-in-virtualbox)
+    - [Installing Ledger Live in VirtualBox with Ubuntu/Xubuntu/Lubuntu:](#installing-ledger-live-in-virtualbox-with-ubuntuxubuntulubuntu)
+    - [Running Ledger Live on the Main Host System (Ubuntu)](#running-ledger-live-on-the-main-host-system-ubuntu)
+  - [About the Author \& Legal Information](#about-the-author--legal-information)
+    - [Contact Information \& Community Resources:](#contact-information--community-resources)
 
 <br>
 <br>
@@ -275,7 +298,7 @@ All methodologies detailed here must be deployed strictly for lawful purposes: p
 
 Deliberate data protection and responsible technology usage make the digital landscape safer for everyone.
 
-#### Core Philosophy:
+### Core Philosophy:
 
 The purpose of this book is not to build a bloated encyclopedia covering every single utility, but rather to demonstrate their exact role within a unified defensive posture. Consequently, the internal mechanics and feature sets of individual components are analyzed only to the extent required to understand their core operational principles and enforce secure deployment.
 
@@ -332,7 +355,7 @@ An encrypted laptop with a strong password improves security. However, if the us
 
 ## Installing Ubuntu 24.04/26.04 LTS
 
-#### Introduction:
+### Introduction:
 
 This chapter covers installing the Ubuntu operating system with security requirements in mind. It also includes the option to deploy the system onto external USB and Thunderbolt storage drives.
 
@@ -351,7 +374,7 @@ Apple devices (especially modern MacBooks with the T2 chip and Apple Silicon) ar
 >
 > Testing was conducted in **VirtualBox 7.2.x**, **VMware Workstation Pro 26H1**, as well as on bare-metal systems with integrated Intel graphics and discrete NVIDIA graphics adapters.
 
-#### Hardware Preparation Protocol:
+### Hardware Preparation Protocol:
 
 * **On a desktop PC:** Remove the side case panel, completely disconnect power from the mains, and unplug all storage drives except the target disk designated for the Linux installation. If M.2 NVMe drives are present, a screwdriver will be required to remove them.
 
@@ -382,13 +405,13 @@ An offline installation minimizes external variables during the initial system d
 
 Once initial configuration and defense mechanisms are applied, re-establish network connectivity within a fully controlled environment.
 
-#### Selecting the Distribution:
+### Selecting the Distribution:
 
 All demonstrations throughout this guide use current **Ubuntu 24.04 LTS Noble Numbat** and **Ubuntu 26.04 LTS Resolute Raccoon** releases. They are straightforward to master, resource-efficient, and run stably on PCs with as little as 2 GB of RAM (especially when opting for lightweight flavors like Xubuntu or Lubuntu). Furthermore, they offer extensive global Linux community support and, most importantly, a solid baseline security posture right out of the box.
 
 Performing the installation in English is recommended. Should unexpected errors arise, troubleshooting and sourcing technical data on specialized English-language resources becomes significantly easier. However, this is not a strict requirement, and the final choice of system language remains up to you. This guide utilizes the English (US) localization.
 
-#### Step-by-Step Installer Walkthrough:
+### Step-by-Step Installer Walkthrough:
 
 **1.** After choosing the system language, proceed to the keyboard layout menu **"Select your keyboard"** and select **English (US)** or another preferred layout.
 
@@ -490,7 +513,7 @@ Under **"Sound"**, mute the microphone by clicking the icon next to **"Input Vol
 
 ## Getting Started with the Console
 
-#### Initial Setup:
+### Initial Setup:
 
 Launch the terminal via the application menu (**"Show Apps"**). Pin the terminal shortcut to the **"Dock"** panel for quick and convenient command-line access.
 
@@ -507,7 +530,7 @@ After successful password entry, the **`$`** symbol in the prompt changes to a h
 > [!IMPORTANT]
 > Memorizing basic Linux terminal commands will make system navigation fast and efficient.
 
-**GNOME Terminal Ubuntu 24.04**
+#### GNOME Terminal Ubuntu 24.04:
 
 The terminal in Ubuntu 24.04 offers convenient visual customization directly via the GUI menu. It supports Transparency and allows setting a precise color palette with Custom shade selection, making prolonged terminal workflows highly comfortable aesthetically.
 
@@ -515,7 +538,7 @@ Before starting core tasks, configure the terminal's appearance. In the upper-ri
 
 The drawback is reliance on the older GTK3 stack and the absence of certain modern isolation and security mechanisms available to GTK4 applications.
 
-**Ptyxis Ubuntu 26.04**
+#### Ptyxis Ubuntu 26.04:
 
 Before shifting to Ptyxis for regular use, configure it for better ergonomics. In the upper-right corner of the window, click the **"Hamburger menu"** (three horizontal lines) and navigate to **"Preferences"**. This opens the **"Appearance"** menu directly, offering pre-built visual presets for subsequent workflows. First, scroll down slightly and deactivate the **"Use System Font"** toggle, then select the required font size. A selection of color palettes is pre-installed; at the very top of **"Appearance"**, click the **"Show All Palettes"** dropdown and select the most suitable color scheme. For deeper color and font customization, direct editing of configuration files is required.
 
@@ -572,7 +595,7 @@ Next, close the console and relaunch it. The created profile should appear in th
 > 
 > Ghostty will also be examined later as an alternative terminal emulator. Its installation and basic configuration will be covered separately, allowing readers to compare it against Ptyxis and GNOME Terminal to select the most suitable option for their system.
 
-#### Disabling Automounting and Optional Tweaks:
+### Disabling Automounting and Optional Tweaks:
 
 **1.** Disable automatic mounting of removable media (prevents automatic mounting while still permitting manual mounting by the user or an application):
 ```bash
@@ -591,7 +614,7 @@ If this window placement proves undesirable, execute the same command replacing 
 gsettings set org.gnome.desktop.input-sources xkb-options "['grp:alt_shift_toggle']" && gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Shift>Alt_L', '<Alt>Shift_L']"
 ```
 
-#### Managing Console Shell History:
+### Managing Console Shell History:
 
 By default, Bash retains a command history of limited size: older entries are eventually displaced, and multiple concurrently open terminals can create race conditions during history preservation. Furthermore, history is typically written to disk upon shell termination rather than after each individual command. In the event of an unexpected system shutdown, recently executed commands might fail to commit to the history file, which is undesirable for auditing workflows.
 
@@ -684,7 +707,7 @@ Re-apply the `+a` attribute immediately upon completing maintenance.
 > [!IMPORTANT]
 > The `append-only` attribute is not an absolute barrier. Any user with root privileges can strip the attribute and modify or delete the history log. Treat this control as a supplementary hardening layer rather than an immutable audit log.
 
-#### Configuring a Secure sudo Session Timeout:
+### Configuring a Secure sudo Session Timeout:
 
 To enforce a custom password timeout duration in the terminal, create a dedicated configuration snippet. Editing the main system file `/etc/sudoers` directly is discouraged to avoid syntax errors that could lockout administrative access.
 
@@ -728,7 +751,7 @@ sudo -k
 
 Executing `sudo -k` immediately revokes active `sudo` credentials, ensuring the next `sudo` invocation requires password authentication.
 
-#### Creating the Checks Passed Verification File:
+### Creating the Checks Passed Verification File:
 
 **1.** Create a text file to log the **"Privacy & Security"** -> **"Device Security"** -> **"Checks Passed"** overview:
 ```bash
@@ -765,7 +788,7 @@ To save the file in `nano`, press **`Ctrl + O`** -> **`Enter`**, then press **`C
 
 ## Network and VPN Configuration
 
-#### For Ethernet (Wired Connection):
+### For Ethernet (Wired Connection):
 
 Without connecting the network cable, navigate to system **"Settings"** and select the **"Network"** tab. Locate the **"Wired"** entry and click the **"Network Options"** gear icon. Inside the opened window, navigate to the **"Details"** tab and immediately uncheck both **"Make available to other users"** and **"Connect automatically"**.
 
@@ -785,7 +808,7 @@ Under the **"Cloned Address"** field, physical address spoofing can be configure
 
 In Ubuntu 24.04/26.04, NetworkManager profile settings map through the Netplan backend; precise MAC address spoofing rules can be explicitly set via NetworkManager configurations directly when required.
 
-#### For Wi-Fi (Wireless Connection):
+### For Wi-Fi (Wireless Connection):
 
 **1.** Check and record the network interface identifier (required for subsequent configuration tasks):
 ```bash
@@ -806,7 +829,7 @@ Access the **"Security"** tab and enter eight arbitrary random characters into t
 
 Disable Wi-Fi by toggling the main switch to the inactive position.
 
-* **Bare-Metal PC or Laptop Configuration (Full Randomization)**
+#### Bare-Metal PC or Laptop Configuration (Full Randomization):
 
 For physical hardware, generating a completely new randomized MAC address upon every network connection provides optimal operational security. Configuration files inside `conf.d` parse in lexicographical order, so the `99-...` filename prefix ensures these directives override standard configuration parameters.
 
@@ -850,7 +873,7 @@ A successful execution returns output displaying `link/ether "generated MAC" brd
 
 Note: When configuring Wi-Fi connections, return to the **Wireless Connection (Wi-Fi)** setup section.
 
-* **Virtual Machine Configuration (Strict Vendor Spoofing)**
+#### Virtual Machine Configuration (Strict Vendor Spoofing):
 
 In virtualized environments running Ubuntu 24.04/26.04, the Netplan and NetworkManager stack blocks automatic MAC address randomization via the GUI, resetting the interface address back to the hypervisor's factory prefix (e.g., `00:0c:29:...` for VMware) upon every system reboot. This behavior immediately exposes virtual machine usage.
 
@@ -904,7 +927,7 @@ ip link show enp0s1
 ```
 The output line starting with `link/ether` must display the static Intel/Realtek spoofed MAC address, while the original hypervisor factory prefix remains hidden under the `permaddr` attribute. Graphical network control and VPN import capabilities remain fully functional.
 
-#### NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS:
+### NetworkManager Hardening: Suppressing Local mDNS, LLMNR, Hostname Leaks, and Securing DNS:
 
 By default, `NetworkManager` may utilize mDNS (Multicast DNS) and LLMNR (Link-Local Multicast Name Resolution) mechanisms designed for local device discovery and hostname resolution within local network segments.
 
@@ -972,7 +995,7 @@ sudo netplan apply
 resolvectl status
 ```
 
-#### Setting Up a VPN Connection:
+### Setting Up a VPN Connection:
 
 When utilizing a VPN connection, execute the steps outlined below; skip this section if no VPN is present.
 
@@ -1000,7 +1023,7 @@ In modern Ubuntu releases, importing complex configuration files containing spec
 > [!IMPORTANT]
 > Executing OpenVPN directly from user home directories (e.g., the `Downloads` folder) is strictly prohibited. Cryptographic keys and configuration profiles must reside in system directories protected by root-level access permissions; otherwise, compromising the unprivileged user session (e.g., via browser exploits) allows adversaries to exfiltrate VPN access credentials.
 
-#### Purging Compromising Bluetooth Components:
+### Purging Compromising Bluetooth Components:
 
 The Bluetooth wireless protocol is rarely utilized; thus, fully disabling and isolating it yields significantly better security than continuously monitoring its over-the-air status. This protocol carries numerous known and zero-day (0-day) vulnerabilities, introducing dangerous attack vectors for proximate remote exploitation. In public spaces such as cafes or co-working environments, adversaries can exploit the kernel's Bluetooth stack to gain unauthorized remote control over the device.
 
@@ -1049,7 +1072,7 @@ Following this execution, the Linux kernel cannot load corresponding drivers upo
 
 ## Security Configuration and GRUB Bootloader Hardening
 
-#### Setting a Password to Protect GRUB:
+### Setting a Password to Protect GRUB:
 
 To prevent unauthorized modification of Linux kernel parameters (*Evil Maid* attack vectors) when physical access is present, set an administrative password for the GRUB bootloader. Without this mitigation, anyone with physical access can alter boot directives, pass `init=/bin/bash` to the kernel, and bypass standard operating system authentication during early boot stages.
 
@@ -1106,7 +1129,7 @@ sudo chmod 0600 /boot/grub/custom.cfg
 > [!WARNING]
 > Following these adjustments, standard Ubuntu boots bypass the GRUB password prompt, making it easy to forget due to rare usage. However, during emergency recovery (e.g., filesystem repairs or emergency maintenance), the bootloader will demand this passphrase. To prevent total loss of administrative control, record this credential on paper stored in a physical safe or save it inside an offline password manager database (such as KeePassXC). Detailed setup for this software is covered in subsequent chapters.
 
-#### Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks:
+### Software IOMMU Hardening: Protecting RAM Against Kernel-Level DMA Attacks:
 
 Because the introduction established the necessity of defending against high-risk DMA (*Direct Memory Access*) attacks, disabling sleep mode and relying on BIOS/UEFI parameters alone is entirely insufficient. On many consumer laptops and motherboards, hardware authorization features for Thunderbolt and USB4 ports are deliberately hidden or completely omitted by manufacturers.
 
@@ -1196,7 +1219,7 @@ sudo dmesg | grep -E "iommu|IOMMU|dmar"
 
 ## Configuring the UFW Firewall With and Without a Kill Switch
 
-#### Setting Up the Firewall with a Kill Switch:
+### Setting Up the Firewall with a Kill Switch:
 
 In Ubuntu, while remaining disconnected from the internet, configure the host firewall via the terminal. Execute the following steps sequentially:
 
@@ -1315,7 +1338,7 @@ sudo ufw reload
 man ufw
 ```
 
-#### Important Addition on Managing Rule Priority:
+### Important Addition on Managing Rule Priority:
 
 Occasions arise where blocking a specific malicious IP address or an entire subnet becomes necessary. For instance, while analyzing traffic in the Wireshark network monitor, you might notice persistent outbound connection attempts targeting IP addresses `84.17.56.74` and `84.17.56.91` over port 80. You can choose to block them individually or drop traffic to the entire subnet at once.
 
@@ -1348,7 +1371,7 @@ sudo ufw status numbered
 sudo ufw delete 5
 ```
 
-#### Alternative Configuration Setup (Without VPN / For Guest OS):
+### Alternative Configuration Setup (Without VPN / For Guest OS):
 
 If configuring a system without a VPN tunnel (e.g., inside an isolated guest OS in VirtualBox where traffic is already secured on the host machine), port authorization commands will utilize the `any` keyword. The complete deployment workflow proceeds as follows:
 
@@ -1452,7 +1475,7 @@ The terminal should output an explicit error: *"Connection refused"*. This confi
 
 ## Kernel Tuning, Access Control, and Purging Unnecessary System Services
 
-#### Protecting the Network Stack and Kernel Memory Subsystem:
+### Protecting the Network Stack and Kernel Memory Subsystem:
 
 Prior to connecting to the global network, execute critical hardening routines targeting the operating system kernel, baseline file permissions, and remote access service activity.
 
@@ -1548,7 +1571,7 @@ sudo systemctl disable --now gnome-remote-desktop.service
 sudo systemctl disable --now ModemManager.service
 ```
 
-#### Low-Level sysctl Hardening: Defense Against TCP Timestamp Fingerprinting:
+### Low-Level sysctl Hardening: Defense Against TCP Timestamp Fingerprinting:
 
 Even with a strict UFW firewall active and OS signatures suppressed, the Linux kernel leaks its identity at the network layer through TCP packet parameters. One of the most dangerous passive deanonymization techniques is **TCP Timestamp Fingerprinting (RFC 1323)**.
 
@@ -1591,7 +1614,7 @@ sudo sysctl --system
 > [!TIP]
 > **Validation Check:** Carefully inspect the command output. At the bottom of the applied parameters list, verify that your custom `99-security-hardening.conf` file successfully loaded and overridden previous default parameters.
 
-#### Blocking Rare Network Protocols and Legacy Filesystems:
+### Blocking Rare Network Protocols and Legacy Filesystems:
 
 Block the kernel from loading rare network protocols and unused legacy filesystems to completely eliminate potential attack vectors targeting vulnerabilities in their binary kernel modules:
 
@@ -1620,7 +1643,7 @@ To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, and th
 sudo update-initramfs -u -k all
 ```
 
-#### Filesystem Access Control Hardening:
+### Filesystem Access Control Hardening:
 
 By default, Ubuntu operating systems create files with a `UMASK 022` permission mask. This allows other unprivileged local users (and potentially compromised background system daemons) to freely read newly created files. Change this global policy to the most restrictive profile:
 
@@ -1647,7 +1670,7 @@ chmod 0700 /home/$USER
 sudo chmod 750 /etc/sudoers.d && sudo chmod 640 /etc/sudoers.d/* 2>/dev/null || true
 ```
 
-#### Securely Mounting Shared Memory:
+### Securely Mounting Shared Memory:
 
 Configure secure mounting parameters for virtual shared memory (`shared memory`), a vector frequently leveraged by attackers for covert fileless malware execution:
 
@@ -1667,14 +1690,14 @@ If the target system requires full capability for media playback and local LLM e
 
 Navigate to the bottom of the file and append one of the following configuration options based on system role.
 
-**Balanced Profile (Recommended for Daily Desktop Use):**
+#### Balanced Profile (Recommended for Daily Desktop Use):
 
 **2A.** Preserves complete operational stability for modern web browsers during video streaming and WebAssembly processing without breaking internal IPC communication mechanisms. The host remains protected against block device node creation and privilege escalation via setuid/setgid bits:
 ```ini
 tmpfs /dev/shm tmpfs rw,nosuid,nodev 0 0
 ```
 
-**Paranoid Profile (Maximum Isolation):**
+#### Paranoid Profile (Maximum Isolation):
 
 **2B.** Suited for CLI servers and dedicated desktop systems running defined workloads (terminal applications, text editors, local administration, Docker/VMware environments) where rendering dynamic web content is not required. The `noexec` flag blocks third-party binary execution from RAM, mitigating *Fileless Malware* attack vectors:
 ```ini
@@ -1686,7 +1709,7 @@ To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then p
 > [!NOTE]
 > Unlike Chromium-engine browsers that crash instantly on launch under `noexec`, Firefox will launch and render simple websites. Issues manifest when rendering complex content: tabs crash when initializing WebAssembly (WASM) or WebGL graphics, and internal sandbox isolation operates in a degraded, less secure state.
 
-#### Creating an Isolated RAM Disk for Volatile Logs:
+### Creating an Isolated RAM Disk for Volatile Logs:
 
 To enforce the "Zero Persistence" principle, we will allocate a dedicated area in RAM for logging sensitive applications, by setting a hard RAM limit for log storage used by selected system services and user applications.
 
@@ -1719,7 +1742,7 @@ sudo touch /mnt/ramlog/ufw.log && sudo rm -f /var/log/ufw.log && sudo ln -s /mnt
 > [!TIP]
 > You can check the mount point, disk size, and used space using `df -h /mnt/ramlog`, and view the log files along with their sizes using `ls -la /mnt/ramlog`.
 
-#### Configuring Wi-Fi to Default Off on Boot:
+### Configuring Wi-Fi to Default Off on Boot:
 
 To guarantee that wireless modules do not emit hidden over-the-air network probes during system boot, block them at the system daemon level. This completely eliminates probe request leaks and prevents accidental deanonymization of the factory MAC address in public spaces:
 
@@ -1793,7 +1816,7 @@ The system preserves this state within kernel parameters, ensuring radio transmi
 > This deployment sequence covers 99.9% of practical threat scenarios, leaving an imperceptible exposure window that cannot be exploited by standard software.
 > The sole mitigation yielding zero risk of RF exfiltration requires cutting power to the wireless controller entirely. Achieve this via BIOS/UEFI firmware toggles (Hardware Disable) or physical kill switches found on legacy laptops. Standard keyboard hotkeys such as Fn+F2, Fn+F5, or Fn+F8 (featuring antenna or airplane icons) act strictly as software triggers. Activating them emits an ACPI event caught by the OS kernel (observable via `sudo journalctl -f`), which then instructs software to mute the transmitter. However, if the host is compromised by rootkits, these software restrictions can be bypassed regardless of physical key state.
 
-#### Cutting Off Video Streams and Audio Recording:
+### Cutting Off Video Streams and Audio Recording:
 
 While a physical camera slider or tape over the lens prevents visual espionage, the microphone can still capture ambient audio in the background.
 
@@ -1840,7 +1863,7 @@ sudo update-initramfs -u -k all
 > [!IMPORTANT]
 > Microphones should not remain active continuously. To toggle input rapidly, most laptops provide a hardware hotkey combination (typically Fn+F4 displaying a crossed-out microphone icon). If the target device lacks a dedicated key, utilize native operating system controls. Navigate to system **«Settings»**, select the **«Sound»** tab, and inside the **«Input»** section, click the microphone icon next to the **«Input Volume»** slider to instantly mute input (*Mute* tooltip). Clicking it again toggles the device back to active status (*Unmute* tooltip).
 
-#### Removing Printing Services and Local Network Discovery Services:
+### Removing Printing Services and Local Network Discovery Services:
 
 Next, forcibly disable the `avahi-daemon` service. This background daemon manages automatic local network resource discovery via the mDNS protocol, broadcasting your host's hostname in the `hostname.local` format. Furthermore, the utility maintains open network ports 5353 (UDP) and 32768 (TCP). Active open ports in public local networks allow adversaries to rapidly identify and target your device, which is entirely unacceptable:
 
@@ -1876,7 +1899,7 @@ gsettings set org.gnome.desktop.lockdown disable-printing true
 sudo ip link set dev enp0s1 multicast off
 ```
 
-#### Masking Geolocation and Timezone:
+### Masking Geolocation and Timezone:
 
 Completely purge the `Geoclue` geolocation service from the operating system to prevent covert background tracking of host physical coordinates:
 
@@ -1938,7 +1961,7 @@ Click **«Close»**, then click **«Reload»** in the prompt to refresh the loca
 
 <br>
 
-#### Updating the System:
+### Updating the System:
 
 With initial operating system hardening complete, perform a full system update. Connect to the physical network by attaching an Ethernet cable or enabling the Wi-Fi adapter (though abandoning wireless networks in favor of traditional wired connections is strongly recommended wherever technically feasible).
 
@@ -1977,7 +2000,7 @@ sudo apt autoremove --purge -y && sudo apt clean
 sudo systemctl reboot -i
 ```
 
-#### Deploying the NVIDIA Graphics Stack in Isolated Mode:
+### Deploying the NVIDIA Graphics Stack in Isolated Mode:
 
 This subsection is required strictly under two scenarios: when deploying a local AI environment for neural network workloads (LM Studio) or when hardware-accelerated heavy graphics rendering is critical. If building a system dedicated solely to text-based OPSEC (confidential email, secure messaging, basic web browsing), skip this step entirely.
 
@@ -2058,11 +2081,11 @@ sudo systemctl reboot -i
 
 ## Terminal Environments in Ubuntu:
 
-#### Replacing GNOME Terminal and Ptyxis with Ghostty
+### Replacing GNOME Terminal and Ptyxis with Ghostty
 
 Installing the highly discussed Ghostty terminal emulator, written in Zig and created by well-known IT figure Mitchell Hashimoto.
 
-**Installation for Ubuntu 24.04 LTS (Noble Numbat) users:**
+#### Installation for Ubuntu 24.04 LTS (Noble Numbat) users:
 
 **1.** Perform a dry-run purge to verify dependency removal and ensure critical packages are not inadvertently removed:
 ```bash
@@ -2091,7 +2114,7 @@ If no essential system packages are targeted, proceed with final cleanup.
 sudo apt autoremove
 ```
 
-**Installation for Ubuntu 26.04 LTS (Resolute Raccoon) users:**
+#### Installation for Ubuntu 26.04 LTS (Resolute Raccoon) users:
 
 **1.** Perform a dry-run purge to verify dependency removal and ensure critical packages are not inadvertently removed:
 ```bash
@@ -2124,7 +2147,7 @@ If no essential system packages are targeted, proceed with final cleanup.
 sudo apt autoremove
 ```
 
-**Ghostty Configuration Options for Ubuntu 24.04 / 26.04:**
+#### Ghostty Configuration Options for Ubuntu 24.04 / 26.04:
 
 Access configuration settings in Ghostty by opening the **burger menu** and selecting **Open Configuration**. Populate the resulting `config.ghostty` file with the following directives:
 
@@ -2150,7 +2173,7 @@ window-width = 96
 window-height = 24
 ```
 
-#### Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis:
+### Optional! Ubuntu 26.04 — Restoring Gnome Terminal and Removing Ptyxis:
 
 To reiterate, **this approach is not recommended** as it introduces inherent security risks and serves purely as an alternative fallback. Executing untrusted or malicious code within this setup carries a near-100% probability of compromising the entire host system. Using a strict `firejail` sandbox is strongly recommended for such workflows instead.
 
@@ -2196,7 +2219,7 @@ sudo apt autoremove
 
 ## Removing and Blocking Snap and Telemetry
 
-#### Purging Snap:
+### Purging Snap:
 
 Proceed to strip the `Snapd` subsystem from the operating system entirely, neutralizing its ability to covertly download and update proprietary packages while bypassing host privacy parameters:
 
@@ -2226,7 +2249,7 @@ To save the configuration in `nano`, press **`Ctrl + O`** -> **`Enter`**, then p
 > 
 > Second, Canonical packages the default Firefox browser strictly as a Snap container in modern Ubuntu releases. Running `purge snapd` completely removes Firefox from the host system! To avoid losing web connectivity, ensure a native `.deb` build of Firefox is installed from the official developer repository (Mozilla PPA) prior to purging Snap. Execute this step immediately after completing initial kernel isolation and applying base system updates!
 
-#### Ripping Out Canonical Telemetry:
+### Ripping Out Canonical Telemetry:
 
 It is time to execute our comprehensive automated Bash script to purge all built-in telemetry and prevent latent technical metric transmission to Canonical servers. Create this script inside the user's Downloads directory:
 
@@ -2352,7 +2375,7 @@ After execution, remove `telemetryoff.sh` from `Downloads` via the trash interfa
 sudo systemctl stop apport.service  && sudo systemctl disable --now kerneloops.service
 ```
 
-#### Purging the Background Firmware Tracker fwupd:
+### Purging the Background Firmware Tracker fwupd:
 
 Even after completely purging Canonical system telemetry, the hidden `fwupd` (Firmware Updater) daemon remains active by default in the operating system. Upon establishing a network connection, it silently transmits background queries to the global CDN server `cdn.fwupd.org`, leaking unique hardware UUID identifiers for the motherboard, CPU, and NVMe drives under the guise of checking for BIOS/UEFI firmware updates.
 
@@ -2377,7 +2400,7 @@ sudo systemctl mask fwupd fwupd-refresh.service fwupd-refresh.timer
 
 ## Installing Security Utilities: libpam-tmpdir, debsums, and the Btop System Monitor
 
-#### The libpam-tmpdir Security Utility:
+### The libpam-tmpdir Security Utility:
 
 To eliminate one of the oldest architectural vulnerabilities in Linux, isolate shared temporary directories accessible by default to all system processes. Integrate a specialized authentication module into the kernel to dynamically provision isolated, per-application temporary storage in memory for every active session.
 
@@ -2389,7 +2412,7 @@ sudo apt install libpam-tmpdir -y
 > [!NOTE]
 > By default, all running processes, messaging applications, system daemons, and scripts share the global system directory `/tmp` for temporary file storage. From a security perspective, this creates an unmonitored shared surface. Malicious binaries, covert trackers, or unprivileged processes executing inside the system can enumerate `/tmp` contents, spy on temporary files generated by adjacent applications, attempt file tampering, or execute symlink attacks.
 
-#### The debsums Utility:
+### The debsums Utility:
 
 The `debsums` utility is built for auditing internal system integrity at a granular level. The name stands for Debian checksums.
 
@@ -2405,7 +2428,7 @@ sudo apt install debsums -y
 sudo debsums -s
 ```
 
-#### Btop: A Streamlined Resource Monitor:
+### Btop: A Streamlined Resource Monitor:
 
 A modern terminal-based resource monitor designed to replace the standard `top` utility. The tool provides a significantly more intuitive, detailed, and interactive graphical dashboard running directly inside the terminal interface.
 
@@ -2423,7 +2446,7 @@ Access the internal keybinding reference menu by pressing **H** (*Help*). Exit t
 
 <br>
 
-#### Monitoring Network Ports and Active Connections:
+### Monitoring Network Ports and Active Connections:
 
 Continuous monitoring of network activity is a core operational hygiene requirement. Maintain complete visibility over which internal processes bind sockets and where outbound network traffic is actively routed.
 
@@ -2454,7 +2477,7 @@ To terminate the monitoring loop and return to the shell console, press **`Ctrl 
 
 ## Creating Golden Restore Points: Deploying and Configuring Timeshift
 
-#### Introduction:
+### Introduction:
 
 With initial kernel hardening, privilege isolation, and strict firewall blocking fully established, the host is operating as a clean, hardened, and completely air-gapped system. Before initiating a primary network connection to apply full distribution updates, freezing this sterile state is a critical prerequisite.
 
@@ -2462,14 +2485,14 @@ Engineered security controls account for worst-case operational failure: applyin
 
 Deploy the `Timeshift` system utility to manage state restoration. Operating as a restore-point system, it isolates and protects core system binaries and configurations without altering user data stored inside the home directory, preventing operational document loss during state restoration routines.
 
-#### Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB):
+### Timeshift Mechanics in an Encrypted Environment (LUKS + GRUB):
 
 Because the system was deployed on top of an encrypted LVM pool and the `GRUB` bootloader was secured with a password during installation, account for two strict security rules:
 
 1. **No External Software via Live-USB:** Configure `Timeshift` and execute snapshot rollbacks strictly from within the running, decrypted operating system. Using third-party emergency Live USB drives is unacceptable under this OPSEC model, as they bypass established host authorization mechanisms.
 2. **Boot Sector Integrity Control:** The encrypted disk layout and password-protected `GRUB` bootloader remain fully secured because `Timeshift` snapshots operate on file states inside logical volumes without modifying the underlying low-level LUKS encryption structure. However, restoring a snapshot can overwrite `GRUB` menu configuration files; the kernel editing password remains active and will not be reset.
 
-#### Securely Installing Timeshift:
+### Securely Installing Timeshift:
 
 Execute the sequence of commands in the terminal with superuser privileges. Bring up the encrypted tunnel, then initiate installation from the official Ubuntu repository:
 
@@ -2490,7 +2513,7 @@ exit
 
 The utility is now successfully deployed on the host, while the protective network perimeter remained continuously enforced without exposure to external traffic.
 
-#### Initial Configuration and Creating Snapshot #1 (Sterile Baseline):
+### Initial Configuration and Creating Snapshot #1 (Sterile Baseline):
 
 Executing `Timeshift` requires superuser privileges.
 
@@ -2522,7 +2545,7 @@ Click the **«Create»** button in the main interface window. The application in
 > [!IMPORTANT]
 > This snapshot serves as the primary system recovery baseline ("Sterile Reference"). It captures all low-level kernel hardening configurations, optimized `sysctl` parameters, the enforced `UMASK 077` file creation mask, and the complete removal of native Canonical telemetry—prior to deploying user applications, third-party software repositories, web browsers, or user utilities. If subsequent customization or software testing introduces system instability, restore this hardened baseline configuration instantly.
 
-#### Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational):
+### Ongoing Control Strategy: Creating Snapshot #2 (Pre-Operational):
 
 Now that the baseline system security is backed up by the initial snapshot, proceed with daily operational maintenance: apply routine system updates via `apt upgrade`, strip residual telemetry meta-packages, and deploy the native `.deb` build of the Firefox browser.
 
@@ -2530,7 +2553,7 @@ However, prior to advancing to comprehensive host auditing via `Lynis` or deploy
 
 The procedure remains identical: prior to executing complex virtualization engines or deep auditing tools, launch `Timeshift` and manually provision a secondary recovery baseline. Assign the following comment string: `BUILD_02_BEFORE_LYNIS`.
 
-#### Emergency Rollback Protocol (System Compromised or Broken):
+### Emergency Rollback Protocol (System Compromised or Broken):
 
 If operational stability is degraded during isolated container experimentation or through syntax errors introduced into low-level configuration files, execute a safe rollback from within the active operating system environment:
 
@@ -2625,7 +2648,7 @@ firefox --version
 
 ## Installing and Hardening Privacy Settings in Mozilla Firefox
 
-#### Preparing the System for Tuning:
+### Preparing the System for Tuning:
 
 The native web browser built into the operating system requires rigorous hardening. Deployed exclusively as a clean `.deb` package, disable hidden internal Mozilla telemetry by force, block cross-site tracking, and completely neutralize host deanonymization vectors.
 
@@ -2654,7 +2677,7 @@ With the host isolated inside a clean environment, safely launch Firefox and pro
 >
 > *The term OPSEX was originally formulated by the author of this guide (EugeXo) during risk analysis of personal data exposure vectors caused by user negligence and low digital literacy.*
 
-#### Initial GUI Privacy Configuration (Mandatory for Everyone):
+### Initial GUI Privacy Configuration (Mandatory for Everyone):
 
 Launch the browser. Input the direct path into the address bar: `about:preferences#privacy`. Enforce the following configuration modifications sequentially:
 
@@ -2665,7 +2688,7 @@ Launch the browser. Input the direct path into the address bar: `about:preferenc
 * **«Search» Section:** Select this option from the left navigation sidebar. Change the default search provider from the Google telemetry engine to **DuckDuckGo**, a privacy-focused alternative.
 * **«Permissions and data»** *Section:* Scroll down to **«Firefox Data Collection and Use»**. Uncheck all telemetry collection checkboxes to prevent the browser from transmitting diagnostic telemetry or stability metrics to Mozilla servers.
 
-#### Configuring Private DNS Providers (DNS over HTTPS):
+### Configuring Private DNS Providers (DNS over HTTPS):
 
 Select any secure, non-logging DoH server from the provided list.
 
@@ -2702,7 +2725,7 @@ Select any secure, non-logging DoH server from the provided list.
 > * Clean DNS (Ultra-fast): `https://cloudflare-dns.com/dns-query`
 > * Malware Protection (Safe Browsing alternative): `https://security.cloudflare-dns.com/dns-query`
 
-#### Hardening Automation: Creating the user.js Configuration File:
+### Hardening Automation: Creating the user.js Configuration File:
 
 To avoid entering numerous radical parameters manually via the `about:config` interface, create a single automated text file named `user.js`. All settings are added there using the system format `user_pref("parameter", value);`.
 
@@ -3004,7 +3027,7 @@ The browser configuration is now fully hardened, anonymized, and encrypted. With
 > 
 > **Firefox configuration keys may change across versions; parameters validated in current releases may require updates in future releases.**
 
-#### Deploying Ultimate Security Extensions:
+### Deploying Ultimate Security Extensions:
 
 Since the `privacy.resistFingerprinting` (RFP) parameter we previously enabled flawlessly spoofs and mitigates all key fingerprints at the Gecko engine source-code level, we only need to integrate two fundamental extensions from the official Mozilla Add-ons store:
 
@@ -3026,13 +3049,13 @@ Since the `privacy.resistFingerprinting` (RFP) parameter we previously enabled f
 
 ## Installing and Configuring the Portmaster Interactive Network Firewall
 
-#### Introduction:
+### Introduction:
 
 Portmaster is a powerful next-generation interactive firewall designed for deep real-time network traffic analysis. The utility packs a rich array of low-level filtering mechanics and granular security policies.
 
 Unlike legacy solutions such as OpenSnitch, Portmaster enforces an out-of-the-box permissive "Allow" posture. It permits host binaries outbound network access by default. Traffic gets dropped only after an operator explicitly blacklists a target application or tightens the engine's global security parameters.
 
-#### Preparation, Initial Kernel Initialization, and Upgrading:
+### Preparation, Initial Kernel Initialization, and Upgrading:
 
 To deploy the current version of Portmaster without cascading kernel panics, UFW conflicts, and endless CPU consumption, apply my proprietary two-stage offline upgrade tactic.
 
@@ -3190,7 +3213,7 @@ nmcli networking on && nmcli connection up netplan-enp0s1
 
 ## Guaranteed Data Destruction and Sterilizing Your Digital Footprint
 
-#### Introduction:
+### Introduction:
 
 We will dissect how the `shred` and `wipe` utilities physically overwrite bytes on a storage drive, protecting our host from forensic analysis in the event of device loss or seizure. However, engineering security does not end at the perimeter of your local disk. We must enforce an ironclad rule of operational hygiene: **every file leaving your system and transmitting across the network must be completely sterile**.
 
@@ -3201,7 +3224,7 @@ We will dissect how the `shred` and `wipe` utilities physically overwrite bytes 
 >
 > Once all sensitive operations are complete, re-enable command logging on a separate standalone line: `set -o history`.
 
-#### Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:
+### Anatomy of a Digital Footprint: Why Deleting Files Is Useless Without Metadata Sanitization:
 
 Most users make a fatal mistake. They assume that creating a text document, taking a screenshot of firewall settings, or editing an image in a graphics editor results in a file containing only what is visible to the eye. This is a dangerous misconception.
 
@@ -3219,7 +3242,7 @@ For OSINT specialists or adversaries, collecting metadata represents the initial
 > 
 > Prior to executing a "Send" or "Upload" action, files must undergo total sanitization. Within Linux environments, the industry standard for this task is `mat2` (Metadata Anonymisation Toolkit 2). Rather than merely stripping tags, it reassembles the underlying file structure from scratch, generating a pristine duplicate stripped of historical data.
 
-#### Installing and Sanitizing Metadata with MAT2:
+### Installing and Sanitizing Metadata with MAT2:
 
 The utility is written in Python, runs completely locally, and requires no file transmission to third-party online services (which would constitute a severe security breach in itself).
 
@@ -3273,7 +3296,7 @@ set -o history
 
 With files fully anonymized and stripped of digital tracking markers, external transmission risks are mitigated. To handle remaining operational sources, drafts, and temporary artifacts residing on the encrypted LVM drive, proceed to the tools designed for complete physical destruction within the file system.
 
-#### Secure and Irreversible File and Directory Destruction:
+### Secure and Irreversible File and Directory Destruction:
 
 To securely erase private data, directories, and files beyond recovery, use the specialized CLI utility `wipe`, which overwrites information using complex multi-pass algorithms. Alternatively, the standard built-in utility `shred` reliably sanitizes individual files, though it lacks native architectural support for directory structures.
 
@@ -3327,7 +3350,7 @@ shred -v -u -z -n 3 FILENAME
 set -o history
 ```
 
-#### Operational Parameters for the shred Utility:
+### Operational Parameters for the shred Utility:
 
 * **`-v`** (*verbose*) — Display real-time progress of the operation within the console output.
 * **`-u`** (*unlink*) — Forcefully truncate and remove the file from the file system, clearing its filename entry after successful overwrite passes.
@@ -3339,7 +3362,7 @@ set -o history
 > 
 > Full-disk LUKS encryption completely mitigates this vulnerability (as the Ext4 journal itself resides inside the encrypted LUKS container). However, when wiping files on an external unencrypted Ext4 flash drive, remain aware that fragments of deleted files may persist within its system journal.
 
-#### Global Wiping of Unallocated Disk Space:
+### Global Wiping of Unallocated Disk Space:
 
 If the operating system has been running for an extended period and sensitive files were deleted using standard graphical methods (pressing **Delete** to move items to the Trash), a vast amount of non-overwritten residual traces remains on the storage device. To permanently eliminate all previously deleted files on an SSD simultaneously—without waiting for random OS overwrites—deploy the specialized `secure-delete` package:
 
@@ -3373,20 +3396,20 @@ set -o history
 
 ## Steganography, Obfuscation, and Anti-Forensics Trace Hiding in Ubuntu
 
-#### Introduction:
+### Introduction:
 
 Once metadata is sanitized using `mat2` and temporary files are guaranteed destroyed via `shred` or `wipe`, the next challenge emerges: how to transmit or store critical information so that the very fact of its existence remains deeply hidden.
 
 Under conditions of severe state censorship and pervasive network surveillance, simple data encryption frequently attracts unwanted attention from monitoring systems, as an encrypted file presents itself as suspicious "digital noise." To mitigate this issue, deploy steganography (embedding data within secondary carrier objects) and obfuscation (scrambling information) techniques.
 
-#### Linux Steganography: Concealing Files Within Media Content:
+### Linux Steganography: Concealing Files Within Media Content:
 
 Steganography enables deep embedding within an innocuous container file (such as a photo or audio recording). The cover file maintains full functionality, opens cleanly in standard media players, and remains visually indistinguishable from the original.
 
 > [!IMPORTANT]
 > The cover file must be genuine, high-quality, and sufficiently large. Otherwise, injecting secret payloads introduces anomalous discrepancies between the image's physical file size and its visual resolution, triggering suspicion during analysis.
 
-#### The steghide Command-Line Utility:
+### The steghide Command-Line Utility:
 
 Start with the classic approach. `steghide` is a fully command-line utility residing in the official Ubuntu repositories. It is ideal for automation within bash scripts (for example, covertly backing up security logs). The utility embeds data into JPEG, BMP, WAV, and AU file formats using robust AES-256 encryption by default.
 
@@ -3428,7 +3451,7 @@ set -o history
 > * PNG uses lossless compression. The `steghide` embedding method disrupts the PNG optimization algorithm, resulting in anomalous file size growth that reveals the covert channel.
 > * MP3 uses lossy compression. The MP3 algorithm treats data embedded within audio stream bits as "extraneous digital noise" and strips it during playback or conversion.
 
-#### Stealth Concealment via the Advanced StegoForge Tool:
+### Stealth Concealment via the Advanced StegoForge Tool:
 
 StegoForge is a dual-use (Red/Blue Team) framework designed both for covertly embedding payloads into media files and detecting hidden containers using integrated forensic analysis algorithms.
 
@@ -3518,7 +3541,7 @@ Reference this structural guide for routine operational workflows:
 set -o history
 ```
 
-#### Archive Concatenation (Quick Hack Without Third-Party Software):
+### Archive Concatenation (Quick Hack Without Third-Party Software):
 
 This method leverages the structural properties of binary files. Most image viewers parse files from the beginning, whereas archive managers process structure strictly from the end of the file. Merge both components physically using the host terminal.
 
@@ -3545,14 +3568,14 @@ set -o history
 * **Hardening Outcome:** Opening `final_photo.jpg` via standard GUI file managers renders the original cat image cleanly.
 * **Extraction Workflow:** Right-click the file ➔ *Open With "Archive Manager"* (or execute `unzip final_photo.jpg` directly in the terminal). The archive utility skips leading image bytes, reading and extracting the hidden archive structure from the end of the file.
 
-#### Text Obfuscation: Bypassing Automated Inspection Systems (DPI):
+### Text Obfuscation: Bypassing Automated Inspection Systems (DPI):
 
 Automated monitoring systems and Deep Packet Inspection (DPI) appliances continuously scan network traffic, communications, and files for stop-words or prohibited signature markers. Altering text structure enables bypassing automated signature-based filtering mechanisms.
 
 * **Character Homoglyph Insertion:** Replacing specific letters with visually identical characters from alternate alphabets breaks automated signature detection entirely. For instance, the Cyrillic letter `С` and the Latin letter `C` appear identical on-screen, yet contain distinct byte-codes. To an automated scanner, `Секрет` (containing a Latin C) and `Секрет` (containing a Cyrillic C) represent entirely distinct entities, causing the filter to permit text that remains completely legible to a human reader.
 * **Zero-Width Character Injection:** Injecting zero-width spaces (`U+200B`) fractures words into discrete fragments for search crawlers while maintaining a continuous, monolithic display within the end-user's rendering engine.
 
-#### Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks):
+### Analyzing Hidden Threats: File Extension Spoofing (BiDi Attacks):
 
 For defending teams and high-risk users, understanding how Unicode manipulation is weaponized to bypass vigilance is critical to maintaining operational security.
 
@@ -3589,11 +3612,11 @@ echo -e "Filename_\u202Efdp.exe" | env LANG=C cat -v
 
 ## Installing and Configuring the VeraCrypt Cryptographic Suite
 
-#### Introduction to VeraCrypt and Installation:
+### Introduction to VeraCrypt and Installation:
 
 VeraCrypt serves as a powerful utility for constructing isolated encrypted containers, as well as executing full-disk encryption across external USB drives and hard disks. The software provides absolute resistance to cryptanalysis and was engineered specifically to meet stringent security standards.
 
-**Installation via Community PPA Repository:**
+#### Installation via Community PPA Repository:
 
 If automated system-wide package updates are preferred alongside OS maintenance, deploy the popular third-party security repository:
 
@@ -3617,7 +3640,7 @@ sudo apt install veracrypt -y
 veracrypt
 ```
 
-**Installation via Official Distribution Package (Native Method):**
+#### Installation via Official Distribution Package (Native Method):
 
 To eliminate dependency conflicts across modern Ubuntu 24.04 and 26.04 LTS environments, deploying the official stable build directly from the IDRIX development team is recommended:
 
@@ -3640,7 +3663,7 @@ sudo apt install ./veracrypt-*.deb -y
 veracrypt
 ```
 
-#### Deep Security Tuning: RAM Key Protection (Paranoia Mode):
+### Deep Security Tuning: RAM Key Protection (Paranoia Mode):
 
 By default, when mounting encrypted volumes, VeraCrypt retains master encryption and decryption keys in RAM in plaintext. If an adversary gains physical access to a powered-on host, they could attempt to extract these keys using low-level attacks such as a *Cold Boot* attack (freezing and reading memory chips) or via hardware DMA interfaces.
 
@@ -3651,7 +3674,7 @@ To eliminate this compromise vector entirely, navigate within the VeraCrypt GUI 
 > [!NOTE]
 > Unlike bloated Windows builds, the native Linux release of VeraCrypt omits redundant RAM encryption and extended caching toggles. This design stems from core Linux kernel mechanics: mandatory virtual memory access controls isolate runtime memory spaces of non-privileged users at the hardware interface level, preventing unauthorized dump extraction without root privileges. Enabling this single cache-wiping setting upon exit provides complete offline protection for operational master keys.
 
-#### A Fundamental Security Tool: Creating Hidden Volumes:
+### A Fundamental Security Tool: Creating Hidden Volumes:
 
 When operating under elevated threat levels, severe censorship, or the risk of forced device inspection at border checkpoints, a mechanism for **Plausible Deniability** becomes vital. VeraCrypt facilitates this capability through the creation of a **Hidden Volume**.
 
@@ -3666,7 +3689,7 @@ Under coercion or forced passphrase disclosure, supplying the primary (decoy) pa
 > 
 > To eliminate this artifact completely, navigate within the VeraCrypt main menu to **Settings → Preferences** and enable the **"Preserve modification timestamp of file containers"** option within the global settings panel. This instructs the application to lock the container file's timestamp, keeping the hidden structure indistinguishable from standard randomized encrypted data.
 
-#### Ultimate Hardening: Configuring PIM and Hardware Keyfiles:
+### Ultimate Hardening: Configuring PIM and Hardware Keyfiles:
 
 To defend mission-critical containers against advanced cryptanalysis and targeted brute-force attacks (password-cracking arrays built from multi-GPU clusters), a standard text passphrase is insufficient. Leverage internal VeraCrypt features to achieve maximum security hardening.
 
@@ -3719,13 +3742,13 @@ Operational hygiene tolerates no compromises. Maintain absolute vigilance and in
 
 ## Using Yubico Security Keys
 
-#### Introduction:
+### Introduction:
 
 An important aspect of ensuring privacy and local security is the integration of hardware authentication factors—physical security keys connected via USB ports (both Type-A and Type-C formats). When it comes to protection against network attacks, considering a hardware key as a defensive perimeter is more redundant than necessary for us, since SSH is disabled by default in Ubuntu Desktop, and we have removed certain compromised network services during the hardening process. However, the elimination of attack vectors can never be reduced to absolute zero; therefore, such paranoia would not be superfluous in certain scenarios, especially regarding local threat models.
 
 The most widely adopted and proven devices across the cybersecurity industry are manufactured by Yubico. For standard implementation tasks, any model featuring hardware FIDO U2F support is suitable (which encompasses virtually the entire product lineup). The most cost-effective option is the basic *Yubico Security Key*, while more advanced variations include the *YubiKey 5* series (including FIPS-certified editions). From the perspective of PAM subsystem configuration logic, the specific hardware model selected is irrelevant.
 
-#### Installation:
+### Installation:
 
 First, install the necessary libraries and utilities for U2F standard integration:
 
@@ -3794,7 +3817,7 @@ Once verified, safely close all terminal windows—the host perimeter is now ful
 > ```
 > Using the append redirection operator `>>` is critical. This appends the configuration identifier of the secondary token as a new line at the end of the existing file without overwriting primary key records.
 
-#### Implementing a Hardware Kill Switch via Kernel udev Rules:
+### Implementing a Hardware Kill Switch via Kernel udev Rules:
 
 To achieve ultimate host fortification, construct a kernel-level hardware failsafe using the Linux `udev` subsystem. Upon emergency removal of the security token from a USB port, the system instantly locks the active Ubuntu desktop session, forcibly isolating open runtime sessions and purging active master keys from system RAM.
 
@@ -3833,7 +3856,7 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 
 ## Installing and Configuring USBGuard
 
-#### Introduction:
+### Introduction:
 
 To prevent unauthorized USB devices from connecting to an active Ubuntu host, deploying USBGuard serves as a crucial preventive measure.
 
@@ -3857,7 +3880,7 @@ While this does not render the system invulnerable nor eliminate every physical 
 
 Below, we cover the installation and configuration of USBGuard to establish a minimal policy where only explicitly authorized devices are trusted by the OS kernel.
 
-#### Installation and Setup:
+### Installation and Setup:
 
 **1.** Install USBGuard:
 ```bash
@@ -4100,7 +4123,7 @@ sudo /usr/local/bin/panic.sh
 
 After successfully testing the execution script, I highly recommend verifying the functionality of the desktop shortcut and hotkey triggers as well!
 
-#### Emergency Hardware Kill Switch via Any USB Device:
+### Emergency Hardware Kill Switch via Any USB Device:
 
 This option is a fork of the session termination method discussed earlier in the Yubico chapter, where we implemented this behavior upon removing a Yubico YubiKey or Yubico Security Key from a USB port.
 
@@ -4150,11 +4173,11 @@ Next, disconnect the device to verify how our new implementation behaves in prac
 
 ## Installing the KeePassXC Local Password Manager
 
-#### Introduction:
+### Introduction:
 
 To securely and centrally store all system passphrases, cryptographic keys, GRUB boot passwords, and user account credentials, deploy the offline KeePassXC password manager. The utility operates over an encrypted database container backed by robust AES-256 encryption. Depending on available hardware and operational security requirements, select one of three container protection schemes.
 
-#### Vault Protection Scenarios:
+### Vault Protection Scenarios:
 
 * **Basic Scenario:** Database protection using a master passphrase alone. The primary risk vector remains container theft: if an adversary acquires the `.kdbx` database file and covertly logs the passphrase (e.g., via a hidden keylogger), the vault is fully compromised.
 * **Advanced/Two-Factor Scenario:** Hardening the master passphrase with a unique keyfile (*Keyfile*). Virtually any existing file (such as an image, audio recording, or document) can serve as a keyfile, or one can be generated randomly within the application itself.
@@ -4164,7 +4187,7 @@ To securely and centrally store all system passphrases, cryptographic keys, GRUB
 
 * **Ultimate Scenario:** Hardening the master passphrase via a YubiKey hardware token leveraging the low-level Challenge-Response algorithm. This implementation strictly requires a fully featured *YubiKey 5 Series* (or YubiKey 4) hardware key. The entry-level *Yubico Security Key* lineup (typically blue hardware units) is entirely incompatible, as it lacks the HMAC-SHA1 cryptographic response feature.
 
-#### Installing the Software Suite:
+### Installing the Software Suite:
 
 Once network interfaces and secured VPN gateways are successfully configured, and local package indices are updated, open a terminal session to perform the installation.
 
@@ -4179,7 +4202,7 @@ sudo apt install keepassxc yubikey-manager xclip -y
 ```
 > *(The `xclip` package is included preventatively to allow KeePassXC to clear the system clipboard automatically on a set timer following password copy operations, neutralizing background clipboard stealer scripts).*
 
-#### Creating and Hardware-Securing the Database:
+### Creating and Hardware-Securing the Database:
 
 **1.** Launch the application via the standard GNOME desktop application menu (or by entering `keepassxc` in the terminal).
 
@@ -4210,7 +4233,7 @@ sudo apt install keepassxc yubikey-manager xclip -y
 > [!NOTE]
 > Integrating the YubiKey hardware factor (HMAC-SHA1) fundamentally alters the threat model. Even if the master passphrase is reduced to just 8 characters, offline brute-force attempts using multi-GPU or ASIC arrays become completely futile. Without physical access to the connected hardware token, adversaries are forced to brute-force the chip's hidden 160-bit cryptographic response sequence—a task mathematically impossible prior to the heat death of the universe. In this deployment scheme, the sole remaining attack vector is live password interception via a keylogger on a compromised host, which the hardened 4x4 host defense model is specifically designed to neutralize.
 
-#### Deep Hardening of Internal Security Settings:
+### Deep Hardening of Internal Security Settings:
 
 Open the menu via **Tools** ➔ **Application Settings** and forcibly enable the following security parameters:
 
@@ -4223,7 +4246,7 @@ Open the menu via **Tools** ➔ **Application Settings** and forcibly enable the
 > [!WARNING]
 > Refrain from installing any third-party browser extensions (including the official KeePassXC-Browser) into your Firefox installation. First, browser extensions run within the shared WebExtensions API context, introducing a potential Cross-Site Scripting (XSS) attack vector and risking credential extraction from an unlocked database via plugin vulnerabilities. Second, enforcing strict security controls (`privacy.resistFingerprinting = true`) inside Firefox completely blocks and breaks local Unix socket IPC channels required for extension integration. The standard for a sovereign 4x4 host deployment is utilizing the native **Auto-Type** engine exclusively.
 
-#### Secure Data Entry via Protected Clipboard:
+### Secure Data Entry via Protected Clipboard:
 
 Because the modern graphical subsystem in Ubuntu 24.04/26.04 LTS runs on the **Wayland** protocol, native auto-typing functionality (Auto-Type) is fully restricted by the operating system security architecture at the kernel level (applications are prohibited from injecting simulated keystrokes into foreign windows). By rejecting vulnerable browser plugins entirely, data is safely transferred using the clipboard mechanism protected by the `xclip` utility.
 
@@ -4242,11 +4265,11 @@ Because the modern graphical subsystem in Ubuntu 24.04/26.04 LTS runs on the **W
 
 ## Installing and Running the Wireshark Network Analyzer
 
-#### Introduction:
+### Introduction:
 
 Deep auditing, logging, and real-time network packet analysis are conducted using Wireshark. It allows full inspection of network packet payloads across all layers of the communication stack. It is an extremely powerful tool, and providing a detailed overview of its full feature set and analysis methodologies would require an entire textbook. Within the scope of this deployment guide, analysis focuses on inspecting active connections through its accessible graphical interface. Through the GUI, operators can visually audit exactly which IP addresses and ports are utilized to transmit and receive host traffic. Any suspicious, undocumented, or non-recommended IP destinations should be immediately added to firewall blacklists. Advanced instructions and packet dissection examples are available in specialized technical documentation on verified IT resources, such as `varonis.com`, `sans.org`, or the official reference community `ask.wireshark.org`.
 
-#### Installing and Launching Wireshark:
+### Installing and Launching Wireshark:
 
 > [!WARNING]
 > **Warning!** Before proceeding, ensure that you have exited the persistent superuser shell (using the `exit` command) and that the standard `$` prompt is displayed in the terminal. The installation must be executed exclusively as an unprivileged user.
@@ -4283,11 +4306,11 @@ newgrp wireshark
 wireshark
 ```
 
-#### Critical Security Concept: Packet Capture Subsystem Security:
+### Critical Security Concept: Packet Capture Subsystem Security:
 
 The operational rationale for adding the user account to the system `wireshark` group is to completely eliminate running Wireshark via `sudo`. This analytical suite comprises millions of lines of complex C/C++ code, featuring dissectors for hundreds of network protocols. Historically, critical vulnerabilities—including Remote Code Execution (RCE)—are regularly discovered within these dissectors. If the GUI is launched with root privileges, any maliciously crafted packet arriving at the network interface from an external network could instantly execute arbitrary code with maximum system privileges. Running the application strictly as an unprivileged user via an isolated dedicated group is a fundamental global security standard.
 
-#### Stealth Traffic Capture (Headless Console Mode):
+### Stealth Traffic Capture (Headless Console Mode):
 
 If you need to rapidly capture a network activity log without launching a heavy graphical interface (for instance, to avoid exposing monitoring activity to nearby eyes or to conserve system memory resources), leverage the command-line counterpart:
 
@@ -4303,7 +4326,7 @@ tshark -i tun0 -w ~/Downloads/dump.pcap
 
 This command silently captures all network traffic passing through the secured `tun0` interface and writes it to the `dump.pcap` file located within the user's Downloads directory. The resulting packet capture file can subsequently be opened and thoroughly dissected inside the Wireshark GUI at any time.
 
-#### Practical Wireshark Field Guide:
+### Practical Wireshark Field Guide:
 
 Following Wireshark installation, avoid attempting to analyze every packet field immediately. At this initial stage, it suffices to grasp the overall structure of network exchanges and learn to isolate events of interest.
 
@@ -4431,7 +4454,7 @@ This baseline covers the essential scope required for host auditing: operators m
 
 ## Installing and Managing the AppArmor Security System
 
-#### Introduction:
+### Introduction:
 
 Mandatory Access Control (MAC) over the file system is enforced via the native AppArmor subsystem. It restricts hardware access, file permissions, and network sockets on a per-application basis. Operating as a low-level Linux Security Module (LSM), AppArmor strictly confines running processes to an explicitly defined set of capabilities (a profile).
 
@@ -4439,7 +4462,7 @@ Consider a practical deployment scenario. A PDF viewer can be completely isolate
 
 Under this model, the host perimeter remains secure. Even if an adversary triggers a zero-day exploit via a maliciously crafted document, the executed payload remains physically incapable of reading confidential directories or exfiltrating stolen assets to a remote command-and-control server.
 
-#### A New Security Paradigm: Kernel Automation:
+### A New Security Paradigm: Kernel Automation:
 
 Within Ubuntu 24.04 and 26.04 LTS, the AppArmor subsystem has transitioned to deep, automated kernel-level integration. In legacy distributions, system administrators were required to manually deliver profile databases and enforce strict containment on critical utilities via `aa-enforce` invocations.
 
@@ -4453,7 +4476,7 @@ Modern Ubuntu builds eliminate legacy text-based profile templates (such as `usr
 
 Our primary strategic objective is enforcing complete isolation over complex user space software (browsers, media players, document viewers), where threat vectors involving malicious external files are highest. This defensive perimeter is fully addressed in the dedicated sandboxing chapter.
 
-#### Practical Hardening of the AppArmor Subsystem:
+### Practical Hardening of the AppArmor Subsystem:
 
 To configure audit utilities for deep system analysis, open a terminal session and execute the following steps in order:
 
@@ -4494,27 +4517,35 @@ sudo aa-logprof
 
 <br>
 
-## Installing and Configuring the Firejail Isolated Sandbox
+## Installing and Configuring Isolated Sandboxes: Firejail and Bubblewrap
 
-#### Introduction:
-
-To safely execute untrusted external files and binaries, we deploy the Firejail sandboxing framework. Firejail isolates web browsers, productivity software, and communication clients by constraining their access to the host file system, system calls (seccomp filters), networking stacks, and hardware resources according to predefined security profiles.
-
-Firejail is a lightweight Linux security sandbox that leverages namespaces, cgroups, and Linux Capabilities to run applications inside strictly confined environments.
-
-In this chapter, we will install Firejail, launch previously installed applications (Firefox, KeePassXC, Document Viewer, and Image Viewer) within isolated sandboxes, and proceed to install and confine LibreOffice, GIMP, VSCodium, LM Studio, Telegram, Psi+, and Thunderbird. Furthermore, Psi+ and Thunderbird will be configured to handle OpenPGP (GnuPG) end-to-end encryption. Finally, we will generate custom desktop launchers (`.desktop` entries) to enforce transparent sandbox confinement across all desktop shortcuts.
+### Introduction:
 
 > [!NOTE]
-> According to the standards of this book, **Firejail** remains a solid and convenient choice for everyday tasks. However, from an information security perspective, it trails behind **Bubblewrap** in several key areas. Strictly speaking, recent years have revealed fairly serious vulnerabilities within **Firejail**'s sprawling codebase, leading many security researchers to recommend abandoning it entirely in favor of more modern alternatives. Nevertheless, a radical refusal to use it is not always justified: for most standard tasks, **Firejail** covers user requirements completely. Should personal preference or policy prevent its use, the following chapter thoroughly breaks down isolating these exact same applications using **Bubblewrap**.
+> After finishing the book, I decided to merge the Firejail and Bubblewrap chapters into one to avoid repeating the same setup steps in several places.
 
-#### Installing Firejail and Preparing the Sandbox:
+To safely open downloaded files, we will deploy the Firejail and Bubblewrap sandboxes. They allow us to isolate web browsers and other applications, restricting their access to the filesystem, system resources, network capabilities, and system calls according to the active profile.
 
-**1.** Retrieve the current stable build of Firejail from the project's official repository. First, install the requisite dependency utilities, then automatically resolve the latest available `.deb` release asset and deploy it:
+Firejail and Bubblewrap are lightweight Linux sandboxing tools designed to run applications inside a restricted, isolated environment.
+
+In this chapter, we will install Firejail and Bubblewrap, and then move our everyday software into sandboxes. First, we will isolate already installed applications: Firefox, KeePassXC, Document Viewer, and Image Viewer. Next, we will install and sandbox an additional suite of programs—LibreOffice, GIMP, VSCodium, LM Studio, Telegram, Psi+, and Thunderbird—while additionally configuring Psi+ and Thunderbird to work with OpenPGP (GnuPG). Finally, we will create convenient desktop launchers to start each application in one click.
+
+> [!NOTE]
+> According to the principles of this book, **Firejail** remains an excellent and convenient tool for everyday tasks. However, from an information security perspective, it falls short of **Bubblewrap** in several areas. Strictly speaking, over recent years, fairly serious vulnerabilities have been discovered in **Firejail's** bloated codebase, leading many researchers to recommend migrating completely to more modern alternatives. Nevertheless, a radical rejection is not always justified: for most typical tasks, **Firejail's** capabilities are more than sufficient. Still, if strict security requirements prevent you from using it, this chapter covers isolating the exact same applications using **Bubblewrap** as well.
+
+Bubblewrap's main advantage over Firejail is its radical minimalism and tiny attack surface. It is a microscopic, self-contained utility with no unnecessary dependencies. In contrast to monolithic Firejail—with its tens of thousands of lines of code and a complex profile parser running via a SUID binary (which has historically led to local privilege escalation vulnerabilities)—`bwrap` is designed as a concise, easily auditable tool. It contains no built-in business logic or preset rules, relying exclusively on unprivileged Linux kernel namespaces (*Unprivileged User Namespaces*). Within the Zero Persistence concept, `bubblewrap` acts as an ideal low-level constructor: it avoids complex abstractions and forces you to explicitly declare every permitted resource, ensuring strict isolation.
+
+> [!IMPORTANT]
+> **Bubblewrap** serves as the core isolation foundation, while **AppArmor** is optional—yet it provides a crucial second layer of defense. Do not skip installing the profiles or exclude it from your stack.
+
+### Installing Firejail and Preparing the Sandbox:
+
+**1.** Fetch the latest version of Firejail from the official project repository. First, install the required tools, then automatically locate the latest `.deb` release and install it:
 ```bash
 sudo apt update && sudo apt install -y curl jq ca-certificates
 
 url="$(
-    curl -fsSL https://api.github.com/repos/netblue30/firejail/releases/latest |
+    curl -fsSL https://github.com |
     jq -r '.assets[] | select(.name | endswith("_amd64.deb")) | .browser_download_url' |
     head -n1
 )"
@@ -4524,1614 +4555,91 @@ sudo apt install -y /tmp/firejail.deb
 rm -f /tmp/firejail.deb
 ```
 
-**2.** Verify the installed Firejail version. Ensure the output contains the `AppArmor support is enabled` flag, confirming that Firejail integrates with the AppArmor security subsystem:
+**2.** Check the installed version of Firejail. In the output, look for the line `AppArmor support is enabled`, as modern Ubuntu systems allow Firejail to enforce an additional AppArmor profile:
 ```bash
 /usr/bin/firejail --version
 ```
 
 > [!IMPORTANT]
-> Starting with Ubuntu 24.04 LTS, AppArmor introduces restrictions on unprivileged user namespace creation (`unprivileged_userns`). This is an intentional Linux kernel security feature designed to reduce kernel attack surface, rather than an error or system bug.
+> Starting with Ubuntu 24.04 LTS, AppArmor restricts the creation of unprivileged user namespaces by default. This is not an error or a bug, but an extra Linux kernel hardening layer that reduces the attack surface.
 > 
-> Rather than disabling global system protections or manually altering vendor AppArmor profiles, we query system state first and leverage native Firejail-AppArmor integration mechanisms.
+> In our setup, we do not disable global system protection or manually rewrite system profiles. First, we check the current state, and then we use the standard Firejail and AppArmor mechanisms.
 > 
-> A fundamental security principle applies: the sandbox container must harden system posture without devolving into an unmaintainable series of manual policy overrides that introduce new threat vectors.
+> Keep in mind: a sandbox should strengthen system security rather than turn into an endless chain of manual exceptions that become a vulnerability themselves.
 
-**3.** Query the active unprivileged user namespace restriction status:
+**3.** Verify the current state of the user namespaces restriction:
 ```bash
 sysctl kernel.apparmor_restrict_unprivileged_userns
 ```
-If the terminal outputs:
+If the system returns:
 ```bash
 kernel.apparmor_restrict_unprivileged_userns = 1
 ```
-
-This confirms that enhanced AppArmor kernel restriction remains active. We maintain this baseline configuration enabled.
-
-#### CCore Firejail Filtering Options (Reference):
-
-* **`--apparmor`** — Enforces an AppArmor security profile for secondary kernel-level application containment. Firejail constructs the isolated namespace while AppArmor applies mandatory access control (MAC) policies.
-* **`--blacklist`** — Explicitly hides targeted files or directories from the containerized application.
-* **`--caps.drop=all`** — Drops all Linux capability flags, eliminating access to privileged kernel operations.
-* **`--deterministic-shutdown`** — Guarantees clean sandbox teardown alongside all child processes upon main binary termination.
-* **`--dbus-user=none`** — Disables access to the user-session D-Bus bus. Enforces strict isolation for binaries that do not require IPC with the desktop environment.
-* **`--dbus-system=none`** — Disables access to the system D-Bus bus.
-* **`--net=none`** — Completely unbinds the host networking stack from the container, exposing only the local loopback interface (`127.0.0.1`).
-* **`--nonewprivs`** — Sets the `PR_SET_NO_NEW_PRIVS` flag to hardware-prevent process privilege escalation inside the sandbox, neutralizing setuid/setgid execution paths.
-* **`--no-sandbox`** — Disables the native Chromium/Electron user-space sandbox engine to avoid nesting conflicts when running under external sandboxing frameworks (such as Firejail).
-* **`--private`** — Mounts volatile temporary file systems (`tmpfs` in RAM) over real user home directories, presenting a clean ephemeral state.
-* **`--private-dev`** — Constructs a minimal, hardened virtual `/dev` device node directory inside the sandbox.
-* **`--private-etc`** — Supplies an isolated, minimal view of the `/etc` configuration directory containing only essential system files.
-* **`--private-tmp`** — Completely isolates the temporary system directory `/tmp` from the host environment.
-* **`--protocol`** — Restricts process access to specific socket domains and network protocol families inside the sandbox environment.
-* **`--seccomp`** — Enables Linux kernel Secure Computing (seccomp) filtering to intercept and block high-risk or non-standard system calls. Any policy violation triggers immediate kernel process termination.
-* **`--whitelist`** — Grants explicit read/write access exclusively to targeted files or directories, implicitly denying access to all non-whitelisted paths.
-
-#### Creating a Dedicated Hardened Firefox Profile:
-
-Following the installation of Firejail, proceed to configure a dedicated, hardened Firefox security profile.
-
-By default, Firejail includes a preconfigured Firefox profile. Rather than modifying the system-wide `/etc/firejail/firefox.profile` binary configuration directly, construct a custom user-space profile copy. This strategy maintains default Firejail security baseline rules while allowing custom policy additions that persist across package upgrades.
-
-**1.** Create the local user-space Firejail profile directory and duplicate the stock Firefox profile:
-```bash
-mkdir -p ~/.config/firejail && cp /etc/firejail/firefox.profile ~/.config/firejail/firefox-hardened.profile
-```
-
-**2.** Open the newly created profile for inspection and customization:
-```bash
-nano ~/.config/firejail/firefox-hardened.profile
-```
-
-**3.** Replace the `include firefox.local` directive with the path to our custom local configuration file `firefox-hardened.local`:
-```ini
-include firefox-hardened.local
-```
-
-This retains the internal structure of the upstream Firejail profile. Rewriting the entire profile from scratch is unnecessary, as upstream maintainers have already defined essential containment primitives:
-
-* Seccomp system call filtering;
-* Linux Capability drops;
-* File system access restrictions;
-* D-Bus IPC filtering;
-* Essential hardening include files.
-
-Custom policy directives will reside separately within the dedicated local include file.
-
-**4.** Create the local override configuration file for the hardened Firefox profile:
-```bash
-nano ~/.config/firejail/firefox-hardened.local
-```
-
-**5.** Append only essential access permissions required by the hardened Firefox configuration:
-```ini
-# Custom rules for hardened Firefox
-
-# Permit FIDO2/U2F hardware token access (YubiKey and compatible devices)
-ignore nou2f
-
-# Grant exclusive access to the isolated Firefox profile directory
-noblacklist ${HOME}/.mozilla-hardened
-whitelist ${HOME}/.mozilla-hardened
-
-# Permit file downloads to the standard Downloads directory
-whitelist ${HOME}/Downloads
-
-# Enforce clean sandbox teardown upon primary process exit
-deterministic-shutdown
-```
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
-
-Firejail now references a dedicated user-level Firefox profile that operates independently of system-wide defaults and remains protected against package update overrides.
-
-Avoid interacting directly with the default user profile directory (`~/.mozilla`). Instead, establish an isolated directory structure at `~/.mozilla-hardened` to house the active Firefox environment exclusively. Decoupling browser runtime data from default user home directories yields a clean, auditable profile layout easily managed within sandbox boundaries.
-
-**6.** Create the dedicated hardened directory structure and copy the active Firefox profile:
-```bash
-mkdir -p ~/.mozilla-hardened && cp -r ~/.config/mozilla/firefox ~/.mozilla-hardened/ 2>/dev/null || true
-```
-
-**7.** Inspect the contents of the newly populated profile directory:
-```bash
-ls -la ~/.mozilla-hardened/firefox/
-```
-The output must display the active profile directory matching the standard release naming convention: `PROFILE-NAME.default-release`.
-
-**8.** Create a persistent `current` symbolic link pointing directly to the active profile directory:
-```bash
-cd ~/.mozilla-hardened/firefox/ && rm -f current && ln -s PROFILE-NAME.default-release current && cd ~
-```
-
-**9.** Validate that the symbolic link resolves correctly to the target profile directory:
-```bash
-readlink -f ~/.mozilla-hardened/firefox/current
-```
-
-If the invocation outputs the absolute path to the target profile directory, the symbolic link is configured correctly.
-
-**10.** Enforce user ownership across the isolated profile directory tree:
-```bash
-chown -R $USER:$USER "$HOME/.mozilla-hardened"
-```
-
-The Firefox profile is now prepared for execution inside an isolated Firejail container perimeter. Avoid injecting excessive manual overrides that risk compromising core sandbox mechanics. Testing across various launch parameters confirms that runtime edge cases stem from process initialization flags rather than flaws within Firejail or AppArmor primitives.
-
-The verified operational baseline comprises:
-
-* Standard Firejail security profile rules;
-* Decoupled Firefox profile configuration;
-* Isolated `~/.mozilla-hardened` file system container;
-* Reliable sandbox teardown via `--deterministic-shutdown`.
-
-**11.** Launch Firefox inside the hardened Firejail container:
-```bash
-firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile "$HOME/.mozilla-hardened/firefox/current"
-```
-
-**12.** Open a secondary terminal window to audit active sandbox container instances:
-```bash
-firejail --list
-```
-
-The output must list the active Firefox container instance: `PID:user::firejail --deterministic-shutdown --profile=firefox-hardened /usr/...`.
-
-Verify container lifecycle behavior: terminate the Firefox browser window normally and wait several seconds.
-
-**13.** Query the active sandbox list to verify process termination:
-```bash
-firejail --list
-```
-
-If configured correctly, the active sandbox list returns empty. This confirms that Firejail successfully trapped the primary process exit signal, terminated child threads cleanly, and completely destroyed the ephemeral execution namespace.
-
-Firefox executes with all predefined user preferences, security extensions, and `user.js` hardening flags active while benefiting from strict OS-level container isolation. Upon browser exit, the sandbox container is destroyed entirely, returning host OS state to its pristine baseline.
-
-> [!NOTE]
-> Under certain launch configurations, orphan sandbox processes could previously remain resident in memory after closing the browser interface. This behavior resulted from process tree termination dynamics inside the PID namespace rather than profile corruption or AppArmor policy failures.
-> 
-> Supplying the `deterministic-shutdown` directive resolves this lifecycle condition: Firejail strictly monitors child process execution trees, guaranteeing immediate sandbox teardown upon main browser interface closure.
-
-Later in this section, we will lock down persistent application launches via customized .desktop shortcut configurations.
-
-#### Airtight PDF Vault: Safely Opening Files in an Isolated Offline Mode:
-
-Because document viewers (such as PDF and DjVu parsers) are routinely targeted by exploits leveraging zero-day parsing vulnerabilities, isolating them from the underlying OS host and networking stack is critical. We will construct a strictly air-gapped container environment for Evince/Papers—an isolated sandbox with all outbound and inbound network capabilities completely severed.
-
-Before launching the command, ensure a sample PDF document is present in the standard user directory. For this exercise, assume a target file named `unsafe.pdf` is located inside the user's `Downloads` directory.
-
-**1.** If no sample PDF is available, generate a dummy placeholder file to perform sandbox verification:
-```bash
-touch ~/Downloads/unsafe.pdf
-```
-
-* **For Ubuntu 24.04 LTS Noble Numbat (Users running Evince):**
-
-**2a.** Launch the default Evince document viewer inside the standard Firejail sandbox:
-```bash
-firejail evince ~/Downloads/unsafe.pdf
-```
-
-**3a.** Without closing the active document viewer window, open a secondary terminal tab and execute the sandbox auditing command to list active isolated containers:
-```bash
-firejail --list
-```
-
-**4a.** Apply hardened containment policies to Evince by creating a dedicated local configuration override `evince.local`:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/evince.local
-```
-
-**5a.** Insert the following security directives into the `evince.local` configuration block:
-```ini
-# Enforce absolute network isolation
-net none
-protocol unix
-
-# Drop all Linux capabilities and prevent privilege escalation
-caps.drop all
-nonewprivs
-
-# Isolate temporary files and cache locations
-private-cache
-private-tmp
-
-# Expose only necessary directories inside a volatile private HOME workspace
-private-home Downloads,Documents
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the shell prompt.
-
-**6a.** Perform a verification launch of Evince under the newly hardened profile:
-```bash
-firejail evince ~/Downloads/unsafe.pdf
-```
-
-* **For Ubuntu 26.04 LTS Resolute Raccoon (Users running Papers):**
-
-**2b.** Launch the Papers document viewer inside the standard Firejail sandbox:
-```bash
-firejail papers ~/Downloads/unsafe.pdf
-```
-
-**3b.** Without closing the active document viewer window, open a secondary terminal tab and inspect active isolated container instances:
-```bash
-firejail --list
-```
-
-**4b.** Apply hardened containment policies to Papers by creating a local configuration override `papers.local`:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/papers.local
-```
-
-**5b.** Insert the following security directives into the `papers.local` configuration block:
-```ini
-# Enforce absolute network isolation
-net none
-protocol unix
-
-# Drop all Linux capabilities and prevent privilege escalation
-caps.drop all
-nonewprivs
-
-# Isolate temporary files and cache locations
-private-cache
-private-tmp
-
-# Expose only necessary directories inside a volatile private HOME workspace
-private-home Downloads,Documents
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
-
-**6b.** Perform a verification launch of Papers under the newly hardened profile:
-```bash
-firejail papers ~/Downloads/unsafe.pdf
-```
-
-* Later in this chapter, permanent sandbox launch directives will be embedded directly into system desktop launchers (`.desktop` files) to ensure transparent, default sandbox enforcement.
-
-#### Sandboxing Image Viewer for Secure Media Inspection:
-
-**1.** If no sample PNG file is available, create a dummy placeholder file to perform sandbox verification:
-```bash
-touch ~/Pictures/unsafe.png
-```
-
-* **For Ubuntu 24.04 LTS Noble Numbat (Users running Eog):**
-
-**2a.** Launch the default Eye of GNOME (Eog) image viewer inside the standard Firejail sandbox:
-```bash
-firejail eog ~/Pictures/unsafe.png
-```
-
-**3a.** Without closing the active image viewer window, open a secondary terminal tab and execute the sandbox auditing command to list active isolated containers:
-```bash
-firejail --list
-```
-
-**4a.** Apply hardened containment policies to Image Viewer by creating a dedicated local configuration override `eog.local`:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/eog.local
-```
-
-**5a.** Insert the following security directives into the `eog.local` configuration block:
-```ini
-# Enforce absolute network isolation and shell restrictions
-net none
-protocol unix
-caps.drop all
-nonewprivs
-private-cache
-private-tmp
-```
-
-**6a.** Perform a verification launch of the application under the newly hardened profile:
-```bash
-firejail eog ~/Pictures/unsafe.png
-```
-
-* **For Ubuntu 26.04 LTS Resolute Raccoon (Users running Loupe):**
-
-**2b.** Launch the Loupe image viewer inside the standard Firejail sandbox:
-```bash
-firejail loupe ~/Pictures/unsafe.png
-```
-
-**3b.** Without closing the active image viewer window, open a secondary terminal tab and inspect active isolated container instances:
-```bash
-firejail --list
-```
-
-**4b.** Apply hardened containment policies to Image Viewer by creating a local configuration override `loupe.local`:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/loupe.local
-```
-
-**5b.** Insert the following security directives into the `loupe.local` configuration block:
-```ini
-# Enforce absolute network isolation and shell restrictions
-net none
-protocol unix
-caps.drop all
-nonewprivs
-private-cache
-private-tmp
-```
-
-**6b.** Perform a verification launch of the application under the newly hardened profile:
-```bash
-firejail loupe ~/Pictures/unsafe.png
-```
-
-* Later in this chapter, permanent sandbox launch directives will be embedded directly into custom user-space `.desktop` launchers to ensure transparent, default sandbox enforcement.
-
-#### KeePassXC Sandboxing Scenario:
-
-Isolating KeePassXC converts it from an ordinary application executing in a shared desktop context into an autonomous vault. It communicates with the host exclusively via Unix domain sockets (to interface with our YubiKey hardware) and maintains access solely to a single, targeted file—our password database. The rest of the host file system is completely masked.
-
-Kernel-level filters embedded within the Firejail profile (`seccomp`, `caps.drop all`, and `ptrace` anti-debugging rules) strictly prohibit external processes from inspecting KeePassXC process memory or reading its memory address space.
-
-**1.** Create the local Firejail configuration directory (if not already present) and open the password manager's profile override file:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/keepassxc.local
-```
-
-**2.** Insert the verified override configuration block. This unsets restrictive device blacklists, restores USB token access permissions, enables the `netlink` socket domain for YubiKey Challenge-Response hardware token discovery, and confines the user's home directory—exposing exclusively configuration files and target password databases:
-```ini
-# Permit FIDO2/U2F hardware token operations (YubiKey and compatible devices)
-ignore private-dev
-ignore protocol unix
-ignore nou2f
-
-# Retain host user group access permissions
-ignore groups
-ignore nogroups
-
-# Re-enable GTK glycin-loader binary access
-noblacklist /usr/libexec
-whitelist /usr/libexec/glycin-loaders
-
-# Permit access to KeePassXC application configuration
-noblacklist ${HOME}/.config/keepassxc
-nowhitelist ${HOME}/.config/keepassxc
-whitelist ${HOME}/.config/keepassxc
-
-# CRITICAL: Grant access to target password database and keyfile.
-# Specify your actual absolute file paths.
-# KeePassXC Database:
-# noblacklist ${HOME}/Documents/passwords.kdbx
-# whitelist ${HOME}/Documents/passwords.kdbx
-
-# Keyfile located on external encrypted storage:
-# noblacklist /media/$USER/DRIVE-NAME/passwords.key
-# whitelist /media/$USER/DRIVE-NAME/passwords.key
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the terminal prompt.
-
-**3.** Launch KeePassXC inside the Firejail sandbox container:
-```bash
-firejail keepassxc
-```
+This means the additional AppArmor protection is active. We leave it enabled.
+
+### Core Firejail Filtering Parameters (Reference):
+
+* **`--apparmor`** — attaches an AppArmor profile to further restrict application actions at the Linux kernel level. Firejail creates the namespace, while AppArmor adds Mandatory Access Control.
+* **`--blacklist`** — forcibly hides specified files or directories from the application.
+* **`--caps.drop all`** — drops all extra Linux capabilities, reducing the set of available privileged operations.
+* **`--deterministic-shutdown`** — ensures the sandbox and all child processes terminate cleanly once the main application closes.
+* **`--dbus-user=none`** — disables application access to the user D-Bus session. Used for stricter isolation of apps that do not need desktop environment integration.
+* **`--dbus-system=none`** — disables application access to the system D-Bus bus.
+* **`--net=none`** — completely disables the kernel network stack for the container, leaving only the local loopback interface (`127.0.0.1`).
+* **`--nonewprivs`** — hardware-enforces a ban on processes gaining new privileges inside the container, protecting against root escalation.
+* **`--no-sandbox`** — disables the application's built-in Chromium/Electron sandbox when running inside an external sandbox (such as Firejail) to avoid isolation conflicts.
+* **`--private`** — replaces real user home directories with clean temporary folders in RAM (`tmpfs`).
+* **`--private-dev`** — creates an isolated, restricted virtual `/dev` directory.
+* **`--private-etc`** — builds an isolated view of `/etc`, exposing only essential system files and configurations.
+* **`--private-tmp`** — completely isolates the system `/tmp` directory from the host OS.
+* **`--protocol`** — restricts application access to specific types of Unix sockets and network protocols inside the sandbox.
+* **`--seccomp`** — enables Linux kernel Secure Computing mode, blocking dangerous and unusual system calls. Any violation immediately terminates the process.
+* **`--whitelist`** — grants access strictly to a specified file or directory.
+
+### Optional: Automating the Firejail Defense Perimeter (`firecfg`):
+
+Typing long commands manually in the terminal quickly gets tedious. To automate this process, Firejail includes the built-in `firecfg` utility, which scans the system and automatically wraps standard applications (browsers, torrent clients, mail clients) into isolated sandbox containers.
 
 > [!IMPORTANT]
-> Unconditionally disabling D-Bus IPC may maximize container isolation; however, on modern Linux environments utilizing Wayland, it frequently induces execution failures across graphical desktop applications. Modern GUI software relies on the user D-Bus session bus and XDG Desktop Portals to securely interface with the desktop environment.
+> In modern versions of Firejail, unprivileged local automation is disabled. Running `firecfg` requires root privileges because it creates global symbolic links inside `/usr/local/bin`.
 >
-> If an application fails to launch following complete D-Bus disabling, enforce filtered Inter-Process Communication (IPC) instead:
->
-> ```bash
-> --dbus-user=filter
-> ```
->
-> This filtering mode maintains granular IPC control: it blocks unauthorized bus calls while preserving necessary system interfaces required for modern graphical applications to function.
+> Although `sudo firecfg` is convenient for bulk-enabling Firejail, I do not recommend running it blindly without reviewing which apps will be wrapped automatically. **Targeted, controlled isolation—using dedicated profiles and custom `.desktop` files strictly for the programs you actually need—is much safer.**
 
-> [!NOTE]
-> The `firecfg` helper utility generates symlinks exclusively for legacy binaries installed via native `.deb` packages or compiled from source. As established in the initial chapters of this manual, Canonical's telemetry-heavy Snap infrastructure has been completely purged from our hardened OPSEC environment. Firejail operates at peak mandatory access control efficiency within this pristine configuration: standard system binaries deployed via `apt` and standalone, self-contained AppImage bundles.
-
-* Near the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
-
-#### Installing and Sandboxing the LibreOffice Suite:
-
-Office documents represent one of the most common vectors for organizational data exchange. However, the sheer complexity of modern formats (DOCX, XLSX, ODT) makes office suites full-fledged external data processors. Consequently, running LibreOffice inside an isolated Firejail environment is strongly recommended—especially when handling documents obtained from external sources.
-
-**1.** Install LibreOffice:
-```bash
-sudo aptupdate && sudo apt install libreoffice -y
-```
-
-**2.** Open the `libreoffice.profile` configuration file in the `nano` editor:
-```bash
-nano ~/.config/firejail/libreoffice.profile
-```
-
-**3.** Define explicit mandatory restrictions within the file:
-```ini               
-# Force GTK3 VCL plugin
-env SAL_USE_VCLPLUGIN=gtk3
-# File system isolation
-private-tmp
-private-dev
-
-# Restrict file system access exclusively to these directories
-whitelist ${HOME}/Documents
-whitelist ${HOME}/Downloads
-whitelist ${HOME}/.config/libreoffice
-
-# Enforce absolute network socket restriction
-protocol unix
-ignore protocol inet
-ignore protocol inet6
-
-blacklist /tmp/.X11-unix
-blacklist ${HOME}/.Xauthority
-
-# Disable D-Bus and extraneous services
-nosound
-
-# Advanced security hardening
-caps.drop all
-nonewprivs
-noroot
-seccomp
-
-blacklist ${HOME}/.ssh
-blacklist ${HOME}/.gnupg
-blacklist ${HOME}/.mozilla
-
-# Removable media storage
-blacklist /media
-blacklist /mnt
-blacklist /run/media
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the terminal prompt.
-
-**4.** Launch the main LibreOffice Start Center inside the sandbox:
-```bash
-firejail libreoffice
-```
-
-**5.** To launch individual writer/calc/impress/draw/math/base applications, execute:
-```bash
-firejail libreoffice --writer
-firejail libreoffice --calc
-firejail libreoffice --impress
-firejail libreoffice --draw
-firejail libreoffice --math
-firejail libreoffice --base
-```
-
-* Toward the end of this chapter, we will configure permanent sandboxed execution by embedding launch parameters directly into user .desktop entries.
-
-#### Installing and Sandboxing GNU Image Manipulation Program (GIMP):
-
-Image editors represent some of the most complex desktop user space applications. GIMP processes a vast array of graphics formats (including PSD, TIFF, PNG, JPEG, and SVG) while supporting external third-party plugins. Consequently, memory corruption vulnerabilities within file parsers or extension modules could potentially lead to arbitrary code execution.
-
-To mitigate operational risks when opening visual assets from untrusted sources, construct an isolated container perimeter for GIMP. The application will operate with absolute network isolation, stripped Linux capabilities, and file system access strictly bounded to essential target directories.
-
-> [!WARNING]
-> Ubuntu 26.04 ships with GIMP 3.2, which natively isolates file decoding using the Glycin library and Bubblewrap containers. Using Firejail with this version is not recommended: nested sandboxing causes periodic glitches, permission errors, and performance drops. For stable operation, it is recommended to stick with the built-in Bubblewrap sandbox.
-
-**1.** Install GIMP via the package manager:
-```bash
-sudo aptupdate && sudo apt install gimp -y
-```
-
-Assume an untrusted visual asset has been downloaded for inspection at `~/Downloads/unsafe.png`.
-
-**2.** Launch the file inside the default Firejail sandbox:
-```bash
-firejail gimp ~/Downloads/unsafe.png
-```
-
-Note that on Ubuntu 26.04 LTS, prior to applying a custom local profile, automatic process termination for GIMP 3.x may fail to trigger cleanly upon main window exit. Enforce the `deterministic-shutdown` directive within local policy overrides to guarantee complete sandbox teardown.
-
-**3.** Harden security constraints for GIMP by creating a local profile override file:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/gimp.local
-```
-
-**4.** Append the following container hardening directives:
-```ini
-# Enforce complete network stack isolation
-net none
-
-# Drop all Linux capabilities
-caps.drop all
-
-# Preserve dconf and XDG desktop portal IPC for file selection dialogs
-ignore nodbus
-ignore dbus-user none
-ignore dbus-system none
-
-# Mute audio subsystem initialization to eliminate terminal PulseAudio errors
-env PULSE_SERVER=disabled
-
-# Override global blacklists and grant access to configuration profiles
-noblacklist ${HOME}/.config/GIMP
-whitelist ${HOME}/.config/GIMP
-
-# Restrict file system access exclusively to active workspace directories
-whitelist ${HOME}/Documents
-whitelist ${HOME}/Downloads
-whitelist ${HOME}/Pictures
-
-# Enforce immediate container teardown upon main GUI interface closure
-deterministic-shutdown
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to return to the terminal prompt.
-
-**5.** Perform a verification launch of the application:
-```bash
-firejail gimp ~/Downloads/unsafe.psd
-```
-
-Unlike static document viewers, full home directory masking via `--private` is omitted for GIMP, as the editor requires persistent access to user brushes, custom plugins, installed system fonts, and application profile configurations.
-
-* Near the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
-
-#### Installing and Sandboxing VS Codium (Development IDE):
-
-VSCodium is a free-software fork of Microsoft’s Visual Studio Code (VS Code) featuring completely purged telemetry, tracking scripts, and proprietary licensing. It provides a clean development environment built with respect for user privacy. However, as with any complex IDE, it requires broad host file system access and spawns numerous child processes; strictly containing it within a hardened sandbox is therefore essential.
-
-**1.** Install the required system utilities, navigate to the Downloads directory, and download the latest stable VSCodium AppImage container from the official repository:
-```bash
-sudo apt install curl jq -y && cd ~/Downloads && API_HOST="api.github.com" && LATEST_URL=$(curl -s "https://${API_HOST}/repos/VSCodium/vscodium/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E 'x86_64.*\.AppImage$' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
-```
-
-**2.** Make the downloaded file executable, extract the AppImage container while forcibly temporarily overriding the mask to `umask 022`, move the resulting binaries to the `/opt/` system directory, and prepare the hidden configuration folders in the home directory:
-```bash
-chmod +x VSCodium.AppImage && (umask 022 && ./VSCodium.AppImage --appimage-extract) && sudo rm -rf /opt/vscodium && sudo cp -rL squashfs-root /opt/vscodium && rm -rf squashfs-root VSCodium.AppImage AppDir && (umask 022 && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions ~/.vscode-oss-shared)
-```
-
-**3.** Set correct permissions on the `/opt/vscodium` directory, restore the SUID bit for the built-in Chrome sandbox, and recursively assign ownership of the configuration folders to the current user and their real primary group (accounting for `USERGROUPS_ENAB no`):
-```bash
-sudo chown -R root:root /opt/vscodium && sudo chmod -R 755 /opt/vscodium && sudo chmod 4755 /opt/vscodium/chrome-sandbox && sudo chown -R $USER:$(id -gn) ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared && chmod -R 755 ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
-```
-
-**4.** Create the Firejail configuration directory if not already present, and open the custom profile in `nano`:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/vscodium.profile
-```
-
-**5.** Define baseline sandbox isolation rules. Explicitly whitelist the `extensions` subfolder (otherwise the extension marketplace defaults to *Read-Only* mode), and include the `runuser` and `var` profile rules to prevent internal Node.js language server initialization crashes:
-```ini
-# Baseline security
-caps.drop all
-netfilter
-private-cache
-private-dev
-private-tmp
-disable-mnt
-
-dbus-system none
-
-include disable-common.inc
-include disable-devel.inc
-include disable-exec.inc
-include disable-interpreters.inc
-
-# Permit access exclusively to configuration paths, extension modules, and shared memory databases
-whitelist ~/.config/VSCodium
-whitelist ~/.vscode-oss
-whitelist ~/.vscode-oss/extensions
-whitelist ~/.vscode-oss-shared
-
-# Permit execution of internal Node.js language servers required by extension engines
-include whitelist-runuser-common.inc
-include whitelist-var-common.inc
-include whitelist-common.inc
-
-# Rapid container teardown upon application exit (retained for potential Electron lifecycle quirks)
-#deterministic-shutdown
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
-
-**6.** Construct a dedicated workspace directory for active development projects (workspace folder access will be bound via launcher configurations):
-```bash
-mkdir -p ~/Documents/VSCodium_Projects
-```
-
-**7.** Adjust ownership and enforce restrictive permissions on the parent `Documents` directory:
-```bash
-sudo chown $USER:$USER "$HOME/Documents" && chmod 700 "$HOME/Documents"
-```
-
-**8.** Launch the editor in foreground interactive terminal mode. For complex Electron-based IDEs, this launch invocation serves as the baseline execution standard:
-```bash
-firejail --profile=~/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
-```
-
-> [!NOTE]
-> Upon closing the primary graphical interface, background Electron services (such as `fileWatcher`) may hold the sandbox container active, leaving the launching host shell blocked. In production setups, this behavior is completely bypassed by utilizing graphical `.desktop` launchers that execute processes asynchronously.
-
-* Further along in this chapter, we will automate sandbox confinement by creating persistent desktop launchers directly in user-space `.desktop` entries.
-
-#### Installing and Sandboxing LM Studio Bionic Local AI:
-
-Cybersecurity professionals cannot transmit sensitive prompts, proprietary source code snippets, or confidential system logs to cloud AI services due to severe data leakage risks.
-
-Security researchers have demonstrated that malicious threat actors can embed execution payloads within chat templates packed inside GGUF format model files.
-
-We will lock down our local AI assistant inside an air-gapped host container perimeter.
-
-Because current LM Studio builds ship as heavy monolithic AppImage containers (~1 GB) and Firejail's native mount mechanisms in Ubuntu 24.04/26.04 trigger file system mounting conflicts (`Invalid argument`), we apply an explicit pre-extraction strategy.
-
-**1.** Navigate to the downloads directory and fetch the latest stable local AI AppImage container directly from the developers' official storage server via a single command, enforcing strict redirect chaining:
-```bash
-sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "https://lmstudio.ai/download/latest/linux/x64?format=AppImage"
-```
-
-> [!TIP]
-> **Author's Tip:** The asset payload measures ~1 GB; wait for the terminal transfer progress indicator to reach 100%. Utilizing this static URL string ensures the command always retrieves the latest neural network build.
-
-**2.** Grant standard execution permissions to the downloaded file and unpack its internal file system structure into a temporary user directory:
-```bash
-chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract
-```
-
-**3.** Move the extracted graphical interface directory tree from the temporary workspace into a hidden, isolated user profile folder:
-```bash
-mv squashfs-root ~/.lmstudio_gui
-```
-
-**4.** Create the Firejail configuration directory if not already present, and open the custom profile in `nano`:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/lmstudio.profile
-```
-
-**5.** Define baseline container isolation rules:
-```ini
-# Do not isolate /dev — preserve access to host GPU and graphics devices
-ignore private-dev
-
-# Permit access to LM Studio model stores and internal configuration data
-noblacklist ${HOME}/.lmstudio
-
-# Enforce rapid container teardown upon application exit
-deterministic-shutdown
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
-
-**6.** At this initial stage, the global network Kill-Switch is held inactive, as the application requires outbound internet access to download model weights. To prevent large language models (LLMs) from defaulting to slow CPU execution fallback, wrap application launch in a universal one-line terminal invocation. The script dynamically checks for active host NVIDIA drivers: if an NVIDIA GPU is detected, access to `/dev/nvidia*` device nodes is preserved; otherwise, execution defaults to host Intel/AMD graphics stacks:
-```bash
-firejail --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
-```
-
-> [!NOTE]
-> Once required model files are fully downloaded to disk via the built-in Hugging Face browser, close the application interface. Outbound network access for this utility will only be necessary when pulling new LLM weights in the future. All downloaded model weights remain securely stored inside the user home directory path `~/.lmstudio/`. Proceed to final container sealing.
-
-Detailed setup for automated split-profile launching (*Secure Sandbox* without network vs. *Online Downloader* with network) for LM Studio, including deployment of custom high-resolution 512px and 256px icons, is covered **later in this text within the `firecfg` section**. The automated helper script provided there generates integrated shortcuts inside the GNOME Applications menu ("Apps").
-
-**7.** To force-launch the full LM Studio graphical interface inside an air-gapped Linux kernel container (bypassing desktop launchers), execute the following command with the `--net=none` flag, which automatically handles GPU passthrough for NVIDIA or integrated Intel/AMD devices:
-```bash
-firejail --net=none --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
-```
-
-**8.** To bypass the heavy graphical interface and execute only the lightweight local AI engine as a background service (Daemon) for CLI or API operations while air-gapping network access, use the corresponding universal invocation string. This ensures the `lms` CLI engine binds directly to NVIDIA tensor cores for rapid inference while maintaining stability across Intel/AMD host configurations:
-```bash
-firejail --net=none --profile=lmstudio $HOME/.lmstudio/bin/lms daemon up
-```
-
-**9.** Remove the downloaded installation image from the `Downloads` directory:
-```bash
-rm ~/Downloads/LM-Studio.AppImage
-```
-
-> [!NOTE]
-> **OPSEC Security Analysis:** The local AI assistant is now operational within an isolated sandbox across both graphical (GUI) and daemon (CLI/Daemon) execution modes. The `--net=none` directive completely unbinds Linux kernel network namespaces for the running container. Dynamic device mapping guarantees that CUDA engines interface directly with GPU hardware without degrading host file system isolation controls. Sensitive prompts, internal logs, and proprietary source code fragments are processed strictly inside host RAM and GPU tensor cores, remaining physically air-gapped from external network infrastructure.
-
-* Toward the end of this chapter, we will configure permanent sandboxed execution by embedding these launch parameters directly into custom `.desktop` shortcuts.
-
-#### Securing Communications: Mandatory Isolation of Messengers and Crypto Infrastructure (Author's OPSEC Setup):
-
-For everyday tasks, mainstream users typically opt for **Telegram**. However, across the professional cybersecurity community, the **XMPP (Jabber)** protocol and encrypted email paired with end-to-end **OpenPGP (GnuPG)** encryption remain the gold standards for privacy, decentralization, and absolute digital sovereignty.
-
-> [!NOTE]
-> When using secure email services like ProtonMail, remember that end-to-end OpenPGP encryption is built directly into the web interface by default for "Proton-to-Proton" internal communications. However, to achieve complete operational sovereignty (a security model designed to mitigate host-side or provider-level compromise), apply a **cascading encryption strategy**: encrypt the message body using a local offline Curve25519 key pair directly on the host, then transmit the resulting ciphertext via Proton. Under this model, intercepting communications becomes mathematically impossible—even if a third party gains full access to Swiss data centers.
-
-Any communication client continuously processes massive volumes of untrusted external data: HTML email layouts, XML chat streams, asynchronous link previews, avatars, and media files. This creates a critical attack surface for file-parsing exploits (including kernel-level or application buffer overflow vulnerabilities). We will neutralize the risk of 0-day exploit execution and host data exfiltration by isolating every communication tool at the Linux kernel level using the Firejail sandbox.
-
-#### Installing and Sandboxing Telegram Desktop:
-
-The primary security flaw of the default Telegram client on Linux is its unrestricted access to the host home directory, alongside storing cached media, downloaded assets, and session keys in plaintext. Should a malicious stealer script execute on the system, it can effortlessly hijack active messenger sessions.
-
-Let's strictly isolate Telegram: prohibit it from viewing any host files outside its own configuration directory and a single designated download folder, while preserving full traffic visibility for Portmaster's eBPF network filtering lenses.
-
-> [!IMPORTANT]
-> Because the Snap package framework has been completely removed from our paranoid OPSEC configuration, and Flatpak builds suffer from subtle D-Bus passthrough issues, we strictly utilize the official, clean static messenger binary. This grants the Firejail sandbox maximum mandatory access control over running processes.
-
-**1.** Navigate to the downloads directory, fetch the official stable messenger archive directly via the official `telegram.org` redirect gateway in a single command, unpack its structure, relocate the clean executable binary to the canonical `/usr/bin/` path, and automatically sweep away temporary archive debris:
-```bash
-sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "https://telegram.org/dl/desktop/linux" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
-```
-
-The `curl -L` directive follows the HTTP redirects of the official download portal, fetches the latest upstream tarball, extracts it, and deploys the static binary to `/usr/bin/telegram-desktop`. This canonical execution path ensures seamless execution under the Linux kernel and desktop environments.
-
-**2.** Create a dedicated, isolated inbound file landing zone inside the user directory to prevent chat downloads from cluttering the host file system:
-```bash
-mkdir -p ~/Downloads/Telegram_Downloads
-```
-
-**3.** Enforce binary integrity via POSIX ownership attributes:
-```bash
-sudo chown root:root /usr/bin/telegram-desktop
-```
-
-**4.** Apply strict execution permissions following the Principle of Least Privilege:
-```bash
-sudo chmod 755 /usr/bin/telegram-desktop
-```
-
-**5.** Create the configuration directory if absent, and open the profile file in the `nano` editor:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/telegram.profile
-```
-
-**6.** Insert baseline container isolation rules into the opened configuration file:
-```ini
-# Telegram Desktop
-seccomp
-
-# Exclusively permit access to essential target directories
-whitelist ${HOME}/.local/share/TelegramDesktop
-whitelist ${HOME}/Downloads/Telegram_Downloads
-```
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
-
-**7.** On Ubuntu 24.04/26.04 distributions, default system messenger profiles are overloaded with redundant AppArmor profiles, causing Qt applications to drop network sockets and blind Portmaster's eBPF driver. To completely bypass this bottleneck, launch Telegram using a direct command string: the `--profile=telegram` flag applies our custom profile restrictions, while `--seccomp` enforces kernel-level system call filtering to neutralize local privilege escalation (LPE) exploits:
-```bash
-firejail --profile=telegram /usr/bin/telegram-desktop
-```
-
-The messenger immediately gains outbound host network access, while Portmaster's eBPF lenses capture and render the `telegram-desktop` process within the network monitor UI. Meanwhile, the client's internal file picker remains strictly blind to the rest of the host home directory—seeing only existing session state and the isolated `Telegram_Downloads` folder. Even if a threat actor transmits a malicious payload and it executes within the messenger context, the exploit remains trapped inside a virtual memory vacuum, unable to access SSH keys, cryptocurrency wallets, or sensitive host configurations!
-
-* Near the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
-
-#### Host Cryptographic Foundation: Generating and OPSEC-Protecting GnuPG Keys:
-
-Before passing cryptographic cores into isolated sandboxes of instant messengers and email clients, we must deploy a flawless, mathematically unassailable **OpenPGP (GnuPG)** asymmetric encryption infrastructure on the host. Generation errors or lax file access permissions for keyrings completely neutralize protection, allowing local malware to hijack your digital identity.
-
-> [!NOTE]
-> The GnuPG toolkit comes pre-installed by default as a baseline component in Ubuntu Desktop. The `apt` package manager continuously leverages GPG cryptographic algorithms at a deep system level to verify digital signatures of Canonical repositories during system updates, rendering the utility fully operational out of the box.
-
-**1.** Abandon outdated, legacy RSA algorithms in favor of modern, ultra-fast, and highly resistant **Elliptic Curve Cryptography (ECC)**. Launch the interactive GnuPG generator:
-```bash
-gpg --full-generate-key
-```
-**Select the following strict security parameters in the interactive wizard:**
-> 1. **Key Type:** Select option `(9) ECC and ECC (Sign and Encrypt)`—this provisions separate elliptic curve keys for signing and encryption.
-> 2. **Elliptic Curve Type:** Select `(1) Curve 25519` (the renowned Edwards curve `Ed25519`/`Cv25519`)—an established global EdDSA standard immune to hidden state-sponsored backdoors.
-> 3. **Expiration Date:** Select `0` (key does not expire) OR define a strict rotation policy (e.g., `1y`—one year).
-> 4. **User ID (UID):** Enter your name/handle and target e-mail address.
-> 5. **Passphrase:** The system will prompt for a master password to protect the private key in RAM. Supply a generated passphrase at least **20–24 characters** long (comprising random mixed-case alphanumeric characters and special symbols).
-
-> [!IMPORTANT]
-> When building a fully anonymous communications perimeter, use a fictional pseudonym paired with a non-existent email account under a privacy-conscious jurisdiction (e.g., `dark_agent@proton.me`).
-
-**2.** By default, the `~/.gnupg` directory is created with overly permissive access attributes. If an unprivileged spy script executes on the system, it could read key metadata. Block this vector by applying strict POSIX permission masks across the hidden directory and key files at the Linux kernel level:
-```bash
-chmod 700 ~/.gnupg && find ~/.gnupg -type f -exec chmod 600 {} + && find ~/.gnupg -type d -exec chmod 700 {} +
-```
-
-> **Security Mechanics:** The permissions mask now forms an impenetrable `drwx------` access barrier. Any process executing outside our current user context attempting to inspect the keyring folder triggers an immediate OS kernel hardware denial: `Permission denied`.
-
-> **(OPSEC Recommendations for Storing Public and Private Key Pairs):** Asymmetric cryptography separates data assets into two distinct entities governed by fundamentally different storage policies:
-
-> [!IMPORTANT]
-> When executing key export commands, replace the demonstration address `YOUR-EMAIL@DOMAIN.COM` strictly with the specific e-mail assigned during Step 1 key generation. Otherwise, the GnuPG core returns a `WARNING: nothing exported` error.
-
-**3.** Public Key: Our digital calling card. Interlocutors use it to encrypt outbound messages for us and verify our digital signatures. Its security does not rely on secrecy. You may publish it to GitHub, transmit it across public channels, or attach it to an XMPP profile description. Export the public key block to an ASCII text file:
-```bash
-gpg --armor --export YOUR-EMAIL@DOMAIN.COM > ~/Downloads/my_public_key.asc
-```
-
-**4.** Export the secret key block into the downloads folder:
-```bash
-gpg --armor --export-secret-keys YOUR-EMAIL@DOMAIN.COM > ~/Downloads/my_PRIVATE_key.asc
-```
-
-**MANUAL ACTION:** Copy the `my_PRIVATE_key.asc` asset onto an external encrypted storage medium!
-
-**5.** Destroy the temporary private key stored in Downloads using the `shred` secure deletion tool:
-```bash
-shred -u -v -n 3 ~/Downloads/my_PRIVATE_key.asc
-```
-
-> [!WARNING]
-> **Private Key:** Our digital lifeblood and the foundational DNA of our operational sovereignty. We use it to decrypt incoming communications and sign outgoing payload assets. Storing secret keys in cloud environments, mailboxes, or networked storage drives is **STRICTLY PROHIBITED**. Master private keys should reside exclusively in Cold Storage—on an encrypted external physical device (or inside an isolated crypto-container). Only lightweight, easily replaceable daily working subkeys should be imported into the local LUKS host's `~/.gnupg` directory for routine mail encryption, eliminating master key compromise during physical device loss or system intrusion.
-
-> [!NOTE]
-> Residual data destruction via `shred`/`wipe`, metadata cleansing via `mat2`, and **VeraCrypt** crypto-container deployment were covered thoroughly in preceding chapters. At this operational stage, an encrypted offline storage volume must already be provisioned to receive private key backups prior to physically purging original files from the local downloads directory.
-
-#### Installing and Sandboxing the Psi+ Jabber Client:
-
-For daily workspace communications, mainstream users typically opt for Telegram. However, across the professional cybersecurity community, the **XMPP (Jabber)** protocol paired with end-to-end encryption remains the benchmark for privacy, decentralization, and absolute digital sovereignty.
-
-We will adopt **Psi+** as our reference client. Unlike the heavy Gajim client (written in Python with an extensive stack of third-party dependencies), Psi+ is a native Qt/C++ application boasting a minimalist architecture and built-in XMPP diagnostic tools, including an integrated XML console.
-
-However, any XMPP client continuously parses massive volumes of untrusted external XML streams, asynchronous links, avatars, and media assets. In theory, this exposes a dangerous attack surface for file-parsing exploits (including critical buffer overflow vulnerabilities within the application core). We significantly constrain the impact of potential Psi+ exploit execution by isolating the client using Firejail.
-
-We establish three valid message encryption vectors depending on our threat model:
-
-* **OMEMO (Modern Standard):** Based on the Signal Double Ratchet cryptographic protocol, featuring Forward Secrecy and encrypted file transfer support. Ideal for daily security collaboration.
-* **OpenPGP/GnuPG (Classic Baseline):** Asymmetric encryption backed by robust key pairs. The Psi+ OpenPGP plugin interfaces directly with the host GnuPG infrastructure to handle OpenPGP key operations.
-* **OTR (Off-the-Record Messaging):** Absolute symmetric mathematical resistance immune to quantum cryptanalysis (each key is generated manually and used strictly once per message).
-
-Our objective is to build a universal, fault-tolerant sandbox profile that isolates the file system while seamlessly permitting traffic across any selected cryptographic layer.
-
-Because strict UFW firewall policies are enforced on the host, we must append specific egress rules:
-
-**1.** Open the standard XMPP port (5222) for outbound TCP traffic across all servers to allow baseline Psi+ connections:
-```bash
-sudo ufw allow out to any port 5222 proto tcp
-```
-
-**2.** Optionally, open the secure XMPP TLS port (5223) for outbound TCP traffic to support servers enforcing direct TLS connections:
-```bash
-sudo ufw allow out to any port 5223 proto tcp
-```
-
-* **For Ubuntu 24.04 LTS (Noble Numbat) Users:**
-
-**3a.** The default native package inside Ubuntu 24.04 repositories suffers from critical Qt library linkage errors under the Wayland display server (resulting in *Segmentation fault* crashes). To bypass this system bug, add the official Psi+ developer PPA, fetch the adapted stable Psi+ v1.5.2068 build, the plugin suite (including OMEMO), and the baseline GnuPG framework in a single command:
-```bash
-sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
-```
-
-* **For Ubuntu 26.04 LTS (Resolute Raccoon) Users:**
-
-In Ubuntu 26.04, the upstream repository supplies Psi+ branch 1.4.1456. The required 1.5.2068 version could not simply be ported from Noble because pre-compiled Noble plugins were linked against outdated ABIs. Consequently, Psi+ 1.5.2068 was recompiled directly on Ubuntu 26.04 Resolute from the official 1.5.2068 source archive. The client and plugin suite were then consolidated into a single package: `psi-plus-resolute-client-and-plugins_1.5.2068-1~resolute1_amd64.deb`. As a result, OMEMO, OTR, and OpenPGP utilize libraries native to Resolute without backporting legacy Noble dependencies.
-
-Two deployment paths are available. The first option installs the older yet functional Psi+ v1.4.1456 build from official system repositories. The second option installs the version recompiled for this book's repository based on the `noble` release source.
-
-**Option 1:**
-
-**3b1.** Install Psi+ version 1.4.1456 directly from standard system repositories:
-```bash
-sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
-```
-
-**Option 2:**
-
-**3.b2-1.** Download the custom `.deb` package from the author's repository (`github.com/eugexo`):
-```bash
-wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
-```
-
-> [!IMPORTANT]
-> Do not implicitly trust downloaded `.deb` binaries prior to installation. Verify the file's checksum and inspect its structural contents first. While this does not prove the absence of malicious code, it confirms payload integrity and reveals exactly what assets will be deployed to the host. **This verification procedure must be applied across all untrusted or third-party sources.**
-> 
-> Verify the SHA-256 checksum of the package:
-> ```bash
-> sha256sum psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
-> ```
-> 
-> Inspect `.deb` metadata headers prior to installation:
-> ```bash
-> dpkg-deb -I psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
-> ```
-> 
-> Inspect the internal archive manifest:
-> ```bash
-> dpkg-deb -c psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
-> ```
-> A matching SHA-256 hash confirms the received asset matches the verified upstream reference, but hash validation alone does not guarantee software trustworthiness. Treat hash verification as one defensive layer among many, rather than absolute proof of safety.
-
-**3.b2-2.** Following hash validation, execute the Psi+ package installation. Ubuntu's package manager will automatically resolve and install necessary system dependencies:
-```bash
-sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
-```
-
-**4.** Launch Psi+ using its canonical system command. Firejail automatically parses baseline security directives, applies the default profile, and renders the graphical interface:
-```bash
-firejail psi-plus
-```
-
-Psi+ allows messaging encryption via OMEMO, OTR, or OpenPGP. Meanwhile, Firejail's mandatory access controls restrict file system access and significantly contain the impact of potential application-level vulnerabilities.
-
-Optional WebKit/WebEngine binaries and unnecessary dependencies were intentionally omitted from this build. The result is a streamlined Psi+ 1.5.2068 deployment featuring full native plugin support (including OMEMO, OTR, and OpenPGP) without extraneous web engines or unnecessary functionality outside our core OPSEC perimeter.
-
-> [!IMPORTANT]
-> Additional outbound network rules for file transfers depend on your specific XMPP server configuration and its associated HTTP Upload/proxy services.
-
-* Toward the end of this chapter, we will configure permanent sandboxed execution by embedding these parameters directly into custom `.desktop` shortcuts.
-
-#### Installing and Sandboxing Thunderbird (Encrypted Email Workflow):
-
-Email represents a critically vulnerable host zone. Modern phishing campaigns and targeted attacks rely on malicious attachments and embedded JavaScript payloads packed inside incoming messages. Running an uncontained email client poses a direct threat of host compromise. We will deploy the reference **Thunderbird** client, seal its local message database within an isolated sandbox perimeter, and fully integrate it with our host OpenPGP cryptographic core.
-
-**1.** The default `thunderbird` package in Ubuntu repositories is a transitional stub requiring the presence of the `snapd` framework—which has been completely removed from our system setup. To bypass this deadlock and force the package manager to fetch native binaries directly from the official Mozilla Team PPA, create a strict pin priority file:
-```bash
-sudo tee /etc/apt/preferences.d/mozilla-thunderbird <<EOF
-Package: thunderbird*
-Pin: release o=LP-PPA-mozillateam
-Pin-Priority: 1001
-Package: thunderbird*
-Pin: release o=Ubuntu
-Pin-Priority: -10
-EOF
-```
-
-**2.** Protect our future native package from accidental deletion, rollback, or forced replacement by Snap dummy stubs during background operating system updates:
-
-* **For Ubuntu 24.04 LTS (Noble Numbat) Users:**
-```bash
-echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:noble";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
-```
-* **For Ubuntu 26.04 LTS (Resolute Raccoon) Users:**
-```bash
-echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
-```
-
-**3.** Update the local package cache and install native Thunderbird:
-```bash
-sudo apt update && sudo apt install thunderbird -y
-```
-
-**4.** Create a Firejail isolation profile for Thunderbird:
-```bash
-mkdir -p ~/.config/firejail && nano ~/.config/firejail/thunderbird.profile
-```
-
-**5.** Append baseline container isolation rules into the opened configuration file:
-```ini
-caps.drop all
-nonewprivs
-
-whitelist ~/.thunderbird
-whitelist ~/Downloads/Mail_Attachments
-
-# Rapid container teardown upon application exit
-deterministic-shutdown
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit the editor.
-
-> [!WARNING]
-> It is **strictly prohibited** to launch Thunderbird while the system remains connected to the internet. Upon its very first launch, the application will immediately transmit initial telemetry payloads outbound across the network.
-
-**6.** Disable all network interfaces to prevent the mail client from "calling home" during initialization, then launch Thunderbird to establish its baseline internal profile architecture:
-```bash
-nmcli networking off
-```
-**Following execution of this command, launch Thunderbird manually from the applications menu.** Wait 2–3 seconds for directory structure generation to complete, then close the application entirely.
-
-**7.** Navigate to the generated UUID profile directory and initialize a clean configuration file:
-```bash
-cd ~/.thunderbird/*default-release && touch user.js
-```
-
-**8.** Open the newly created `user.js` file in the `nano` terminal editor:
-```bash
-nano user.js
-```
-
-**9.** Copy our ultimate OPSEC security directive array—completely blinding Gecko core telemetry modules—and paste it into the editor buffer:
-```javascript
-// ============================================================================
-// HARDENING CONFIG FOR MOZILLA THUNDERBIRD (USER.JS)
-// OPTIMIZED OPSEC PROFILE & EMAIL PRIVACY MATRIX
-// ============================================================================
-
-// 1. COMPLETE PURGING OF SYSTEM TELEMETRY AND CRASH REPORTING (BREAKPAD)
-user_pref("toolkit.telemetry.unified", false);
-user_pref("toolkit.telemetry.enabled", false);
-user_pref("toolkit.telemetry.archive.enabled", false);
-user_pref("toolkit.telemetry.rejected", true);
-user_pref("toolkit.telemetry.server", "data:text/plain,");
-user_pref("datareporting.healthreport.uploadEnabled", false);
-user_pref("datareporting.policy.dataSubmissionEnabled", false);
-user_pref("datareporting.healthreport.service.enabled", false);
-user_pref("browser.tabs.crashReporting.sendReport", false);
-user_pref("toolkit.crashreporter.enabled", false);
-user_pref("breakpad.reportURL", "data:text/plain,");
-user_pref("security.ssl.errorReporting.automatic", false);
-user_pref("network.allow-experiments", false);
-// Purge build history and unique profile UUID identifiers (DAU)
-user_pref("toolkit.telemetry.cachedClientID", "");
-user_pref("toolkit.telemetry.cachedProfileGroupID", "");
-user_pref("toolkit.telemetry.previousBuildID", "");
-user_pref("datareporting.dau.cachedUsageProfileGroupID", "");
-user_pref("datareporting.dau.cachedUsageProfileID", "");
-
-// 2. DISABLE HIDDEN MOZILLA EXPERIMENTS AND NIMBUS STUDIES
-user_pref("app.shield.optoutstudies.enabled", false);
-user_pref("app.normandy.enabled", false);
-user_pref("app.normandy.api_url", "");
-user_pref("nimbus.telemetry.targetingContextEnabled", false);
-
-// 3. BASE PRIVACY PROTECTION AND IN-MAIL TRACKER BLOCKING
-user_pref("privacy.trackingprotection.enabled", true);
-user_pref("privacy.trackingprotection.socialtracking.enabled", true);
-user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
-user_pref("dom.private-attribution.submission.enabled", false);
-user_pref("dom.netinfo.enabled", false);
-user_pref("beacon.enabled", false);
-
-// 4. PREVENT BACKGROUND NETWORK PREFETCHING AND DNS PREDICTION
-user_pref("network.predictor.enabled", false);
-user_pref("network.predictor.enable-hover", false);
-user_pref("network.prefetch-next", false);
-user_pref("network.dns.disablePrefetch", true);
-user_pref("network.dns.disablePrefetchFromHTTPS", true);
-user_pref("network.http.speculative-parallel-limit", 0);
-
-// 5. PURGE ADD-ON RECOMMENDATIONS AND MARKETPLACE CACHING
-user_pref("extensions.getAddons.cache.enabled", false);
-user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
-user_pref("browser.discovery.enabled", false);
-
-// 6. RELOCATE DISK CACHE ENTIRELY TO SYSTEM RAM (SSD WEAR PROTECTION)
-user_pref("browser.cache.disk.enabled", false);
-user_pref("browser.cache.memory.enabled", true);
-user_pref("browser.cache.memory.capacity", 262144);
-
-// 7. ISOLATE PERIPHERALS, START PAGES, AND HOME CALLS
-user_pref("mailnews.start_page.enabled", false);
-user_pref("mailnews.start_page.url", "about:blank");
-user_pref("mail.shell.checkDefaultClient", false);
-user_pref("media.peerconnection.enabled", false);
-user_pref("media.peerconnection.use_document_iceservers", false);
-user_pref("dom.gamepad.enabled", false);
-user_pref("device.sensors.enabled", false);
-
-// 8. BLOCK DATA LEAKAGE VECTORS & ENFORCE URL QUERY STRIPPING
-user_pref("privacy.query_stripping.enabled", true);
-user_pref("privacy.query_stripping.enabled.pbmode", true);
-user_pref("layout.css.font-visibility", 1);
-user_pref("network.http.referer.XOriginPolicy", 2);
-
-// 9. UI OPTIMIZATION AND WEBRENDER HARDWARE ACCELERATION (GPU LOAD)
-user_pref("general.smoothScroll", true);
-user_pref("mousewheel.min_line_scroll_amount", 20);
-user_pref("gfx.webrender.all", true);
-user_pref("dom.ipc.processCount", 8);
-
-// 10. MASK NETWORK FINGERPRINTS & ISOLATE INFRASTRUCTURE CHECKS
-// Rebind Gecko's internal connectivity check mechanisms from commercial Cloudflare servers to privacy-focused Quad9 infrastructure. Additionally strip regional telemetry, forcing system locale masking to neutral US baseline.
-user_pref("browser.search.region", "US");
-user_pref("geo.enabled", false);
-user_pref("webgl.disabled", true);
-```
-
-To commit modifications in `nano`, press **"Ctrl + O"** ➔ **"Enter"**, followed by **"Ctrl + X"** to exit back to the console shell.
-
-**10.** Lock file access permissions by applying a strict read-only POSIX mask for the file owner (`0400`), preventing any background host process from silently modifying our hardened security profile:
-```bash
-chmod 0400 user.js
-```
-
-**11.** To prevent mail attachments from scattering across the system and silently modifying host configuration paths, initialize a dedicated landing zone directory:
-```bash
-mkdir -p ~/Downloads/Mail_Attachments
-```
-
-**12.** Restore host internet connectivity (replacing `enp0s1` with your specific interface identifier):
-```bash
-nmcli networking on && nmcli connection up netplan-enp0s1
-```
-
-**13.** Execute the isolated Thunderbird instance using our custom profile. To ensure heavy email rendering on NVIDIA hardware under Wayland does not trigger interface crashes, wrap application execution in a universal wrapper that dynamically detects active proprietary drivers and unblinds necessary device nodes while preserving strict file system whitelisting for Intel/AMD setups:
-```bash
-firejail --profile=thunderbird /usr/bin/thunderbird
-```
-
-> [!IMPORTANT]
-> **Air-Gapped Encrypted Mail Processing Protocol:** Storing private cryptographic keys permanently on the host system or inside application sandboxes introduces a critical security vulnerability. We mitigate this risk by applying a temporary, offline key import workflow:
-> 
-> **1.** Launch Thunderbird within the Firejail sandbox container to fetch and synchronize inbound encrypted messages from remote servers.
-> **2.** Disable all host network interfaces, bringing the entire operating system and Thunderbird into a completely isolated offline state:
-> ```bash
-> nmcli networking off
-> ```
-> **3.** Connect an encrypted external USB storage medium and transfer required key files exclusively into our designated file landing zone: `~/Downloads/Mail_Attachments`.
-> **4.** Inside the Thunderbird interface, click the top-right **burger menu**, navigate to **Tools** ➔ **OpenPGP Key Manager** ➔ **File**, and select **Import Public Key(s) From File** and **Import Secret Key(s) From File** respectively.
-> **5.** Import the target key blocks, then decrypt and review confidential messages offline.
-> **6.** Once reading is complete, purge the private key pair directly from Thunderbird's key store interface.
-> **7.** Permanently destroy residual key files located in the landing zone by running a 3-pass secure overwrite routine from the host terminal:
-> ```bash
-> shred -u -n 3 ~/Downloads/Mail_Attachments/PRIVATE_key.asc
-> ```
-> **8.** Re-enable host network connectivity only after verifying complete erasure of cryptographic material. On Ubuntu 24.04/26.04 builds, network state re-initialization can stall after interface teardown. Force network link recovery using the following explicit command string (replacing `netplan-enp0s1` with your physical interface name):
-> ```bash
-> nmcli networking on && nmcli connection up netplan-enp0s1
-> ```
-> 
-> Mail traffic remains fully visible to Portmaster's eBPF filtering driver, while the host file system is completely shielded: even if an incoming encrypted message packs a zero-day exploit payload, execution remains contained inside the isolated sandbox, lacking outbound network channels for data exfiltration and blocked by strict kernel-level read-only boundaries!
-
-* Toward the end of this chapter, we will bind these security parameters directly to system desktop files for seamless execution.
-
-#### Automating the Defensive Perimeter (Firecfg Utility) and Customizing System Icons:
-
-Repeatedly entering long commands manually into the terminal quickly becomes exhausting. To automate this process, we leverage the built-in `firecfg` tool. It scans the operating system and automatically wraps standard applications (browsers, torrent clients, email clients) inside isolated sandbox containers.
-
-> [!IMPORTANT]
-> Modern Firejail releases omit local unprivileged automation modes. Executing `firecfg` requires elevated root privileges because the utility constructs global symbolic links within the `/usr/local/bin` system directory.
->
-> While `sudo firecfg` provides convenient bulk sandbox enrollment, running it blindly without auditing targeted applications is discouraged. Controlled, targeted isolation via explicit profile definitions and dedicated user `.desktop` files remains the preferred security approach.
-
-**1.** Enable the global application launcher sandbox integration:
+**1.** Activate the global launcher defense perimeter on the system:
 ```bash
 sudo firecfg
 ```
 
-**2.** To prevent path collisions, stale symlink layering, and cascade failures when operating alongside AppArmor, execute an atomic reset sequence using the `&&` operator. This completely purges legacy symlinks before deploying fresh sandbox wrappers from scratch:
+**2.** To completely eliminate hidden path conflicts, stale symlinks, and cascading errors with AppArmor, use a chained command with `&&` to purge the old symlink cache and deploy a fresh sandbox layout:
 ```bash
 sudo firecfg --clean && sudo firecfg
 ```
 
-This command first flushes obsolete, potentially conflicting symlinks, then deploys a clean sandbox execution framework in a single pass. Clicking application icons (e.g., Firefox or Evince) within the GNOME application launcher will now transparently spawn those binaries inside isolated container environments.
+This command first resets and removes old, potentially conflicting application symlinks, and then deploys a clean, conflict-free sandbox structure. Now, clicking Firefox or Evince in the GNOME application menu will launch them inside a container.
 
-To eliminate human error, visually distinguish hardened sandbox containers from unprotected host processes, and replace default generic GNOME icons, deploy isolated user-level launchers featuring custom visual assets for our web browser and local AI stack.
+### Installing Bubblewrap:
 
-**3.** Create the user icon directory hierarchy and copy downloaded 256px (`256x256`) and 512px (`256x256@2x`) PNG assets into their respective destination paths:
-```bash
-mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
-```
-
-> [!WARNING]
-> After modifying `Exec=` directives for applications such as LibreOffice, Image Viewer, or Document Viewer, log out of your desktop session ("Log Out...") or reboot the host system to force desktop environment menu caching routines to register updated entry points.
-
-* Generate the primary hardened launcher for **Mozilla Firefox running inside Firejail**, strictly bound to our hardened security profile and explicit icon path:
-```bash
-cat <<EOF> ~/.local/share/applications/firefox-secure.desktop
-[Desktop Entry]
-Name=Firefox (Secure Sandbox)
-Comment=Browse the World Wide Web in Firejail Sandbox
-Exec=firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile $HOME/.mozilla-hardened/firefox/current --name firefox-secure %u
-StartupNotify=true
-Terminal=false
-Type=Application
-Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-secure.png
-Categories=Network;WebBrowser;
-MimeType=text/html;text/xml;application/xhtml+xml;
-EOF
-```
-
-* Modify the uncontained **Mozilla Firefox launcher** (reserved for downloading large files directly to the host), assigning it a distinct visual icon:
-
-```bash
-sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
-```
-
-* **For Ubuntu 24.04 LTS (Noble Numbat) Users (Document and Image Viewers):**
-
-Configure Firejail sandbox wrapping for the **Evince Document Viewer** launcher:
-```bash
-sudo sed -i 's|^Exec=evince.*$|Exec=firejail evince|' /usr/share/applications/org.gnome.Evince.desktop
-```
-
-Verify configuration changes:
-```bash
-grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
-```
-
-Configure Firejail sandbox wrapping for the **Eye of GNOME (Eog) Image Viewer** launcher:
-```bash
-sudo sed -i 's|^Exec=eog.*$|Exec=firejail eog|' /usr/share/applications/org.gnome.eog.desktop
-```
-
-Verify configuration changes:
-```bash
-grep 'Exec=' /usr/share/applications/org.gnome.eog.desktop
-```
-
-* **For Ubuntu 26.04 LTS (Resolute Raccoon) Users (Document and Image Viewers):**
-
-Configure Firejail sandbox wrapping for the **Papers Document Viewer** launcher:
-```bash
-sudo sed -i 's|^Exec=papers.*$|Exec=firejail papers|' /usr/share/applications/org.gnome.Papers.desktop
-```
-
-Verify configuration changes:
-```bash
-grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
-```
-
-Configure Firejail sandbox wrapping for the **Loupe Image Viewer** launcher, disabling D-Bus activation to force binary interception:
-```bash
-sudo sed -i 's|^Exec=loupe.*$|Exec=firejail loupe %U|; s|^DBusActivatable=true$|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
-```
-
-Verify configuration changes:
-```bash
-grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
-```
-
-* Harden the **KeePassXC** application launcher, isolating its execution context and network access (optionally backing up the original desktop entry):
-```bash
-sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak
-```
-
-```bash
-sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
-```
-
-* Apply Firejail sandbox execution across the entire **LibreOffice** productivity suite:
-
-This process updates binary invocation targets across desktop entries to launch under Firejail isolation by modifying primary and secondary `Exec` entries:
-
-```bash
-sudo sed -i 's|^Exec=libreoffice|Exec=firejail libreoffice|' /usr/share/applications/libreoffice-startcenter.desktop
-sudo sed -i 's|^Exec=libreoffice --writer|Exec=firejail libreoffice --writer|' /usr/share/applications/libreoffice-writer.desktop
-sudo sed -i 's|^Exec=libreoffice --calc|Exec=firejail libreoffice --calc|' /usr/share/applications/libreoffice-calc.desktop
-sudo sed -i 's|^Exec=libreoffice --impress|Exec=firejail libreoffice --impress|' /usr/share/applications/libreoffice-impress.desktop
-sudo sed -i 's|^Exec=libreoffice --draw|Exec=firejail libreoffice --draw|' /usr/share/applications/libreoffice-draw.desktop
-sudo sed -i 's|^Exec=libreoffice --math|Exec=firejail libreoffice --math|' /usr/share/applications/libreoffice-math.desktop
-sudo sed -i 's|^Exec=libreoffice --base|Exec=firejail libreoffice --base|' /usr/share/applications/libreoffice-base.desktop
-```
-All office suite binaries will now execute within the boundary constraints specified inside `libreoffice.profile`.
-
-Verify each updated desktop launcher:
-```bash
-grep 'Exec=' /usr/share/applications/libreoffice-writer.desktop
-grep 'Exec=' /usr/share/applications/libreoffice-calc.desktop
-grep 'Exec=' /usr/share/applications/libreoffice-impress.desktop
-grep 'Exec=' /usr/share/applications/libreoffice-draw.desktop
-grep 'Exec=' /usr/share/applications/libreoffice-math.desktop
-grep 'Exec=' /usr/share/applications/libreoffice-base.desktop
-```
-
-* Enforce sandbox isolation for **GIMP**:
-Locate the system target desktop entry:
-```bash
-find /usr/share/applications -iname '*gimp*'
-```
-
-Modify the execution path (adjusting target filename if package variations exist):
-```bash
-sudo sed -i 's|^Exec=|Exec=firejail |' /usr/share/applications/gimp.desktop
-```
-
-Verify launcher modifications:
-```bash
-grep 'Exec=' /usr/share/applications/gimp.desktop
-```
-
-* Generate an isolated desktop entry for **VS Codium without network access (Offline Mode)**:
-```bash
-cat <<EOF> ~/.local/share/applications/vscodium-offline.desktop
-[Desktop Entry]
-Name=VS Codium (Offline IDE)
-Comment=Code Editing without Network Access
-Exec=firejail --net=none --profile=${HOME}/.config/firejail/vscodium.profile --whitelist=${HOME}/Documents /opt/vscodium/AppRun --no-sandbox
-Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
-Terminal=false
-Type=Application
-Categories=Development;TextEditor;IDE;
-MimeType=text/plain;
-EOF
-```
-
-* Generate an isolated desktop entry for **VS Codium with network access (Online Mode for extension management)**:
-```bash
-cat <<EOF> ~/.local/share/applications/vscodium-online.desktop
-[Desktop Entry]
-Name=VS Codium (Online IDE)
-Comment=Code Editing with Network Access (Strict Sandbox)
-Exec=firejail --profile=${HOME}/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
-Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-online.png
-Terminal=false
-Type=Application
-Categories=Development;TextEditor;IDE;
-MimeType=text/plain;
-EOF
-```
-
-* Create an online launcher for **LM Studio** with network access (for downloading model weights from Hugging Face), dynamically adapting to hardware configurations (NVIDIA GPU or CPU fallback):
-```bash
-cat <<EOF> ~/.local/share/applications/lm-online.desktop
-[Desktop Entry]
-Name=LM Studio (Online Downloader)
-Comment=Run LM Studio with internet access to download LLM models
-Exec=firejail --profile=lmstudio ${HOME}/.lmstudio_gui/lm-studio --no-sandbox
-Icon=/home/$USER/.local/share/icons/256x256@2x/lm-unsecure.png
-Terminal=false
-Type=Application
-Categories=Development;Science;
-EOF
-```
-
-* Construct an air-gapped launcher for **LM Studio (Offline AI Mode)**. The underlying wrapper dynamically detects NVIDIA hardware, passes through CUDA inference interfaces, isolates execution behind network kill switches, and applies HiDPI visual assets:
-```bash
-cat <<EOF> ~/.local/share/applications/lm-offline.desktop
-[Desktop Entry]
-Name=LM Studio (Offline AI)
-Comment=Local LLM Sandbox Agent
-Exec=firejail --net=none --profile=lmstudio ${HOME}/.lmstudio_gui/lm-studio --no-sandbox
-Icon=/home/$USER/.local/share/icons/256x256@2x/lm-secure.png
-Terminal=false
-Type=Application
-Categories=Development;Science;
-EOF
-```
-
-> [!WARNING]
-> Background processes such as LM Studio's `node-Main` remain active in the system tray after closing the graphical UI. Failing to fully terminate running instances causes secondary launchers to hook into existing background sessions. Fully quit tray processes before switching between online and offline profiles.
-
-* Generate a hardened launcher for **Telegram**, configuring sandbox constraints and `seccomp` kernel filtering:
-```bash
-cat <<EOF> ~/.local/share/applications/telegramdesktop.desktop
-[Desktop Entry]
-Version=1.0
-Name=Telegram Desktop (Secure Sandbox)
-Comment=Official desktop version of Telegram inside Firejail Sandbox
-Exec=firejail --profile=telegram /usr/bin/telegram-desktop u%
-Icon=/home/$USER/.local/share/icons/256x256@2x/telegram-secure.png
-Terminal=false
-Type=Application
-Categories=Network;InstantMessaging;
-MimeType=x-scheme-handler/tg;
-EOF
-```
-
-* Generate an isolated entry for the **Psi+** XMPP client. This entry registers the application within GNOME menus, restricts access to the general home directory structure (including default downloads), whitelists strict state paths required for OMEMO keys and chat history, and routes cryptographic operations directly to the host GnuPG engine:
-```bash
-cat <<EOF> ~/.local/share/applications/psi-plus.desktop
-[Desktop Entry]
-Version=1.0
-Name=Psi+ (Secure Sandbox)
-Comment=XMPP client with OMEMO/GPG safely inside Firejail Sandbox
-Exec=firejail psi-plus
-Icon=/home/$USER/.local/share/icons/256x256@2x/psi-secure.png
-Terminal=false
-Type=Application
-Categories=Network;InstantMessaging;
-EOF
-```
-
-> [!WARNING]
-> The `psi-plus` background process minimizes to the system tray upon closing the window. Completely terminate active tray instances before launching alternate profile modes to avoid process session hijacking.
-
-* Generate a hardened **Thunderbird** desktop entry delivering path whitelisting, LPE attack mitigation, and NVIDIA driver passthrough for Wayland environments:
-```bash
-cat <<EOF> ~/.local/share/applications/thunderbird.desktop
-[Desktop Entry]
-Version=1.0
-Name=Thunderbird (Secure Sandbox)
-Comment=Send and receive mail safely inside Firejail Sandbox
-Exec=firejail --profile=thunderbird /usr/bin/thunderbird
-Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
-Terminal=false
-Type=Application
-Categories=Network;Email;
-MimeType=message/rfc822;x-scheme-handler/mailto;
-EOF
-```
-
-* Update the **Terminal** application icon on **Ubuntu 24.04 LTS**:
-```bash
-sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop
-```
-
-* Update the **Ptyxis Terminal** application icon on **Ubuntu 26.04 LTS**:
-```bash
-sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
-```
-
-* (Optional) Customize system **Trash** icon resources (replacing `PATH-TO-FILES` with your relative icon path, e.g., `.local/share/`):
-```bash
-for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
-```
-
-Restore standard POSIX read permissions across updated icon assets:
-```bash
-sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
-```
-
-**4.** Force GNOME Shell to reindex the application database, instantly reflecting updated launcher entry points without requiring a full system reboot:
-```bash
-update-desktop-database ~/.local/share/applications/
-```
-
-**5.** Refresh the system icon cache index:
-```bash
-gtk-update-icon-cache -f ~/.local/share/icons/
-```
-
->[!NOTE]
-> For applications handling diverse file types, query active MIME type bindings directly via terminal using `grep`. Format support varies across package revisions; auditing file associations ensures proper file handler bindings across desktop environments.
->
-> Example query to extract active MIME type bindings for GIMP:
-> ```bash
-> grep '^MimeType=' /usr/share/applications/gimp.desktop
-> ```
-
-* Upon completing profile and launcher modifications, reboot the operating system:
-```bash
-sudo reboot
-```
-
->[!IMPORTANT]
-> Let's analyze user-level application launcher override configurations via `.desktop` files.
->
-> Direct modification of system-wide launchers located in `/usr/share/applications/` is discouraged because upstream package updates overwrite custom edits.
->
-> The recommended method involves creating user-level overrides inside:
-> ```bash
-> ~/.local/share/applications/
-> ```
->
-> Entries in this directory take operational precedence over global system definitions stored in:
-> ```bash
-> /usr/share/applications/
-> ```
->
-> Locate target system `.desktop` files using `find`:
-> ```bash
-> find /usr/share/applications/ ~/.local/share/applications/ -name "APP-NAME.desktop" 2>/dev/null
-> ```
->
-> Alternatively, query installed package manifests via `dpkg`:
-> ```bash
-> dpkg -L APP_NAME | grep "\.desktop$"
-> ```
->
-> **Example:** Locating GIMP launcher files:
-> ```bash
-> dpkg -L gimp | grep "\.desktop$"
-> ```
->
-> Create a local user-space copy:
-> ```bash
-> cp /usr/share/applications/gimp.desktop ~/.local/share/applications/gimp.desktop
-> ```
->
-> Open the localized desktop file:
-> ```bash
-> nano ~/.local/share/applications/gimp.desktop
-> ```
-> 
-> Replace the existing `Exec=gimp %U` directive with `Exec=firejail --quiet gimp %U`.
-> 
-> Optionally update display parameters, e.g., `Name=GIMP (Sandbox)`.
-> 
-> Rebuild the local desktop database to apply modifications:
-> ```bash
-> update-desktop-database ~/.local/share/applications/
-> ```
->
-> Launching the target application through desktop menus will now execute inside Firejail.
->
-> To hide duplicate or redundant system application entries from desktop menus entirely, deploy a localized override file:
-> ```ini
-> cat <<EOF> ~/.local/share/applications/APP-NAME.desktop
-> [Desktop Entry]
-> Type=Application
-> Name=Hidden System Link
-> NoDisplay=true
-> EOF
-> ```
->
-> This entry suppresses redundant menu listings while preserving underlying system functionality.
-
-> [!TIP]
-> Use native GNOME Shell configuration keys to toggle desktop icon displays without removing underlying file assets.
-> 
-> Desktop Trash Icon:
-> ```bash
-> gsettings set org.gnome.shell.extensions.ding show-trash false  # Hide
-> gsettings set org.gnome.shell.extensions.ding show-trash true   # Display
-> ```
-> 
-> Desktop Home Folder:
-> ```bash
-> gsettings set org.gnome.shell.extensions.ding show-home false   # Hide
-> gsettings set org.gnome.shell.extensions.ding show-home true    # Display
-> ```
-
-> [!IMPORTANT]
-> GNOME 46+ running on Wayland maintains strict internal application launcher caching. Modifying existing `.desktop` files with altered launch flags, parameters, or binary targets can cause GNOME Shell to reject menu clicks, treating modified profiles as untrusted—even when direct invocation via `gtk-launch` works as expected.
-> 
-> The most reliable fix to clear stale desktop launcher metadata is renaming the target desktop file identifier, bypassing cached desktop entries.
-> 
-> If newly deployed desktop launchers fail to respond to click events within application menus, purge the GNOME launcher cache by renaming the entry files (illustrated using LM Studio):
-> 
-> * For offline LM Studio Firejail sessions:
-> ```bash
-> mv ~/.local/share/applications/lm-studio.desktop ~/.local/share/applications/lm-offline.desktop 2>/dev/null || true
-> ```
-> * For online LM Studio Firejail sessions:
-> ```bash
-> mv ~/.local/share/applications/lm-studio-unsecure.desktop ~/.local/share/applications/lm-online.desktop 2>/dev/null || true
-> ```
-> * Rebuild the global application menu index:
-> ```bash
-> update-desktop-database ~/.local/share/applications/
-> ```
-> * Refresh local icon caches:
-> ```bash
-> gtk-update-icon-cache -f ~/.local/share/icons/
-> ```
-> 
-> Opening the application grid ("Show Apps") forces GNOME to discover **LM Studio (Offline AI)** and **LM Studio (Online Downloader)** as distinct entities, re-validate execution permissions, and enable reliable UI execution.
-
-#### Advanced Paranoia Mode: Sandboxing with Session Persistence via Overlay:
-
-Using the `--private` flag is ideal for ephemeral, single-use sessions. But what should you do when you need to rigorously audit a questionable utility's behavior, retain its configuration files or plugins, while guaranteeing absolute protection for the underlying operating system against infection?
-
-For this, we tap into a hidden killer feature of Firejail—**Overlay Mode**. This mechanism constructs a temporary virtual layer over your actual file system. The application perceives your files as fully accessible, yet remains physically incapable of modifying a single byte on the physical disk: every write attempt, configuration creation, or stealthy malware persistence routine is transparently redirected into an isolated sandbox overlay directory.
-
-**1.** Execute an application while redirecting state changes to a dedicated overlay layer:
-```bash
-firejail --overlay-dir=~/.sandbox_overlay --seccomp --nonewprivs telegram-desktop
-```
-*(The `--overlay-dir=` parameter defines the target directory path where all file system modifications generated during the session will be intercepted and stored).*
-
-**2.** After terminating the application, inspect the isolated overlay directory structure to audit runtime modifications:
-```bash
-ls -la ~/.sandbox_overlay
-```
-This grants full visibility into any hidden files or configuration changes the utility attempted to write across `/etc`, `/var`, or your user home directory!
-
-**3.** If the audit confirms benign application behavior, retain the overlay directory for subsequent launches. Conversely, if malicious or suspicious activity is detected, completely purge all runtime traces from the host operating system with a single command:
-```bash
-rm -rf ~/.sandbox_overlay
-```
-
-## Application Isolation with Bubblewrap and Its Advantages Over Firejail
-
-#### Introduction:
-
-Although we have already configured **Firejail**, which many find complex to master, from an information security standpoint we are obligated to cover **Bubblewrap** (`bwrap`).
-
-The primary advantage of **Bubblewrap** over **Firejail** is its minimalism. Unlike the monolithic **Firejail**—which contains tens of thousands of lines of code, a complex profile parser, and historically relied on SUID binaries (frequently leading to Local Privilege Escalation vulnerabilities)—`bwrap` is designed as a concise, easily auditable utility. It contains no embedded business logic or predefined rule sets; the tool relies strictly on unprivileged Linux kernel user namespaces (Unprivileged User Namespaces).
-
-This minimal codebase drastically reduces the attack surface. In a Zero Persistence architecture, `bwrap` acts as the ideal low-level primitive: rather than building heavy abstractions, it requires every allowed system resource to be explicitly declared, guaranteeing strict isolation.
-
-> [!IMPORTANT]
-> **Bubblewrap** serves as the core isolation foundation, while **AppArmor** provides an optional secondary defense layer. Do not ignore profile installations or exclude AppArmor from your security stack.
-
-#### Bubblewrap Flags Cheat Sheet:
-
-Unlike Firejail, where many options create entire isolated environments automatically, in `bubblewrap` every step must be built manually like a construction set. By default, `bwrap` restricts **everything**, and we must explicitly specify what the application is allowed to run.
-
-* **`--as-pid-1`** — forces the launched application to run as the main container process (PID 1). If this application exits or crashes, the entire sandbox is instantly destroyed along with all child processes.
-* **`--bind <SRC> <DEST>`** — mounts a directory or file with **read-write** permissions. Used for directories where the application strictly needs to save data (e.g., Downloads or cache folders).
-* **`--cap-drop ALL`** — drops all Linux capabilities inside the sandbox. Even if a process inside the container gains virtual `root`, it cannot perform a single administrative action on the system.
-* **`--dev <PATH>`** — generates a minimal safe set of system devices (`/dev/null`, `/dev/urandom`, etc.) without exposing the actual host hardware.
-* **`--dev-bind <SRC> <DEST>`** — creates a virtual directory of system devices (equivalent to `--private-dev` in Firejail). Allows granular exposure of specific hardware files directly from the host system (e.g., `/dev/dri` or `/dev/nvidia*` for GPU functionality).
-* **`--die-with-parent`** — ensures automatic destruction of the sandbox if the parent process (e.g., your launcher script or terminal) is unexpectedly terminated. Prevents orphan/zombie processes.
-* **`--dir <PATH>`** — creates an empty directory inside the sandbox. Used to prepare the filesystem structure before mounting directories.
-* **`--hostname <NAME>`** — sets a virtual hostname inside the sandbox (requires `--unshare-uts` or `--unshare-all`).
-* **`--proc <PATH>`** — mounts an isolated `/proc` filesystem. Essential for proper operation when isolating processes via `--unshare-pid`.
-* **`--ro-bind <SRC> <DEST>`** — mounts a directory or file from the real OS (`SRC`) inside the sandbox (`DEST`) in **read-only** mode. A secure way to expose system libraries (e.g., `/usr` or `/lib`) to the application while guaranteeing they remain unmodifiable.
-* **`--seccomp <FD>`** — activates Linux kernel secure computing mode. Blocks dangerous system calls. Unlike Firejail, `bwrap` does not feature built-in rule lists — it requires passing a precompiled binary filter via a file descriptor.
-* **`--setenv <VAR> <VALUE>`** — explicitly defines environment variables inside the sandbox (e.g., `HOME` or `DISPLAY`), hiding actual user profile data.
-* **`--tmpfs <PATH>`** — mounts a clean, empty temporary directory in RAM at the specified path inside the sandbox (similar to RAM folders in Firejail's `--private`).
-* **`--unshare-all`** — the most critical flag for security. Simultaneously activates isolation across all available namespaces: user privileges, network, processes, IPC, UTS (hostname), and cgroups. Creates a maximum-isolation sandbox.
-* **`--unshare-cgroup`** — creates an isolated cgroup namespace, preventing the application from viewing or modifying host system resource limits (CPU, RAM).
-* **`--unshare-ipc`** — isolates Inter-Process Communication mechanisms (Shared Memory, Unix sockets). Protects host memory from sniffing, though it may reduce GPU performance.
-* **`--unshare-net`** — completely disables the kernel network stack for the container (equivalent to `--net=none` in Firejail). The application loses all access to the internet and local network.
-* **`--unshare-pid`** — isolates the process tree. The application inside the container will be unable to view other running processes on your system (hides `ps` / `top` output).
-* **`--unshare-user`** — creates a new user namespace. Allows a process inside the sandbox to possess virtual `root` privileges while remaining a standard unprivileged user to the real OS.
-
-#### Installing Bubblewrap:
-
-**1.** Install the necessary dependencies and compilation packages:
+**1.** Install the required dependencies and build tools:
 ```bash
 sudo apt update && sudo apt install -y git meson ninja-build cmake pkg-config libcap-dev libselinux1-dev xsltproc docbook-xsl docbook-xml
 ```
 
-**2.** Navigate to `tmp`, clone clean tag v0.12.0, and switch to the `bubblewrap` directory:
+**2.** Navigate to `/tmp`, detect the latest stable release on GitHub, clone it, and enter the `bubblewrap` directory:
 ```bash
-cd /tmp && git clone --depth 1 --branch v0.12.0 https://github.com/containers/bubblewrap.git && cd bubblewrap
+cd /tmp && TAG=$(curl -fsSL "https://github.com" | jq -r '.tag_name') && git clone --depth 1 --branch "$TAG" "https://github.com" && cd bubblewrap
 ```
 
-**3.** Build without SUID (pure namespaces mode):
+**3.** Build without SUID (pure unprivileged namespaces mode):
 ```bash
 meson setup builddir && ninja -C builddir && sudo ninja -C builddir install
 ```
 
-**4.** Clean up temporary files:
+**4.** Clean up temporary build files:
 ```bash
 cd /tmp && rm -rf bubblewrap
 ```
 
-**5.** Verify the installed application version:
+**5.** Check the installed version:
 ```bash
 bwrap --version
 ```
@@ -6148,32 +4656,356 @@ include <tunables/global>
 EOF
 ```
 
-After creating this universal profile, we will be able to sandbox almost any application in **Bubblewrap**, including all those we covered in **Firejail**. Many of these applications can also be used in "Amnesia" mode, allowing us to run programs in a pristine state without saving history or logs, leaving the application entirely clean every time.
+After creating this universal profile, we can wrap almost any application in Bubblewrap, including all those covered under Firejail. Many of these applications can also be run in "Amnesia" mode, allowing us to always use them in their pristine state—without saving history or keeping logs—leaving the environment completely clean.
 
-**7.** Reload AppArmor to apply the changes immediately:
+**7.** Reload AppArmor to apply the settings immediately:
 ```bash
-sudo systemctl reload apparmor
+sudo systemctl reload apparmor 
+```
+### Bubblewrap Flags Cheat Sheet (Reference):
+
+Unlike Firejail, where many options automatically generate entire isolated environments, `bubblewrap` requires you to assemble every step manually like building blocks. By default, `bwrap` blocks **everything**, and you must explicitly specify what the application is allowed to access.
+
+* **`--as-pid-1`** — forces the launched application to run as the main process of the container (PID 1). If this application closes or crashes, the entire sandbox is immediately destroyed along with all child processes.
+* **`--bind <SRC> <DEST>`** — mounts a directory or file with **read and write** permissions. Used for folders where the application strictly needs to save data (such as a downloads directory or cache).
+* **`--cap-drop ALL`** — drops all Linux capabilities inside the sandbox. Even if a process inside the container gains virtual `root` privileges, it cannot perform any administrative actions on the system.
+* **`--dev <PATH>`** — generates a minimal, safe set of system devices (`/dev/null`, `/dev/urandom`, etc.) without access to the host's real hardware.
+* **`--dev-bind <SRC> <DEST>`** — creates a virtual system device directory (analogous to `--private-dev` in Firejail). Allows selectively passing hardware device nodes directly from the host system (for example, `/dev/dri` or `/dev/nvidia*` for GPU access).
+* **`--die-with-parent`** — ensures automatic destruction of the sandbox if the parent process (such as your launch script or terminal) is unexpectedly killed. Prevents zombie processes.
+* **`--dir <PATH>`** — creates an empty directory inside the sandbox. Used to prepare the filesystem layout before mounting directories.
+* **`--hostname <NAME>`** — sets a virtual hostname inside the sandbox (requires `--unshare-uts` or `--unshare-all`).
+* **`--proc <PATH>`** — mounts an isolated `/proc` filesystem. Required for proper operation when isolating processes via `--unshare-pid`.
+* **`--ro-bind <SRC> <DEST>`** — mounts a directory or file from the real OS (`SRC`) inside the sandbox (`DEST`) in **read-only** mode. A safe way to expose system libraries (such as `/usr` or `/lib`) to an application while guaranteeing it cannot modify them.
+* **`--seccomp <FD>`** — enables Linux kernel Secure Computing mode, blocking dangerous system calls. Unlike Firejail, `bwrap` has no built-in ruleset—you must pass a precompiled binary filter via a file descriptor.
+* **`--setenv <VAR> <VALUE>`** — explicitly sets environment variables inside the sandbox (such as `HOME` or `DISPLAY`), hiding real user profile details.
+* **`--tmpfs <PATH>`** — mounts a clean, empty temporary folder in RAM at the specified path inside the sandbox (analogous to RAM folders created by `--private` in Firejail).
+* **`--unshare-all`** — the most critical flag for Infosec. Simultaneously isolates all possible namespaces: user privileges, network, processes, IPC, UTS (hostname), and cgroups. Creates the most locked-down sandbox possible.
+* **`--unshare-cgroup`** — creates an isolated cgroup namespace, preventing the application from viewing or modifying host system resource limits (CPU, RAM).
+* **`--unshare-ipc`** — isolates Inter-Process Communication mechanisms (Shared Memory, Unix sockets). Protects host memory from snooping, though it may reduce GPU performance (as noted earlier).
+* **`--unshare-net`** — completely disables the kernel network stack for the container (analogous to `--net=none` in Firejail). The application loses all access to the internet and local network.
+* **`--unshare-pid`** — isolates the process tree. An application inside the container cannot see what other programs are running on your system (hides `ps` / `top` output).
+* **`--unshare-user`** — creates a new user namespace. Allows a process inside the sandbox to hold virtual `root` privileges while remaining an ordinary unprivileged user to the real OS.
+
+### Preparing Custom Sandbox Launchers:
+
+To completely eliminate human error, visually distinguish protected sandboxes from the open host system, and replace standard generic GNOME icons, we will deploy standalone local launchers with custom designs for our isolated applications. In the `_assets/icons` folder of the repository, you will find custom icons I created for this purpose.
+
+**1.** Create the hidden local user icon directory and copy our downloaded 256px (`256x256`) and 512px (`256x256@2x`) PNG assets into their respective folders:
+```bash
+mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "\(HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "\)HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
 ```
 
-Create the user icon directory hierarchy and copy downloaded 256px (256x256) and 512px (256x256@2x) PNG assets into their respective destination paths:
+> [!WARNING]
+> After editing `Exec=` lines so that applications like LibreOffice, Image Viewer, Document Viewer, and others launch properly under Firejail or Bubblewrap, you must log out of your current session (**Log Out...**). Alternatively, you can simply reboot your computer. This is required for the updated `Exec=` entries to take effect.
+
+* For **Ubuntu 24.04**, change the **Terminal** icon:
 ```bash
-mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/PATH-TO-FILES/icons/256x256/"*.png ~/.local/share/icons/256x256/ && cp "$HOME/PATH-TO-FILES/icons/256x256@2x/"*.png ~/.local/share/icons/256x256@2x/
+sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/\$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop
 ```
 
-#### Creating a Firefox Profile inside Bubblewrap:
+* For **Ubuntu 26.04**, change the **Ptyxis** icon:
+```bash
+sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/\$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
+```
 
-**1.** If you do not have an existing *mozilla-hardened* profile from a previous Firejail setup, create one specifically for Bubblewrap:
+* Optionally, replace the **Trash** icon with a custom one (where `PATH-TO-FILES` is the path to the icon folders in your home directory, for example: `/.local/share/`):
+```bash
+for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "\$HOME/PATH-TO-FILES/icons/Trash/s/"user-trash,-full.png /usr/share/icons/Yaru/s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "\$HOME/PATH-TO-FILES/icons/Trash/s/"user-trash,-full.png /usr/share/icons/Yaru/s/places/; done
+```
+
+Restore standard read permissions for the system icons:
+```bash
+sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
+```
+
+**2.** Force the desktop environment to re-index the application database so that the new security contours immediately replace the standard apps without rebooting:
+```bash
+update-desktop-database ~/.local/share/applications/
+```
+
+**3.** Update the icon cache:
+```bash
+gtk-update-icon-cache -f ~/.local/share/icons/
+```
+
+> [!NOTE]
+> For applications that support a wide variety of file formats, it is recommended to check the current list of MIME types directly via the terminal using `grep`. The list of supported formats can change from version to version, so verifying it ensures proper file associations and prevents system conflicts.
+>
+> Example of retrieving the current MIME types list for the GIMP image editor:
+> ```bash
+> grep '^MimeType=' /usr/share/applications/gimp.desktop
+> ```
+
+* Once you finish creating and editing your profiles and icons, reboot the system:
+```bash
+sudo reboot
+```
+
+> [!IMPORTANT]
+> Looking slightly ahead, let's review how to enforce launching applications inside a sandbox using user-level `.desktop` files.
+>
+> In theory, you could modify a system launcher directly inside `/usr/share/applications/`, but that approach has a major drawback: your changes will be overwritten whenever the package is updated.
+>
+> A cleaner approach is to create a user override inside:
+> ```bash
+> ~/.local/share/applications/
+> ```
+>
+> This directory takes precedence over system-wide launchers located in:
+> ```bash
+> /usr/share/applications/
+> ```
+>
+> To locate an application's original `.desktop` file, run:
+> ```bash
+> find /usr/share/applications/ ~/.local/share/applications/ -name "APP-NAME.desktop" 2>/dev/null
+> ```
+>
+> Or query the installed package database via `dpkg`:
+> ```bash
+> dpkg -L APP-NAME | grep "\.desktop\$"
+> ```
+>
+> **Example:** find the GIMP launcher:
+> ```bash
+> dpkg -L gimp | grep "\.desktop\$"
+> ```
+>
+> Create a user-level copy:
+> ```bash
+> cp /usr/share/applications/gimp.desktop ~/.local/share/applications/gimp.desktop
+> ```
+>
+> Open the user-level file:
+> ```bash
+> nano ~/.local/share/applications/gimp.desktop
+> ```
+> 
+> Locate the line `Exec=gimp %U` and replace it with `Exec=firejail --quiet gimp %U` or `Exec=/usr/local/bin/gimp-bwrap.sh`
+> 
+> Optionally, update the display name: `Name=GIMP (Sandbox)`
+> 
+> After making changes, update the desktop application database:
+> ```bash
+> update-desktop-database ~/.local/share/applications/
+> ```
+>
+> Launching the application from the graphical menu will now route it through Firejail or Bubblewrap.
+>
+> If you want to completely hide an original system launcher from the application menu, create a local `.desktop` override:
+> ```ini
+> cat <<EOF > ~/.local/share/applications/APP-NAME.desktop
+> [Desktop Entry]
+> Type=Application
+> Name=Hidden System Link
+> NoDisplay=true
+> EOF
+> ```
+>
+> This file controls menu visibility and lets you eliminate duplicate launcher icons.
+
+> [!TIP]
+> If you want to hide or restore desktop icons without deleting any files, use direct GNOME Shell configuration commands.
+> 
+> Trash icon on the Desktop:
+> ```bash
+> gsettings set org.gnome.shell.extensions.ding show-trash false  # Hide
+> gsettings set org.gnome.shell.extensions.ding show-trash true   # Show
+> ```
+> 
+> Home folder on the Desktop:
+> ```bash
+> gsettings set org.gnome.shell.extensions.ding show-home false  # Hide
+> gsettings set org.gnome.shell.extensions.ding show-home true   # Show
+> ```
+
+> [!IMPORTANT]
+> The GNOME 46+ desktop environment running on Wayland maintains a very aggressive internal launcher cache. If `.desktop` files with identical names were created earlier and later modified in structure, launch flags, or paths, GNOME may silently block them from launching when clicked in the application menu, treating the configuration as corrupted or untrusted—even when direct testing via `gtk-launch` works flawlessly.
+> 
+> The most reliable way to force GNOME to discard stale metadata and launch the shortcuts is to bypass its parser using unique `.desktop` file identifiers that differ from the base binary name.
+> 
+> If newly created menu icons do not respond to clicks after following the instructions, force a cache reset by renaming the files:
+> 
+> Reset the internal GNOME Shell cache by renaming launcher IDs (using LM Studio as an example):
+> 
+> * For LM Studio running in Firejail without internet access (offline LLM inference):
+> ```bash
+> mv ~/.local/share/applications/lm-studio.desktop ~/.local/share/applications/lm-offline.desktop 2>/dev/null || true
+> ```
+> * For LM Studio running in Firejail with internet access (downloading LLM models):
+> ```bash
+> mv ~/.local/share/applications/lm-studio-unsecure.desktop ~/.local/share/applications/lm-online.desktop 2>/dev/null || true
+> ```
+> * Force-rebuild the global application menu index:
+> ```bash
+> update-desktop-database ~/.local/share/applications/
+> ```
+> * Update the icon cache:
+> ```bash
+> gtk-update-icon-cache -f ~/.local/share/icons/
+> ```
+> 
+> Afterward, open the application menu ("Show Apps"). GNOME will immediately register **LM Studio (Offline AI)** and **LM Studio (Online Downloader)** as brand-new entries, re-validate execution permissions, and launch the sandboxed environments on click.
+
+### Creating a Separate Hardened Firefox Profile for Firejail:
+
+After installing Firejail, let's prepare a dedicated profile for Firefox.
+
+By default, Firejail already ships with a built-in Firefox profile. Instead of modifying the system file `/etc/firejail/firefox.profile`, we will create our own user-level copy. This preserves Firejail's default security defaults while allowing us to add custom overrides without risking them being overwritten during package updates.
+
+**1.** Create the user Firejail configuration directory and copy the default Firefox profile into it:
+```bash
+mkdir -p ~/.config/firejail && cp /etc/firejail/firefox.profile ~/.config/firejail/firefox-hardened.profile
+```
+
+**2.** Open our new profile to inspect and adjust it:
+```bash
+nano ~/.config/firejail/firefox-hardened.profile
+```
+
+**3.** Replace the line `include firefox.local` with our custom local configuration `firefox-hardened.local`:
+```ini
+include firefox-hardened.local
+```
+
+Inside, we retain the standard structure of the Firejail profile. There is no need to rewrite it from scratch, as the developers have already included the essential restrictions:
+
+* seccomp filtering;
+* dropping unnecessary Linux capabilities;
+* filesystem access restrictions;
+* D-Bus filtering;
+* protective include files.
+
+Our custom rules will be stored separately in the local override file.
+
+**4.** Create the local override file for additional hardened Firefox rules:
+```bash
+nano ~/.config/firejail/firefox-hardened.local
+```
+
+**5.** Add only the permissions strictly required for our custom Firefox profile:
+```ini
+# Additional rules for hardened Firefox
+
+# Allow FIDO2/U2F hardware security keys (YubiKey and equivalents)
+ignore nou2f
+
+# Allow access to the separate hardened Firefox profile directory
+noblacklist \${HOME}/.mozilla-hardened
+whitelist \${HOME}/.mozilla-hardened
+
+# Allow saving downloaded files
+whitelist \${HOME}/Downloads
+
+# Terminate the sandbox immediately when the application exits
+deterministic-shutdown
+```
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit.
+
+Firejail now has a dedicated user Firefox profile that is independent of the system file and will not be overwritten during updates.
+
+We will not use the default profile directory directly. Instead, we will create a dedicated `~/.mozilla-hardened` directory containing only our active Firefox profile. This separates browser settings from the rest of the user's home directory and establishes a clean, predictable structure inside the sandbox.
+
+**6.** Create the dedicated directory and copy the current Firefox profile into it:
 ```bash
 mkdir -p ~/.mozilla-hardened && cp -r ~/.config/mozilla/firefox ~/.mozilla-hardened/ 2>/dev/null || true
 ```
 
-**2.** Create a shell script to launch Firefox:
+**7.** Verify the contents of the new directory:
+```bash
+ls -la ~/.mozilla-hardened/firefox/
+```
+Inside, you should see your Firefox profile folder: `PROFILE-NAME.default-release`.
+
+**8.** Create a persistent `current` symlink pointing to your profile:
+```bash
+cd ~/.mozilla-hardened/firefox/ && rm -f current && ln -s PROFILE-NAME.default-release current && cd ~
+```
+
+**9.** Verify that the symlink resolves to an existing profile directory:
+```bash
+readlink -f ~/.mozilla-hardened/firefox/current
+```
+
+If the command outputs the full path to the profile folder, the symlink is configured properly.
+
+**10.** Set ownership of the copied profile to the current user:
+```bash
+chown -R \$USER:USER "HOME/.mozilla-hardened"
+```
+
+Our Firefox instance is now ready to run inside an isolated Firejail contour. At this stage, we avoid piling on excessive custom rules or breaking built-in security mechanisms. After testing various launch methods, it became clear that the issues did not stem from Firejail or AppArmor itself, but from how Firefox was invoked.
+
+The reliable working setup consists of:
+
+* the standard Firejail profile base;
+* a dedicated Firefox profile;
+* an isolated `~/.mozilla-hardened` directory;
+* clean sandbox termination via `--deterministic-shutdown`.
+
+**11.** Launch Firefox using our hardened Firejail profile:
+```bash
+firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile "\$HOME/.mozilla-hardened/firefox/current"
+```
+
+**12.** While Firefox is running, open a new terminal window and list active sandboxes:
+```bash
+firejail --list
+```
+
+The output should display your active Firefox session: `PID:user::firejail --deterministic-shutdown --profile=firefox-hardened /usr/...`.
+
+Now let's verify the most important behavior: close the Firefox window normally and wait a few seconds.
+
+**13.** Check the list of active sandboxes again:
+```bash
+firejail --list
+```
+
+If everything is working properly, the list will be empty. This confirms that Firejail caught the exit signal from Firefox, cleanly terminated all child processes, and completely destroyed the namespace.
+
+Firefox launches with all your hardening preferences, extensions, and `user.js` configuration intact, while gaining an extra layer of kernel-level isolation. Once the browser closes, the sandbox is completely destroyed and the host returns to its clean state.
+
+**14.** Generate the primary sandboxed launcher for **Mozilla Firefox in Firejail**, binding it strictly to our local security profile and custom icon:
+```bash
+cat <<EOF > ~/.local/share/applications/firefox-secure.desktop
+[Desktop Entry]
+Name=Firefox (Secure Sandbox)
+Comment=Browse the World Wide Web in Firejail Sandbox
+Exec=firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile \$HOME/.mozilla-hardened/firefox/current --name firefox-secure %u
+StartupNotify=true
+Terminal=false
+Type=Application
+Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-secure.png
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;
+EOF
+```
+
+**15.** Modify the administrative **Mozilla Firefox launcher for unsandboxed host usage** (for downloading large files), assigning it our bronze custom fox icon:
+```bash
+sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
+```
+
+> [!NOTE]
+> Previously, under certain launch configurations, the sandbox process could remain hanging in memory after closing the browser window. The root cause was not corrupted profiles or misbehaving AppArmor rules, but how the process tree terminated inside the namespace.
+> 
+> Using `deterministic-shutdown` resolves this: Firejail tracks child process termination and leaves no lingering sandbox sessions behind once Firefox exits.
+
+### Creating a Hardened Firefox Profile in Bubblewrap:
+
+**1.** If you haven't already created the *mozilla-hardened* profile directory for Firejail, create it now for Bubblewrap:
+```bash
+mkdir -p ~/.mozilla-hardened && cp -r ~/.config/mozilla/firefox ~/.mozilla-hardened/ 2>/dev/null || true
+```
+
+**2.** Create a shell wrapper script to launch Firefox:
 ```bash
 sudo nano /usr/local/bin/firefox-bwrap.sh
 ```
 
-**3.** Populate the script with the sandbox configuration parameters:
-```ini
+**3.** Add the sandbox launch configuration to the script:
+```bash
 #!/usr/bin/env bash
 /usr/local/bin/bwrap \
   --die-with-parent \
@@ -6197,29 +5029,29 @@ sudo nano /usr/local/bin/firefox-bwrap.sh
   \
   --tmpfs /tmp \
   --tmpfs /run \
-  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
-  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
+  --ro-bind-try /run/user/UID/wayland-0 /run/user/UID/wayland-0 \
+  --ro-bind-try /run/user/UID/pulse /run/user/UID/pulse \
   \
-  --bind $HOME/.mozilla-hardened $HOME/.mozilla \
-  --tmpfs $HOME/.cache \
-  --dir $HOME/Downloads \
-  --bind $HOME/Downloads $HOME/Downloads \
+  --bind HOME/.mozilla-hardened HOME/.mozilla \
+  --tmpfs \$HOME/.cache \
+  --dir \$HOME/Downloads \
+  --bind HOME/Downloads HOME/Downloads \
   \
-  --setenv HOME "$HOME" \
-  --setenv DISPLAY "$DISPLAY" \
-  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
+  --setenv HOME "\$HOME" \
+  --setenv DISPLAY "\$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "\${WAYLAND_DISPLAY:-wayland-0}" \
   \
-  /usr/lib/firefox/firefox --no-remote "$@"
+  /usr/lib/firefox/firefox --no-remote "\$@"
 ```
 
-Save the file in `nano` by pressing **`Ctrl + O`** ➔ **`Enter`**, then **`Ctrl + X`** to exit.
+Save the file in `nano` with **Ctrl + O** ➔ **Enter**, then **Ctrl + X** to exit.
 
-**4.** Make the launcher script executable:
+**4.** Make the script executable:
 ```bash
 sudo chmod +x /usr/local/bin/firefox-bwrap.sh && sudo chmod 755 /usr/local/bin/firefox-bwrap.sh
 ```
 
-**5.** Create a desktop shortcut for Firefox linked to your custom icon:
+**5.** Create a Firefox launcher linked to our custom icon:
 ```bash
 cat <<EOF > ~/.local/share/applications/firefox-secure.desktop
 [Desktop Entry]
@@ -6228,30 +5060,149 @@ Type=Application
 Name=Firefox (Secure Sandbox)
 Comment=Amnesic Hardened Firefox inside Bubblewrap
 Exec=/usr/local/bin/firefox-bwrap.sh %u
-Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-secure.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-secure.png
 Terminal=false
 StartupNotify=true
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
 EOF
 ```
-* Modify the uncontained Mozilla Firefox launcher (reserved for downloading large files directly to the host), assigning it a distinct visual icon:
+
+**6.** Modify the administrative Mozilla Firefox launcher for unsandboxed host usage (for downloading large files), assigning it our bronze custom fox icon:
 ```bash
-sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
+sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
 
-**6.** Set proper file permissions on the desktop entry (to prevent potential permission issues):
+**7.** Set permissions on the `.desktop` file (if you encounter permission issues):
 ```bash
-sudo chmod 644 ~/.local/share/applications/firefox-secure.desktop
+chmod 644 ~/.local/share/applications/firefox-secure.desktop
 ```
 
-**7.** Reindex and update the application database and icon cache:
+> [!TIP]
+> To automate creating wrapper scripts and setting proper execution permissions (`755`) under a strict `umask`, you can use a single `sudo bash -c` construct. Copy and run the block below in the terminal, substituting your own script body:
+> ```bash
+> sudo bash -c 'cat << "EOF" > /usr/local/bin/SCRIPT_NAME.sh
+> #!/bin/bash
+> # SCRIPT_BODY
+> EOF' && sudo chmod 755 /usr/local/bin/SCRIPT_NAME.sh
+> ```
+
+### Sealed PDF Chamber: Running Document Viewer Safely in Firejail:
+
+Because document viewers (PDF and DjVu parsers) are frequent targets for attacks via hidden vulnerabilities (exploits), isolating them from the host filesystem and network is critical. We will build a "sealed chamber" for Evince/Papers—an isolated environment with internet access completely severed.
+
+Before running the commands, create or grab any PDF document. Let's assume it is placed in your `Downloads` folder under the name `unsafe.pdf`.
+
+**1.** If you don't have a PDF handy, create a dummy file for testing:
 ```bash
-sudo update-desktop-database ~/.local/share/applications && gtk-update-icon-cache -f -t ~/.local/share/icons/hicolor 2>/dev/null || true
+touch ~/Downloads/unsafe.pdf
 ```
 
+* **For Ubuntu 24.04 LTS Noble Numbat users (Evince):**
 
-#### Hardening the Document Viewer for PDF files using Bubblewrap:
+**2a.** On Ubuntu 24.04, launch the document with:
+```bash
+firejail evince ~/Downloads/unsafe.pdf
+```
+
+**3a.** Without closing the document window, open another terminal tab and list all active isolated environments:
+```bash
+firejail --list
+```
+
+**4a.** On Ubuntu 24.04, harden Evince by adding custom rules to `evince.local`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/evince.local
+```
+
+**5a.** Insert the following lines into the Evince configuration:
+```ini
+# Complete network ban
+net none
+protocol unix
+
+# Drop capabilities and forbid gaining new privileges
+caps.drop all
+nonewprivs
+
+# Isolate temporary and cache directories
+private-cache
+private-tmp
+
+# Expose only required folders inside private HOME
+private-home Downloads,Documents
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
+
+**6a.** Perform a verification launch on Ubuntu 24.04:
+```bash
+firejail evince ~/Downloads/unsafe.pdf
+```
+
+**7a.** Update the **Document Viewer (Evince)** launcher so it always starts inside Firejail:
+```bash
+sudo sed -i 's|^Exec=evince.*\$|Exec=firejail evince|' /usr/share/applications/org.gnome.Evince.desktop
+```
+
+**8a.** Verify the change:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
+```
+
+* **For Ubuntu 26.04 LTS Resolute Racoon users (Papers):**
+
+**2b.** On Ubuntu 26.04, launch the document with:
+```bash
+firejail papers ~/Downloads/unsafe.pdf
+```
+
+**3b.** Without closing the document window, open another terminal tab and list all active isolated environments:
+```bash
+firejail --list
+```
+
+**4b.** On Ubuntu 26.04, harden Papers by adding custom rules to `papers.local`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/papers.local
+```
+
+**5b.** Insert the following lines into the Papers configuration:
+```ini
+# Complete network ban
+net none
+protocol unix
+
+# Drop capabilities and forbid gaining new privileges
+caps.drop all
+nonewprivs
+
+# Isolate temporary and cache directories
+private-cache
+private-tmp
+
+# Expose only required folders inside private HOME
+private-home Downloads,Documents
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
+
+**6b.** Perform a verification launch on Ubuntu 26.04:
+```bash
+firejail papers ~/Downloads/unsafe.pdf
+```
+
+**7b.** Update the **Document Viewer (Papers)** launcher so it always starts inside Firejail:
+```bash
+sudo sed -i 's|^Exec=papers.*\$|Exec=firejail papers %U|' /usr/share/applications/org.gnome.Papers.desktop
+```
+
+**8b.** Verify the change:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
+```
+
+### Sealing Document Viewer for PDF Reading in Bubblewrap:
 
 **1.** Create a wrapper script for **Document Viewer (Evince/Papers)**:
 ```bash
@@ -6268,13 +5219,13 @@ exec /usr/bin/bwrap \
   --ro-bind /etc /etc \
   --tmpfs /tmp \
   --tmpfs /run \
-  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
-  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
-  --ro-bind "$1" "$1" \
-  --setenv HOME "$HOME" \
-  --setenv DISPLAY "$DISPLAY" \
-  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
-  /usr/bin/papers "$@" 2>/dev/null || /usr/bin/evince "$@"
+  --ro-bind-try /run/user/UID/wayland-0 /run/user/UID/wayland-0 \
+  --ro-bind-try /run/user/UID/pulse /run/user/UID/pulse \
+  --ro-bind "\$1" "\$1" \
+  --setenv HOME "\$HOME" \
+  --setenv DISPLAY "\$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "\${WAYLAND_DISPLAY:-wayland-0}" \
+  /usr/bin/papers "\(@" 2>/dev/null \vert{}\vert{} /usr/bin/evince "\)@"
 EOF' && sudo chmod 755 /usr/local/bin/pdf-bwrap.sh
 ```
 
@@ -6283,35 +5234,131 @@ EOF' && sudo chmod 755 /usr/local/bin/pdf-bwrap.sh
 sudo chmod +x /usr/local/bin/pdf-bwrap.sh
 ```
 
-**3.** Bind the application to launch exclusively via Bubblewrap:
+Bind the application to launch permanently through Bubblewrap:
 
 * **For Ubuntu 24.04 LTS Noble Numbat users:**
 
-Update the launch parameters in the **Document Viewer Evince** desktop entry to run the application inside the sandbox:
+**3a.** Update the **Document Viewer (Evince)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=evince.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Evince.desktop
+sudo sed -i 's|^Exec=evince.*\$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Evince.desktop
 ```
 
-Verify the modifications:
+**4a.** Verify the change:
 ```bash
 grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
 ```
 
 * **For Ubuntu 26.04 LTS Resolute Racoon users:**
 
-Update the launch parameters in the **Document Viewer Papers** desktop entry to run the application inside the sandbox:
+**3b.** Update the **Document Viewer (Papers)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=papers.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Papers.desktop
+sudo sed -i 's|^Exec=papers.*\$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
-Verify the modifications:
+**4b.** Verify the change:
 ```bash
 grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
-#### Wrapping the Image Viewer inside Bubblewrap:
+### Image Viewer for Viewing Graphic Files in Firejail:
 
-**1.** Create a wrapper script for **Image Viewer (Loupe/EOG)**:
+**1.** If you don't have a PNG file handy, create a dummy file for testing:
+```bash
+touch ~/Pictures/unsafe.png
+```
+
+* **For Ubuntu 24.04 LTS Noble Numbat users (Eog):**
+
+**2a.** Launch the image with:
+```bash
+firejail eog ~/Pictures/unsafe.png
+```
+
+**3a.** Without closing the image window, open another terminal tab and list all active isolated environments:
+```bash
+firejail --list
+```
+
+**4a.** Harden Image Viewer by adding custom rules to `eog.local`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/eog.local
+```
+
+**5a.** Insert the following lines into the Eog configuration:
+```ini
+# Complete network and shell ban
+net none
+protocol unix
+caps.drop all
+nonewprivs
+private-cache
+private-tmp
+```
+Save the file in `nano` with **Ctrl + O** ➔ **Enter**, then **Ctrl + X** to exit.
+
+**6a.** Perform a verification launch:
+```bash
+firejail eog ~/Pictures/unsafe.png
+```
+
+**7a.** Update the **Image Viewer (Eog)** launcher to run inside Firejail:
+```bash
+sudo sed -i 's|^Exec=eog.*\$|Exec=firejail eog|' /usr/share/applications/org.gnome.eog.desktop
+```
+
+**8a.** Verify the change:
+```bash
+grep 'Exec=' /usr/share/applications/org.gnome.eog.desktop
+```
+
+* **For Ubuntu 26.04 LTS Resolute Racoon users (Loupe):**
+
+**2b.** Launch the image with:
+```bash
+firejail loupe ~/Pictures/unsafe.png
+```
+
+**3b.** Without closing the image window, open another terminal tab and list all active isolated environments:
+```bash
+firejail --list
+```
+
+**4b.** Harden Image Viewer by adding custom rules to `loupe.local`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/loupe.local
+```
+
+**5b.** Insert the following lines into the Loupe configuration:
+```ini
+# Complete network and shell ban
+net none
+protocol unix
+caps.drop all
+nonewprivs
+private-cache
+private-tmp
+```
+
+Save the file in `nano` with **Ctrl + O** ➔ **Enter**, then **Ctrl + X** to exit.
+
+**6b.** Perform a verification launch:
+```bash
+firejail loupe ~/Pictures/unsafe.png
+```
+
+**7b.** Update the **Image Viewer (Loupe)** launcher to run inside Firejail:
+```bash
+sudo sed -i 's|^Exec=loupe.*\(\vert{}Exec=firejail loupe \%U\vert{}; s\vert{}^DBusActivatable=true\)|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
+```
+
+**8b.** Verify the change:
+```bash
+grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
+```
+
+### Wrapping Image Viewer in Bubblewrap:
+
+**1.** Create a wrapper script for Image Viewer (Loupe/EOG):
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/image-bwrap.sh
 #!/usr/bin/env bash
@@ -6326,13 +5373,13 @@ exec /usr/bin/bwrap \
   --ro-bind /etc /etc \
   --tmpfs /tmp \
   --tmpfs /run \
-  --ro-bind-try /run/user/$UID/wayland-0 /run/user/$UID/wayland-0 \
-  --ro-bind-try /run/user/$UID/pulse /run/user/$UID/pulse \
-  --ro-bind "$1" "$1" \
-  --setenv HOME "$HOME" \
-  --setenv DISPLAY "$DISPLAY" \
-  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
-  /usr/bin/loupe "$@" 2>/dev/null || /usr/bin/eog "$@"
+  --ro-bind-try /run/user/UID/wayland-0 /run/user/UID/wayland-0 \
+  --ro-bind-try /run/user/UID/pulse /run/user/UID/pulse \
+  --ro-bind "\$1" "\$1" \
+  --setenv HOME "\$HOME" \
+  --setenv DISPLAY "\$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "\${WAYLAND_DISPLAY:-wayland-0}" \
+  /usr/bin/loupe "\(@" 2>/dev/null \vert{}\vert{} /usr/bin/eog "\)@"
 EOF' && sudo chmod 755 /usr/local/bin/image-bwrap.sh
 ```
 
@@ -6341,39 +5388,109 @@ EOF' && sudo chmod 755 /usr/local/bin/image-bwrap.sh
 sudo chmod +x /usr/local/bin/image-bwrap.sh
 ```
 
-**3.** Bind the application to launch exclusively via Bubblewrap:
+Bind the application to launch permanently through Bubblewrap:
 
-* **For Ubuntu 24.04 LTS Noble Numbat users:**
+* **For Ubuntu 24.04 LTS Noble Numbat users (Eog):**
 
-Update the launch parameters in the **Image Viewer EOG** desktop entry to run the application inside the sandbox:
+**3a.** Update the **Image Viewer (Eog)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=eog.*$|Exec=/usr/local/bin/image-bwrap.sh %U|' /usr/share/applications/org.gnome.eog.desktop
+sudo sed -i 's|^Exec=eog.*\$|Exec=/usr/local/bin/image-bwrap.sh %U|' /usr/share/applications/org.gnome.eog.desktop
 ```
 
-Verify the modifications:
+**4a.** Verify the change:
 ```bash
 grep 'Exec=' /usr/share/applications/org.gnome.eog.desktop
 ```
 
-* **For Ubuntu 26.04 LTS Resolute Racoon users:**
+* **For Ubuntu 26.04 LTS Resolute Racoon users (Loupe):**
 
-Update the launch parameters in the **Image Viewer Loupe** desktop entry to run the application inside the sandbox:
+**3b.** Update the **Image Viewer (Loupe)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=loupe.*$|Exec=/usr/local/bin/image-bwrap.sh %U|; s|^DBusActivatable=true$|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
+sudo sed -i 's|^Exec=loupe.*\(\vert{}Exec=/usr/local/bin/image-bwrap.sh \%U\vert{}; s\vert{}^DBusActivatable=true\)|DBusActivatable=false|' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-Verify the modifications:
+**4b.** Verify the change:
 ```bash
 grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-#### Isolating KeePassXC Password Manager:
+### KeePassXC Isolation Scenario for Firejail:
 
-**1.** Isolate KeePassXC using a shell wrapper (`keepassxc-bwrap.sh`):
+By isolating KeePassXC, we turn it from an application exposed to the shared desktop into a standalone vault. It communicates with the outside world solely via a Unix socket (to detect your YubiKey) and sees only one specific file—your password database. Everything else is wiped from its view.
+
+The kernel filters built into the Firejail profile (`seccomp`, `caps.drop all`, and `ptrace` restrictions) completely block third-party programs from inspecting KeePassXC's memory or reading its address space.
+
+**1.** Create the clean configuration directory (if it doesn't exist yet) and open the local override file for the password manager:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/keepassxc.local
+```
+
+**2.** Insert this conflict-free configuration block. It overrides hidden kernel device blacklists, restores access to USB tokens, enables the netlink stack to detect YubiKeys via Challenge-Response, and isolates the entire home folder—exposing only settings and password database files:
+```ini
+# Allow FIDO2/U2F hardware security keys (YubiKey and equivalents)
+ignore private-dev
+ignore protocol unix
+ignore nou2f
+
+# Allow real user access groups
+ignore groups
+ignore nogroups
+
+# Restore access to glycin loader for GTK
+noblacklist /usr/libexec
+whitelist /usr/libexec/glycin-loaders
+
+# Allow access to KeePassXC configuration
+noblacklist \${HOME}/.config/keepassxc
+nowhitelist \${HOME}/.config/keepassxc
+whitelist \${HOME}/.config/keepassxc
+
+# IMPORTANT: Allow access to your password database and separate keyfile.
+# Specify your actual paths.
+# KeePassXC database:
+# noblacklist \${HOME}/Documents/passwords.kdbx
+# whitelist \${HOME}/Documents/passwords.kdbx
+
+# When using a Keyfile, e.g., on an external drive:
+# noblacklist /media/\$USER/DRIVE-NAME/passwords.key
+# whitelist /media/\$USER/DRIVE-NAME/passwords.key
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
+
+**3.** Launch KeePassXC inside the Firejail sandbox:
+```bash
+firejail keepassxc
+```
+
+**4.** Update the security launcher for **KeePassXC**, binding it to the database, blocking network access, and saving a backup of the default `.desktop` file:
+```bash
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=\$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+```
+
+> [!IMPORTANT]
+> Disabling D-Bus completely can increase isolation, but on modern Linux systems running Wayland it often breaks compatibility with graphical applications. Many programs rely on the user D-Bus session and XDG Desktop Portals to interact safely with the desktop environment.
+>
+> If an application fails to launch after disabling D-Bus entirely, use the more flexible filtering mode instead:
+>
+> ```bash
+> --dbus-user=filter
+> ```
+>
+> This mode preserves control over inter-process communication: it blocks unnecessary bus calls while leaving essential system interfaces available so modern GUI apps function properly.
+
+> [!NOTE]
+> The `firecfg` utility creates symbolic links exclusively for classic programs installed via `.deb` packages or compiled from source. As implemented in the earlier chapters of this book, Canonical's telemetry-heavy and sluggish Snap engine has been completely purged from our paranoid OPSEC setup. Firejail unlocks its full mandatory security potential specifically on a clean configuration like ours: classic binaries installed via `apt` and standalone extracted AppImage containers.
+
+### Isolating KeePassXC via Bubblewrap:
+
+**1.** Isolate KeePassXC via a shell wrapper (`keepassxc-bwrap.sh`):
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/keepassxc-bwrap.sh
 #!/bin/bash
-exec bwrap \
+mkdir -p "\$HOME/.config/keepassxc"
+
+exec /usr/local/bin/bwrap \
   --ro-bind /usr /usr \
   --ro-bind /lib /lib \
   --ro-bind-try /lib64 /lib64 \
@@ -6382,38 +5499,133 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --bind "$HOME/.config/KeePassXC" "$HOME/.config/KeePassXC" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --bind "HOME/.config/keepassxc" "HOME/.config/keepassxc" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --unshare-all \
-  --share-net=none \
   --die-with-parent \
-  -- /usr/bin/keepassxc "$@"
+  -- /usr/bin/keepassxc "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/keepassxc-bwrap.sh
 ```
 
-**2.** Make the script executable:
+**2.** Ensure the script is executable:
 ```bash
 sudo chmod +x /usr/local/bin/keepassxc-bwrap.sh
 ```
 
-* Modify the **KeePassXC** desktop entry to link it with the database and restrict outside access, while preserving a backup of the default profile:
+**3.** Update the **KeePassXC** launcher to route execution through the Bubblewrap script while backing up the default `.desktop` file:
 ```bash
-sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=/usr/local/bin/keepassxc-bwrap.sh %f|' -e "s|^Icon=.*|Icon=\$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
 ```
 
-#### Installing and Isolating the LibreOffice Suite:
+### Installing and Isolating the LibreOffice Suite:
 
-**1.** Package Installation:
+Office documents remain one of the most common vectors for exchanging data between organizations. At the same time, the complexity of modern formats (`DOCX`, `XLSX`, `ODT`) turns office suites into full-fledged parsers of external input. Therefore, LibreOffice should always be launched inside an isolated sandbox, especially when opening files received from external sources.
+
+The first installation step for LibreOffice is identical for both Firejail and Bubblewrap.
+
+**1.** Install LibreOffice:
 ```bash
-sudo apt update && sudo apt install -y libreoffice
+sudo apt update && sudo apt install libreoffice -y
 ```
 
-**2.** Create a Unified Wrapper `libreoffice-bwrap.sh`:
+### Configuring LibreOffice via Firejail:
+
+**1.** Open `libreoffice.profile` in `nano`:
+```bash
+nano ~/.config/firejail/libreoffice.profile
+```
+
+**2.** Add the strict profile rules:
+```ini
+# Force GTK3 backend
+env SAL_USE_VCLPLUGIN=gtk3
+# Filesystem isolation
+private-tmp
+private-dev
+
+# Expose only these directories to the application
+whitelist \${HOME}/Documents
+whitelist \${HOME}/Downloads
+whitelist \${HOME}/.config/libreoffice
+
+# Complete ban on network sockets
+protocol unix
+ignore protocol inet
+ignore protocol inet6
+
+blacklist /tmp/.X11-unix
+blacklist \${HOME}/.Xauthority
+
+# Disable DBus and unnecessary services
+nosound
+
+# Security hardening
+caps.drop all
+nonewprivs
+noroot
+seccomp
+
+blacklist \${HOME}/.ssh
+blacklist \${HOME}/.gnupg
+blacklist \${HOME}/.mozilla
+
+# Removable media
+blacklist /media
+blacklist /mnt
+blacklist /run/media
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
+
+**3.** Launch the main LibreOffice start center inside the sandbox:
+```bash
+firejail libreoffice
+```
+
+**4.** To launch specific apps (`writer`, `calc`, `impress`, `draw`, `math`, `base`), run:
+```bash
+firejail libreoffice --writer
+firejail libreoffice --calc
+firejail libreoffice --impress
+firejail libreoffice --draw
+firejail libreoffice --math
+firejail libreoffice --base
+```
+
+**5.** Update the **LibreOffice** launchers to run inside Firejail by default:
+
+The idea is simply to route default application launches into the Firejail sandbox by modifying the `Exec=` lines across the suite's `.desktop` files:
+```bash
+sudo sed -i 's|^Exec=libreoffice|Exec=firejail libreoffice|' /usr/share/applications/libreoffice-startcenter.desktop
+sudo sed -i 's|^Exec=libreoffice --writer|Exec=firejail libreoffice --writer|' /usr/share/applications/libreoffice-writer.desktop
+sudo sed -i 's|^Exec=libreoffice --calc|Exec=firejail libreoffice --calc|' /usr/share/applications/libreoffice-calc.desktop
+sudo sed -i 's|^Exec=libreoffice --impress|Exec=firejail libreoffice --impress|' /usr/share/applications/libreoffice-impress.desktop
+sudo sed -i 's|^Exec=libreoffice --draw|Exec=firejail libreoffice --draw|' /usr/share/applications/libreoffice-draw.desktop
+sudo sed -i 's|^Exec=libreoffice --math|Exec=firejail libreoffice --math|' /usr/share/applications/libreoffice-math.desktop
+sudo sed -i 's|^Exec=libreoffice --base|Exec=firejail libreoffice --base|' /usr/share/applications/libreoffice-base.desktop
+```
+All office applications will now launch strictly under our `libreoffice.profile` rules.
+
+**6.** Verify each launcher:
+```bash
+grep 'Exec=' /usr/share/applications/libreoffice-writer.desktop
+grep 'Exec=' /usr/share/applications/libreoffice-calc.desktop
+grep 'Exec=' /usr/share/applications/libreoffice-impress.desktop
+grep 'Exec=' /usr/share/applications/libreoffice-draw.desktop
+grep 'Exec=' /usr/share/applications/libreoffice-math.desktop
+grep 'Exec=' /usr/share/applications/libreoffice-base.desktop
+```
+
+### Wrapping LibreOffice in Bubblewrap:
+
+**1.** Create the unified `libreoffice-bwrap.sh` wrapper:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/libreoffice-bwrap.sh
 #!/bin/bash
-# Create the working folder for documents if it does not exist
-mkdir -p "$HOME/Documents" "$HOME/.config/libreoffice"
+# Create working directories for documents if they do not exist
+mkdir -p "HOME/Documents" "HOME/.config/libreoffice"
 
 # Launch LibreOffice in an offline sandbox on pure Wayland
 exec bwrap \
@@ -6426,41 +5638,104 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --bind "$HOME/Documents" "$HOME/Documents" \
-  --bind "$HOME/.config/libreoffice" "$HOME/.config/libreoffice" \
+  --bind "HOME/Documents" "HOME/Documents" \
+  --bind "HOME/.config/libreoffice" "HOME/.config/libreoffice" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv SAL_USE_VCLPLUGIN "gtk3" \
   --setenv GDK_BACKEND "wayland" \
   --unshare-net \
   --die-with-parent \
-  -- /usr/bin/libreoffice "$@"
+  -- /usr/bin/libreoffice "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/libreoffice-bwrap.sh
 ```
 
-* Override System Launcher Entries:
+**2.** Override the system menu launchers:
 ```bash
-sudo bash -c 'mkdir -p /usr/local/share/applications && for f in /usr/share/applications/libreoffice-*.desktop; do name=$(basename "$f"); sed "s|^Exec=libreoffice|Exec=/usr/local/bin/libreoffice-bwrap.sh|" "$f" > "/usr/local/share/applications/$name"; done && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/libreoffice-*.desktop
+sudo bash -c 'mkdir -p /usr/local/share/applications && for f in /usr/share/applications/libreoffice-*.desktop; do name=(basename "f"); sed "s|^Exec=libreoffice|Exec=/usr/local/bin/libreoffice-bwrap.sh|" "f" > "/usr/local/share/applications/name"; done && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/libreoffice-*.desktop
 ```
 
-#### Installing and Isolating GIMP:
+### Installing and Isolating GNU Image Manipulation Program (GIMP):
 
-**1.** GIMP Installation:
+Image editors are among the most complex user applications. GIMP parses a wide variety of image formats (`PSD`, `TIFF`, `PNG`, `JPEG`, `SVG`, etc.) and relies on external plugins, meaning bugs in file parsers or extensions can potentially lead to arbitrary code execution.
+
+To reduce risk when opening images from untrusted sources, let's build an isolated environment for GIMP. The application will run without internet access, without Linux capabilities, and with access restricted to a small set of permitted directories.
+
+> [!WARNING]
+> **Ubuntu 26.04** ships with **GIMP 3.2**, where file decoding is sandboxed by default via the **Glycin** library and a **Bubblewrap** container. Using **Firejail** on this version is not recommended: double sandboxing causes intermittent crashes, access errors, and performance degradation. For stable operation, stick to the built-in **Bubblewrap** sandbox.
+
+**1.** Install GIMP:
 ```bash
-sudo apt update && sudo apt install -y gimp
+sudo apt update && sudo apt install gimp -y
 ```
 
-**2.** Create an Isolating Shell Wrapper Script (`gimp-bwrap.sh`) with Network Isolation and Direct GPU Access:
+Suppose we downloaded a suspicious image file for editing: `~/Downloads/unsafe.png`.
+
+### Configuring GIMP via Firejail:
+
+**1.** Launch this file inside the sandbox:
+```bash
+firejail gimp ~/Downloads/unsafe.png
+```
+
+On Ubuntu 26.04, before applying a local override, GIMP 3.x does not terminate its sandbox automatically on exit, so we will add `deterministic-shutdown` to the local rules to force clean termination.
+
+**2.** Harden GIMP's security rules via a local profile override:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/gimp.local
+```
+
+**3.** Add the following rules:
+```ini
+# Complete ban on network access
+net none
+
+# Drop unnecessary process capabilities
+caps.drop all
+
+# Allow dconf and portals for normal file dialogs
+ignore nodbus
+ignore dbus-user none
+ignore dbus-system none
+
+# Silence audio libraries to suppress PulseAudio terminal errors
+env PULSE_SERVER=disabled
+
+# Allow access to config path (override global blacklist)
+noblacklist \${HOME}/.config/GIMP
+whitelist \${HOME}/.config/GIMP
+
+# Allow access strictly to working directories
+whitelist \${HOME}/Documents
+whitelist \${HOME}/Downloads
+whitelist \${HOME}/Pictures
+
+# Terminate the sandbox immediately when the main GIMP window closes
+deterministic-shutdown
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
+
+**4.** Perform a verification launch:
+```bash
+firejail gimp ~/Downloads/unsafe.psd
+```
+
+Unlike document viewers, GIMP does not use full home directory isolation (`private`), because the editor actively relies on its own settings, brushes, plugins, fonts, and user profiles.
+
+### Configuring GIMP via Bubblewrap:
+
+**1.** Create the wrapper script (`gimp-bwrap.sh`) with network disabled and direct GPU hardware acceleration:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/gimp-bwrap.sh
 #!/bin/bash
-# Automatic creation of working directories
-mkdir -p "$HOME/Pictures" "$HOME/.config/GIMP"
+# Automatically create working directories
+mkdir -p "HOME/Pictures" "HOME/.config/GIMP"
 
-# Launch GIMP in a Bubblewrap sandbox (offline, pure Wayland, GPU acceleration)
+# Launch GIMP in Bubblewrap sandbox (no network, pure Wayland, GPU acceleration)
 exec bwrap \
   --ro-bind /usr /usr \
   --ro-bind /lib /lib \
@@ -6471,47 +5746,140 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --bind "$HOME/Pictures" "$HOME/Pictures" \
-  --bind "$HOME/.config/GIMP" "$HOME/.config/GIMP" \
+  --bind "HOME/Pictures" "HOME/Pictures" \
+  --bind "HOME/.config/GIMP" "HOME/.config/GIMP" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
   --unshare-net \
   --die-with-parent \
-  -- /usr/bin/gimp "$@"
+  -- /usr/bin/gimp "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/gimp-bwrap.sh
 ```
 
-* Override System Launcher Entry:
+**2.** Override the launcher in the system application menu:
 ```bash
 sudo bash -c 'mkdir -p /usr/local/share/applications && sed "s|^Exec=gimp|Exec=/usr/local/bin/gimp-bwrap.sh|" /usr/share/applications/gimp.desktop > /usr/local/share/applications/gimp.desktop && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/gimp.desktop
 ```
 
-#### Installing and Isolating VS Codium Code Editor:
+### Installing and Isolating the VSCodium Code Editor (IDE):
 
-**1.** Install the necessary system utilities, navigate to the Downloads directory, and download the latest stable VSCodium AppImage container from the official repository:
+VSCodium is a free, open-source fork of Microsoft's Visual Studio Code (VS Code) with all telemetry, tracking, and proprietary licensing completely stripped out. It is a clean development environment that respects your privacy. However, like any full-featured IDE, it accesses your filesystem and spawns numerous child processes, making strict isolation essential.
+
+**1.** Install the required system utilities, navigate to the `Downloads` directory, and download the latest stable VSCodium AppImage from the official repository:
 ```bash
-sudo apt install curl jq -y && cd ~/Downloads && API_HOST="api.github.com" && LATEST_URL=$(curl -s "https://${API_HOST}/repos/VSCodium/vscodium/releases/latest" | jq -r '.assets[].browser_download_url' | grep -E 'x86_64.*\.AppImage$' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
+sudo apt install curl jq -y && cd ~/Downloads && API_HOST="://github.com" && LATEST_URL=\$(curl -s "https://\({API_HOST}/repos/VSCodium/vscodium/releases/latest" \vert{} jq -r '.assets[].browser_download_url' \vert{} grep -E 'x86_64.*\.AppImage\)' | head -n 1) && curl -L -o VSCodium.AppImage "\$LATEST_URL"
 ```
 
-**2.** Make the downloaded file executable, extract the AppImage container, move the extracted binaries to the `/opt/` system directory, and immediately prepare the hidden configuration folders in the home directory:
+**2.** Make the downloaded file executable, extract the AppImage container, move the binaries to `/opt/`, and pre-create the hidden configuration folders in your home directory:
 ```bash
-chmod +x VSCodium.AppImage && (umask 022 && ./VSCodium.AppImage --appimage-extract) && sudo rm -rf /opt/vscodium && sudo cp -rL squashfs-root /opt/vscodium && rm -rf squashfs-root VSCodium.AppImage AppDir && (umask 022 && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions ~/.vscode-oss-shared)
+chmod +x VSCodium.AppImage && ./VSCodium.AppImage --appimage-extract && sudo mv squashfs-root /opt/vscodium && rm VSCodium.AppImage && mkdir -p ~/.config/VSCodium ~/.vscode-oss/extensions && mkdir -p ~/.vscode-oss-shared
 ```
 
-**3.** Execute commands on the host to set reference permissions for the embedded Chrome sandbox, and recursively restore ownership to the current user for all hidden internal configuration files and directories using the universal `$USER` variable (this completely eliminates any hidden *EACCES: permission denied* errors):
+**3.** Set proper permissions on the built-in Chromium sandbox binary and recursively restore ownership of all configuration directories to your current user via `$USER` (preventing any `EACCES: permission denied` errors):
 ```bash
-sudo chown -R root:root /opt/vscodium && sudo chmod -R 755 /opt/vscodium && sudo chmod 4755 /opt/vscodium/chrome-sandbox && sudo chown -R $USER:$(id -gn) ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared && chmod -R 755 ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
+sudo chown root:root /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chmod u+s /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chown -R USER:USER ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
 ```
 
-**4.** Create a wrapper script for **VSCodium (Online)** to handle extension maintenance and updates:
+### Isolating VSCodium in Firejail:
+
+**1.** Create the Firejail directory (if it doesn't exist) and open the profile in `nano`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/vscodium.profile
+```
+
+**2.** Add the core isolation rules. We explicitly whitelist the `extensions` subdirectory (otherwise the marketplace switches to *Read-Only* mode) and include `runuser` and `var` definitions so internal Node.js language servers do not crash on startup:
+```ini
+# Core protection
+caps.drop all
+netfilter
+private-cache
+private-dev
+private-tmp
+disable-mnt
+
+dbus-system none
+
+include disable-common.inc
+include disable-devel.inc
+include disable-exec.inc
+include disable-interpreters.inc
+
+# Allow only settings, plugins, and shared memory database
+whitelist ~/.config/VSCodium
+whitelist ~/.vscode-oss
+whitelist ~/.vscode-oss/extensions
+whitelist ~/.vscode-oss-shared
+
+# Allow internal Node.js language servers for extensions
+include whitelist-runuser-common.inc
+include whitelist-var-common.inc
+include whitelist-common.inc
+
+# Fast sandbox termination on exit (may be needed occasionally due to Electron quirks)
+#deterministic-shutdown
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit.
+
+**3.** Create a dedicated folder for VSCodium projects (access will be granted via the offline launcher):
+```bash
+mkdir -p ~/Documents/VSCodium_Projects
+```
+
+**4.** Set proper ownership and restrictive permissions on the `Documents` directory:
+```bash
+sudo chown USER:USER "\(HOME/Documents" && chmod 700 "\)HOME/Documents"
+```
+
+**5.** Launch the code editor interactively from the terminal. For complex Electron-based IDEs, this serves as our baseline test:
+```bash
+firejail --profile=~/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
+```
+
+> [!NOTE]
+> After closing the graphical window, background Electron helper processes (such as `fileWatcher`) may briefly keep the sandbox alive, holding the terminal prompt. In daily usage, this behavior is completely avoided by launching the IDE asynchronously through graphical `.desktop` shortcuts.
+
+**6.** Generate the launcher for **VSCodium without internet access** (Private Workspace Mode):
+```bash
+cat <<EOF > ~/.local/share/applications/vscodium-offline.desktop
+[Desktop Entry]
+Name=VSCodium (Offline IDE)
+Comment=Code Editing without Network Access
+Exec=firejail --net=none --profile=HOME/.config/firejail/vscodium.profile --whitelist={HOME}/Documents /opt/vscodium/AppRun --no-sandbox
+Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-offline.png
+Terminal=false
+Type=Application
+Categories=Development;TextEditor;IDE;
+MimeType=text/plain;
+EOF
+```
+
+**7.** Generate the launcher for **VSCodium with internet access** (for installing extensions):
+```bash
+cat <<EOF > ~/.local/share/applications/vscodium-online.desktop
+[Desktop Entry]
+Name=VSCodium (Online IDE)
+Comment=Code Editing with Network Access (Strict Sandbox)
+Exec=firejail --profile=\${HOME}/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
+Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-online.png
+Terminal=false
+Type=Application
+Categories=Development;TextEditor;IDE;
+MimeType=text/plain;
+EOF
+```
+
+### Isolating VSCodium in Bubblewrap:
+
+**1.** Create the wrapper script for **VSCodium (Online)** to handle maintenance, updates, and extension installation:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-online.sh
 #!/bin/bash
-mkdir -p "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
+mkdir -p "\$HOME/.config/VSCodium" "HOME/.vscode-oss" "HOME/.vscode-oss-shared"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -6524,41 +5892,42 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "$HOME" \
+  --tmpfs "\$HOME" \
   --share-net \
-  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
-  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
-  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
+  --bind "HOME/.config/VSCodium" "HOME/.config/VSCodium" \
+  --bind "HOME/.vscode-oss" "HOME/.vscode-oss" \
+  --bind "HOME/.vscode-oss-shared" "HOME/.vscode-oss-shared" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
-  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/codium-online.sh
 ```
 
-* Create a desktop launcher entry for the online maintenance mode:
+**2.** Create the online desktop launcher with our custom icon:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/codium-online.desktop
+cat <<EOF > ~/.local/share/applications/codium-online.desktop
 [Desktop Entry]
 Name=VSCodium (Maintenance / Online)
 Comment=Install Extensions and Sync
 Exec=/usr/local/bin/codium-online.sh %F
-Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-online.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-online.png
 Terminal=false
 Type=Application
 StartupWMClass=vscodium
 Categories=Development;
-EOF' && sudo chmod 644 /usr/local/share/applications/codium-online.desktop
+EOF
+chmod 644 ~/.local/share/applications/codium-online.desktop
 ```
 
-**5.** Create a wrapper script for **VSCodium (Offline)** for secure work with projects and source code:
+**3.** Create the wrapper script for **VSCodium (Offline)** for secure local coding without network access:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-offline.sh
 #!/bin/bash
-mkdir -p "$HOME/Documents" "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
+mkdir -p "HOME/Documents" "HOME/.config/VSCodium" "HOME/.vscode-oss" "HOME/.vscode-oss-shared"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -6571,55 +5940,149 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "$HOME" \
+  --tmpfs "\$HOME" \
   --unshare-net \
-  --bind "$HOME/Documents" "$HOME/Documents" \
-  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
-  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
-  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
+  --bind "HOME/Documents" "HOME/Documents" \
+  --bind "HOME/.config/VSCodium" "HOME/.config/VSCodium" \
+  --bind "HOME/.vscode-oss" "HOME/.vscode-oss" \
+  --bind "HOME/.vscode-oss-shared" "HOME/.vscode-oss-shared" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
-  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/codium-offline.sh
 ```
 
-* Create a desktop launcher entry for the isolated offline workspace:
+**4.** Create the offline desktop launcher with our custom icon:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/codium-offline.desktop
+cat <<EOF > ~/.local/share/applications/codium-offline.desktop
 [Desktop Entry]
 Name=VSCodium (Workspace / Offline)
 Comment=Secure Sandbox Working Environment
 Exec=/usr/local/bin/codium-offline.sh %F
-Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-offline.png
 Terminal=false
 Type=Application
 StartupWMClass=vscodium
 Categories=Development;
-EOF' && sudo chmod 644 /usr/local/share/applications/codium-offline.desktop
+EOF
+chmod 644 ~/.local/share/applications/codium-offline.desktop
 ```
 
-#### Installing and Isolating LM Studio (Local AI Runtime):
+### Installing and Isolating the Local LLM Engine LM Studio Bionic:
 
-**1.** Download the latest AppImage container directly from the official developer server:
+We cannot afford to send our prompts, code snippets from a hardened system, or confidential logs to cloud AI services due to the risk of data leakage.
+
+Security researchers have demonstrated that attackers can embed malicious payloads inside chat templates within GGUF model files.
+
+Let's seal our local AI assistant inside a hermetic offline contour on the host.
+
+Because modern versions of LM Studio ship as a massive ~1 GB AppImage container, and Firejail's built-in FUSE mounting mechanisms on Ubuntu 24.04/26.04 trigger filesystem conflicts (`Invalid argument`), we will extract the container beforehand.
+
+**1.** Navigate to `Downloads` and fetch the latest stable LM Studio AppImage directly from the official release endpoint, following redirects automatically:
 ```bash
-sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "[https://lmstudio.ai/download/latest/linux/x64?format=AppImage](https://lmstudio.ai/download/latest/linux/x64?format=AppImage)"
+sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "https://lmstudio.ai"
 ```
 
-**2.** Grant execution permissions to the file, extract it into a temporary directory, and move the binaries to the user folder:
+> [!TIP]
+> **Author's Tip:** The file is ~1 GB in size, so wait for the download progress bar in the terminal to reach 100%. Thanks to the static URL endpoint, this command always pulls the latest release.
+
+**2.** Make the file executable, extract it into a temporary directory, and move the binaries to a user directory:
 ```bash
 chmod +x LM-Studio.AppImage && ./LM-Studio.AppImage --appimage-extract && rm -rf ~/.lmstudio_gui && cp -rL squashfs-root ~/.lmstudio_gui && rm -rf squashfs-root LM-Studio.AppImage AppDir
 ```
 
-**3.** Prepare the hidden configuration and model download directories in the home directory:
+**3.** Pre-create the hidden configuration and model storage directories inside your home folder:
 ```bash
 mkdir -p ~/.config/LMStudio ~/.cache/lm-studio ~/.lmstudio ~/Documents && chmod -R 755 ~/.lmstudio_gui
 ```
 
-**4.** Create a wrapper script for **LM Studio (Online)** to safely download models from Hugging Face with network access enabled, but without filesystem or GPU access:
+**4.** Remove the downloaded AppImage from `Downloads`:
+```bash
+rm ~/Downloads/LM-Studio.AppImage
+```
+
+### Deploying LM Studio via Firejail:
+
+**1.** Create the Firejail directory (if it doesn't exist) and open the profile in `nano`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/lmstudio.profile
+```
+
+**2.** Add the core isolation rules:
+```ini
+# Do not isolate /dev — required for GPU and graphics access
+ignore private-dev
+
+# Allow access to LM Studio models and data
+noblacklist ${HOME}/.lmstudio
+
+# Fast sandbox termination on exit
+deterministic-shutdown
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit.
+
+**3.** At this stage, the global network Kill Switch is not enabled yet because the application needs internet access to download model weights. To keep heavy LLM models from crawling on the CPU, we launch the client inside our Firejail profile so NVIDIA GPU devices (`/dev/nvidia*`) remain accessible on NVIDIA systems while Intel/AMD setups seamlessly fall back to their available graphics stack:
+```bash
+firejail --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
+```
+
+> [!NOTE]
+> Once your required model files have finished downloading via the built-in Hugging Face browser, close the application. In daily operation, internet access will only ever be needed again when downloading new LLMs. All downloaded model weights are safely stored locally under `~/.lmstudio/`. Next, we move on to locking down the offline contour.
+
+Detailed configuration for launching split environments (*Secure Sandbox* offline and *Online Downloader* online) for LM Studio with custom high-resolution 512px and 256px designer icons is covered **below**. The launchers provided will add dedicated entries to the GNOME application menu ("Apps").
+
+**4.** To launch the full LM Studio GUI inside a hermetic offline Linux kernel capsule from the terminal (bypassing the app menu), run the following command with `--net=none`:
+```bash
+firejail --net=none --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
+```
+
+**5.** If you don't need the heavy graphical interface and only want to run the lightweight local AI engine as a background daemon for API or CLI usage with internet access severed, run:
+```bash
+firejail --net=none --profile=lmstudio $HOME/.lmstudio/bin/lms daemon up
+```
+
+> [!NOTE]
+> **Security Analysis:** Your local AI is now fully ready to operate inside a sandbox in both GUI and CLI/Daemon modes. The `--net=none` flag completely disables Linux kernel network namespaces for the running container. Your prompts, logs, and sensitive code snippets are processed strictly locally on your GPU tensor cores or system RAM, physically cut off from the internet.
+
+**6.** Create the administrative launcher for **LM Studio with internet access** (for searching and downloading large model weights from Hugging Face):
+```bash
+cat <<EOF > ~/.local/share/applications/lm-online.desktop
+[Desktop Entry]
+Name=LM Studio (Online Downloader)
+Comment=Run LM Studio with internet access to download LLM models
+Exec=firejail --profile=lmstudio ${HOME}/.lmstudio_gui/lm-studio --no-sandbox
+Icon=/home/$USER/.local/share/icons/256x256@2x/lm-unsecure.png
+Terminal=false
+Type=Application
+Categories=Development;Science;
+EOF
+```
+
+**7.** Create the desktop launcher for **LM Studio in total offline paranoia mode**, routing the GUI under a Linux kernel network Kill Switch with a custom HiDPI icon:
+```bash
+cat <<EOF > ~/.local/share/applications/lm-offline.desktop
+[Desktop Entry]
+Name=LM Studio (Offline AI)
+Comment=Local LLM Sandbox Agent
+Exec=firejail --net=none --profile=lmstudio ${HOME}/.lmstudio_gui/lm-studio --no-sandbox
+Icon=/home/$USER/.local/share/icons/256x256@2x/lm-secure.png
+Terminal=false
+Type=Application
+Categories=Development;Science;
+EOF
+```
+
+> [!WARNING]
+> After clicking the close button (`X`), LM Studio's background process (`node-Main`) stays active and minimizes to the system tray. If you do not fully terminate the application from memory, launching the alternate shortcut will hijack the existing session. Always quit the tray icon completely before switching between online and offline contours.
+
+### Wrapping LM Studio in Bubblewrap:
+
+**1.** Create the wrapper script for **LM Studio (Online)** to download models from Hugging Face with network access enabled, but without access to personal files or the GPU:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-online.sh
 #!/bin/bash
@@ -6649,21 +6112,22 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/lmstudio-online.sh
 ```
 
-* Create a desktop launcher entry for the online downloader mode:
+**2.** Create its Online desktop launcher:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/lmstudio-online.desktop
+cat <<EOF > ~/.local/share/applications/lmstudio-online.desktop
 [Desktop Entry]
-Name=LM Studio (Online)
+Name=LM Studio (Downloader / Online)
 Comment=Download LLM models safely without GPU access
 Exec=/usr/local/bin/lmstudio-online.sh %F
 Icon=/home/$USER/.local/share/icons/256x256@2x/lm-unsecure.png
 Terminal=false
 Type=Application
 Categories=Utility;Science;ArtificialIntelligence;
-EOF' && sudo chmod 644 /usr/local/share/applications/lmstudio-online.desktop
+EOF
+chmod 644 ~/.local/share/applications/lmstudio-online.desktop
 ```
 
-**5.** Create a wrapper script for **LM Studio (Offline)** with hardware GPU pass-through enabled, but with network access completely isolated:
+**3.** Create the wrapper script for **LM Studio (Offline)** with GPU passthrough enabled and internet access completely disabled:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-offline.sh
 #!/bin/bash
@@ -6696,49 +6160,109 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/lmstudio-offline.sh
 ```
 
-* Create a desktop launcher entry for the isolated offline inference mode:
+**4.** Create its Offline desktop launcher:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/lmstudio-offline.desktop
+cat <<EOF > ~/.local/share/applications/lmstudio-offline.desktop
 [Desktop Entry]
-Name=LM Studio (Offline)
+Name=LM Studio (Inference / Offline)
 Comment=Secure Local LLM Execution with Hardware Acceleration
 Exec=/usr/local/bin/lmstudio-offline.sh %F
 Icon=/home/$USER/.local/share/icons/256x256@2x/lm-secure.png
 Terminal=false
 Type=Application
 Categories=Utility;Science;ArtificialIntelligence;
-EOF' && sudo chmod 644 /usr/local/share/applications/lmstudio-offline.desktop
+EOF
+chmod 644 ~/.local/share/applications/lmstudio-offline.desktop
 ```
 
-#### Installing and Isolating Telegram Desktop:
+### Configuring Secure Communications: Mandatory Isolation of Messengers and the Crypto Contour (Author's OPSEC Contour):
 
-**1.** Navigate to the Downloads directory, download the official stable messenger archive directly via the official gateway `telegram.org` in a single command, unpack its structure, move the clean executable binary to the canonical system path `/usr/bin/`, and automatically clean up temporary files:
+For everyday tasks, regular users choose **Telegram**. However, in the information security community, the **XMPP (Jabber)** protocol and encrypted email paired with end-to-end **OpenPGP (GnuPG)** encryption remain the gold standards for privacy, decentralization, and digital sovereignty.
+
+> [!NOTE]
+> If you use ProtonMail, keep in mind that end-to-end OpenPGP encryption is already built into the web interface by default within the "Proton-to-Proton" ecosystem. However, to achieve complete sovereignty (defending against potential compromise of the mail provider itself), you can use **cascading encryption**: encrypt the message body locally on your host using your offline Curve 25519 key, and then send the resulting ciphertext via Proton. In this scenario, intercepting the message contents is mathematically impossible, even if a third party gains access to the servers in Switzerland.
+
+Any communications client continuously processes huge volumes of complex external data: HTML emails, XML chat streams, asynchronous links, avatars, and media files from untrusted sources. This exposes a critical attack surface for parsing vulnerabilities (including buffer overflows inside application cores). We will eliminate the risk of 0-day exploit execution and host data theft by isolating every communication tool at the Linux kernel level using our sandboxes.
+
+### Installing and Isolating Telegram Desktop:
+
+The main flaw of the default Telegram client on Linux is that it has full access to your home directory and stores all cached files, media, and session keys in plaintext. If a malicious stealer script executes on the system, it can easily hijack active messenger sessions.
+
+Let's strictly confine Telegram: forbid it from seeing any files on the system except its own configuration directory and a single dedicated downloads folder. At the same time, the messenger must remain completely transparent to the eBPF lenses of the Portmaster firewall.
+
+> [!IMPORTANT]
+> Since Snap has been completely purged from our paranoid OPSEC setup and Flatpak versions suffer from hidden D-Bus forwarding quirks, we will use the official, clean static binary directly from Telegram. This gives Firejail and Bubblewrap the highest level of mandatory control over the process.
+
+**1.** Navigate to `Downloads`, download the official stable archive directly from `telegram.org`, extract it, move the clean binary into the canonical `/usr/bin/` directory, and automatically remove all temporary files:
 ```bash
-sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "[https://telegram.org/dl/desktop/linux](https://telegram.org/dl/desktop/linux)" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
+sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "https://telegram.org" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
 ```
 
-The `curl -L` command automatically follows HTTP redirects from the official download gateway, fetches the original tarball release, extracts it, and places the static binary into `/usr/bin/` as `telegram-desktop`. This standard deployment approach in Linux ensures seamless execution by the desktop graphical shell.
+Using `curl -L`, the command follows the HTTP redirect on the official download gateway, fetches the latest original tarball, extracts it, and places the clean static binary in `/usr/bin/` as `telegram-desktop`. This is a canonical execution path in the Linux kernel, ensuring conflict-free launches from the desktop environment.
 
-**2.** To prevent files downloaded from chats from scattering across the system, create a dedicated isolated directory in the user profile:
+**2.** To prevent files downloaded from chats from scattering across your drive, create a dedicated secure gateway folder in your home directory:
 ```bash
 mkdir -p ~/Downloads/Telegram_Downloads
 ```
 
-**3.** Enforce executable binary integrity (POSIX security standard):
+**3.** Enforce binary ownership integrity (POSIX protection):
 ```bash
 sudo chown root:root /usr/bin/telegram-desktop
 ```
 
-**4.** Assign execution permissions following the Principle of Least Privilege:
+**4.** Set execution permissions (Principle of Least Privilege):
 ```bash
 sudo chmod 755 /usr/bin/telegram-desktop
 ```
 
-**5.** Create the wrapper script `/usr/local/bin/telegram-bwrap.sh`:
+### Securing the Telegram Contour via Firejail:
+
+**1.** Create the Firejail directory (if it does not exist) and open the profile in `nano`:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/telegram.profile
+```
+
+**2.** Add the core isolation rules:
+```ini
+# Telegram Desktop
+seccomp
+
+# Allow only required directories
+whitelist \${HOME}/.local/share/TelegramDesktop
+whitelist \${HOME}/Downloads/Telegram_Downloads
+```
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit.
+
+**3.** On Ubuntu 24.04/26.04, default system messenger profiles are overloaded with excessive AppArmor filters, causing the Qt application to lose network sockets and fail to route cleanly through Portmaster's eBPF driver. Using our clean custom profile with `--whitelist` seals the filesystem perimeter, while `--seccomp` enforces syscall filtering at the kernel level to block Local Privilege Escalation (LPE) exploits:
+```bash
+firejail --profile=telegram /usr/bin/telegram-desktop
+```
+
+The messenger immediately connects to the network while Portmaster's eBPF lenses intercept and display `telegram-desktop` in the network monitor. Meanwhile, Telegram's built-in file picker physically sees nothing in your home folder except your chat data and the isolated `Telegram_Downloads` directory. Even if an attacker sends a malicious payload and you accidentally open it inside the messenger, the exploit remains trapped inside a virtual memory vacuum and cannot reach your SSH keys, crypto wallets, or hidden host configurations.
+
+**4.** Generate the security launcher for **Telegram**, binding it to our sandbox profile and `seccomp` kernel protection:
+```bash
+cat <<EOF > ~/.local/share/applications/telegramdesktop.desktop
+[Desktop Entry]
+Version=1.0
+Name=Telegram Desktop (Secure Sandbox)
+Comment=Official desktop version of Telegram inside Firejail Sandbox
+Exec=firejail --profile=telegram /usr/bin/telegram-desktop %u
+Icon=/home/\$USER/.local/share/icons/256x256@2x/telegram-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+MimeType=x-scheme-handler/tg;
+EOF
+```
+
+### Isolating Telegram via Bubblewrap:
+
+**1.** Create the wrapper script `/usr/local/bin/telegram-bwrap.sh`:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/telegram-bwrap.sh
 #!/bin/bash
-mkdir -p "$HOME/Downloads/Telegram_Downloads" "$HOME/.local/share/TelegramDesktop" "$HOME/.config/TelegramDesktop"
+mkdir -p "\$HOME/Downloads/Telegram_Downloads" "HOME/.local/share/TelegramDesktop" "HOME/.config/TelegramDesktop"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -6750,49 +6274,52 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "$HOME" \
+  --tmpfs "\$HOME" \
   --share-net \
-  --bind "$HOME/Downloads/Telegram_Downloads" "$HOME/Downloads/Telegram_Downloads" \
-  --bind "$HOME/.local/share/TelegramDesktop" "$HOME/.local/share/TelegramDesktop" \
-  --bind "$HOME/.config/TelegramDesktop" "$HOME/.config/TelegramDesktop" \
+  --bind "\(HOME/Downloads/Telegram_Downloads" "\)HOME/Downloads/Telegram_Downloads" \
+  --bind "HOME/.local/share/TelegramDesktop" "HOME/.local/share/TelegramDesktop" \
+  --bind "HOME/.config/TelegramDesktop" "HOME/.config/TelegramDesktop" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv QT_QPA_PLATFORM "wayland" \
   --die-with-parent \
-  -- /usr/bin/telegram-desktop "$@"
+  -- /usr/bin/telegram-desktop "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/telegram-bwrap.sh
 ```
 
-* Create the desktop launcher entry `/usr/local/share/applications/telegram-bwrap.desktop`:
+**2.** Create the desktop launcher `~/.local/share/applications/telegram-bwrap.desktop`:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/telegram-bwrap.desktop
+cat <<EOF > ~/.local/share/applications/telegram-bwrap.desktop
 [Desktop Entry]
 Name=Telegram Desktop (Sandbox)
 Comment=Official Telegram Desktop client in bwrap sandbox
 Exec=/usr/local/bin/telegram-bwrap.sh -- %u
-Icon=/home/$USER/.local/share/icons/256x256@2x/telegram-secure.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/telegram-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
 MimeType=x-scheme-handler/tg;
 Keywords=tg;chat;messaging;messenger;sms;telecom;telephony;
 StartupWMClass=telegram-desktop
-EOF' && sudo chmod 644 /usr/local/share/applications/telegram-bwrap.desktop
+EOF
+chmod 644 ~/.local/share/applications/telegram-bwrap.desktop
 ```
 
-#### Installing and Isolating Signal Messenger:
-**1.** Download the distribution binary, signature, and public key:
+### Installing and Isolating Signal via Bubblewrap:
 
+I decided not to wrestle with Firejail configuration files to isolate this application, so I cover setting up and launching Signal exclusively via Bubblewrap.
+
+**1.** Download the distribution package, signature, and public signing key:
 ```bash
-curl -L -O [https://updates.signal.org/desktop/signal-desktop.AppImage](https://updates.signal.org/desktop/signal-desktop.AppImage) && curl -s -o signal-appimage.asc [https://updates.signal.org/static/desktop/appimage.asc](https://updates.signal.org/static/desktop/appimage.asc) && gpg --import signal-appimage.asc && curl -L -O [https://updates.signal.org/desktop/signal-desktop.AppImage.gpg](https://updates.signal.org/desktop/signal-desktop.AppImage.gpg) && gpg --verify signal-desktop.AppImage.gpg signal-desktop.AppImage
+curl -L -O https://signal.org && curl -s -o signal-appimage.asc https://signal.org && gpg --import signal-appimage.asc && curl -L -O https://signal.org.gpg && gpg --verify signal-desktop.AppImage.gpg signal-desktop.AppImage
 ```
 
-**2.** Extract and deploy to `/opt/signal`:
+**2.** Extract and install the application into `/opt/signal`:
 ```bash
 chmod +x signal-desktop.AppImage && ./signal-desktop.AppImage --appimage-extract && sudo rm -rf /opt/signal && sudo mv squashfs-root /opt/signal && sudo chmod -R 755 /opt/signal && rm -rf signal-desktop.AppImage signal-desktop.AppImage.gpg signal-appimage.asc
 ```
@@ -6801,10 +6328,10 @@ chmod +x signal-desktop.AppImage && ./signal-desktop.AppImage --appimage-extract
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/signal-bwrap.sh
 #!/bin/bash
-# Automatic creation of the profile workspace directory
-mkdir -p "$HOME/.config/Signal"
+# Automatically create the profile working directory
+mkdir -p "\$HOME/.config/Signal"
 
-# Launch Signal from /opt/signal inside a Bubblewrap sandbox
+# Launch Signal from /opt/signal inside the Bubblewrap sandbox
 exec bwrap \
   --ro-bind /usr /usr \
   --ro-bind /lib /lib \
@@ -6816,106 +6343,209 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --bind "$HOME/.config/Signal" "$HOME/.config/Signal" \
+  --bind "HOME/.config/Signal" "HOME/.config/Signal" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --share-net \
   --die-with-parent \
-  -- /opt/signal/signal-desktop --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
+  -- /opt/signal/signal-desktop --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/signal-bwrap.sh
 ```
 
-* Create a Signal desktop entry with custom icon integration:
+**4.** Create the Signal desktop launcher with our custom icon:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/share/applications/signal-bwrap.desktop
+cat <<EOF > ~/.local/share/applications/signal-bwrap.desktop
 [Desktop Entry]
 Name=Signal (Sandbox)
 Comment=Private messaging application in Bubblewrap
 Exec=/usr/local/bin/signal-bwrap.sh %U
-Icon=/home/$USER/.local/share/icons/256x256@2x/signal-secure.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/signal-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
 StartupWMClass=Signal
-EOF' && sudo chmod 644 /usr/share/applications/signal-bwrap.desktop
+EOF
+chmod 644 ~/.local/share/applications/signal-bwrap.desktop
 ```
 
-#### Installing and Isolating Psi+ Jabber Client:
+### Host Cryptographic Foundation: Generating and OPSEC-Hardening GnuPG Keys:
 
-Due to strict UFW configuration, required firewall egress rules must be appended:
+Before forwarding the cryptographic core into isolated messenger and email client sandboxes, we must deploy a rock-solid, mathematically unbreakable asymmetric encryption base on the host using **OpenPGP (GnuPG)**. Mistakes during key generation or lax file permissions on key files completely undermine security, allowing local malware to hijack your digital identity.
 
-**1.** Open outbound XMPP ports (5222 and 5223) to all servers for baseline Psi+ connectivity:
+> [!NOTE]
+> The GnuPG toolkit is pre-installed by default on Ubuntu Desktop. The `apt` package manager continuously relies on GPG cryptographic algorithms at a deep system level to verify Canonical repository signatures during every system update, so the utility works out of the box.
+
+**1.** We reject legacy, heavyweight RSA algorithms and adopt modern, ultra-fast, and resilient **elliptic curves (ECC)**. Launch the interactive GnuPG key generator:
+```bash
+gpg --full-generate-key
+```
+**Select strictly the following security options in the interactive prompts:**
+> 1. **Key kind:** Choose `(9) ECC and ECC (Sign and Encrypt)` — this provides separate elliptic keys for signing and encryption.
+> 2. **Elliptic curve:** Choose `(1) Curve 25519` (the renowned Edwards curve `Ed25519`/`Cv25519`) — a globally recognized EdDSA standard free from suspected backdoors.
+> 3. **Expiration:** Choose `0` (key does not expire) OR set a strict rotation policy (for example, `1y` — one year).
+> 4. **User ID:** Enter your name/handle and email address.
+> 5. **Passphrase:** The system will prompt for a passphrase to protect your secret key in RAM. Use a generated passphrase of **at least 20–24 characters** (random uppercase and lowercase letters, digits, and special symbols).
+
+> [!IMPORTANT]
+> If you are building a strictly anonymous communication contour, use a purely fictional alias and a dedicated email address under a privacy-respecting jurisdiction (e.g., `dark_agent@proton.me`).
+
+**2.** By default, the `~/.gnupg` directory is created with overly permissive access rights. If an unprivileged spy script gets onto the system, it could read your key metadata. Block this vector by enforcing strict POSIX permission masks on the hidden directory and its files at the Linux kernel level:
+```bash
+chmod 700 ~/.gnupg && find ~/.gnupg -type f -exec chmod 600 {} + && find ~/.gnupg -type d -exec chmod 700 {} +
+```
+
+> **Physics of Protection:** The permissions mask is now a clean security monolith (`drwx------`). Any process not running under your current user account will hit a hard kernel refusal when attempting to inspect the key folder: `Permission denied`.
+
+> **(OPSEC Guidelines for Storing Public and Private Key Pairs):** Asymmetric cryptography splits data into two entities, and their storage rules differ fundamentally:
+
+> [!IMPORTANT]
+> When running the export commands, replace the placeholder email `YOUR-EMAIL@DOMAIN.COM` with the exact email address you entered in Step 1 during key generation. Otherwise, GnuPG will output `WARNING: nothing exported`.
+
+**3.** Public Key: Your digital business card. Contacts use it to encrypt messages for you and verify your digital signatures. Its exposure is non-sensitive—you can publish it on GitHub, share it in public chats, or pin it to your XMPP profile. Export your public key to a text file:
+```bash
+gpg --armor --export YOUR-EMAIL@DOMAIN.COM > ~/Downloads/my_public_key.asc
+```
+
+**4.** Export your private key to the `Downloads` directory:
+```bash
+gpg --armor --export-secret-keys YOUR-EMAIL@DOMAIN.COM > ~/Downloads/my_PRIVATE_key.asc
+```
+
+**MANUAL ACTION:** Copy `my_PRIVATE_key.asc` onto an encrypted external drive!
+
+**5.** Destroy the temporary private key in `Downloads` using the secure deletion utility `shred`:
+```bash
+shred -u -v -n 3 ~/Downloads/my_PRIVATE_key.asc
+```
+
+> [!WARNING]
+> **Private Key:** Your digital life—the DNA of your sovereignty. You use it to decrypt incoming messages and sign your files. It must **NEVER** be stored in cloud drives, email accounts, or network shares. The master private key must reside exclusively in Cold Storage—on an encrypted external medium (or inside an encrypted container). Only easily revocable working secret subkeys (`Subkeys`) should be imported into `~/.gnupg` on the LUKS host for daily email encryption, preventing total identity compromise if the machine is lost or breached.
+
+> [!NOTE]
+> The mechanics of securely wiping residual data with `shred`/`wipe`, scrubbing metadata with `mat2`, and deploying **VeraCrypt** encrypted containers were covered in detail in earlier chapters. By this stage, you should already have an encrypted offline drive ready to receive your private key before permanently burning the copy in `Downloads`.
+
+### Installing and Isolating the Jabber Client Psi+:
+
+For everyday tasks, regular users choose Telegram. However, in the information security profession, the gold standard for privacy, decentralization, and complete digital sovereignty remains the **XMPP (Jabber)** protocol paired with end-to-end encryption.
+
+As our reference client, we will use **Psi+**. Unlike heavyweight Gajim (written in Python with a massive cascade of third-party dependencies), Psi+ is a native Qt/C++ client featuring a minimalist architecture and built-in XMPP diagnostic tools, including an XML console.
+
+However, any XMPP client continuously processes huge streams of external XML data, asynchronous links, avatars, and media files from untrusted contacts. This theoretically exposes a dangerous vector for parsing vulnerabilities (including critical buffer overflows inside the application core). We significantly limit the impact of a potential vulnerability in Psi+ by isolating the client inside our sandboxes.
+
+Depending on your threat model, there are three legitimate encryption vectors for your chats:
+
+* **OMEMO (Modern Standard):** Based on the Double Ratchet cryptographic protocol (as used in Signal), supporting Forward Secrecy and encrypted file transfers. Ideal for daily operational security.
+* **OpenPGP/GnuPG (Old-School Benchmark):** Asymmetric encryption built on strong key pairs. The Psi+ OpenPGP plugin leverages your local GnuPG infrastructure to handle OpenPGP keys.
+* **OTR (Off-the-Record Messaging):** Symmetric cryptographic confidentiality with deniable authentication (keys are ephemeral and negotiated per session).
+
+Our goal is to create a resilient sandbox profile that isolates the filesystem while seamlessly passing through whichever cryptographic contour you choose.
+
+Because we configured strict UFW firewall rules earlier, we need to open the required XMPP ports:
+
+**1.** Open outbound XMPP ports (`5222` and `5223`) to all servers for baseline Psi+ connectivity:
 ```bash
 sudo ufw allow out to any port 5222 proto tcp && sudo ufw allow out to any port 5223 proto tcp
 ```
 
 * **For Ubuntu 24.04 LTS Noble Numbat users:**
 
-**2.** The default native package in Ubuntu 24.04 repositories suffers from critical Qt library linking errors under the Wayland display server (resulting in *Segmentation fault* crashes). To bypass this system bug, add the official Psi+ developers PPA, fetch the adapted stable release Psi+ v1.5.2068, the plugin package (including OMEMO), and the GnuPG system base using a single command:
+**1.** The default native package in the Ubuntu 24.04 repositories suffers from critical Qt library linking bugs under the Wayland display server (causing immediate *Segmentation fault* crashes). To bypass this system bug, add the official Psi+ developers' PPA and install the adapted stable build (`Psi+ v1.5.2068`), the plugin suite (including OMEMO), and the GnuPG base in one command:
 ```bash
 sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
 ```
 
 * **For Ubuntu 26.04 LTS Resolute Racoon users:**
 
-In Ubuntu 26.04, the repository version of Psi+ is locked at branch 1.4.1456. The required version 1.5.2068 could not simply be ported over from Noble because prebuilt Noble plugins were compiled against obsolete ABIs. Therefore, Psi+ 1.5.2068 was rebuilt directly on Ubuntu 26.04 Resolute from the original 1.5.2068 source archive. The client and plugins were merged into a single package named `psi-plus-resolute-client-and-plugins_1.5.2068-1~resolute1_amd64.deb`. As a result, OMEMO, OTR, and OpenPGP utilize native Resolute system libraries without backporting legacy Noble dependencies.
+On Ubuntu 26.04, the stock repository ships branch `1.4.1456`. The required `1.5.2068` release could not simply be copied over from Noble because prebuilt Noble plugins were linked against older ABIs. Therefore, `Psi+ 1.5.2068` was rebuilt directly on Ubuntu 26.04 Resolute from the `1.5.2068` source archive, bundling the client and plugins into a single package (`psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb`). As a result, OMEMO, OTR, and OpenPGP use native Resolute libraries without dragging in legacy Noble dependencies.
 
-Two installation paths are available. Option 1 installs the older yet functional stock client version 1.4.1456. Option 2 installs the compiled version from the book's repository hosted on GitHub.
+You have two installation paths: Option 1 installs the older but functional `Psi+ v1.4.1456` from the standard repository, while Option 2 installs the `1.5.2068` package built on Resolute from the book's GitHub repository.
 
 **Option 1:**
 
-**2A.** Install Psi+ version 1.4.1456 directly from the standard repository:
+**1.** Install `Psi+ v1.4.1456` directly from the standard Ubuntu repository:
 ```bash
 sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
 ```
 
 **Option 2:**
 
-**2B.** Download the custom `.deb` package from the `github.com/eugexo` repository:
+**1.** Download the `.deb` package from the author's GitHub repository (`://github.com`):
 ```bash
-wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_assets/psi-plus/psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
+wget https://githubusercontent.com
 ```
 
 > [!IMPORTANT]
-> Before installing the downloaded `.deb` package, do not blindly trust the retrieved file. Verify its checksum and package contents first. While this does not guarantee the complete absence of malicious code, it ensures file integrity and provides full visibility into the contents prior to installation. **This procedure should be applied to any untrusted sources (especially unofficial ones).**
+> Before installing a prebuilt `.deb` package, never trust the downloaded file blindly. First verify its checksum and inspect its contents. While this does not prove the absence of malicious code, it verifies file integrity and confirms exactly what you are about to install. **This procedure should be applied to all untrusted sources (especially third-party builds).**
 > 
 > Verify the SHA-256 checksum of the package:
 > ```bash
 > sha256sum psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 > ```
 > 
-> Inspect the `.deb` metadata prior to installation:
+> Inspect the `.deb` metadata before installation:
 > ```bash
 > dpkg-deb -I psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 > ```
 > 
-> Inspect the full contents of the package:
+> List the contents of the package:
 > ```bash
 > dpkg-deb -c psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb
 > ```
-> Matching SHA-256 with a known reference checksum confirms file integrity against a trusted baseline, but does not inherently prove software safety. Thus, checksum verification serves as one layer of verification rather than an absolute guarantee of trust.
+> A matching SHA-256 hash confirms file integrity against a known reference, though it is not an absolute guarantee of software safety—treat checksum verification as one layer of defense rather than blind trust.
 
-**3.** Following checksum verification, proceed with the Psi+ installation. Ubuntu will pull in the required missing dependencies automatically:
+**2.** Once the checksum is verified, install Psi+. Ubuntu will automatically resolve and pull in any missing runtime libraries:
 ```bash
 sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
 ```
 
-Next, isolate the Psi+ Jabber client inside a **Bubblewrap** sandbox.
+### Isolating Psi+ in Firejail:
 
-**4.** Create the isolation wrapper script `/usr/local/bin/psi-bwrap.sh`:
+**1.** Launch Psi+ using its standard command. Firejail will automatically apply the built-in security profile and launch the graphical interface:
+```bash
+firejail psi-plus
+```
+
+Psi+ supports OMEMO, OTR, and OpenPGP for encrypting chats, while Firejail's mandatory sandbox restricts access to the host filesystem and drastically limits the blast radius of any potential application exploit.
+
+I intentionally excluded WebKit/WebEngine and other non-essential components from the custom package build. The result is a lean `Psi+ 1.5.2068` installation with the full standard plugin suite (OMEMO, OTR, OpenPGP) and zero unnecessary rendering engines or attack surface.
+
+> [!IMPORTANT]
+> For file transfers, any additional outbound firewall rules depend on your XMPP server's HTTP Upload or proxy configuration.
+
+**2.** Generate the security launcher for **Psi+**, registering it in the GNOME menu with our custom icon:
+```bash
+cat <<EOF > ~/.local/share/applications/psi-plus.desktop
+[Desktop Entry]
+Version=1.0
+Name=Psi+ (Secure Sandbox)
+Comment=XMPP client with OMEMO/GPG safely inside Firejail Sandbox
+Exec=firejail psi-plus
+Icon=/home/\$USER/.local/share/icons/256x256@2x/psi-secure.png
+Terminal=false
+Type=Application
+Categories=Network;InstantMessaging;
+EOF
+```
+
+> [!WARNING]
+> After closing the main window with the `X` button, the Psi+ background process (`psi-plus`) remains active and minimizes to the system tray. If you do not fully quit the application from memory, launching an alternate shortcut will hijack the existing session.
+
+### Isolating the Psi+ Jabber Client in Bubblewrap:
+
+**1.** Create the wrapper script `/usr/local/bin/psi-bwrap.sh`:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/psi-bwrap.sh
 #!/bin/bash
-mkdir -p "$HOME/Downloads/Psi_Downloads" \
-         "$HOME/.config/psi-plus" \
-         "$HOME/.local/share/psi-plus" \
-         "$HOME/.gnupg"
+mkdir -p "\$HOME/Downloads/Psi_Downloads" \
+         "\$HOME/.config/psi-plus" \
+         "\$HOME/.local/share/psi-plus" \
+         "\$HOME/.gnupg"
 
-XAUTH="${XAUTHORITY:-$HOME/.Xauthority}"
+XAUTH="XAUTHORITY:-HOME/.Xauthority}"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -6928,48 +6558,51 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "$HOME" \
+  --tmpfs "\$HOME" \
   --share-net \
-  --bind "$HOME/Downloads/Psi_Downloads" "$HOME/Downloads/Psi_Downloads" \
-  --bind "$HOME/.config/psi-plus" "$HOME/.config/psi-plus" \
-  --bind "$HOME/.local/share/psi-plus" "$HOME/.local/share/psi-plus" \
-  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
+  --bind "\(HOME/Downloads/Psi_Downloads" "\)HOME/Downloads/Psi_Downloads" \
+  --bind "HOME/.config/psi-plus" "HOME/.config/psi-plus" \
+  --bind "HOME/.local/share/psi-plus" "HOME/.local/share/psi-plus" \
+  --bind-try "HOME/.gnupg" "HOME/.gnupg" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/at-spi" "$XDG_RUNTIME_DIR/at-spi" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/at-spi" "\)XDG_RUNTIME_DIR/at-spi" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
   --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
-  --ro-bind-try "$XAUTH" "$XAUTH" \
-  --setenv DISPLAY "${DISPLAY:-:0}" \
-  --setenv XAUTHORITY "$XAUTH" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "XAUTH" "XAUTH" \
+  --setenv DISPLAY "\${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "\$XAUTH" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv QT_QPA_PLATFORM "xcb" \
   --die-with-parent \
-  -- /usr/bin/psi-plus "$@"
+  -- /usr/bin/psi-plus "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/psi-bwrap.sh
 ```
 
-* Create the desktop launcher entry `/usr/local/share/applications/psi-bwrap.desktop`:
+**2.** Create the desktop launcher `~/.local/share/applications/psi-bwrap.desktop`:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/psi-bwrap.desktop
+cat <<EOF > ~/.local/share/applications/psi-bwrap.desktop
 [Desktop Entry]
 Name=Psi+ (Sandbox)
 Comment=Jabber/XMPP Client in bwrap sandbox
 Exec=/usr/local/bin/psi-bwrap.sh %u
-Icon=/home/$USER/.local/share/icons/256x256@2x/psi-secure.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/psi-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
 StartupWMClass=psi-plus
-EOF' && sudo chmod 644 /usr/local/share/applications/psi-bwrap.desktop
+EOF
+chmod 644 ~/.local/share/applications/psi-bwrap.desktop
 ```
 
-#### Installing and Isolating Thunderbird Email Client:
+### Installing and Isolating the Thunderbird Email Client (Encrypted Email Contour):
 
-**1.** The default `thunderbird` package in Ubuntu repositories is a dummy transitional package that enforces the installation of the pruned `snapd` framework. To bypass this system deadlock and force the package manager to fetch the clean binary directly from the official Mozilla Team PPA, create a strict pin configuration:
+Email is a critical attack surface on any workstation. Modern phishing and targeted attacks rely on malicious attachments and hidden JavaScript payloads embedded inside incoming messages. Running an email client without isolation poses a direct threat of host compromise. We will deploy the reference **Thunderbird** client, seal its mail database inside an isolated sandbox, and bind it to our OpenPGP cryptographic core.
+
+**1.** The default `thunderbird` package in Ubuntu's repositories is a transitional dummy package that forcefully pulls in the `snapd` daemon we purged earlier. To bypass this deadlock and force `apt` to install the clean native binary directly from the Mozilla Team PPA, create a strict APT pinning configuration file:
 ```bash
 sudo tee /etc/apt/preferences.d/mozilla-thunderbird <<EOF
 Package: thunderbird*
@@ -6981,51 +6614,70 @@ Pin-Priority: -10
 EOF
 ```
 
-**2.** Protect the native package from accidental removal, downgrade, or automated replacement by Snap dummies during background updates:
+**2.** Protect our native package from accidental removal, downgrade, or replacement by a Snap dummy package during unattended background updates:
 
 * **For Ubuntu 24.04 LTS Noble Numbat users:**
 ```bash
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:noble";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 ```
-
-* **For Ubuntu 26.04 LTS Resolute Raccoon users:**
+* **For Ubuntu 26.04 LTS Resolute Racoon users:**
 ```bash
 echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | sudo tee /etc/apt/apt.conf.d/51unattended-upgrades-mozilla
 ```
 
-**3.** Update repository indices and install native Thunderbird:
+**3.** Update the package index and install native Thunderbird:
 ```bash
 sudo apt update && sudo apt install thunderbird -y
 ```
 
-> [!WARNING]
-> Do NOT launch Thunderbird while online. On initial startup, the client immediately transmits initial telemetry packets over the network.
+### Isolating Thunderbird with Firejail:
 
-**4.** Disable network connectivity to prevent telemetry initialization, then start Thunderbird once to generate the default profile structure:
+**4.** Create a Firejail profile for Thunderbird:
+```bash
+mkdir -p ~/.config/firejail && nano ~/.config/firejail/thunderbird.profile
+```
+
+**5.** Add the core isolation rules to the file:
+```ini
+caps.drop all
+nonewprivs
+
+whitelist ~/.thunderbird
+whitelist ~/Downloads/Mail_Attachments
+
+# Terminate the sandbox immediately when the application exits
+deterministic-shutdown
+```
+
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit.
+
+> [!WARNING]
+> **Steps 6–12 below** apply to both **Firejail** and **Bubblewrap** setups. **Strictly avoid** clicking the Thunderbird icon while the system is online! On its very first launch, the client will immediately transmit initial telemetry packets over the network.
+
+**6.** Completely disable networking so the email client cannot "phone home" during profile initialization, then launch Thunderbird to generate its initial profile directory structure:
 ```bash
 nmcli networking off
 ```
+**After running this command, launch Thunderbird manually from the application menu.** Wait 2–3 seconds for it to generate the profile folders, then close the program completely.
 
-**After executing the command, launch Thunderbird manually from the applications menu.** Wait 2–3 seconds for directory structure generation, then close the application completely.
-
-**5.** Navigate to the newly created UUID profile directory and initialize an empty `user.js` configuration file:
+**7.** Navigate into the newly created UUID profile directory and create a clean `user.js` configuration file:
 ```bash
 cd ~/.thunderbird/*default-release && touch user.js
 ```
 
-**6.** Open `user.js` using the `nano` terminal text editor:
+**8.** Open `user.js` in `nano`:
 ```bash
 nano user.js
 ```
 
-**7.** Copy the full hardening configuration matrix below to disable Gecko engine telemetry and tracking modules, then paste it into the editor:
+**9.** Paste our hardened OPSEC configuration array below to silence Gecko tracking and telemetry modules:
 ```javascript
 // ============================================================================
 // HARDENING CONFIG FOR MOZILLA THUNDERBIRD (USER.JS)
-// OPTIMIZED OPSEC CONTOUR FOR EMAIL PRIVACY AND SILENCE
+// OPTIMIZED OPSEC CONTOUR FOR SILENCE AND EMAIL PRIVACY
 // ============================================================================
 
-// 1. TOTAL TELEMETRY AND BREAKPAD CRASH REPORTING REMOVAL
+// 1. COMPLETE REMOVAL OF SYSTEM TELEMETRY AND CRASH REPORTING (BREAKPAD)
 user_pref("toolkit.telemetry.unified", false);
 user_pref("toolkit.telemetry.enabled", false);
 user_pref("toolkit.telemetry.archive.enabled", false);
@@ -7039,21 +6691,20 @@ user_pref("toolkit.crashreporter.enabled", false);
 user_pref("breakpad.reportURL", "data:text/plain,");
 user_pref("security.ssl.errorReporting.automatic", false);
 user_pref("network.allow-experiments", false);
-
-// Clear build history and unique profile UUID identifiers (DAU)
+// Purge build history and unique profile UUID identifiers (DAU)
 user_pref("toolkit.telemetry.cachedClientID", "");
 user_pref("toolkit.telemetry.cachedProfileGroupID", "");
 user_pref("toolkit.telemetry.previousBuildID", "");
 user_pref("datareporting.dau.cachedUsageProfileGroupID", "");
 user_pref("datareporting.dau.cachedUsageProfileID", "");
 
-// 2. DISABLE HIDDEN EXPERIMENTS (MOZILLA STUDIES/EXPERIMENTS/NIMBUS)
+// 2. DISABLE HIDDEN STUDIES (MOZILLA STUDIES/EXPERIMENTS/NIMBUS)
 user_pref("app.shield.optoutstudies.enabled", false);
 user_pref("app.normandy.enabled", false);
 user_pref("app.normandy.api_url", "");
 user_pref("nimbus.telemetry.targetingContextEnabled", false);
 
-// 3. BASELINE PRIVACY AND IN-MAIL TRACKER BLOCKING
+// 3. CORE PRIVACY AND EMAIL TRACKER BLOCKING
 user_pref("privacy.trackingprotection.enabled", true);
 user_pref("privacy.trackingprotection.socialtracking.enabled", true);
 user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
@@ -7061,7 +6712,7 @@ user_pref("dom.private-attribution.submission.enabled", false);
 user_pref("dom.netinfo.enabled", false);
 user_pref("beacon.enabled", false);
 
-// 4. BLOCK BACKGROUND NETWORK PREFETCHING AND PREDICTION
+// 4. BLOCK BACKGROUND NETWORK ACTIVITY AND PREFETCHING (PREDICTION/PREFETCH)
 user_pref("network.predictor.enabled", false);
 user_pref("network.predictor.enable-hover", false);
 user_pref("network.prefetch-next", false);
@@ -7069,17 +6720,17 @@ user_pref("network.dns.disablePrefetch", true);
 user_pref("network.dns.disablePrefetchFromHTTPS", true);
 user_pref("network.http.speculative-parallel-limit", 0);
 
-// 5. PURGE ADD-ON RECOMMENDATIONS AND CACHE
+// 5. REMOVE ADD-ON RECOMMENDATIONS AND CACHING
 user_pref("extensions.getAddons.cache.enabled", false);
 user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
 user_pref("browser.discovery.enabled", false);
 
-// 6. RELOCATE CACHE ENTIRELY TO RAM (SSD LIFESPAN PROTECTION)
+// 6. MOVE CACHE ENTIRELY TO RAM (PROTECT SSD LIFESPAN)
 user_pref("browser.cache.disk.enabled", false);
 user_pref("browser.cache.memory.enabled", true);
 user_pref("browser.cache.memory.capacity", 262144);
 
-// 7. PERIPHERAL ISOLATION, START PAGE, AND HOME CALL PREVENTION
+// 7. ISOLATE PERIPHERALS, START PAGE, AND PHONE-HOME CHECKS
 user_pref("mailnews.start_page.enabled", false);
 user_pref("mailnews.start_page.url", "about:blank");
 user_pref("mail.shell.checkDefaultClient", false);
@@ -7088,47 +6739,69 @@ user_pref("media.peerconnection.use_document_iceservers", false);
 user_pref("dom.gamepad.enabled", false);
 user_pref("device.sensors.enabled", false);
 
-// 8. PREVENT MICRO DATA LEAKS AND ENABLE URL QUERY STRIPPING
+// 8. CLOSE MICRO-LEAKS AND ENABLE URL QUERY STRIPPING
 user_pref("privacy.query_stripping.enabled", true);
 user_pref("privacy.query_stripping.enabled.pbmode", true);
 user_pref("layout.css.font-visibility", 1);
 user_pref("network.http.referer.XOriginPolicy", 2);
 
-// 9. UI OPTIMIZATION AND WEBRENDER HARDWARE ACCELERATION
+// 9. INTERFACE OPTIMIZATION AND WEBRENDER HARDWARE ACCELERATION
 user_pref("general.smoothScroll", true);
 user_pref("mousewheel.min_line_scroll_amount", 20);
 user_pref("gfx.webrender.all", true);
 user_pref("dom.ipc.processCount", 8);
 
-// 10. NETWORK FOOTPRINT MASKING AND SERVICE ISOLATION
-// Rebind internal Gecko connectivity checks to a neutral configuration and enforce a US locale baseline
+// 10. NETWORK FINGERPRINT MASKING AND SERVICE REQUEST ISOLATION
 user_pref("browser.search.region", "US");
 user_pref("geo.enabled", false);
 user_pref("webgl.disabled", true);
 ```
 
-Save the file in `nano` by pressing **Ctrl + O** → **Enter**, then exit with **Ctrl + X**.
+To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
 
-**8.** Lock down permissions using a strict POSIX read-only mask to prevent host processes from modifying security settings:
+**10.** Lock down file permissions using a strict POSIX read-only mask (`0400`) so no background process can silently alter your security baseline:
 ```bash
 chmod 0400 user.js
 ```
 
-**9.** Initialize a dedicated attachment directory to prevent downloaded files from polluting the host filesystem:
+**11.** Create a dedicated transfer directory for email attachments so downloaded files cannot scatter across the filesystem:
 ```bash
 mkdir -p ~/Downloads/Mail_Attachments
 ```
 
-**10.** Restore network connectivity (replace `enp0s1` with your actual network interface name):
+**12.** Re-enable internet connectivity (replace `enp0s1` with your actual interface name):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
 
-**11.** Generate the Bubblewrap sandbox wrapper script for Thunderbird:
+**13.** Launch the sandboxed Thunderbird instance using our custom profile:
+```bash
+firejail --profile=thunderbird /usr/bin/thunderbird
+```
+
+**14.** Generate the security launcher for **Thunderbird** under Firejail:
+```bash
+cat <<EOF > ~/.local/share/applications/thunderbird.desktop
+[Desktop Entry]
+Version=1.0
+Name=Thunderbird (Secure Sandbox)
+Comment=Send and receive mail safely inside Firejail Sandbox
+Exec=firejail --profile=thunderbird /usr/bin/thunderbird
+Icon=/home/\$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Terminal=false
+Type=Application
+Categories=Network;Email;
+MimeType=message/rfc822;x-scheme-handler/mailto;
+EOF
+```
+
+### Isolating Thunderbird via Bubblewrap:
+
+**1.** Build the wrapper script for Thunderbird:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/thunderbird-bwrap.sh
 #!/bin/bash
-mkdir -p "$HOME/Downloads/Mail_Attachments" "$HOME/.thunderbird"
+mkdir -p "\(HOME/Downloads/Mail_Attachments" "\)HOME/.thunderbird"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -7141,68 +6814,91 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "$HOME" \
+  --tmpfs "\$HOME" \
   --share-net \
-  --bind "$HOME/Downloads/Mail_Attachments" "$HOME/Downloads/Mail_Attachments" \
-  --bind "$HOME/.thunderbird" "$HOME/.thunderbird" \
-  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
+  --bind "\(HOME/Downloads/Mail_Attachments" "\)HOME/Downloads/Mail_Attachments" \
+  --bind "HOME/.thunderbird" "HOME/.thunderbird" \
+  --bind-try "HOME/.gnupg" "HOME/.gnupg" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
-  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
   --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
-  --ro-bind-try "${XAUTHORITY:-$HOME/.Xauthority}" "${XAUTHORITY:-$HOME/.Xauthority}" \
-  --setenv DISPLAY "${DISPLAY:-:0}" \
-  --setenv XAUTHORITY "${XAUTHORITY:-$HOME/.Xauthority}" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "XAUTHORITY:-HOME/.Xauthority}" "XAUTHORITY:-HOME/.Xauthority}" \
+  --setenv DISPLAY "\${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "XAUTHORITY:-HOME/.Xauthority}" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
   --setenv MOZ_ENABLE_WAYLAND "1" \
   --die-with-parent \
-  -- /usr/bin/thunderbird "$@"
+  -- /usr/bin/thunderbird "\$@"
 EOF' && sudo chmod 755 /usr/local/bin/thunderbird-bwrap.sh
 ```
 
-* Create the desktop launcher entry to execute Thunderbird inside the sandbox:
+**2.** Create the `.desktop` launcher so Thunderbird always starts inside the Bubblewrap sandbox:
 ```bash
-sudo bash -c 'cat << "EOF" > /usr/local/share/applications/thunderbird-bwrap.desktop
+cat <<EOF > ~/.local/share/applications/thunderbird-bwrap.desktop
 [Desktop Entry]
 Name=Thunderbird (Hardened Sandbox)
 Comment=Hardened Mail Client inside Bubblewrap
 Exec=/usr/local/bin/thunderbird-bwrap.sh %u
-Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Icon=/home/\$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
 Terminal=false
 Type=Application
 Categories=Network;Email;
 StartupWMClass=thunderbird
-EOF' && sudo chmod 644 /usr/local/share/applications/thunderbird-bwrap.desktop
+EOF
+chmod 644 ~/.local/share/applications/thunderbird-bwrap.desktop
 ```
 
-Finally, replace the system icons to better complement the custom set.
+> [!WARNING]
+> Don't forget to apply **Steps 6–12** from above when configuring Thunderbird for Bubblewrap!
 
-* For **Ubuntu 24.04**, replace the **Terminal** icon:
+> [!IMPORTANT]
+> *Algorithm for Safely Reading Encrypted Email in Firejail and Bubblewrap Sandboxes* **(Air-Gapped Contour):** Because storing a private key permanently on the host or inside a sandbox is a critical security risk, we use temporary isolated key importing in full offline mode:
+> 
+> **1.** Launch Thunderbird inside your sandbox to fetch and download incoming encrypted messages from the mail server.
+> **2.** Completely disable the host network interface, putting both the OS and Thunderbird into an isolated offline state:
+> ```bash
+> nmcli networking off
+> ```
+> **3.** Connect your encrypted external USB drive and copy your key files strictly into our sole permitted exchange gateway: `~/Downloads/Mail_Attachments`.
+> **4.** In the top-right corner of Thunderbird, click the **hamburger menu**, navigate to **Tools** → **OpenPGP Key Manager** → **File**, and select **Import Public Key(s) From File** and **Import Secret Key(s) From File** in turn.
+> **5.** Import the keys from the gateway folder, decrypt, and read your confidential emails.
+> **6.** Once finished reading, delete the private key completely from Thunderbird's Key Manager.
+> **7.** Permanently destroy the key files inside the exchange folder by running the kernel secure-erase utility `shred` with 3 overwrite passes:
+> ```bash
+> shred -u -n 3 ~/Downloads/Mail_Attachments/PRIVATE_key.asc
+> ```
+> **8.** Only after wiping all cryptographic traces, restore host networking. On Ubuntu 24.04/26.04, automatic link recovery after disabling networking often stalls; bring the connection up explicitly (replace `netplan-enp0s1` with your actual interface name):
+> ```bash
+> nmcli networking on && nmcli connection up netplan-enp0s1
+> ```
+> 
+> Mail traffic remains fully visible to Portmaster's eBPF lenses while the host filesystem stays strictly protected: even if an incoming encrypted email carries a zero-day exploit, the attack is contained inside the isolated sandbox with no network channel for data exfiltration and no way to breach the host's read-only boundaries!
+
+### Advanced "Paranoia" Mode: Firejail with Session Persistence via Overlay:
+
+Using `--private` is ideal for disposable one-off sessions. But what if you need to thoroughly inspect a suspicious utility, preserve its configuration files or plugins across runs, and still guarantee that your real operating system remains untouched?
+
+For this scenario, leverage Firejail's killer feature—**Overlay** mode. It creates a temporary virtual filesystem layer on top of your real disk. The application sees all your files, yet cannot alter a single byte on the underlying drive: every write attempt, configuration file creation, or hidden malware drop is redirected into an isolated hidden sandbox directory.
+
+**1.** Launch the application while saving filesystem changes to an overlay layer:
 ```bash
-sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop 
+firejail --overlay-dir=~/.sandbox_overlay --seccomp --nonewprivs telegram-desktop
 ```
+*(The `--overlay-dir=` flag specifies the directory where all changes made by the program during the session are recorded.)*
 
-* Change the **Ptyxis** icon for **Ubuntu 26.04**:
+**2.** After closing the application, inspect the created directory to review every modification it attempted:
 ```bash
-sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
+ls -la ~/.sandbox_overlay
 ```
+You will see every hidden file the utility tried to create or modify inside `/etc`, `/var`, or your home profile!
 
-* Replace the **Trash** icon with a custom one:
+**3.** If you are satisfied that the software behaved safely, you can keep the overlay directory for subsequent runs. If the program exhibited suspicious behavior, wipe all traces of its activity in one clean command:
 ```bash
-for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
-```
-
-* Restore standard read permissions for system icons:
-```bash
-sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
-```
-
-* Force the graphical desktop environment to reindex the database and refresh the icon cache:
-```bash
-update-desktop-database ~/.local/share/applications/ && gtk-update-icon-cache -f ~/.local/share/icons/
+rm -rf ~/.sandbox_overlay
 ```
 
 <br>
@@ -7296,7 +6992,7 @@ Save the configuration in `nano` by pressing **"Ctrl + O"** ➔ **"Enter"**, the
 > 
 > Skipping this step causes subsequent `Rkhunter` scans to emit critical false warnings across basic system binaries (such as `ls`, `ps`, or `top`), as their file hashes naturally change during official package updates. The correct administrative workflow is: upgrade system packages ➔ verify overall system stability ➔ execute `sudo rkhunter --propupd` to refresh the reference snapshot in the database.
 
-#### Installing Chkrootkit Alongside Rkhunter
+### Installing Chkrootkit Alongside Rkhunter
 
 While **Rkhunter** relies on a baseline hash database of system binaries, **Chkrootkit** performs dynamic auditing: it checks for known LKM (Loadable Kernel Module) rootkit signatures, scans `/proc` for hidden processes, and cross-references `ps` output with the process tree. Combining both tools fulfills the Defense-in-Depth security architecture.
 
@@ -7348,14 +7044,14 @@ sudo chkrootkit
 
 ## Installing and Configuring the ClamAV Antivirus Scanner
 
-#### Introduction:
+### Introduction:
 
 ClamAV is a fully featured, open-source antivirus engine. Within Linux operating systems, it is primarily deployed to inspect incoming mail attachments, scan external USB drives, or audit web downloads for embedded malware targeting Windows environments, ensuring known malicious payloads are not inadvertently transferred to other workstations.
 
 > [!IMPORTANT]
 > ClamAV is not a silver bullet and is ineffective against zero-day exploits or targeted malware attacks. However, it serves as an essential baseline for digital hygiene for journalists, lawyers, and human rights defenders who regularly deal with an influx of untrusted files.
 
-#### Installing ClamAV:
+### Installing ClamAV:
 
 **1.** Install the ClamAV antivirus engine and its background system daemon:
 ```bash
@@ -7377,7 +7073,7 @@ sudo apt install clamtk clamtk-gnome -y
 clamtk
 ```
 
-#### Updating Signature Databases and Bypassing Network Blocks:
+### Updating Signature Databases and Bypassing Network Blocks:
 
 The background automatic update service for the antivirus engine may encounter network delivery failures or regional endpoint restrictions (manifesting as HTTP *403 Forbidden* errors). To guarantee secure and reliable database retrieval, disable the automated updater daemon and perform manual synchronization:
 
@@ -7411,7 +7107,7 @@ sudo chown clamav:clamav /var/lib/clamav/*
 sudo systemctl enable clamav-freshclam --now
 ```
 
-#### Structuring System Scans:
+### Structuring System Scans:
 
 **1.** Launch a full root partition scan with elevated superuser privileges:
 ```bash
@@ -7446,7 +7142,7 @@ If the antivirus component is no longer required, execute a complete purge to re
 sudo apt purge clamav clamav-base clamav-daemon clamav-freshclam clamtk -y && sudo apt autoremove --purge -y
 ```
 
-#### Multithreaded Scanning (Hardening):
+### Multithreaded Scanning (Hardening):
 
 By default, the standard `clamscan` command operates strictly single-threaded, causing full system disk audits to take anywhere from 5 to 8 hours while pegging a single CPU core at 100%. To dramatically boost execution efficiency, leverage the multi-threaded `clamdscan` engine powered by the running `clamav-daemon` service. It parallelizes the workload across all available CPU cores, accelerating scan speeds by 4x to 6x!
 
@@ -7572,7 +7268,7 @@ sudo systemctl disable --now vboxautostart-service && sudo systemctl disable --n
 > 
 > This architecture ensures the workstation lacks direct physical access to the local router or host system, forcing all outbound traffic through the Tor anonymous network via the isolated gateway.
 
-#### Anti-Forensics Protection: Isolating VirtualBox Logs in RAM (`tmpfs`)
+### Anti-Forensics Protection: Isolating VirtualBox Logs in RAM (`tmpfs`)
 
 By default, VirtualBox logs very aggressively (`VBoxSVC.log`, `selector.log`, and `VBox.log` inside the specific VM's folder). These logs record host metadata, disk image paths, session timestamps, CPU/RAM parameters, and crash dumps in plain text. To achieve thorough hardening, allowing this data to accumulate on physical storage is unacceptable.
 
@@ -7607,13 +7303,13 @@ done
 
 ## Shrinking and Optimizing VDI Virtual Disks
 
-#### Introduction:
+### Introduction:
 
 During active operation, virtual machine disk files naturally expand over time. Installing software or downloading data inside a guest OS causes the dynamically allocated `*.vdi` virtual disk file to grow on the physical host storage. However, deleting those files within the guest operating system does not automatically reduce the size of the `*.vdi` container on the physical drive.
 
 This overhead occurs because the guest filesystem merely marks deleted sectors as "free" without physically clearing their contents. From the perspective of the VirtualBox hypervisor, those storage blocks still contain residual data. Reclaiming unused storage back to the physical host SSD requires manual disk zeroing and compaction.
 
-#### Sanitizing a Windows Guest Virtual Machine:
+### Sanitizing a Windows Guest Virtual Machine:
 
 **1.** Launch the target Windows virtual machine.
 **2.** Download the official `SDelete` CLI utility directly from Microsoft `https://learn.microsoft.com/en-us/sysinternals/downloads/sdelete`.
@@ -7630,7 +7326,7 @@ C:\sdelete64.exe -z C:
 > 
 > The `-c` flag overwrites free space with random bit patterns adhering to the US Department of Defense *DoD 5220.22-M* sanitization standard. Note that applying the `-c` flag prevents VirtualBox compression routines from shrinking the `*.vdi` image, as random bit arrays are processed as valid payload data. Use `-z` exclusively for space optimization.
 
-#### Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux):
+### Sanitizing a Linux Guest Virtual Machine (Ubuntu/Kali Linux):
 
 Instead of using the slow and aggressive method of filling the disk with zeroes via `dd` (which wears down the physical host SSD by writing hundreds of gigabytes of empty data), Linux virtual machines benefit far more from using the specialized `zerofree` utility. It targetedly identifies only modified blocks where files were deleted and zeroes them in seconds without unnecessary write endurance strain on the SSD.
 
@@ -7665,7 +7361,7 @@ zerofree -v /dev/sda1
 > [!TIP]
 > **Author's Note:** Determine the precise name of the target root partition (for example, `/dev/sda1` or `/dev/nvme0n1p2`) beforehand from the running system using `df -h`. Once the zeroing process completes, perform a full shutdown of the virtual machine.
 
-#### Final Virtual Disk Compaction on the Host Machine:
+### Final Virtual Disk Compaction on the Host Machine:
 
 Now that the free space within the virtual disks has been zeroed out, open a terminal on the host Ubuntu system. Navigate to the directory containing the virtual machine files (for example, `~/VirtualBox VMs/`), and initiate the final compaction process.
 
@@ -7693,7 +7389,7 @@ Once compaction completes, the virtual disk image files will immediately shrink 
 
 ## Installing and Configuring the Docker Containerization Platform
 
-#### Introduction:
+### Introduction:
 
 The VirtualBox virtualization environment detailed and configured in the previous chapter works exceptionally well for running heavy guest operating systems. However, modern offensive and defensive security workflows rely far more frequently on Docker containerization to deploy isolated utilities, vulnerable lab environments (like DVWA or WebGoat), and OSINT scripts.
 
@@ -7702,7 +7398,7 @@ Understand the core architectural impact: out-of-the-box Docker introduces a mas
 > [!NOTE]
 > I still personally lean toward full-OS virtualization via traditional virtual machines, so Docker testing on Ubuntu 26.04 was performed only at a surface level. Container deployment was validated exclusively on Ubuntu 24.04.4.
 
-#### What Is the Hidden Danger of Default Docker?
+### What Is the Hidden Danger of Default Docker?
 
 * **The Omnipotent Root Daemon:** By default, the Docker background service (`dockerd`) executes with unrestricted `root` privileges. Containers launch under superuser context. Should a critical vulnerability emerge within containerized software, an attacker can execute a sandbox escape (Container Escape) and instantly capture full control over the host Linux kernel.
 * **Network Hijacking Bypassing UFW:** This represents the most dangerous architectural risk. Upon initialization, Docker creates its own network bridge and injects routing rules directly into the Linux kernel's `iptables/nftables` tables at the highest priority level, completely bypassing UFW rules. Exposing a service port via Docker (e.g., `-p 80:80`) causes Docker to open that port directly to the public internet, completely ignoring the Kill Switch and UFW rules. Traffic routes into the container directly via the physical interface, bypassing the active `tun0` VPN tunnel entirely. This is a classic, textbook OPSEC failure in practice.
@@ -7711,7 +7407,7 @@ To mitigate these threats, deploy a two-stage defensive strategy: transition Doc
 
 To maintain absolute system hygiene, rely exclusively on the standard APT package manager while locking down official, verified Canonical update mirrors. This prevents the system from pulling untrusted third-party binaries from external PPA repositories. Pay strict attention to release codenames: **Ubuntu 24.04 LTS is Noble Numbat** (`noble`), while **Ubuntu 26.04 LTS is Resolute Raccoon** (`resolute`).
 
-#### Deploying Docker in Rootless Mode:
+### Deploying Docker in Rootless Mode:
 
 Rootless Mode forces the Docker daemon and all child containers to execute entirely within an isolated User Namespace (`userns`). The daemon runs strictly under an unprivileged user context. Even if an attacker compromises a container and achieves "root" within the sandbox, the host operating system still treats the process as an unprivileged local user, denying any access to raw system files.
 
@@ -7767,7 +7463,7 @@ systemctl --user daemon-reload && systemctl --user enable --now docker.service
 docker info | grep -i rootless
 ```
 
-#### Securing Docker Networking: Preventing UFW Firewall Bypass:
+### Securing Docker Networking: Preventing UFW Firewall Bypass:
 
 Now for the critical security enforcement: revoke Docker's ability to manipulate kernel routing tables completely and force its network traffic to obey host UFW firewall rules. At this stage, re-enable the network interface in NetworkManager.
 
@@ -7848,7 +7544,7 @@ sudo systemctl restart portmaster
 
 Acknowledge the prompt by clicking "Allow" on Portmaster's pop-up alert. Absolute perimeter control is now established: UFW masquerades and routes Docker traffic strictly through the chosen network interface (bound mandatorily to the VPN tunnel in operational environments), Portmaster intercepts telemetry in real time, and Docker is physically contained within host firewall parameters—incapable of autonomously exposing external host ports.
 
-#### Hardened Container Deployment in Practice:
+### Hardened Container Deployment in Practice:
 
 Stripping root privileges and restricting network routing provide essential baseline protection. However, when deploying specific containers, implement additional hardening flags to constrain process permissions within the sandbox.
 
@@ -7862,7 +7558,7 @@ docker run -d --name secure_web -p 127.0.0.1:8080:80 --read-only --security-opt=
 ss -tulpn | grep 8080
 ```
 
-#### Experimental Proof of Security (Verifying Non-Root Execution):
+### Experimental Proof of Security (Verifying Non-Root Execution):
 
 To definitively confirm that the container is fully isolated and lacks superuser privileges on the host system, conduct a practical security experiment. Simulate an attacker attempting to compromise the underlying system by creating files under the context of an "internal" root user.
 
@@ -7911,7 +7607,7 @@ ss -tulpn | grep 9443
 
 ## Installing and Configuring the AIDE File Integrity Monitoring System
 
-#### Introduction:
+### Introduction:
 
 A powerful tool for host internal security monitoring is AIDE (*Advanced Intrusion Detection Environment*)—an advanced host-based intrusion detection system (HIDS). It performs continuous filesystem monitoring across Linux to detect stealthy malware, rootkits, and unauthorized adversary activity in real time.
 
@@ -7920,7 +7616,7 @@ The architecture of AIDE relies on generating a digital baseline snapshot (a cry
 > [!IMPORTANT]
 > Deploying and initializing the primary AIDE database must be executed at the absolute end of host deployment—strictly after installing and fully hardening all necessary tooling (VPN, Portmaster, VeraCrypt, Firejail). This guarantees that legitimate binaries and configs are indexed into the reference "clean" system snapshot, completely preventing a flood of false positives during routine integrity checks.
 
-#### Installing and Configuring AIDE:
+### Installing and Configuring AIDE:
 
 Open the terminal under an unprivileged user account and proceed with the installation.
 
@@ -7978,7 +7674,7 @@ sudo aide -c /etc/aide/aide.conf --check
 
 Normally, the audit output would confirm zero integrity violations—indicating that the active database perfectly matches the current filesystem state. However, due to complex runtime dependencies, minor diffs will appear. Tracked modifications will report under `/home/$USER/` and its nested subdirectories, including `/.config/dconf/*`, `/.config/tiling-assistant/*`, `/.local/share/`, `.bash_history`, and others.
 
-#### Executing a Penetration Test (Validating Defense Mechanisms):
+### Executing a Penetration Test (Validating Defense Mechanisms):
 
 Verify that the host intrusion detection system functions as expected. Simulate a covert payload drop inside a restricted superuser system directory:
 
@@ -8255,7 +7951,7 @@ This completes the overall security configuration and host-level hardening of th
 
 ## Configuring Ubuntu/Xubuntu/Lubuntu Guest Systems in VirtualBox
 
-#### Installing Guest Additions:
+### Installing Guest Additions:
 
 Following a successful deployment and initial boot of a guest Ubuntu operating system (or lightweight derivatives like Xubuntu/Lubuntu) within a virtual machine, the immediate priority is installing the official *VirtualBox Guest Additions* package. This enables hardware video acceleration, smooth UI performance, bidirectional clipboard sharing, and dynamic display auto-resizing when adjusting the window parameters.
 
@@ -8290,7 +7986,7 @@ sudo umount /mnt 2>/dev/null; sudo mount /dev/sr0 /mnt && sudo cp /mnt/VBoxLinux
 sudo reboot now
 ```
 
-#### Installing Mozilla Firefox:
+### Installing Mozilla Firefox:
 
 In certain minimal Linux desktop flavors (such as Lubuntu), a pre-installed web browser may be completely absent by default. Deploy the official classic build of the Mozilla Firefox browser, bypassing default Snap packages and third-party PPA repositories via direct standalone extraction:
 
@@ -8306,7 +8002,7 @@ tar xjf ~/FirefoxSetup.tar.bz2 -C ~/
 
 This creates a clean `firefox` directory inside your personal home path, containing the self-contained `firefox` executable binary. The browser is fully prepared for its initial standalone launch and subsequent deep, uncompromising privacy tuning via the `about:config` engineering menu, as detailed in the previous chapters of this book.
 
-#### Configuring Shared Folders in VirtualBox:
+### Configuring Shared Folders in VirtualBox:
 
 Shared Folders serve as the primary mechanism for securely exchanging configuration files, scripts, and audit logs between the isolated guest environment and the host system. By default, Ubuntu's access control policies restrict unprivileged access to hypervisor-mounted directories.
 
@@ -8328,7 +8024,7 @@ su - $USER
 
 <br>
 
-#### Installing Ledger Live in VirtualBox with Ubuntu/Xubuntu/Lubuntu:
+### Installing Ledger Live in VirtualBox with Ubuntu/Xubuntu/Lubuntu:
 
 To establish secure control over cryptocurrency assets, deploy the official Ledger Live application suite. Open the browser and download the latest stable Linux package directly from the official developer servers: `https://download.live.ledger.com/latest/linux`.
 
@@ -8382,7 +8078,7 @@ sudo apt install libfuse2t64 && sudo apt install fuse3 -y
 
 <br>
 
-#### Running Ledger Live on the Main Host System (Ubuntu)
+### Running Ledger Live on the Main Host System (Ubuntu)
 
 If you need to run Ledger Live directly on the primary host operating system rather than within a virtual machine, download the Linux binary via your browser from `https://download.live.ledger.com/latest/linux` into the home `Downloads` directory.
 
@@ -8409,7 +8105,7 @@ And on this cryptographic note, we conclude the construction of our secure, hard
 **Author:** EugeXo  
 **Specialization:** Information Security, Linux Hardening, OPSEC.
 
-#### Contact Information & Community Resources:
+### Contact Information & Community Resources:
 
 * **GitHub:** `https://github.com/EugeXo/`
 * **Telegram:** `@EugeXoSecurity`

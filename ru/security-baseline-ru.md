@@ -163,38 +163,38 @@
     - [Установка Bubblewrap:](#установка-bubblewrap)
     - [Шпаргалка по флагам Bubblewrap (Справочник):](#шпаргалка-по-флагам-bubblewrap-справочник)
     - [Подготовка кастомных ярлыков для песочниц:](#подготовка-кастомных-ярлыков-для-песочниц)
-      - [Создание отдельного профиля Firefox hardened для Firejail:](#создание-отдельного-профиля-firefox-hardened-для-firejail)
-      - [Создание профиля Firefox hardened в Bubblewrap:](#создание-профиля-firefox-hardened-в-bubblewrap)
-      - [Герметичная камера PDF-документов: безопасный запуск файлов в Firejail:](#герметичная-камера-pdf-документов-безопасный-запуск-файлов-в-firejail)
-      - [Запечатываем Document Viewer для чтения PDF в Bubblewrap:](#запечатываем-document-viewer-для-чтения-pdf-в-bubblewrap)
-      - [Image Viewer для просмотра графических файлов в Firejail:](#image-viewer-для-просмотра-графических-файлов-в-firejail)
-      - [Оборачиваем в Bubblewrap просмотрщик графических файлов Image Viewer:](#оборачиваем-в-bubblewrap-просмотрщик-графических-файлов-image-viewer)
-      - [Сценарий изоляции KeePassXC для Firejail:](#сценарий-изоляции-keepassxc-для-firejail)
-      - [Изолируем KeePassXC через Bubblewrap:](#изолируем-keepassxc-через-bubblewrap)
+    - [Создание отдельного профиля Firefox hardened для Firejail:](#создание-отдельного-профиля-firefox-hardened-для-firejail)
+    - [Создание профиля Firefox hardened в Bubblewrap:](#создание-профиля-firefox-hardened-в-bubblewrap)
+    - [Герметичная камера PDF-документов: безопасный запуск файлов в Firejail:](#герметичная-камера-pdf-документов-безопасный-запуск-файлов-в-firejail)
+    - [Запечатываем Document Viewer для чтения PDF в Bubblewrap:](#запечатываем-document-viewer-для-чтения-pdf-в-bubblewrap)
+    - [Image Viewer для просмотра графических файлов в Firejail:](#image-viewer-для-просмотра-графических-файлов-в-firejail)
+    - [Оборачиваем в Bubblewrap просмотрщик графических файлов Image Viewer:](#оборачиваем-в-bubblewrap-просмотрщик-графических-файлов-image-viewer)
+    - [Сценарий изоляции KeePassXC для Firejail:](#сценарий-изоляции-keepassxc-для-firejail)
+    - [Изолируем KeePassXC через Bubblewrap:](#изолируем-keepassxc-через-bubblewrap)
     - [Установка и изоляция офисного пакета LibreOffice:](#установка-и-изоляция-офисного-пакета-libreoffice)
-      - [Настраиваем работу через Firejail:](#настраиваем-работу-через-firejail)
-      - [Оборачиваем LibreOffice в Bubblewrap:](#оборачиваем-libreoffice-в-bubblewrap)
+    - [Настраиваем работу LibreOffice через Firejail:](#настраиваем-работу-libreoffice-через-firejail)
+    - [Оборачиваем LibreOffice в Bubblewrap:](#оборачиваем-libreoffice-в-bubblewrap)
     - [Установка и изоляция GNU Image Manipulation Program (GIMP):](#установка-и-изоляция-gnu-image-manipulation-program-gimp)
-      - [Настраиваем работу GIMP через Firejail:](#настраиваем-работу-gimp-через-firejail)
-      - [Настраиваем GIMP через Bubblewrap:](#настраиваем-gimp-через-bubblewrap)
+    - [Настраиваем работу GIMP через Firejail:](#настраиваем-работу-gimp-через-firejail)
+    - [Настраиваем GIMP через Bubblewrap:](#настраиваем-gimp-через-bubblewrap)
     - [Установка и изоляция редактора кода VS Codium (IDE для написания программ):](#установка-и-изоляция-редактора-кода-vs-codium-ide-для-написания-программ)
-      - [Изоляция VS Codium в Firejail:](#изоляция-vs-codium-в-firejail)
-      - [Изоляция VS Codium в Bubblewrap:](#изоляция-vs-codium-в-bubblewrap)
+    - [Изоляция VS Codium в Firejail:](#изоляция-vs-codium-в-firejail)
+    - [Изоляция VS Codium в Bubblewrap:](#изоляция-vs-codium-в-bubblewrap)
     - [Установка и изоляция локальной нейросети LM Studio Bionic:](#установка-и-изоляция-локальной-нейросети-lm-studio-bionic)
-      - [Развернем работу LM Studio через Firejail:](#развернем-работу-lm-studio-через-firejail)
-      - [Оборачиваем LM Studio в Bubblewrap:](#оборачиваем-lm-studio-в-bubblewrap)
+    - [Развернем работу LM Studio через Firejail:](#развернем-работу-lm-studio-через-firejail)
+    - [Оборачиваем LM Studio в Bubblewrap:](#оборачиваем-lm-studio-в-bubblewrap)
     - [Настройка безопасных коммуникаций: Мандатная изоляция мессенджеров и крипто-контура (OPSEC-контур автора):](#настройка-безопасных-коммуникаций-мандатная-изоляция-мессенджеров-и-крипто-контура-opsec-контур-автора)
     - [Установка и изоляция Telegram Desktop:](#установка-и-изоляция-telegram-desktop)
-      - [Защищаем контур Telegram через Firejail:](#защищаем-контур-telegram-через-firejail)
-      - [Изолируем Telegram через Bubblewrap:](#изолируем-telegram-через-bubblewrap)
+    - [Защищаем контур Telegram через Firejail:](#защищаем-контур-telegram-через-firejail)
+    - [Изолируем Telegram через Bubblewrap:](#изолируем-telegram-через-bubblewrap)
     - [Установка и изоляция Signal через Bubblewrap:](#установка-и-изоляция-signal-через-bubblewrap)
     - [Криптографический фундамент хоста: Генерация и OPSEC-защита ключей GnuPG:](#криптографический-фундамент-хоста-генерация-и-opsec-защита-ключей-gnupg)
     - [Установка и изоляция Jabber-клиента Psi+:](#установка-и-изоляция-jabber-клиента-psi)
-      - [Изолируем PSI+ в Firejail:](#изолируем-psi-в-firejail)
-      - [Изоляция Psi+ Jabber-клиента в песочнице Bubblewrap:](#изоляция-psi-jabber-клиента-в-песочнице-bubblewrap)
+    - [Изолируем PSI+ в Firejail:](#изолируем-psi-в-firejail)
+    - [Изоляция Psi+ Jabber-клиента в песочнице Bubblewrap:](#изоляция-psi-jabber-клиента-в-песочнице-bubblewrap)
     - [Установка и изоляция Почтового клиента Thunderbird (Контур шифрованной Email-переписки):](#установка-и-изоляция-почтового-клиента-thunderbird-контур-шифрованной-email-переписки)
-      - [Изоляция Thunderbird с помощью Firejail:](#изоляция-thunderbird-с-помощью-firejail)
-      - [Изоляция Thunderbird через Bubblewrap:](#изоляция-thunderbird-через-bubblewrap)
+    - [Изоляция Thunderbird с помощью Firejail:](#изоляция-thunderbird-с-помощью-firejail)
+    - [Изоляция Thunderbird через Bubblewrap:](#изоляция-thunderbird-через-bubblewrap)
     - [Продвинутый режим «паранойи»: Firejail с сохранением сессии через Overlay:](#продвинутый-режим-паранойи-firejail-с-сохранением-сессии-через-overlay)
   - [Установка Rkhunter и поиск руткитов](#установка-rkhunter-и-поиск-руткитов)
     - [Устанавливаем Chkrootkit в дополнение к Rkhunter:](#устанавливаем-chkrootkit-в-дополнение-к-rkhunter)
@@ -232,6 +232,7 @@
     - [Запуск Ledger Live на основной хост-системе Ubuntu](#запуск-ledger-live-на-основной-хост-системе-ubuntu)
   - [Об авторе и правовая информация](#об-авторе-и-правовая-информация)
     - [Контакты для связи и ресурсы сообщества:](#контакты-для-связи-и-ресурсы-сообщества)
+
 
 <br>
 <br>
@@ -3956,7 +3957,7 @@ cd /usr/local/bin/ && sudo nano panic.sh
 
 **3.** Выберем для нашего свежесозданного файла один из вариантов:
 
-**Режим Paranoic (моментальное выключение):**
+**Режим Paranoic (моментальное выключение).**
 
 ```bash
 #!/bin/bash
@@ -3976,7 +3977,7 @@ echo u > /proc/sysrq-trigger
 echo o > /proc/sysrq-trigger
 ```
 
-**Режим Safemode (выключение после двойного подтверждения):**
+**Режим Safemode (выключение после двойного подтверждения).**
 
 ```bash
 #!/bin/bash
@@ -4668,32 +4669,32 @@ mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "$HOME/ПУТЬ-К-ФА
 > [!WARNING]
 > После редактирования `Exec=` для корректной работы с Firejail и Bubblewrap таких программ, как LibreOffice, Image Viewer, Document Viewer и ряда других, необходимо завершить текущую сессию (Log Out...). В качестве альтернативы можно просто перезагрузить компьютер. Это требуется для того, чтобы изменения в `Exec=` применились к приложениям.
 
-* Для **Ubuntu 24.04** Поменяем иконку **Терминала (Terminal)**:
+**2a.** Для **Ubuntu 24.04** Поменяем иконку **Терминала (Terminal)**:
 ```bash
 sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop
 ```
 
-* Для **Ubuntu 26.04** Поменяем иконку **Ptyxis (Ptyxis)**:
+**2b.** Для **Ubuntu 26.04** Поменяем иконку **Ptyxis (Ptyxis)**:
 ```bash
 sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
 ```
 
-* По желанию поменяем иконку **Корзины (Trash)** на кастомную (где `ПУТЬ-К-ФАЙЛАМ` это путь к папкам иконок в домашней директории например: `/.local/share/`):
+**3.** По желанию поменяем иконку **Корзины (Trash)** на кастомную (где `ПУТЬ-К-ФАЙЛАМ` это путь к папкам иконок в домашней директории например: `/.local/share/`):
 ```bash
 for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/ПУТЬ-К-ФАЙЛАМ/icons/Trash/$s/"user-trash{,-full}.png /usr/share/icons/Yaru/$s/places/; done
 ```
 
-Восстановим стандартные права чтения для системных иконок:
+**4.** Восстановим стандартные права чтения для системных иконок:
 ```bash
 sudo find /usr/share/icons/Yaru -type f -name 'user-trash*.png' -exec chmod 644 {} \;
 ```
 
-**2.** Принудительно заставляем графическую оболочку переиндексировать созданную базу данных, чтобы новые ИБ-контуры мгновенно подменили собой стандартный софт в системе без перезагрузки хоста:
+**5.** Принудительно заставляем графическую оболочку переиндексировать созданную базу данных, чтобы новые ИБ-контуры мгновенно подменили собой стандартный софт в системе без перезагрузки хоста:
 ```bash
 update-desktop-database ~/.local/share/applications/
 ```
 
-**3.** Обновляем кэш иконок:
+**6.** Обновляем кэш иконок:
 ```bash
 gtk-update-icon-cache -f ~/.local/share/icons/
 ```
@@ -4706,7 +4707,7 @@ gtk-update-icon-cache -f ~/.local/share/icons/
 > grep '^MimeType=' /usr/share/applications/gimp.desktop
 > ```
 
-* После того как закончим создание и редактирование профилей и иконок, выполним перезагрузку системы:
+**7.** После того как закончим создание и редактирование профилей и иконок, выполним перезагрузку системы:
 ```bash
 sudo reboot
 ```
@@ -4817,7 +4818,7 @@ cp /usr/share/applications/gimp.desktop ~/.local/share/applications/gimp.desktop
 > 
 > После этого открываем меню приложений («Показать приложения»). GNOME мгновенно обнаружит абсолютно новые сущности **LM Studio (Offline AI)** и **LM Studio (Online Downloader)**, заново провалидирует права исполнения, и запуск ИБ-контуров в песочнице по клику мыши заработает штатно.
 
-#### Создание отдельного профиля Firefox hardened для Firejail:
+### Создание отдельного профиля Firefox hardened для Firejail:
 
 После установки Firejail переходим к подготовке отдельного профиля Firefox.
 
@@ -4962,7 +4963,7 @@ sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/
 > 
 > Использование `deterministic-shutdown` решает эту проблему: Firejail контролирует завершение дочерних процессов и не оставляет зависшую sandbox-сессию после закрытия браузера.
 
-#### Создание профиля Firefox hardened в Bubblewrap:
+### Создание профиля Firefox hardened в Bubblewrap:
 
 **1.** Если у нас нет созданного профиля *mozilla-hardened* для Firejail, создаем его, но уже для Bubblewrap: 
 ```bash
@@ -5057,7 +5058,7 @@ sudo chmod 644 /usr/share/applications/firefox-secure.desktop
 > EOF' && sudo chmod 755 /usr/local/bin/НАЗВАНИЕ_СКРИПТА.sh
 > ```
 
-#### Герметичная камера PDF-документов: безопасный запуск файлов в Firejail:
+### Герметичная камера PDF-документов: безопасный запуск файлов в Firejail:
 
 Поскольку просмотрщики документов (парсеры PDF, DjVu) регулярно подвергаются атакам через скрытые уязвимости (эксплойты), их изоляция от основной системы и сети является критически важной. Мы создадим для Evince/Papers «герметичную камеру» — изолированное окружение, у которого будет полностью отрезан доступ в интернет.
 
@@ -5172,7 +5173,7 @@ sudo sed -i 's|^Exec=papers.*$|Exec=firejail papers %U|' /usr/share/applications
 grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
-#### Запечатываем Document Viewer для чтения PDF в Bubblewrap:
+### Запечатываем Document Viewer для чтения PDF в Bubblewrap:
 
 **1.** Создадим скрипт обертку для **Document Viewer (Evince/Papers)**:
 ```bash
@@ -5230,7 +5231,7 @@ sudo sed -i 's|^Exec=papers.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/
 grep 'Exec=' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
-#### Image Viewer для просмотра графических файлов в Firejail:
+### Image Viewer для просмотра графических файлов в Firejail:
 
 **1.** Если под рукой у нас не будет png, cоздадим пустышку для запуска проверки:
 ```bash
@@ -5326,7 +5327,7 @@ sudo sed -i 's|^Exec=loupe.*$|Exec=firejail loupe %U|; s|^DBusActivatable=true$|
 grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-#### Оборачиваем в Bubblewrap просмотрщик графических файлов Image Viewer:
+### Оборачиваем в Bubblewrap просмотрщик графических файлов Image Viewer:
 
 **1.** Создадим скрипт обертку для Image Viewer (Loupe/EOG):
 ```bash
@@ -5384,7 +5385,7 @@ sudo sed -i 's|^Exec=loupe.*$|Exec=/usr/local/bin/image-bwrap.sh %U|; s|^DBusAct
 grep -E '^(Exec|DBusActivatable)=' /usr/share/applications/org.gnome.Loupe.desktop
 ```
 
-#### Сценарий изоляции KeePassXC для Firejail:
+### Сценарий изоляции KeePassXC для Firejail:
 
 Изолируя KeePassXC, мы превращаем его из программы, запущенной в общей системе в автономный сейф. Он общается с миром только через Unix-сокет (чтобы увидеть наш YubiKey) и видит только один конкретный файл — нашу базу паролей. Все остальное для него стерто.
 
@@ -5452,7 +5453,7 @@ sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/appli
 > [!NOTE]
 > Утилита `firecfg` создает символические ссылки исключительно для классических программ, установленных в формате `.deb` или скомпилированных вручную. Как мы уже реализовали в первых главах нашей книги, в нашем параноидальном OPSEC-контуре шпионский и медленный движок Snap от Canonical полностью вырезан из системы. Firejail идеально раскрывает свой потенциал мандатной безопасности именно на нашей чистой конфигурации: классических бинарных файлах, установленных через системный `apt`, и автономных изолированных AppImage-контейнерах.
 
-#### Изолируем KeePassXC через Bubblewrap:
+### Изолируем KeePassXC через Bubblewrap:
 
 **1.** Изолируем KeePassXC через шелл (keepassxc-bwrap.sh):
 ```bash
@@ -5501,14 +5502,14 @@ sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/appli
 sudo apt update && sudo apt install libreoffice -y
 ```
 
-#### Настраиваем работу через Firejail:
+### Настраиваем работу LibreOffice через Firejail:
 
-**2.** Открываем в редакторе `nano` конфиг libreoffice.profile:
+**1.** Открываем в редакторе `nano` конфиг libreoffice.profile:
 ```bash
 nano ~/.config/firejail/libreoffice.profile
 ```
 
-**3.** Пропишем в файл принудительный профиль:
+**2.** Пропишем в файл принудительный профиль:
 ```ini               
 # Принудительно GTK3
 env SAL_USE_VCLPLUGIN=gtk3
@@ -5550,12 +5551,12 @@ blacklist /run/media
 
 Для сохранения изменений в `nano` нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, а затем **«Ctrl + X»** для выхода обратно в консоль.
 
-**4.** Запускаем в песочнице главное меню LibreOffice:
+**3.** Запускаем в песочнице главное меню LibreOffice:
 ```bash
 firejail libreoffice
 ```
 
-**5.** Для запуска приложений writer/calc/impress/draw/math/base используем: 
+**4.** Для запуска приложений writer/calc/impress/draw/math/base используем: 
 ```bash
 firejail libreoffice --writer
 firejail libreoffice --calc
@@ -5565,7 +5566,7 @@ firejail libreoffice --math
 firejail libreoffice --base
 ```
 
-**6.** Генерируем ИБ-ярлыки **LibreOffice** для работы программы по умолчанию :
+**5.** Генерируем ИБ-ярлыки **LibreOffice** для работы программы по умолчанию :
 
 Суть заключается в том что мы просто поменяем запуск приложений по умолчанию на запуск в песочнице firejail. Для этого нам нужно изменить два значения Exec в начале и в конце списка приложений.
 
@@ -5580,7 +5581,7 @@ sudo sed -i 's|^Exec=libreoffice --base|Exec=firejail libreoffice --base|' /usr/
 ```
 После чего все офисные приложения будут послушно запускаться согласно нашим правилам `libreoffice.profile`.
 
-**7.** Проверим каждый ярлык командой:
+**6.** Проверим каждый ярлык командой:
 ```bash
 grep 'Exec=' /usr/share/applications/libreoffice-writer.desktop
 grep 'Exec=' /usr/share/applications/libreoffice-calc.desktop
@@ -5590,9 +5591,9 @@ grep 'Exec=' /usr/share/applications/libreoffice-math.desktop
 grep 'Exec=' /usr/share/applications/libreoffice-base.desktop
 ```
 
-#### Оборачиваем LibreOffice в Bubblewrap:
+### Оборачиваем LibreOffice в Bubblewrap:
 
-**2.** Создание единой обертки libreoffice-bwrap.sh:
+**1.** Создание единой обертки libreoffice-bwrap.sh:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/libreoffice-bwrap.sh
 #!/bin/bash
@@ -5625,7 +5626,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/libreoffice-bwrap.sh
 ```
 
-**3.** Переопределение ярлыка запуска в системном меню:
+**2.** Переопределение ярлыка запуска в системном меню:
 ```bash
 sudo bash -c 'mkdir -p /usr/local/share/applications && for f in /usr/share/applications/libreoffice-*.desktop; do name=$(basename "$f"); sed "s|^Exec=libreoffice|Exec=/usr/local/bin/libreoffice-bwrap.sh|" "$f" > "/usr/local/share/applications/$name"; done && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/libreoffice-*.desktop
 ```
@@ -5646,21 +5647,21 @@ sudo apt update && sudo apt install gimp -y
 
 Допустим, мы скачали сомнительный графический файл для дальнейшего редактирования ~/Downloads/unsafe.png.
 
-#### Настраиваем работу GIMP через Firejail:
+### Настраиваем работу GIMP через Firejail:
 
-**2.** Запустим этот файл в песочнице:
+**1.** Запустим этот файл в песочнице:
 ```bash
 firejail gimp ~/Downloads/unsafe.png
 ```
 
 В Ubuntu 26.04, до применения локального конфига, автоматическое закрытие Gimp 3.x на данный момент не работает, поэтому в локальные правила пропишем `deterministic-shutdown` для принудительного завершения программы.
 
-**3.** Далее усилим правила безопасности для GIMP через локальный профиль:
+**2.** Далее усилим правила безопасности для GIMP через локальный профиль:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/gimp.local
 ```
 
-**4.** Добавим следующие правила:
+**3.** Добавим следующие правила:
 ```ini                                                                         
 # Полный запрет сетевого доступа
 net none
@@ -5692,7 +5693,7 @@ deterministic-shutdown
 
 Для сохранения изменений в `nano` нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, а затем **«Ctrl + X»** для выхода обратно в консоль.
 
-**5.** Выполним контрольный запуск программы:
+**4.** Выполним контрольный запуск программы:
 
 ```bash
 firejail gimp ~/Downloads/unsafe.psd
@@ -5700,9 +5701,9 @@ firejail gimp ~/Downloads/unsafe.psd
 
 В отличие от просмотрщиков документов, для GIMP не используется полная изоляция домашней директории `private`, поскольку программа активно использует собственные настройки, кисти, плагины, шрифты и пользовательские профили.
 
-#### Настраиваем GIMP через Bubblewrap:
+### Настраиваем GIMP через Bubblewrap:
 
-**2.** Создание изолирующего оболочечного скрипта (gimp-bwrap.sh) с отключением сети с прямым доступом к видеокарте:
+**1.** Создание изолирующего оболочечного скрипта (gimp-bwrap.sh) с отключением сети с прямым доступом к видеокарте:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/gimp-bwrap.sh
 #!/bin/bash
@@ -5734,7 +5735,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/gimp-bwrap.sh
 ```
 
-**3.** Переопределение ярлыка запуска в системном меню:
+**2.** Переопределение ярлыка запуска в системном меню:
 ```bash 
 sudo bash -c 'mkdir -p /usr/local/share/applications && sed "s|^Exec=gimp|Exec=/usr/local/bin/gimp-bwrap.sh|" /usr/share/applications/gimp.desktop > /usr/local/share/applications/gimp.desktop && chmod -R 755 /usr/local/share/applications' && grep 'Exec=' /usr/local/share/applications/gimp.desktop
 ```
@@ -5758,14 +5759,14 @@ chmod +x VSCodium.AppImage && ./VSCodium.AppImage --appimage-extract && sudo mv 
 sudo chown root:root /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chmod u+s /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chown -R $USER:$USER ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
 ```
 
-#### Изоляция VS Codium в Firejail:
+### Изоляция VS Codium в Firejail:
 
-**4.** Создаем папку, если не создана, и открываем конфиг в редакторе nano:
+**1.** Создаем папку, если не создана, и открываем конфиг в редакторе nano:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/vscodium.profile
 ```
 
-**5.** Прописываем в открывшийся файл базовые правила изоляции. Мы явно добавляем в белый список подкаталог `extensions` (без этого маркетплейс расширений перейдет в режим *Read-Only*), а также подключаем системные инклуды `runuser` и `var`, чтобы внутренние языковые серверы Node.js не крашились при запуске:
+**2.** Прописываем в открывшийся файл базовые правила изоляции. Мы явно добавляем в белый список подкаталог `extensions` (без этого маркетплейс расширений перейдет в режим *Read-Only*), а также подключаем системные инклуды `runuser` и `var`, чтобы внутренние языковые серверы Node.js не крашились при запуске:
 ```ini
 # Базовая защита
 caps.drop all
@@ -5799,17 +5800,17 @@ include whitelist-common.inc
 
 Для сохранения изменений в `nano` нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, затем **«Ctrl + X»** для выхода.
 
-**6.** Создадим папку для рабочих проектов VS Codium (работу с папкой активируем через создание ярлыков):
+**3.** Создадим папку для рабочих проектов VS Codium (работу с папкой активируем через создание ярлыков):
 ```bash
 mkdir -p ~/Documents/VSCodium_Projects
 ```
 
-**7.** Исправим владельца папки `Documents` и установим права доступа:
+**4.** Исправим владельца папки `Documents` и установим права доступа:
 ```bash
 sudo chown $USER:$USER "$HOME/Documents" && chmod 700 "$HOME/Documents"
 ```
 
-**8.** Запускаем редактор кода в обычном интерактивном режиме терминала. Для изоляции сложных IDE на базе Electron этот способ является эталонным:
+**5.** Запускаем редактор кода в обычном интерактивном режиме терминала. Для изоляции сложных IDE на базе Electron этот способ является эталонным:
 ```bash
 firejail --profile=~/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
 ```
@@ -5817,7 +5818,7 @@ firejail --profile=~/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no
 > [!NOTE]
 > После закрытия графического интерфейса программы, фоновые службы Electron (вроде `fileWatcher`) могут удерживать песочницу активной, из-за чего терминал хоста останется заблокированным. В реальных условиях эксплуатации эта проблема полностью нивелируется использованием графических `.desktop` ярлыков, которые запускают процессы асинхронно.
 
-**9.** Генерируем ИБ-ярлык для **VS Codium без выхода в интернет** (Приватный режим):
+**6.** Генерируем ИБ-ярлык для **VS Codium без выхода в интернет** (Приватный режим):
 ```bash
 cat <<EOF > ~/.local/share/applications/vscodium-offline.desktop
 [Desktop Entry]
@@ -5832,7 +5833,7 @@ MimeType=text/plain;
 EOF
 ```
 
-**10.** Генерируем ИБ-ярлык для **VS Codium с выходом в интернет** (Для установки плагинов):
+**7.** Генерируем ИБ-ярлык для **VS Codium с выходом в интернет** (Для установки плагинов):
 ```bash
 cat <<EOF > ~/.local/share/applications/vscodium-online.desktop
 [Desktop Entry]
@@ -5847,9 +5848,9 @@ MimeType=text/plain;
 EOF
 ```
 
-#### Изоляция VS Codium в Bubblewrap:
+### Изоляция VS Codium в Bubblewrap:
 
-**4.** Создаем скрипт для **VS Codium (Online)** для обслуживания и обновления плагинов и программы:
+**1.** Создаем скрипт для **VS Codium (Online)** для обслуживания и обновления плагинов и программы:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-online.sh
 #!/bin/bash
@@ -5881,7 +5882,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/codium-online.sh
 ```
 
-**5.** Прописываем к ней ярлык с нашей кастомной иконкой с онлайн доступом:
+**2.** Прописываем к ней ярлык с нашей кастомной иконкой с онлайн доступом:
 ```bash
 cat <<EOF > ~/.local/share/applications/codium-online.desktop
 [Desktop Entry]
@@ -5897,7 +5898,7 @@ EOF
 chmod 644 ~/.local/share/applications/codium-online.desktop
 ```
 
-**6.** Создаем скрипт для **VS Codium (Offline)** для безопасной работы с проектами и исходниками:
+**3.** Создаем скрипт для **VS Codium (Offline)** для безопасной работы с проектами и исходниками:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-offline.sh
 #!/bin/bash
@@ -5930,7 +5931,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/codium-offline.sh
 ```
 
-**7.** Прописываем к ней ярлык с нашей кастомной оффлайновой иконкой:
+**4.** Прописываем к ней ярлык с нашей кастомной оффлайновой иконкой:
 ```bash
 cat <<EOF > ~/.local/share/applications/codium-offline.desktop
 [Desktop Entry]
@@ -5979,14 +5980,14 @@ mkdir -p ~/.config/LMStudio ~/.cache/lm-studio ~/.lmstudio ~/Documents && chmod 
 rm ~/Downloads/LM-Studio.AppImage
 ```
 
-#### Развернем работу LM Studio через Firejail:
+### Развернем работу LM Studio через Firejail:
 
-**5.** Создаем папку, если не создана, и открываем конфиг в редакторе nano:
+**1.** Создаем папку, если не создана, и открываем конфиг в редакторе nano:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/lmstudio.profile
 ```
 
-**6.** Прописываем в открывшийся файл базовые правила изоляции:
+**2.** Прописываем в открывшийся файл базовые правила изоляции:
 ```ini
 # Не изолируем /dev — нужен доступ к GPU и графике
 ignore private-dev
@@ -6000,7 +6001,7 @@ deterministic-shutdown
 
 Для сохранения изменений в `nano` нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, затем **«Ctrl + X»** для выхода.
 
-**7.** На данном этапе глобальный сетевой Kill-Switch еще не включается, так как приложению необходим доступ в интернет для выкачивания весов. Чтобы тяжелые LLM-модели не превратились в тормозящую тыкву на процессоре, мы заворачиваем запуск в универсальный консольный однострочник. Скрипт мгновенно проверяет наличие драйверов NVIDIA на хосте: если система использует NVIDIA — сохраняется доступ к GPU-устройствам через снятие ограничения `/dev/nvidia*`, на Intel/AMD используется доступный в системе графический стек:
+**3.** На данном этапе глобальный сетевой Kill-Switch еще не включается, так как приложению необходим доступ в интернет для выкачивания весов. Чтобы тяжелые LLM-модели не превратились в тормозящую тыкву на процессоре, мы заворачиваем запуск в универсальный консольный однострочник. Скрипт мгновенно проверяет наличие драйверов NVIDIA на хосте: если система использует NVIDIA — сохраняется доступ к GPU-устройствам через снятие ограничения `/dev/nvidia*`, на Intel/AMD используется доступный в системе графический стек:
 ```bash
 firejail --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
 ```
@@ -6010,12 +6011,12 @@ firejail --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
 
 Подробная настройка автоматического запуска разделенных сред (*Secure Sandbox* без сети и *Online Downloader* с сетью) для LM Studio с подключением кастомных дизайнерских иконок высокого разрешения 512px и 256px описана **далее по тексту**. Предложенный автоматизированный скрипт создаст удобные иконки в меню приложений GNOME («Apps»).
 
-**8.** Чтобы принудительно запустить полноценное графическое окно интерфейса LM Studio внутри герметичной офлайн-капсулы ядра Linux (в обход меню приложений), выполните в терминале следующую универсальную команду с флагом `--net=none`, которая сама разрулит проброс GPU на NVIDIA или запуск на встроенных ядрах Intel/AMD:
+**4.** Чтобы принудительно запустить полноценное графическое окно интерфейса LM Studio внутри герметичной офлайн-капсулы ядра Linux (в обход меню приложений), выполните в терминале следующую универсальную команду с флагом `--net=none`, которая сама разрулит проброс GPU на NVIDIA или запуск на встроенных ядрах Intel/AMD:
 ```bash
 firejail --net=none --profile=lmstudio ~/.lmstudio_gui/lm-studio --no-sandbox
 ```
 
-**9.** Если нам не нужен тяжелый графический интерфейс, и мы хотим запустить только легковесный локальный ИИ-движок в качестве фоновой службы (Daemon) для работы через API или консоль, отрезав его от интернета, мы применяем аналогичную универсальную связку. Она гарантирует, что CLI-движок lms задействует тензорные ядра видеокарты NVIDIA для молниеносного инференса, но останется стабильным на Intel/AMD хостах:
+**5.** Если нам не нужен тяжелый графический интерфейс, и мы хотим запустить только легковесный локальный ИИ-движок в качестве фоновой службы (Daemon) для работы через API или консоль, отрезав его от интернета, мы применяем аналогичную универсальную связку. Она гарантирует, что CLI-движок lms задействует тензорные ядра видеокарты NVIDIA для молниеносного инференса, но останется стабильным на Intel/AMD хостах:
 ```bash
 firejail --net=none --profile=lmstudio $HOME/.lmstudio/bin/lms daemon up
 ```
@@ -6023,7 +6024,7 @@ firejail --net=none --profile=lmstudio $HOME/.lmstudio/bin/lms daemon up
 > [!NOTE]
 > **ИБ-анализ режима:** Теперь локальный ИИ полностью готов к работе в песочнице как в графическом (GUI), так и в серверном (CLI/Daemon) режимах. Параметр `--net=none` полностью отключает сетевые пространства имен ядра Linux для запущенного контейнера. Наш автоматический проброс гарантирует, что движок CUDA достучится до видеокарты без снижения общего уровня изоляции файловой системы хоста. Наши промты, логи и куски защищаемого кода обрабатываются строго локально в тензорных ядрах GPU или оперативной памяти хоста, будучи физически отрезанными от интернета.
 
-**10.** Создаем административный ярлык для **LM Studio с доступом в интернет** (для первичного поиска и скачивания тяжелых весов моделей с Hugging Face), который также налету адаптируется под GPU NVIDIA или классический CPU-режим:
+**6.** Создаем административный ярлык для **LM Studio с доступом в интернет** (для первичного поиска и скачивания тяжелых весов моделей с Hugging Face), который также налету адаптируется под GPU NVIDIA или классический CPU-режим:
 ```bash
 cat <<EOF > ~/.local/share/applications/lm-online.desktop
 [Desktop Entry]
@@ -6037,7 +6038,7 @@ Categories=Development;Science;
 EOF
 ```
 
-**11.** Перезаписываем десктоп-файл нашей локальной нейросети **LM Studio для работы в режиме тотальной офлайн-паранойи**. Встроенный скрипт запуска автоматически проверит наличие видеокарты NVIDIA, корректно прокинет CUDA-инференс, принудительно завернет графику под сетевой Kill Switch ядра Linux и повесит HiDPI-иконку:
+**7.** Перезаписываем десктоп-файл нашей локальной нейросети **LM Studio для работы в режиме тотальной офлайн-паранойи**. Встроенный скрипт запуска автоматически проверит наличие видеокарты NVIDIA, корректно прокинет CUDA-инференс, принудительно завернет графику под сетевой Kill Switch ядра Linux и повесит HiDPI-иконку:
 ```bash
 cat <<EOF > ~/.local/share/applications/lm-offline.desktop
 [Desktop Entry]
@@ -6054,9 +6055,9 @@ EOF
 > [!WARNING]
 > Фоновый процесс LM Studio (`node-Main`) после закрытия окна крестиком остается активным и сворачивается в системный трей. Если полностью не выгрузить приложение из памяти, повторный запуск альтернативного ярлыка перехватит старую сессию. Перед переключением между онлайн и офлайн контурами принудительно закрывайте иконку в трее хоста.
 
-#### Оборачиваем LM Studio в Bubblewrap:
+### Оборачиваем LM Studio в Bubblewrap:
 
-**4.** Создаем скрипт для LM Studio (Online) для скачивания моделей с Hugging Face с сетью но без доступа к файлам и GPU:
+**1.** Создаем скрипт для LM Studio (Online) для скачивания моделей с Hugging Face с сетью но без доступа к файлам и GPU:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-online.sh
 #!/bin/bash
@@ -6086,7 +6087,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/lmstudio-online.sh
 ```
 
-**5.** Прописываем к нему Online ярлык:
+**2.** Прописываем к нему Online ярлык:
 ```bash
 cat <<EOF > ~/.local/share/applications/lmstudio-online.desktop
 [Desktop Entry]
@@ -6101,7 +6102,7 @@ EOF
 chmod 644 ~/.local/share/applications/lmstudio-online.desktop
 ```
 
-**6.** Создаем скрипт для LM Studio (Offline) с аппаратно проброшенной видеокартой, без доступа к интернету:
+**3.** Создаем скрипт для LM Studio (Offline) с аппаратно проброшенной видеокартой, без доступа к интернету:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/lmstudio-offline.sh
 #!/bin/bash
@@ -6134,7 +6135,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/lmstudio-offline.sh
 ```
 
-**7.** Прописываем к нему offline ярлык:
+**4.** Прописываем к нему offline ярлык:
 ```bash
 cat <<EOF > ~/.local/share/applications/lmstudio-offline.desktop
 [Desktop Entry]
@@ -6189,14 +6190,14 @@ sudo chown root:root /usr/bin/telegram-desktop
 sudo chmod 755 /usr/bin/telegram-desktop
 ```
 
-#### Защищаем контур Telegram через Firejail:
+### Защищаем контур Telegram через Firejail:
 
-**5.** Создаем папку, если она отсутствует, и открываем конфигурационный файл в редакторе `nano`:
+**1.** Создаем папку, если она отсутствует, и открываем конфигурационный файл в редакторе `nano`:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/telegram.profile
 ```
 
-**6.** Прописываем в открывшийся файл базовые правила изоляции:
+**2.** Прописываем в открывшийся файл базовые правила изоляции:
 ```ini
 # Telegram Desktop
 seccomp
@@ -6207,14 +6208,14 @@ whitelist ${HOME}/Downloads/Telegram_Downloads
 ```
 Для сохранения изменений в `nano` нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, затем **«Ctrl + X»** для выхода.
 
-**7.** В дистрибутивах Ubuntu 24.04/26.04 дефолтные системные профили мессенджеров перегружены избыточными AppArmor-фильтрами, из-за чего Qt-приложение теряет сетевые сокеты и слепнет перед eBPF-драйвером Portmaster. Чтобы полностью обойти этот затык, мы запустим Telegram ультимативной прямой командой: флаг `--noprofile` мгновенно очистит рантайм-память от капризного системного шлака, а параметры `--whitelist` полностью запечатают файловый периметр. Механизм `--seccomp` активирует фильтрацию системных вызовов на уровне ядра хоста, пресекая попытки эксплуатации уязвимостей локального повышения привилегий (LPE):
+**3.** В дистрибутивах Ubuntu 24.04/26.04 дефолтные системные профили мессенджеров перегружены избыточными AppArmor-фильтрами, из-за чего Qt-приложение теряет сетевые сокеты и слепнет перед eBPF-драйвером Portmaster. Чтобы полностью обойти этот затык, мы запустим Telegram ультимативной прямой командой: флаг `--noprofile` мгновенно очистит рантайм-память от капризного системного шлака, а параметры `--whitelist` полностью запечатают файловый периметр. Механизм `--seccomp` активирует фильтрацию системных вызовов на уровне ядра хоста, пресекая попытки эксплуатации уязвимостей локального повышения привилегий (LPE):
 ```bash
 firejail --profile=telegram /usr/bin/telegram-desktop
 ```
 
 Мессенджер мгновенно получит доступ к сети интернета хоста, а eBPF-линзы Portmaster тут же перехватят и отобразят процесс `telegram-desktop` в окне сетевого монитора. При этом встроенный проводник мессенджера физически не увидит в нашей домашней директории ничего, кроме наших старых чатов и изолированного каталога `Telegram_Downloads`. Даже если злоумышленник пришлет нам вредоносный файл и мы его случайно запустим внутри мессенджера, эксплойт окажется заперт в виртуальном вакууме памяти и не сможет добраться до наших ключей SSH, крипто-кошельков или скрытых системных конфигов хост-машины!
 
-**8.** Генерируем ИБ-ярлык для **Telegram**, жестко связав его с нашей быстрой песочницей и защитой ядра `seccomp`:
+**4.** Генерируем ИБ-ярлык для **Telegram**, жестко связав его с нашей быстрой песочницей и защитой ядра `seccomp`:
 ```bash
 cat <<EOF > ~/.local/share/applications/telegramdesktop.desktop
 [Desktop Entry]
@@ -6230,9 +6231,9 @@ MimeType=x-scheme-handler/tg;
 EOF
 ```
 
-#### Изолируем Telegram через Bubblewrap:
+### Изолируем Telegram через Bubblewrap:
 
-**5.** Создаем скрипт-обертку /usr/local/bin/telegram-bwrap.sh:
+**1.** Создаем скрипт-обертку /usr/local/bin/telegram-bwrap.sh:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/telegram-bwrap.sh
 #!/bin/bash
@@ -6266,7 +6267,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/telegram-bwrap.sh
 ```
 
-**6.** Ярлык запуска /usr/local/share/applications/telegram-bwrap.desktop:
+**2.** Ярлык запуска /usr/local/share/applications/telegram-bwrap.desktop:
 ```bash
 cat <<EOF > ~/.local/share/applications/telegram-bwrap.desktop
 [Desktop Entry]
@@ -6427,7 +6428,7 @@ sudo ufw allow out to any port 5222 proto tcp && sudo ufw allow out to any port 
 
 * **Для пользователей Ubuntu 24.04 LTS Noble Numbat.**
 
-**2.** Дефолтный нативный пакет в репозиториях Ubuntu 24.04 страдает от критических ошибок линковки Qt-библиотек к дисплейному серверу Wayland (что приводит к аварийному падению *Segmentation fault*). Чтобы обойти этот системный баг, мы принудительно подключаем официальный PPA-репозиторий разработчиков Psi+, выкачиваем адаптированную стабильную сборку мессенджера версии Psi+ v1.5.2068, пак плагинов (включая OMEMO) и системную базу GnuPG одной командой:
+**1.** Дефолтный нативный пакет в репозиториях Ubuntu 24.04 страдает от критических ошибок линковки Qt-библиотек к дисплейному серверу Wayland (что приводит к аварийному падению *Segmentation fault*). Чтобы обойти этот системный баг, мы принудительно подключаем официальный PPA-репозиторий разработчиков Psi+, выкачиваем адаптированную стабильную сборку мессенджера версии Psi+ v1.5.2068, пак плагинов (включая OMEMO) и системную базу GnuPG одной командой:
 ```bash
 sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt install psi-plus psi-plus-plugins gnupg -y
 ```
@@ -6440,7 +6441,7 @@ sudo add-apt-repository ppa:psi-plus/ppa -y && sudo apt update && sudo apt insta
 
 **Вариант 1.**
 
-**2.** Psi+ версии 1.4.1456 без проблем устанавливается из стандартного репозитория одной командой:
+**1.** Psi+ версии 1.4.1456 без проблем устанавливается из стандартного репозитория одной командой:
 ```bash
 sudo apt update && sudo apt install psi-plus psi-plus-plugins -y
 ```
@@ -6476,9 +6477,9 @@ wget https://raw.githubusercontent.com/EugeXo/security-baseline-ubuntu/main/_ass
 sudo apt install ./psi-plus-client-and-plugins-1.5.2068-resolute1-amd64.deb -y
 ```
 
-#### Изолируем PSI+ в Firejail:
+### Изолируем PSI+ в Firejail:
 
-**4.** Запускаем Psi+ его каноничной системной командой. Песочница Firejail автоматически прочитает базовую системную маску защиты, применит встроенный профиль безопасности и выведет графический интерфейс на экран:
+**1.** Запускаем Psi+ его каноничной системной командой. Песочница Firejail автоматически прочитает базовую системную маску защиты, применит встроенный профиль безопасности и выведет графический интерфейс на экран:
 ```bash
 firejail psi-plus
 ```
@@ -6490,7 +6491,7 @@ firejail psi-plus
 > [!IMPORTANT]
 > Для передачи файлов необходимые дополнительные сетевые направления зависят от используемого XMPP-сервера и его сервисов HTTP Upload/прокси.
 
-**5.** Генерируем ИБ-ярлык для Jabber-клиента **Psi+**. Команда принудительно регистрирует приложение в меню GNOME, полностью закрывает ему доступ ко всей домашней директории хоста (включая папку загрузок), но точечно отбеливает пути для сохранения OMEMO-ключей, истории чатов и пробрасывает безопасный сквозной мост к криптоядру GnuPG хоста:
+**2.** Генерируем ИБ-ярлык для Jabber-клиента **Psi+**. Команда принудительно регистрирует приложение в меню GNOME, полностью закрывает ему доступ ко всей домашней директории хоста (включая папку загрузок), но точечно отбеливает пути для сохранения OMEMO-ключей, истории чатов и пробрасывает безопасный сквозной мост к криптоядру GnuPG хоста:
 ```bash
 cat <<EOF > ~/.local/share/applications/psi-plus.desktop
 [Desktop Entry]
@@ -6508,9 +6509,9 @@ EOF
 > [!WARNING]
 > Фоновый процесс Psi+ (`psi-plus`) после закрытия окна крестиком остается активным и сворачивается в системный трей. Если полностью не выгрузить приложение из памяти, повторный запуск альтернативного ярлыка перехватит старую сессию. 
 
-#### Изоляция Psi+ Jabber-клиента в песочнице Bubblewrap:
+### Изоляция Psi+ Jabber-клиента в песочнице Bubblewrap:
 
-**4.** Создаем изолирующий скрипт /usr/local/bin/psi-bwrap.sh:
+**1.** Создаем изолирующий скрипт /usr/local/bin/psi-bwrap.sh:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/psi-bwrap.sh
 #!/bin/bash
@@ -6556,7 +6557,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/psi-bwrap.sh
 ```
 
-**5.** Создаем ярлык /usr/local/share/applications/psi-bwrap.desktop:
+**2.** Создаем ярлык /usr/local/share/applications/psi-bwrap.desktop:
 ```bash
 cat <<EOF > ~/.local/share/applications/psi-bwrap.desktop
 [Desktop Entry]
@@ -6604,14 +6605,14 @@ echo 'Unattended-Upgrade::Allowed-Origins:: "LP-PPA-mozillateam:resolute";' | su
 sudo apt update && sudo apt install thunderbird -y
 ```
 
-#### Изоляция Thunderbird с помощью Firejail:
+### Изоляция Thunderbird с помощью Firejail:
 
-**4.** Создадим профиль для Thunderbird:
+**1.** Создадим профиль для Thunderbird:
 ```bash
 mkdir -p ~/.config/firejail && nano ~/.config/firejail/thunderbird.profile
 ```
 
-**5.** Пропишем в открывшийся файл базовые правила изоляции:
+**2.** Пропишем в открывшийся файл базовые правила изоляции:
 ```ini
 caps.drop all
 nonewprivs
@@ -6629,23 +6630,23 @@ deterministic-shutdown
 > [!WARNING]
 > **Нижеприведенные пункты 6–12** повторяются как для **Firejail**, так и для **Bubblewrap**. **Категорически запрещено** кликать на иконку Thunderbird, пока система находится в онлайне! При первом же старте «птичка» мгновенно выбросит в сеть пакеты первичной телеметрии.
 
-**6.** Полностью отключаем интернет, чтобы почтовик не успел «позвонить домой» при инициализации, и запускаем Thunderbird для первичного создания внутренней структуры профиля:
+**3.** Полностью отключаем интернет, чтобы почтовик не успел «позвонить домой» при инициализации, и запускаем Thunderbird для первичного создания внутренней структуры профиля:
 ```bash
 nmcli networking off
 ```
 **После выполнения команды запускаем Thunderbird руками из меню приложений.** Ждем 2-3 секунды пока он сгенерирует папки, после чего полностью закроем программу.
 
-**7.** Переходим в созданную UUID-директорию профиля и инициализируем чистый конфигурационный файл:
+**4.** Переходим в созданную UUID-директорию профиля и инициализируем чистый конфигурационный файл:
 ```bash
 cd ~/.thunderbird/*default-release && touch user.js
 ```
 
-**8.** Открываем созданный `user.js` в терминальном редакторе `nano`:
+**5.** Открываем созданный `user.js` в терминальном редакторе `nano`:
 ```bash
 nano user.js
 ```
 
-**9.** Скопируем наш ультимативный OPSEC-массив настроек безопасности, полностью ослепляющий модули слежки ядра Gecko, и вставляем его целиком в окно редактора:
+**6.** Скопируем наш ультимативный OPSEC-массив настроек безопасности, полностью ослепляющий модули слежки ядра Gecko, и вставляем его целиком в окно редактора:
 ```javascript
 // ============================================================================
 // HARDENING CONFIG FOR MOZILLA THUNDERBIRD (USER.JS)
@@ -6735,27 +6736,27 @@ user_pref("webgl.disabled", true);
 
 Чтобы сохранить конфигурацию в редакторе `nano`, нажимаем комбинацию клавиш **«Ctrl + O»** → **«Enter»**, а затем **«Ctrl + X»** для выхода обратно в консоль.
 
-**10.** Запечатываем права доступа, выставляя жесткую POSIX-маску «только чтение для владельца», чтобы ни один фоновый процесс хоста не смог скрытно модифицировать наш ИБ-контур:
+**7.** Запечатываем права доступа, выставляя жесткую POSIX-маску «только чтение для владельца», чтобы ни один фоновый процесс хоста не смог скрытно модифицировать наш ИБ-контур:
 ```bash
 chmod 0400 user.js
 ```
 
-**11.** Чтобы файлы, скачанные из входящих писем, не разлетались по системе и не смогли скрытно модифицировать системные файлы хоста, инициализируем для них строго выделенный шлюз:
+**8.** Чтобы файлы, скачанные из входящих писем, не разлетались по системе и не смогли скрытно модифицировать системные файлы хоста, инициализируем для них строго выделенный шлюз:
 ```bash
 mkdir -p ~/Downloads/Mail_Attachments
 ```
-**12.** Восстанавливаем соединение с интернетом (где enp0s1 меняем на имя своего интерфейса):
+**9.** Восстанавливаем соединение с интернетом (где enp0s1 меняем на имя своего интерфейса):
 ```bash
 nmcli networking on && nmcli connection up netplan-enp0s1
 ```
 
-**13.** Запускаем изолированный экземпляр Thunderbird без использования забагованных стандартных профилей (флаг `--noprofile`). Чтобы тяжелый рендеринг писем на картах NVIDIA не вызывал падения интерфейса на Wayland, мы заворачиваем запуск в универсальный контур: скрипт проверяет наличие проприетарных драйверов в системе и на лету отбеливает к ним пути, сохраняя для пользователей встроенной графики Intel/AMD стандартный параноидальный вайтлист файлового периметра:
+**10.** Запускаем изолированный экземпляр Thunderbird без использования забагованных стандартных профилей (флаг `--noprofile`). Чтобы тяжелый рендеринг писем на картах NVIDIA не вызывал падения интерфейса на Wayland, мы заворачиваем запуск в универсальный контур: скрипт проверяет наличие проприетарных драйверов в системе и на лету отбеливает к ним пути, сохраняя для пользователей встроенной графики Intel/AMD стандартный параноидальный вайтлист файлового периметра:
 
 ```bash
 firejail --profile=thunderbird /usr/bin/thunderbird
 ```
 
-**14.** Генерируем ИБ-ярлык для **Thunderbird**, разворачивающий наш вылизанный, ультра-быстрый контур с вайтлистами и защитой от LPE-атак, который корректно пробросит библиотеки NVIDIA в случае работы на дискретной графике:
+**11.** Генерируем ИБ-ярлык для **Thunderbird**, разворачивающий наш вылизанный, ультра-быстрый контур с вайтлистами и защитой от LPE-атак, который корректно пробросит библиотеки NVIDIA в случае работы на дискретной графике:
 ```bash
 cat <<EOF > ~/.local/share/applications/thunderbird.desktop
 [Desktop Entry]
@@ -6771,9 +6772,9 @@ MimeType=message/rfc822;x-scheme-handler/mailto;
 EOF
 ```
 
-#### Изоляция Thunderbird через Bubblewrap:
+### Изоляция Thunderbird через Bubblewrap:
 
-**4.** Собираем итоговый скрипт песочницы для Thunderbird:
+**1.** Собираем итоговый скрипт песочницы для Thunderbird:
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/thunderbird-bwrap.sh
 #!/bin/bash
@@ -6812,7 +6813,7 @@ exec bwrap \
 EOF' && sudo chmod 755 /usr/local/bin/thunderbird-bwrap.sh
 ```
 
-**5.** Создаем .desktop-файл, чтобы запускать Thunderbird сразу в песочнице:
+**2.** Создаем .desktop-файл, чтобы запускать Thunderbird сразу в песочнице:
 ```bash
 cat <<EOF > ~/.local/share/applications/thunderbird-bwrap.desktop
 [Desktop Entry]
