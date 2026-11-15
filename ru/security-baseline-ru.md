@@ -3053,7 +3053,7 @@ Portmaster — это мощный интерактивный файрвол н�
 
 **1.** Открываем наш настроенный Firefox. Переходим на официальный сайт разработчиков `https://safing.io`. Скачиваем полный offline-установщик Portmaster v2 в формате `.deb` (для систем Debian/Ubuntu). После успешного завершения загрузки полностью закрываем Firefox.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.3_amd64.deb \\ Прямой линк актуальный на 13 сентября 2026 (релиз от 24 августа 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.8_amd64.deb \\ Прямой линк актуальный на 15 ноября 2026 (релиз от ноября 2026).
 ```
 
 **2.** Открываем терминал хоста. Скачиваем официальный стабильный `.deb` инсталлятор старой версии с серверов обновлений Safing для развертывания первичных структур:
@@ -3461,7 +3461,7 @@ StegoForge — это универсальный инструмент двойн
 
 **1.** Скачиваем приложение из репозитория `github.com`:
 ```bash
-wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-linux-x86_64
+wget https://github.com/Nour833/StegoForge/releases/download/v1.5.0/stegoforge-linux-x86_64
 ```
 
 **2.** Создадим каталог для локальных программ, переместим туда бинарный файл, сделаем его исполняемым и добавим в PATH:

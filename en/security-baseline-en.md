@@ -3061,7 +3061,7 @@ To deploy the current version of Portmaster without cascading kernel panics, UFW
 
 **1.** Open our configured Firefox browser. Navigate to the official developer website `https://safing.io`. Download the full offline installer for Portmaster v2 in `.deb` format (for Debian/Ubuntu systems). Once the download completes, close Firefox entirely.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.3_amd64.deb \\ Direct link valid as of September 13, 2026 (release from August 24, 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.8_amd64.deb \\ Direct link valid as of November 15, 2026 (release from November, 2026).
 ```
 
 **2.** Open the host terminal. Download the official stable `.deb` installer of the legacy version from Safing update servers to deploy the initial system structures:
@@ -3473,7 +3473,7 @@ Payload security relies on cryptography rather than algorithm secrecy. If a cont
 
 **1.** Download the application binary from the `github.com` repository:
 ```bash
-wget https://github.com/Nour833/StegoForge/releases/download/v1.1.5/stegoforge-linux-x86_64
+wget https://github.com/Nour833/StegoForge/releases/download/v1.5.0/stegoforge-linux-x86_64
 ```
 
 > [!IMPORTANT]
@@ -4700,17 +4700,17 @@ mkdir -p ~/.local/share/icons/{256x256,256x256@2x} && cp "\(HOME/PATH-TO-FILES/i
 
 * For **Ubuntu 24.04**, change the **Terminal** icon:
 ```bash
-sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/\$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop
+sudo sed -i "s|^Icon=org.gnome.Terminal|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Terminal.desktop
 ```
 
 * For **Ubuntu 26.04**, change the **Ptyxis** icon:
 ```bash
-sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/\$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
+sudo sed -i "s|^Icon=org.gnome.Ptyxis|Icon=/home/$USER/.local/share/icons/256x256@2x/terminal.png|" /usr/share/applications/org.gnome.Ptyxis.desktop
 ```
 
 * Optionally, replace the **Trash** icon with a custom one (where `PATH-TO-FILES` is the path to the icon folders in your home directory, for example: `/.local/share/`):
 ```bash
-for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "\$HOME/PATH-TO-FILES/icons/Trash/s/"user-trash,-full.png /usr/share/icons/Yaru/s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "\$HOME/PATH-TO-FILES/icons/Trash/s/"user-trash,-full.png /usr/share/icons/Yaru/s/places/; done
+for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/s/"user-trash,-full.png /usr/share/icons/Yaru/s/status/; done && for s in 16x16 16x16@2x 24x24 24x24@2x 32x32 32x32@2x 48x48 48x48@2x 256x256 256x256@2x; do sudo cp "$HOME/PATH-TO-FILES/icons/Trash/s/"user-trash,-full.png /usr/share/icons/Yaru/s/places/; done
 ```
 
 Restore standard read permissions for the system icons:
@@ -4763,12 +4763,12 @@ sudo reboot
 >
 > Or query the installed package database via `dpkg`:
 > ```bash
-> dpkg -L APP-NAME | grep "\.desktop\$"
+> dpkg -L APP-NAME | grep "\.desktop$"
 > ```
 >
 > **Example:** find the GIMP launcher:
 > ```bash
-> dpkg -L gimp | grep "\.desktop\$"
+> dpkg -L gimp | grep "\.desktop$"
 > ```
 >
 > Create a user-level copy:
@@ -4891,11 +4891,11 @@ nano ~/.config/firejail/firefox-hardened.local
 ignore nou2f
 
 # Allow access to the separate hardened Firefox profile directory
-noblacklist \${HOME}/.mozilla-hardened
-whitelist \${HOME}/.mozilla-hardened
+noblacklist ${HOME}/.mozilla-hardened
+whitelist ${HOME}/.mozilla-hardened
 
 # Allow saving downloaded files
-whitelist \${HOME}/Downloads
+whitelist ${HOME}/Downloads
 
 # Terminate the sandbox immediately when the application exits
 deterministic-shutdown
@@ -4931,7 +4931,7 @@ If the command outputs the full path to the profile folder, the symlink is confi
 
 **10.** Set ownership of the copied profile to the current user:
 ```bash
-chown -R \$USER:USER "HOME/.mozilla-hardened"
+chown -R $USER:USER "HOME/.mozilla-hardened"
 ```
 
 Our Firefox instance is now ready to run inside an isolated Firejail contour. At this stage, we avoid piling on excessive custom rules or breaking built-in security mechanisms. After testing various launch methods, it became clear that the issues did not stem from Firejail or AppArmor itself, but from how Firefox was invoked.
@@ -4945,7 +4945,7 @@ The reliable working setup consists of:
 
 **11.** Launch Firefox using our hardened Firejail profile:
 ```bash
-firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile "\$HOME/.mozilla-hardened/firefox/current"
+firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile "$HOME/.mozilla-hardened/firefox/current"
 ```
 
 **12.** While Firefox is running, open a new terminal window and list active sandboxes:
@@ -4972,11 +4972,11 @@ cat <<EOF > ~/.local/share/applications/firefox-secure.desktop
 [Desktop Entry]
 Name=Firefox (Secure Sandbox)
 Comment=Browse the World Wide Web in Firejail Sandbox
-Exec=firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile \$HOME/.mozilla-hardened/firefox/current --name firefox-secure %u
+Exec=firejail --profile=firefox-hardened /usr/bin/firefox --no-remote --profile $HOME/.mozilla-hardened/firefox/current --name firefox-secure %u
 StartupNotify=true
 Terminal=false
 Type=Application
-Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-secure.png
 Categories=Network;WebBrowser;
 MimeType=text/html;text/xml;application/xhtml+xml;
 EOF
@@ -4984,7 +4984,7 @@ EOF
 
 **15.** Modify the administrative **Mozilla Firefox launcher for unsandboxed host usage** (for downloading large files), assigning it our bronze custom fox icon:
 ```bash
-sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
+sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
 
 > [!NOTE]
@@ -5033,15 +5033,15 @@ sudo nano /usr/local/bin/firefox-bwrap.sh
   --ro-bind-try /run/user/UID/pulse /run/user/UID/pulse \
   \
   --bind HOME/.mozilla-hardened HOME/.mozilla \
-  --tmpfs \$HOME/.cache \
-  --dir \$HOME/Downloads \
+  --tmpfs $HOME/.cache \
+  --dir $HOME/Downloads \
   --bind HOME/Downloads HOME/Downloads \
   \
-  --setenv HOME "\$HOME" \
-  --setenv DISPLAY "\$DISPLAY" \
-  --setenv WAYLAND_DISPLAY "\${WAYLAND_DISPLAY:-wayland-0}" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
   \
-  /usr/lib/firefox/firefox --no-remote "\$@"
+  /usr/lib/firefox/firefox --no-remote "$@"
 ```
 
 Save the file in `nano` with **Ctrl + O** ➔ **Enter**, then **Ctrl + X** to exit.
@@ -5060,7 +5060,7 @@ Type=Application
 Name=Firefox (Secure Sandbox)
 Comment=Amnesic Hardened Firefox inside Bubblewrap
 Exec=/usr/local/bin/firefox-bwrap.sh %u
-Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-secure.png
 Terminal=false
 StartupNotify=true
 Categories=Network;WebBrowser;
@@ -5070,7 +5070,7 @@ EOF
 
 **6.** Modify the administrative Mozilla Firefox launcher for unsandboxed host usage (for downloading large files), assigning it our bronze custom fox icon:
 ```bash
-sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/\$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
+sudo sed -i -e 's/^Name=.*/Name=Firefox (Unsecured Host)/' -e "s|^Icon=.*|Icon=/home/$USER/.local/share/icons/256x256@2x/firefox-unsecure.png|" /usr/share/applications/firefox.desktop
 ```
 
 **7.** Set permissions on the `.desktop` file (if you encounter permission issues):
@@ -5142,7 +5142,7 @@ firejail evince ~/Downloads/unsafe.pdf
 
 **7a.** Update the **Document Viewer (Evince)** launcher so it always starts inside Firejail:
 ```bash
-sudo sed -i 's|^Exec=evince.*\$|Exec=firejail evince|' /usr/share/applications/org.gnome.Evince.desktop
+sudo sed -i 's|^Exec=evince.*$|Exec=firejail evince|' /usr/share/applications/org.gnome.Evince.desktop
 ```
 
 **8a.** Verify the change:
@@ -5194,7 +5194,7 @@ firejail papers ~/Downloads/unsafe.pdf
 
 **7b.** Update the **Document Viewer (Papers)** launcher so it always starts inside Firejail:
 ```bash
-sudo sed -i 's|^Exec=papers.*\$|Exec=firejail papers %U|' /usr/share/applications/org.gnome.Papers.desktop
+sudo sed -i 's|^Exec=papers.*$|Exec=firejail papers %U|' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
 **8b.** Verify the change:
@@ -5221,10 +5221,10 @@ exec /usr/bin/bwrap \
   --tmpfs /run \
   --ro-bind-try /run/user/UID/wayland-0 /run/user/UID/wayland-0 \
   --ro-bind-try /run/user/UID/pulse /run/user/UID/pulse \
-  --ro-bind "\$1" "\$1" \
-  --setenv HOME "\$HOME" \
-  --setenv DISPLAY "\$DISPLAY" \
-  --setenv WAYLAND_DISPLAY "\${WAYLAND_DISPLAY:-wayland-0}" \
+  --ro-bind "$1" "$1" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
   /usr/bin/papers "\(@" 2>/dev/null \vert{}\vert{} /usr/bin/evince "\)@"
 EOF' && sudo chmod 755 /usr/local/bin/pdf-bwrap.sh
 ```
@@ -5240,7 +5240,7 @@ Bind the application to launch permanently through Bubblewrap:
 
 **3a.** Update the **Document Viewer (Evince)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=evince.*\$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Evince.desktop
+sudo sed -i 's|^Exec=evince.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Evince.desktop
 ```
 
 **4a.** Verify the change:
@@ -5252,7 +5252,7 @@ grep 'Exec=' /usr/share/applications/org.gnome.Evince.desktop
 
 **3b.** Update the **Document Viewer (Papers)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=papers.*\$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Papers.desktop
+sudo sed -i 's|^Exec=papers.*$|Exec=/usr/local/bin/pdf-bwrap.sh %U|' /usr/share/applications/org.gnome.Papers.desktop
 ```
 
 **4b.** Verify the change:
@@ -5303,7 +5303,7 @@ firejail eog ~/Pictures/unsafe.png
 
 **7a.** Update the **Image Viewer (Eog)** launcher to run inside Firejail:
 ```bash
-sudo sed -i 's|^Exec=eog.*\$|Exec=firejail eog|' /usr/share/applications/org.gnome.eog.desktop
+sudo sed -i 's|^Exec=eog.*$|Exec=firejail eog|' /usr/share/applications/org.gnome.eog.desktop
 ```
 
 **8a.** Verify the change:
@@ -5375,10 +5375,10 @@ exec /usr/bin/bwrap \
   --tmpfs /run \
   --ro-bind-try /run/user/UID/wayland-0 /run/user/UID/wayland-0 \
   --ro-bind-try /run/user/UID/pulse /run/user/UID/pulse \
-  --ro-bind "\$1" "\$1" \
-  --setenv HOME "\$HOME" \
-  --setenv DISPLAY "\$DISPLAY" \
-  --setenv WAYLAND_DISPLAY "\${WAYLAND_DISPLAY:-wayland-0}" \
+  --ro-bind "$1" "$1" \
+  --setenv HOME "$HOME" \
+  --setenv DISPLAY "$DISPLAY" \
+  --setenv WAYLAND_DISPLAY "${WAYLAND_DISPLAY:-wayland-0}" \
   /usr/bin/loupe "\(@" 2>/dev/null \vert{}\vert{} /usr/bin/eog "\)@"
 EOF' && sudo chmod 755 /usr/local/bin/image-bwrap.sh
 ```
@@ -5394,7 +5394,7 @@ Bind the application to launch permanently through Bubblewrap:
 
 **3a.** Update the **Image Viewer (Eog)** launcher to run inside the Bubblewrap sandbox:
 ```bash
-sudo sed -i 's|^Exec=eog.*\$|Exec=/usr/local/bin/image-bwrap.sh %U|' /usr/share/applications/org.gnome.eog.desktop
+sudo sed -i 's|^Exec=eog.*$|Exec=/usr/local/bin/image-bwrap.sh %U|' /usr/share/applications/org.gnome.eog.desktop
 ```
 
 **4a.** Verify the change:
@@ -5441,19 +5441,19 @@ noblacklist /usr/libexec
 whitelist /usr/libexec/glycin-loaders
 
 # Allow access to KeePassXC configuration
-noblacklist \${HOME}/.config/keepassxc
-nowhitelist \${HOME}/.config/keepassxc
-whitelist \${HOME}/.config/keepassxc
+noblacklist ${HOME}/.config/keepassxc
+nowhitelist ${HOME}/.config/keepassxc
+whitelist ${HOME}/.config/keepassxc
 
 # IMPORTANT: Allow access to your password database and separate keyfile.
 # Specify your actual paths.
 # KeePassXC database:
-# noblacklist \${HOME}/Documents/passwords.kdbx
-# whitelist \${HOME}/Documents/passwords.kdbx
+# noblacklist ${HOME}/Documents/passwords.kdbx
+# whitelist ${HOME}/Documents/passwords.kdbx
 
 # When using a Keyfile, e.g., on an external drive:
-# noblacklist /media/\$USER/DRIVE-NAME/passwords.key
-# whitelist /media/\$USER/DRIVE-NAME/passwords.key
+# noblacklist /media/$USER/DRIVE-NAME/passwords.key
+# whitelist /media/$USER/DRIVE-NAME/passwords.key
 ```
 
 To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit back to the shell.
@@ -5465,7 +5465,7 @@ firejail keepassxc
 
 **4.** Update the security launcher for **KeePassXC**, binding it to the database, blocking network access, and saving a backup of the default `.desktop` file:
 ```bash
-sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=\$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=firejail --net=none keepassxc %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
 ```
 
 > [!IMPORTANT]
@@ -5488,7 +5488,7 @@ sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/appli
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/keepassxc-bwrap.sh
 #!/bin/bash
-mkdir -p "\$HOME/.config/keepassxc"
+mkdir -p "$HOME/.config/keepassxc"
 
 exec /usr/local/bin/bwrap \
   --ro-bind /usr /usr \
@@ -5502,10 +5502,10 @@ exec /usr/local/bin/bwrap \
   --bind "HOME/.config/keepassxc" "HOME/.config/keepassxc" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --unshare-all \
   --die-with-parent \
-  -- /usr/bin/keepassxc "\$@"
+  -- /usr/bin/keepassxc "$@"
 EOF' && sudo chmod 755 /usr/local/bin/keepassxc-bwrap.sh
 ```
 
@@ -5516,7 +5516,7 @@ sudo chmod +x /usr/local/bin/keepassxc-bwrap.sh
 
 **3.** Update the **KeePassXC** launcher to route execution through the Bubblewrap script while backing up the default `.desktop` file:
 ```bash
-sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=/usr/local/bin/keepassxc-bwrap.sh %f|' -e "s|^Icon=.*|Icon=\$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
+sudo cp /usr/share/applications/org.keepassxc.KeePassXC.desktop /usr/share/applications/org.keepassxc.KeePassXC.desktop.bak && sudo sed -i -e 's/^Name=.*/Name=KeePassXC (Secure Sandbox)/' -e 's|^Exec=.*|Exec=/usr/local/bin/keepassxc-bwrap.sh %f|' -e "s|^Icon=.*|Icon=$HOME/.local/share/icons/256x256@2x/keepassxc-secure.png|" /usr/share/applications/org.keepassxc.KeePassXC.desktop
 ```
 
 ### Installing and Isolating the LibreOffice Suite:
@@ -5546,9 +5546,9 @@ private-tmp
 private-dev
 
 # Expose only these directories to the application
-whitelist \${HOME}/Documents
-whitelist \${HOME}/Downloads
-whitelist \${HOME}/.config/libreoffice
+whitelist ${HOME}/Documents
+whitelist ${HOME}/Downloads
+whitelist ${HOME}/.config/libreoffice
 
 # Complete ban on network sockets
 protocol unix
@@ -5556,7 +5556,7 @@ ignore protocol inet
 ignore protocol inet6
 
 blacklist /tmp/.X11-unix
-blacklist \${HOME}/.Xauthority
+blacklist ${HOME}/.Xauthority
 
 # Disable DBus and unnecessary services
 nosound
@@ -5567,9 +5567,9 @@ nonewprivs
 noroot
 seccomp
 
-blacklist \${HOME}/.ssh
-blacklist \${HOME}/.gnupg
-blacklist \${HOME}/.mozilla
+blacklist ${HOME}/.ssh
+blacklist ${HOME}/.gnupg
+blacklist ${HOME}/.mozilla
 
 # Removable media
 blacklist /media
@@ -5644,12 +5644,12 @@ exec bwrap \
   --ro-bind-try /dev/dri /dev/dri \
   --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv SAL_USE_VCLPLUGIN "gtk3" \
   --setenv GDK_BACKEND "wayland" \
   --unshare-net \
   --die-with-parent \
-  -- /usr/bin/libreoffice "\$@"
+  -- /usr/bin/libreoffice "$@"
 EOF' && sudo chmod 755 /usr/local/bin/libreoffice-bwrap.sh
 ```
 
@@ -5705,13 +5705,13 @@ ignore dbus-system none
 env PULSE_SERVER=disabled
 
 # Allow access to config path (override global blacklist)
-noblacklist \${HOME}/.config/GIMP
-whitelist \${HOME}/.config/GIMP
+noblacklist ${HOME}/.config/GIMP
+whitelist ${HOME}/.config/GIMP
 
 # Allow access strictly to working directories
-whitelist \${HOME}/Documents
-whitelist \${HOME}/Downloads
-whitelist \${HOME}/Pictures
+whitelist ${HOME}/Documents
+whitelist ${HOME}/Downloads
+whitelist ${HOME}/Pictures
 
 # Terminate the sandbox immediately when the main GIMP window closes
 deterministic-shutdown
@@ -5752,11 +5752,11 @@ exec bwrap \
   --ro-bind-try /dev/dri /dev/dri \
   --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
   --unshare-net \
   --die-with-parent \
-  -- /usr/bin/gimp "\$@"
+  -- /usr/bin/gimp "$@"
 EOF' && sudo chmod 755 /usr/local/bin/gimp-bwrap.sh
 ```
 
@@ -5771,7 +5771,7 @@ VSCodium is a free, open-source fork of Microsoft's Visual Studio Code (VS Code)
 
 **1.** Install the required system utilities, navigate to the `Downloads` directory, and download the latest stable VSCodium AppImage from the official repository:
 ```bash
-sudo apt install curl jq -y && cd ~/Downloads && API_HOST="://github.com" && LATEST_URL=\$(curl -s "https://\({API_HOST}/repos/VSCodium/vscodium/releases/latest" \vert{} jq -r '.assets[].browser_download_url' \vert{} grep -E 'x86_64.*\.AppImage\)' | head -n 1) && curl -L -o VSCodium.AppImage "\$LATEST_URL"
+sudo apt install curl jq -y && cd ~/Downloads && API_HOST="://github.com" && LATEST_URL=$(curl -s "https://\({API_HOST}/repos/VSCodium/vscodium/releases/latest" \vert{} jq -r '.assets[].browser_download_url' \vert{} grep -E 'x86_64.*\.AppImage\)' | head -n 1) && curl -L -o VSCodium.AppImage "$LATEST_URL"
 ```
 
 **2.** Make the downloaded file executable, extract the AppImage container, move the binaries to `/opt/`, and pre-create the hidden configuration folders in your home directory:
@@ -5850,7 +5850,7 @@ cat <<EOF > ~/.local/share/applications/vscodium-offline.desktop
 Name=VSCodium (Offline IDE)
 Comment=Code Editing without Network Access
 Exec=firejail --net=none --profile=HOME/.config/firejail/vscodium.profile --whitelist={HOME}/Documents /opt/vscodium/AppRun --no-sandbox
-Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-offline.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
 Terminal=false
 Type=Application
 Categories=Development;TextEditor;IDE;
@@ -5864,8 +5864,8 @@ cat <<EOF > ~/.local/share/applications/vscodium-online.desktop
 [Desktop Entry]
 Name=VSCodium (Online IDE)
 Comment=Code Editing with Network Access (Strict Sandbox)
-Exec=firejail --profile=\${HOME}/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
-Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-online.png
+Exec=firejail --profile=${HOME}/.config/firejail/vscodium.profile /opt/vscodium/AppRun --no-sandbox
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-online.png
 Terminal=false
 Type=Application
 Categories=Development;TextEditor;IDE;
@@ -5879,7 +5879,7 @@ EOF
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-online.sh
 #!/bin/bash
-mkdir -p "\$HOME/.config/VSCodium" "HOME/.vscode-oss" "HOME/.vscode-oss-shared"
+mkdir -p "$HOME/.config/VSCodium" "HOME/.vscode-oss" "HOME/.vscode-oss-shared"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -5892,7 +5892,7 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "\$HOME" \
+  --tmpfs "$HOME" \
   --share-net \
   --bind "HOME/.config/VSCodium" "HOME/.config/VSCodium" \
   --bind "HOME/.vscode-oss" "HOME/.vscode-oss" \
@@ -5901,9 +5901,9 @@ exec bwrap \
   --ro-bind-try /dev/dri /dev/dri \
   --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
-  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "\$@"
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
 EOF' && sudo chmod 755 /usr/local/bin/codium-online.sh
 ```
 
@@ -5914,7 +5914,7 @@ cat <<EOF > ~/.local/share/applications/codium-online.desktop
 Name=VSCodium (Maintenance / Online)
 Comment=Install Extensions and Sync
 Exec=/usr/local/bin/codium-online.sh %F
-Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-online.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-online.png
 Terminal=false
 Type=Application
 StartupWMClass=vscodium
@@ -5940,7 +5940,7 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "\$HOME" \
+  --tmpfs "$HOME" \
   --unshare-net \
   --bind "HOME/Documents" "HOME/Documents" \
   --bind "HOME/.config/VSCodium" "HOME/.config/VSCodium" \
@@ -5950,9 +5950,9 @@ exec bwrap \
   --ro-bind-try /dev/dri /dev/dri \
   --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
-  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "\$@"
+  -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
 EOF' && sudo chmod 755 /usr/local/bin/codium-offline.sh
 ```
 
@@ -5963,7 +5963,7 @@ cat <<EOF > ~/.local/share/applications/codium-offline.desktop
 Name=VSCodium (Workspace / Offline)
 Comment=Secure Sandbox Working Environment
 Exec=/usr/local/bin/codium-offline.sh %F
-Icon=/home/\$USER/.local/share/icons/256x256@2x/vscodium-offline.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
 Terminal=false
 Type=Application
 StartupWMClass=vscodium
@@ -5984,7 +5984,7 @@ Because modern versions of LM Studio ship as a massive ~1 GB AppImage container,
 
 **1.** Navigate to `Downloads` and fetch the latest stable LM Studio AppImage directly from the official release endpoint, following redirects automatically:
 ```bash
-sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "https://lmstudio.ai"
+sudo apt install curl -y && cd ~/Downloads && curl -L -o LM-Studio.AppImage "https://lmstudio.ai/download/latest/linux/x64?format=AppImage"
 ```
 
 > [!TIP]
@@ -6195,7 +6195,7 @@ Let's strictly confine Telegram: forbid it from seeing any files on the system e
 
 **1.** Navigate to `Downloads`, download the official stable archive directly from `telegram.org`, extract it, move the clean binary into the canonical `/usr/bin/` directory, and automatically remove all temporary files:
 ```bash
-sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "https://telegram.org" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
+sudo apt install curl -y && cd ~/Downloads && curl -L -o telegram.tar.xz "https://telegram.org/dl/desktop/linux" && tar -xvf telegram.tar.xz && sudo mv Telegram/Telegram /usr/bin/telegram-desktop && rm -rf Telegram/ telegram.tar.xz
 ```
 
 Using `curl -L`, the command follows the HTTP redirect on the official download gateway, fetches the latest original tarball, extracts it, and places the clean static binary in `/usr/bin/` as `telegram-desktop`. This is a canonical execution path in the Linux kernel, ensuring conflict-free launches from the desktop environment.
@@ -6228,8 +6228,8 @@ mkdir -p ~/.config/firejail && nano ~/.config/firejail/telegram.profile
 seccomp
 
 # Allow only required directories
-whitelist \${HOME}/.local/share/TelegramDesktop
-whitelist \${HOME}/Downloads/Telegram_Downloads
+whitelist ${HOME}/.local/share/TelegramDesktop
+whitelist ${HOME}/Downloads/Telegram_Downloads
 ```
 To save changes in `nano`, press **Ctrl + O** → **Enter**, then **Ctrl + X** to exit.
 
@@ -6248,7 +6248,7 @@ Version=1.0
 Name=Telegram Desktop (Secure Sandbox)
 Comment=Official desktop version of Telegram inside Firejail Sandbox
 Exec=firejail --profile=telegram /usr/bin/telegram-desktop %u
-Icon=/home/\$USER/.local/share/icons/256x256@2x/telegram-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/telegram-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
@@ -6262,7 +6262,7 @@ EOF
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/telegram-bwrap.sh
 #!/bin/bash
-mkdir -p "\$HOME/Downloads/Telegram_Downloads" "HOME/.local/share/TelegramDesktop" "HOME/.config/TelegramDesktop"
+mkdir -p "$HOME/Downloads/Telegram_Downloads" "HOME/.local/share/TelegramDesktop" "HOME/.config/TelegramDesktop"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -6274,7 +6274,7 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "\$HOME" \
+  --tmpfs "$HOME" \
   --share-net \
   --bind "\(HOME/Downloads/Telegram_Downloads" "\)HOME/Downloads/Telegram_Downloads" \
   --bind "HOME/.local/share/TelegramDesktop" "HOME/.local/share/TelegramDesktop" \
@@ -6285,10 +6285,10 @@ exec bwrap \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv QT_QPA_PLATFORM "wayland" \
   --die-with-parent \
-  -- /usr/bin/telegram-desktop "\$@"
+  -- /usr/bin/telegram-desktop "$@"
 EOF' && sudo chmod 755 /usr/local/bin/telegram-bwrap.sh
 ```
 
@@ -6299,7 +6299,7 @@ cat <<EOF > ~/.local/share/applications/telegram-bwrap.desktop
 Name=Telegram Desktop (Sandbox)
 Comment=Official Telegram Desktop client in bwrap sandbox
 Exec=/usr/local/bin/telegram-bwrap.sh -- %u
-Icon=/home/\$USER/.local/share/icons/256x256@2x/telegram-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/telegram-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
@@ -6316,7 +6316,7 @@ I decided not to wrestle with Firejail configuration files to isolate this appli
 
 **1.** Download the distribution package, signature, and public signing key:
 ```bash
-curl -L -O https://signal.org && curl -s -o signal-appimage.asc https://signal.org && gpg --import signal-appimage.asc && curl -L -O https://signal.org.gpg && gpg --verify signal-desktop.AppImage.gpg signal-desktop.AppImage
+curl -L -O https://updates.signal.org/desktop/signal-desktop.AppImage && curl -s -o signal-appimage.asc https://updates.signal.org/static/desktop/appimage.asc && gpg --import signal-appimage.asc && curl -L -O https://updates.signal.org/desktop/signal-desktop.AppImage.gpg && gpg --verify signal-desktop.AppImage.gpg signal-desktop.AppImage
 ```
 
 **2.** Extract and install the application into `/opt/signal`:
@@ -6329,7 +6329,7 @@ chmod +x signal-desktop.AppImage && ./signal-desktop.AppImage --appimage-extract
 sudo bash -c 'cat << "EOF" > /usr/local/bin/signal-bwrap.sh
 #!/bin/bash
 # Automatically create the profile working directory
-mkdir -p "\$HOME/.config/Signal"
+mkdir -p "$HOME/.config/Signal"
 
 # Launch Signal from /opt/signal inside the Bubblewrap sandbox
 exec bwrap \
@@ -6349,10 +6349,10 @@ exec bwrap \
   --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
   --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --share-net \
   --die-with-parent \
-  -- /opt/signal/signal-desktop --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland "\$@"
+  -- /opt/signal/signal-desktop --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=wayland "$@"
 EOF' && sudo chmod 755 /usr/local/bin/signal-bwrap.sh
 ```
 
@@ -6363,7 +6363,7 @@ cat <<EOF > ~/.local/share/applications/signal-bwrap.desktop
 Name=Signal (Sandbox)
 Comment=Private messaging application in Bubblewrap
 Exec=/usr/local/bin/signal-bwrap.sh %U
-Icon=/home/\$USER/.local/share/icons/256x256@2x/signal-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/signal-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
@@ -6524,7 +6524,7 @@ Version=1.0
 Name=Psi+ (Secure Sandbox)
 Comment=XMPP client with OMEMO/GPG safely inside Firejail Sandbox
 Exec=firejail psi-plus
-Icon=/home/\$USER/.local/share/icons/256x256@2x/psi-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/psi-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
@@ -6540,10 +6540,10 @@ EOF
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/psi-bwrap.sh
 #!/bin/bash
-mkdir -p "\$HOME/Downloads/Psi_Downloads" \
-         "\$HOME/.config/psi-plus" \
-         "\$HOME/.local/share/psi-plus" \
-         "\$HOME/.gnupg"
+mkdir -p "$HOME/Downloads/Psi_Downloads" \
+         "$HOME/.config/psi-plus" \
+         "$HOME/.local/share/psi-plus" \
+         "$HOME/.gnupg"
 
 XAUTH="XAUTHORITY:-HOME/.Xauthority}"
 
@@ -6558,7 +6558,7 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "\$HOME" \
+  --tmpfs "$HOME" \
   --share-net \
   --bind "\(HOME/Downloads/Psi_Downloads" "\)HOME/Downloads/Psi_Downloads" \
   --bind "HOME/.config/psi-plus" "HOME/.config/psi-plus" \
@@ -6573,12 +6573,12 @@ exec bwrap \
   --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
   --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
   --ro-bind-try "XAUTH" "XAUTH" \
-  --setenv DISPLAY "\${DISPLAY:-:0}" \
-  --setenv XAUTHORITY "\$XAUTH" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
+  --setenv XAUTHORITY "$XAUTH" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv QT_QPA_PLATFORM "xcb" \
   --die-with-parent \
-  -- /usr/bin/psi-plus "\$@"
+  -- /usr/bin/psi-plus "$@"
 EOF' && sudo chmod 755 /usr/local/bin/psi-bwrap.sh
 ```
 
@@ -6589,7 +6589,7 @@ cat <<EOF > ~/.local/share/applications/psi-bwrap.desktop
 Name=Psi+ (Sandbox)
 Comment=Jabber/XMPP Client in bwrap sandbox
 Exec=/usr/local/bin/psi-bwrap.sh %u
-Icon=/home/\$USER/.local/share/icons/256x256@2x/psi-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/psi-secure.png
 Terminal=false
 Type=Application
 Categories=Network;InstantMessaging;
@@ -6787,7 +6787,7 @@ Version=1.0
 Name=Thunderbird (Secure Sandbox)
 Comment=Send and receive mail safely inside Firejail Sandbox
 Exec=firejail --profile=thunderbird /usr/bin/thunderbird
-Icon=/home/\$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
 Terminal=false
 Type=Application
 Categories=Network;Email;
@@ -6814,7 +6814,7 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "\$HOME" \
+  --tmpfs "$HOME" \
   --share-net \
   --bind "\(HOME/Downloads/Mail_Attachments" "\)HOME/Downloads/Mail_Attachments" \
   --bind "HOME/.thunderbird" "HOME/.thunderbird" \
@@ -6827,12 +6827,12 @@ exec bwrap \
   --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
   --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
   --ro-bind-try "XAUTHORITY:-HOME/.Xauthority}" "XAUTHORITY:-HOME/.Xauthority}" \
-  --setenv DISPLAY "\${DISPLAY:-:0}" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
   --setenv XAUTHORITY "XAUTHORITY:-HOME/.Xauthority}" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv MOZ_ENABLE_WAYLAND "1" \
   --die-with-parent \
-  -- /usr/bin/thunderbird "\$@"
+  -- /usr/bin/thunderbird "$@"
 EOF' && sudo chmod 755 /usr/local/bin/thunderbird-bwrap.sh
 ```
 
@@ -6843,7 +6843,7 @@ cat <<EOF > ~/.local/share/applications/thunderbird-bwrap.desktop
 Name=Thunderbird (Hardened Sandbox)
 Comment=Hardened Mail Client inside Bubblewrap
 Exec=/usr/local/bin/thunderbird-bwrap.sh %u
-Icon=/home/\$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
 Terminal=false
 Type=Application
 Categories=Network;Email;
