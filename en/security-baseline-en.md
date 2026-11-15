@@ -3644,7 +3644,7 @@ veracrypt
 
 To eliminate dependency conflicts across modern Ubuntu 24.04 and 26.04 LTS environments, deploying the official stable build directly from the IDRIX development team is recommended:
 
-* Open a browser and navigate to the official project site: `https://veracrypt.fr`.
+* Open a browser and navigate to the official project site: `https://veracrypt.io/en/Downloads.html`.
 * Download the current installer package for Ubuntu (a `.deb` file for the `amd64` architecture, e.g., `veracrypt-x.x.x-Ubuntu-amd64.deb`).
 * Open a terminal within the downloads directory (`~/Downloads`) and execute installation using the following commands:
 

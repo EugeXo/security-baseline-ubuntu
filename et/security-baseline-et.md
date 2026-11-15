@@ -3487,14 +3487,14 @@ Kui töötame selle programmiga esimest korda, on selgeks orientiiriks järgmine
 * Vaja töödelda palju faile → `b Batch`
 
 > [!TIP]
-> StegoForge'iga töötamise lihtsustamiseks soovitan kasutada Web UI-d. See pakub programmi põhifunktsioonide jaoks graafilist liidest ja vabastab vajadusest käsuparameetreid meelde jätta. Web UI käivitub lokaalselt ja on ligipääsetav ainult kohalikust masinast aadressil `http://127.0.0`.
+> StegoForge'iga töötamise lihtsustamiseks soovitan kasutada Web UI-d. See pakub programmi põhifunktsioonide jaoks graafilist liidest ja vabastab vajadusest käsuparameetreid meelde jätta. Web UI käivitub lokaalselt ja on ligipääsetav ainult kohalikust masinast aadressil `http://127.0.0.1:5000/`.
 > 
 > Käivitamiseks avame terminali ja täidame:
 > ```bash
 > stegoforge
 > ```
 > 
-> Ilmuvas menüüs vajutame klaviatuuril numbrit kuus (`6 — Web UI`). Pärast liidese käivitumist avame brauseris: `http://127.0.0`
+> Ilmuvas menüüs vajutame klaviatuuril numbrit kuus (`6 — Web UI`). Pärast liidese käivitumist avame brauseris: `http://127.0.0.1:5000/`
 
 **5.** Lülitame ajaloo salvestamise tagasi sisse:
 ```bash
@@ -3602,7 +3602,7 @@ veracrypt
 
 Et välistada täielikult vananenud sõltuvuste konfliktid kaasaegsetes distributsioonides Ubuntu 24.04 ja 26.04 LTS, on soovitatav paigaldada ametlik stabiilne versioon otse IDRIX-i arendusmeeskonnalt:
 
-* Avame brauseri ja liigume projekti ametlikule veebisaidile: `https://veracrypt.fr`.
+* Avame brauseri ja liigume projekti ametlikule veebisaidile: `https://veracrypt.io/en/Downloads.html`.
 * Laadime alla Ubuntu jaoks mõeldud aktuaalse paigalduspaketi (laiendiga `.deb` fail `amd64` arhitektuurile, näiteks: `veracrypt-x.x.x-Ubuntu-amd64.deb`).
 * Avame terminali otse allalaadimiste kaustas `~/Downloads` ja käivitame paigalduse järgmiste järjestikuste käskudega:
 
@@ -8063,7 +8063,7 @@ sudo apt install libfuse2t64 && sudo apt install fuse3 -y
 
 ### Ledger Live'i käivitamine põhilises Ubuntu hostsüsteemis
 
-Kui meil on vaja käivitada Ledger Live otse hosti põhilises operatsioonisüsteemis, mitte virtuaalmasina sees. Laadime brauseri kaudu alla Linuxi jaoks mõeldud Ledger Live'i aadressilt `https://ledger.com` kodukataloogi kausta `Downloads`.
+Kui meil on vaja käivitada Ledger Live otse hosti põhilises operatsioonisüsteemis, mitte virtuaalmasina sees. Laadime brauseri kaudu alla Linuxi jaoks mõeldud Ledger Live'i aadressilt `https://download.live.ledger.com/latest/linux` kodukataloogi kausta `Downloads`.
 
 **1.** Paigaldame täiendavad Fuse'i teegid:
 ```bash
@@ -8090,7 +8090,7 @@ Selle võimsa krüptograafilise noodiga tasubki panna rasvane punkt meie isiklik
 
 ### Kontaktid ja kogukonna ressursid:
 
-* **GitHub:** `https://github.com`
+* **GitHub:** `https://github.com/EugeXo/`
 * **Telegram:** `@EugeXoSecurity`
 * **Jabber:** `eugexo@paranoici.org`
 * **E-post:** `eugexo@proton.me`
