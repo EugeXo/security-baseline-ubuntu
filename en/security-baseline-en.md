@@ -3061,7 +3061,7 @@ To deploy the current version of Portmaster without cascading kernel panics, UFW
 
 **1.** Open our configured Firefox browser. Navigate to the official developer website `https://safing.io`. Download the full offline installer for Portmaster v2 in `.deb` format (for Debian/Ubuntu systems). Once the download completes, close Firefox entirely.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.8_amd64.deb \\ Direct link valid as of November 15, 2026 (release from November, 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ Direct link valid as of November 16, 2026 (release from November, 2026).
 ```
 
 **2.** Open the host terminal. Download the official stable `.deb` installer of the legacy version from Safing update servers to deploy the initial system structures:
