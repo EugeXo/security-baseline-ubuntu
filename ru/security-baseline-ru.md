@@ -75,7 +75,7 @@
     - [Обновление системы:](#обновление-системы)
     - [Развертывание графического контура NVIDIA в режиме изоляции:](#развертывание-графического-контура-nvidia-в-режиме-изоляции)
   - [Терминальные среды в Ubuntu:](#терминальные-среды-в-ubuntu)
-    - [Меняем Gnome Terminal и Ptyxis на Ghostty\*\*](#меняем-gnome-terminal-и-ptyxis-на-ghostty)
+    - [Меняем Gnome Terminal и Ptyxis на Ghostty:](#меняем-gnome-terminal-и-ptyxis-на-ghostty)
       - [Установка для пользователей Ubuntu 24.04 LTS Noble Numbat:](#установка-для-пользователей-ubuntu-2404-lts-noble-numbat)
       - [Установка для пользователей Ubuntu 26.04 LTS Resolute Racoon:](#установка-для-пользователей-ubuntu-2604-lts-resolute-racoon)
       - [Вариант конфигурации Ghostty для Ubuntu 24.04/26.04:](#вариант-конфигурации-ghostty-для-ubuntu-24042604)
@@ -2074,7 +2074,7 @@ sudo systemctl reboot -i
 
 ## Терминальные среды в Ubuntu:
 
-### Меняем Gnome Terminal и Ptyxis на Ghostty**
+### Меняем Gnome Terminal и Ptyxis на Ghostty:
 
 Установка горячо обсуждаемого терминала Ghostty, написанного на языке Zig. Автором проекта является известный в ИТ кругах Mitchell Hashimoto.
 
