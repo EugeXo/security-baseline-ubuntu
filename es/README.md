@@ -33,12 +33,12 @@ Todo el libro está dividido en bloques lógicos que forman una arquitectura de 
 1. **Fundación y Hardware:** 12 reglas de higiene operativa, despliegue manual de LUKS sin TPM, hardening de GRUB y protección de la RAM contra ataques DMA.
 2. **Vacío de Red:** Configuración de UFW en modo Kill Switch endurecido (vinculado a la interfaz `tun0`), suplantación de direcciones MAC, purga total de IPv6 e integración de Portmaster.
 3. **Desinfección Profunda:** Purga de la telemetría de Canonical, destrucción completa de Snapd y hardening manual del núcleo del navegador Firefox (`user.js`).
-4. **Control de Hardware y Criptografía:** Integración de YubiKey (TTY/GUI), contenedores ocultos de VeraCrypt, sandboxing con Firejail e aislamiento de Docker y VirtualBox.
+4. **Control de Hardware y Criptografía:** Integración de YubiKey (TTY/GUI), contenedores ocultos de VeraCrypt, sandboxing con Firejail/Bubblewrap, Bubblewrap e aislamiento de Docker y VirtualBox.
 5. **Auditoría y Destrucción de Rastros:** Limpieza de metadatos mediante MAT2, destrucción garantizada de archivos (`shred`/`wipe`), despliegue del control de integridad AIDE y una prueba de estrés final con Lynis.
 
 ---
 
-📸 Gráficos e Ilustraciones
+### 📸 Gráficos e Ilustraciones
 
 Todos los materiales gráficos, capturas de pantalla de la instalación y configuraciones de la GUI se han extraído del texto principal a un directorio aislado: `_assets/images`. Los gráficos están estructurados en subcarpetas, lo que excluye por completo su renderizado automático en la memoria durante la lectura del libro. Se han añadido iconos estilizados en el directorio `_assets/icons`, que contiene las subcarpetas `256x256` y `256x256@2x`, así como una subcarpeta `Trash` (dentro de la cual también hay subcarpetas para los iconos estilizados de la papelera de reciclaje). Asimismo, en `_assets/wallpapers` se encuentran fondos de pantalla estilizados organizados por subcarpetas.
 

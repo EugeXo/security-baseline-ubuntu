@@ -33,7 +33,7 @@
 1. **الأساس والعتاد:** 12 قاعدة للنظافة التشغيلية، تثبيت يدوي لـ LUKS بدون شريحة TPM، تحصين محمل الإقلاع GRUB، وحماية الذاكرة العشوائية (RAM) من هجمات DMA.
 2. **الفراغ الشبكي:** إعداد جدار الحماية UFW في وضع Kill Switch صارم (الربط بواجهة `tun0`)، تزييف عناوين MAC، الاستئصال الكامل لبروتوكول IPv6، ودمج Portmaster.
 3. **التطهير العميق:** استئصال القياس عن بُعد (Telemetry) الخاص بشركة Canonical، التدمير الكامل لـ Snapd، والتحصين اليدوي لنواة متصفح Firefox عبر ملف (`user.js`).
-4. **التحكم في العتاد والتشفير:** دمج مفاتيح YubiKey (TTY/GUI)، حاويات VeraCrypt المخفية، بيئات العزل باستخدام Firejail، وعزل بيئات Docker و VirtualBox.
+4. **التحكم في العتاد والتشفير:** دمج مفاتيح YubiKey (TTY/GUI)، حاويات VeraCrypt المخفية، بيئات العزل باستخدام Firejail/Bubblewrap، وعزل بيئات Docker و VirtualBox.
 5. **التدقيق ومحو الآثار:** تنظيف البيانات الوصفية عبر MAT2، الحرق المضمون للملفات باستخدام (`shred`/`wipe`)، نشر نظام مراقبة السلامة AIDE، واختبار الاختراق النهائي عبر Lynis.
 
 ---
@@ -50,7 +50,7 @@
 
 ### 🔑 جهات الاتصال وموارد المجتمع
 * **Telegram:** `@EugeXo_Security`
-* **Jabber:** `eugexo@jabber.com`
+* **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
 **Stay tuned and Hack the Planet!!! 🚀**

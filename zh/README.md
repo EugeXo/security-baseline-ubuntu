@@ -33,7 +33,7 @@
 1. **基础与硬件：** 12 条运维卫生守则、无需 TPM 的手动 LUKS 安装、GRUB 加固以及防止 DMA 攻击的 RAM 防护。
 2. **网络真空：** 在强化 Kill Switch 模式下配置 UFW（绑定到 `tun0` 接口）、MAC 地址欺骗、彻底清除 IPv6 以及集成 Portmaster。
 3. **深度消毒：** 清除 Canonical 遥测数据、完全摧毁 Snapd 以及手动加固 Firefox 浏览器核心 (`user.js`)。
-4. **硬件与密码学控制：** 集成 YubiKey (TTY/GUI)、隐藏的 VeraCrypt 加密盘、基于 Firejail 的沙箱化以及 Docker 和 VirtualBox 隔离。
+4. **硬件与密码学控制：** 集成 YubiKey (TTY/GUI)、隐藏的 VeraCrypt 加密盘、基于 Firejail/Bubblewrap 的沙箱化以及 Docker 和 VirtualBox 隔离。
 5. **审计与痕迹消灭：** 通过 MAT2 清理元数据、确保文件被彻底粉碎 (`shred`/`wipe`)、部署 AIDE 完整性监控以及通过 Lynis 进行最终压力测试。
 
 ---

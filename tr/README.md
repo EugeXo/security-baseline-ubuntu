@@ -33,7 +33,7 @@ Kitabın tamamı, derinlemesine savunma (defense-in-depth) mimarisi oluşturan m
 1. **Temel ve Donanım:** 12 operasyonel hijyen kuralı, TPM olmadan manuel LUKS kurulumu, GRUB sertleştirmesi ve DMA saldırılarına karşı RAM koruması.
 2. **Ağ Vakumu:** UFW'nin sertleştirilmiş bir Kill Switch modunda yapılandırılması (`tun0` arayüzüne bağlama), MAC adresi sahtekarlığı, IPv6'nın tamamen kaldırılması ve Portmaster entegrasyonu.
 3. **Derin Dezenfeksiyon:** Canonical telemetrisinin kaldırılması, Snapd'nin tamamen yok edilmesi ve Firefox tarayıcı çekirdeğinin manuel olarak sertleştirilmesi (`user.js`).
-4. **Donanım ve Kriptografik Kontrol:** YubiKey entegrasyonu (TTY/GUI), gizli VeraCrypt kapsayıcıları, Firejail ile sanal alan oluşturma, Docker ve VirtualBox izolasyonu.
+4. **Donanım ve Kriptografik Kontrol:** YubiKey entegrasyonu (TTY/GUI), gizli VeraCrypt kapsayıcıları, Firejail/Bubblewrap ile sanal alan oluşturma, Docker ve VirtualBox izolasyonu.
 5. **Denetim ve İz Yok Etme:** MAT2 ile meta veri temizliği, dosyaların garantili olarak yok edilmesi (`shred`/`wipe`), AIDE bütünlük kontrolünün dağıtılması ve Lynis ile son bir stres testi.
 
 ---

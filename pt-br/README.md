@@ -33,7 +33,7 @@ Todo o livro é dividido em blocos lógicos que formam uma arquitetura de defesa
 1. **Fundação e Hardware:** 12 regras de higiene operacional, implantação manual do LUKS sem TPM, hardening do GRUB e proteção da RAM contra ataques DMA.
 2. **Vácuo de Rede:** Configuração do UFW em modo Kill Switch endurecido (vinculado à interface `tun0`), spoofing de endereços MAC, purga total do IPv6 e integração do Portmaster.
 3. **Desinfecção Profunda:** Purga da telemetria da Canonical, destruição completa do Snapd e hardening manual do núcleo do navegador Firefox (`user.js`).
-4. **Controle de Hardware e Criptografia:** Integração do YubiKey (TTY/GUI), contêineres ocultos do VeraCrypt, sandboxing com Firejail e isolamento do Docker e VirtualBox.
+4. **Controle de Hardware e Criptografia:** Integração do YubiKey (TTY/GUI), contêineres ocultos do VeraCrypt, sandboxing com Firejail/Bubblewrap e isolamento do Docker e VirtualBox.
 5. **Auditoria e Destruição de Rastros:** Limpeza de metadados via MAT2, destruição garantizada de arquivos (`shred`/`wipe`), implantação do controle de integridade AIDE e um teste de estresse final com Lynis.
 
 ---

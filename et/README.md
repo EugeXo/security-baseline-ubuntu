@@ -33,7 +33,7 @@ Kogu raamat on jagatud loogilisteks blokkideks, mis moodustavad süvakaitse arhi
 1. **Vundament ja Riistvara:** 12 operatsioonilise hügieeni reeglit, käsitsi LUKS-i paigaldamine ilma TPM-ita, GRUB-i hardening ja operatiivmälu kaitse DMA-rünnakute eest.
 2. **Võrguvaakum:** UFW seadistamine karmistatud Kill Switch režiimis (sidumine `tun0` liidesega), MAC-aadresside spoofing, IPv6 täielik väljalülitamine ja Portmasteri integreerimine.
 3. **Süvadesinfektsioon:** Canonicali telemeetria eemaldamine, Snapd täielik hävitamine ja Firefoxi brauseri tuuma käsitsi hardening (`user.js`).
-4. **Riistvara ja Krüptograafiline Kontroll:** YubiKey integreerimine (TTY/GUI), VeraCrypti peidetud konteinerid, liivakastid Firejailiga ning Dockeri ja VirtualBoxi isoleerimine.
+4. **Riistvara ja Krüptograafiline Kontroll:** YubiKey integreerimine (TTY/GUI), VeraCrypti peidetud konteinerid, liivakastid Firejailiga/Bubblewrapiga ning Dockeri ja VirtualBoxi isoleerimine.
 5. **Auditeerimine ja Jälgede Hälvitamine:** Metaandmete puhastamine MAT2 abil, failide garanteeritud hävitamine (`shred`/`wipe`), AIDE terviklikkuse kontrolli kasutuselevõtt ja lõplik stressitest Lynise abil.
 
 ---

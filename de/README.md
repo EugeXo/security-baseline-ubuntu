@@ -33,7 +33,7 @@ Das gesamte Buch ist in logische Blöcke unterteilt, die eine tiefgestaffelte Ve
 1. **Fundament und Hardware:** 12 Regeln der Betriebshygiene, manuelle LUKS-Installation ohne TPM, GRUB-Hardening und RAM-Schutz gegen DMA-Angriffe.
 2. **Netzwerkvakuum:** UFW-Konfiguration im gehärteten Kill-Switch-Modus (Bindung an das `tun0`-Interface), MAC-Adressen-Spoofing, vollständiges Entfernen von IPv6 und Portmaster-Integration.
 3. **Tiefendesinfektion:** Entfernen der Canonical-Telemetrie, vollständige Eliminierung von Snapd und manuelles Hardening des Firefox-Browserkerns (`user.js`).
-4. **Hardware- und Kryptografiekontrolle:** YubiKey-Integration (TTY/GUI), versteckte VeraCrypt-Container, Sandboxing mit Firejail sowie Isolation von Docker und VirtualBox.
+4. **Hardware- und Kryptografiekontrolle:** YubiKey-Integration (TTY/GUI), versteckte VeraCrypt-Container, Sandboxing mit Firejail/Bubblewrap sowie Isolation von Docker und VirtualBox.
 5. **Auditierung und Spurenvernichtung:** Bereinigung von Metadaten über MAT2, garantiertes Schreddern von Dateien (`shred`/`wipe`), Bereitstellung der AIDE-Integritätskontrolle und ein abschließender Stresstest mit Lynis.
 
 ---

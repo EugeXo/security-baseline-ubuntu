@@ -33,7 +33,7 @@ Seluruh buku dibagi menjadi blok-blok logis yang membentuk arsitektur defense-in
 1. **Fondasi dan Perangkat Keras:** 12 aturan higiene operasional, instalasi LUKS manual tanpa TPM, hardening GRUB, dan perlindungan RAM terhadap serangan DMA.
 2. **Vakum Jaringan:** Konfigurasi UFW dalam mode Kill Switch yang diperkeras (mengikat ke antarmuka `tun0`), spoofing alamat MAC, pembersihan total IPv6, dan integrasi Portmaster.
 3. **Desinfeksi Mendalam:** Pembersihan telemetri Canonical, penghancuran total Snapd, dan hardening manual pada inti browser Firefox (`user.js`).
-4. **Kontrol Perangkat Keras dan Kriptografi:** Integrasi YubiKey (TTY/GUI), kontainer VeraCrypt tersembunyi, sandboxing dengan Firejail, serta isolasi Docker dan VirtualBox.
+4. **Kontrol Perangkat Keras dan Kriptografi:** Integrasi YubiKey (TTY/GUI), kontainer VeraCrypt tersembunyi, sandboxing dengan Firejail/Bubblewrap, serta isolasi Docker dan VirtualBox.
 5. **Audit dan Penghancuran Jejak:** Pembersihan metadata via MAT2, penghancuran file yang dijamin (`shred`/`wipe`), penerapan kontrol integritas AIDE, dan pengujian stres akhir melalui Lynis.
 
 ---

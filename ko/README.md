@@ -33,7 +33,7 @@
 1. **기반 및 하드웨어:** 12가지 운영 위생 규칙, TPM 없는 수동 LUKS 설치, GRUB 하드닝, DMA 공격으로부터 RAM 보호.
 2. **네트워크 진공:** 강화된 Kill Switch 모드(`tun0` 인터페이스 바인딩)로 UFW 구성, MAC 주소 스푸핑, IPv6 완전 제거 및 Portmaster 통합.
 3. **심층 디톡스:** Canonical 텔레메트리 제거, Snapd 완전 파괴 및 Firefox 브라우저 코어 수동 하드닝(`user.js`).
-4. **하드웨어 및 암호화 제어:** YubiKey 통합(TTY/GUI), 숨겨진 VeraCrypt 컨테이너, Firejail 기반 샌드박싱, Docker 및 VirtualBox 격리.
+4. **하드웨어 및 암호화 제어:** YubiKey 통합(TTY/GUI), 숨겨진 VeraCrypt 컨테이너, Firejail/Bubblewrap 기반 샌드박싱, Docker 및 VirtualBox 격리.
 5. **감사 및 흔적 제거:** MAT2를 통한 메타데이터 와이핑, 파일 영구 삭제(`shred`/`wipe`), AIDE 무결성 모니터링 배포 및 Lynis를 통한 최종 스트레스 테스트.
 
 ---

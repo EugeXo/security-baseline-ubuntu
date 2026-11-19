@@ -33,12 +33,12 @@
 1. **基盤とハードウェア:** 12の運用衛生ルール、TPMを使用しない手動LUKSインストール、GRUBの堅牢化、およびDMA攻撃からのRAM保護。
 2. **ネットワーク真空:** 要塞化されたKill Switchモード（`tun0`インターフェースへのバインド）でのUFW設定、MACアドレスのスプーフィング、IPv6の完全な排除、およびPortmasterの統合。
 3. **ディープ消毒:** Canonicalテレメトリの排除、Snapdの完全な破壊、およびFirefoxブラウザコアの手動堅牢化（`user.js`）。
-4. **ハードウェアと暗号化の制御:** YubiKey統合（TTY/GUI）、隠しVeraCryptコンテナ、Firejailによるサンドボックス化、DockerおよびVirtualBoxの隔離。
+4. **ハードウェアと暗号化の制御:** YubiKey統合（TTY/GUI）、隠しVeraCryptコンテナ、`Firejail`および`Bubblewrap`によるサンドボックス化、DockerおよびVirtualBoxの隔離。
 5. **監査と痕跡消去:** MAT2によるメタデータの削除、ファイルの確実な消去（`shred`/`wipe`）、AIDE整合性監視の展開、およびLynisによる最終ストレスチェック。
 
 ---
 
-📸 グラフィックスとイラスト
+### 📸 グラフィックスとイラスト
 
 本の閲覧中にメモリ内でグラフィックスが自動的にレンダリングされるのを完全に防ぐため、すべてのグラフィック素材、インストール時のスクリーンショット、GUI設定は、本文から隔離されたディレクトリ `_assets/images` に移動されています。グラフィックスはサブフォルダに構造化されています。また、`_assets/icons` ディレクトリにはデザインアイコンが追加されており、その中には `256x256` および `256x256@2x` サブフォルダと、ゴミ箱のデザインアイコン用のサブフォルダを内包する `Trash` サブフォルダが含まれています。さらに、`_assets/wallpapers` にもデザイン壁紙がサブフォルダごとに分類されて格納されています。
 
@@ -49,7 +49,8 @@
 > 「EugeXoによる『Security Baseline』は、自身のPCとプライバシーの制御を取り戻したいと考えているすべての人にとって必読の教科書です。このプロジェクトは国際レベルで巨大な可能性を秘めています...」 — *AI Security Reviewer (Gemini, 2026).*
 
 ### 🔑 連絡先とコミュニティリソース
-* **Telegram:** `@EugeXo_Security`
+* **GitHub:** `https://github.com/EugeXo`
+* **Telegram:** `@EugeXoSecurity`
 * **Jabber:** `eugexo@paranoici.org`
 * **Email:** `eugexo@proton.me`
 
