@@ -3025,7 +3025,7 @@ nmcli networking on && nmcli connection up netplan-enp0s1
 
 **1.** نفتح متصفح Firefox الذي قمنا بضبطه، وننتقل إلى الموقع الرسمي للمطورين `https://safing.io`، ونحمّل حزمة التثبيت الكاملة دون اتصال لـ Portmaster v2 بصيغة `.deb` (لأنظمة Debian/Ubuntu). وبعد اكتمال التحميل بنجاح، نغلق Firefox تماماً.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ رابط مباشر ساري المفعول بتاريخ 15 نوفمبر 2026 (إصدار نوفمبر 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ رابط مباشر ساري المفعول بتاريخ 20 نوفمبر 2026 (إصدار نوفمبر 2026).
 ```
 
 **2.** نفتح طرفية المضيف، ونحمّل حزمة التثبيت الرسمية المستقرة `.deb` للإصدار القديم من خوادم تحديثات Safing لنشر البنى الأولية:

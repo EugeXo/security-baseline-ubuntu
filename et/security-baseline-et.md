@@ -3033,7 +3033,7 @@ Et paigaldada Portmasteri aktuaalne versioon ilma kerneli kaskaadtõrgete, UFW-g
 
 **1.** Avame oma seadistatud Firefoxi, liigume arendajate ametlikule veebisaidile `https://safing.io` ja laadime alla täieliku *offline*-paigaldaja Portmaster v2 `.deb` vormingus (Debian/Ubuntu süsteemidele). Pärast allalaadimise lõppu sulgeme Firefoxi täielikult.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ Otselink seisuga 16. november 2026 (väljalase november 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ Otselink seisuga 20. november 2026 (väljalase november 2026).
 ```
 
 **2.** Avame hosti terminali ja laadime alla ametliku stabiilse vanema versiooni `.deb`-paigaldaja Safingu uuendusserveritest esmaste struktuuride loomiseks:

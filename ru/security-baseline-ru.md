@@ -228,8 +228,8 @@
     - [Установка Guest Additions:](#установка-guest-additions)
     - [Установка Mozilla Firefox:](#установка-mozilla-firefox)
     - [Настройка общих папок (Shared Folders) в VirtualBox:](#настройка-общих-папок-shared-folders-в-virtualbox)
-    - [Установка Ledger Live в VirtualBox с Ubuntu/Xubuntu/Lubuntu](#установка-ledger-live-в-virtualbox-с-ubuntuxubuntulubuntu)
-    - [Запуск Ledger Live на основной хост-системе Ubuntu](#запуск-ledger-live-на-основной-хост-системе-ubuntu)
+    - [Установка Ledger Live в VirtualBox с Ubuntu/Xubuntu/Lubuntu:](#установка-ledger-live-в-virtualbox-с-ubuntuxubuntulubuntu)
+    - [Запуск Ledger Live на основной хост-системе Ubuntu:](#запуск-ledger-live-на-основной-хост-системе-ubuntu)
   - [Об авторе и правовая информация](#об-авторе-и-правовая-информация)
     - [Контакты для связи и ресурсы сообщества:](#контакты-для-связи-и-ресурсы-сообщества)
 
@@ -3052,7 +3052,7 @@ Portmaster — это мощный интерактивный файрвол н�
 
 **1.** Открываем наш настроенный Firefox. Переходим на официальный сайт разработчиков `https://safing.io`. Скачиваем полный offline-установщик Portmaster v2 в формате `.deb` (для систем Debian/Ubuntu). После успешного завершения загрузки полностью закрываем Firefox.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ Прямой линк актуальный на 17 ноября 2026 (релиз от ноября 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ Прямой линк актуальный на 20 ноября 2026 (релиз от ноября 2026).
 ```
 
 **2.** Открываем терминал хоста. Скачиваем официальный стабильный `.deb` инсталлятор старой версии с серверов обновлений Safing для развертывания первичных структур:
@@ -7998,7 +7998,7 @@ su - $USER
 
 <br>
 
-### Установка Ledger Live в VirtualBox с Ubuntu/Xubuntu/Lubuntu
+### Установка Ledger Live в VirtualBox с Ubuntu/Xubuntu/Lubuntu:
 
 Для ультимативного и безопасного управления нашими криптовалютными активами мы развернем официальное программное обеспечение Ledger Live. Открываем веб-браузер и скачиваем актуальную стабильную версию пакета для Linux по прямой официальной ссылке с серверов разработчиков: `https://download.live.ledger.com/latest/linux`.
 
@@ -8052,7 +8052,7 @@ sudo apt install libfuse2t64 && sudo apt install fuse3 -y
 
 <br>
 
-### Запуск Ledger Live на основной хост-системе Ubuntu
+### Запуск Ledger Live на основной хост-системе Ubuntu:
 
 Если нам необходимо запускать Ledger Live напрямую в основной операционной системе хоста, а не внутри виртуальной машины. Скачиваем Ledger Live через браузер для Linux по адресу: `https://download.live.ledger.com/latest/linux` в домашнюю директорию `Downloads`.
 

@@ -3059,7 +3059,7 @@ Portmaster 是一款功能强大的新一代交互式防火墙，能够提供实
 
 **1.** 打开已配置完成的 Firefox 浏览器，访问开发者官方网站 `https://safing.io`，下载适用于 Debian/Ubuntu 系统的完整离线版 Portmaster v2 安装包（`.deb` 格式）。下载完成后，彻底关闭 Firefox。
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ 2026 年 11 月 16 日有效的直链（2026 年 11 月发布版本）。
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ 2026 年 11 月 20 日有效的直链（2026 年 11 月发布版本）。
 ```
 
 **2.** 打开主机终端，从 Safing 更新服务器下载官方旧版稳定 `.deb` 安装器，用于搭建初始目录与数据库结构：

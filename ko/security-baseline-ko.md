@@ -3053,7 +3053,7 @@ Portmaster는 차세대 강력한 대화형 방화벽입니다. 실시간으로 
 
 **1.** 설정이 완료된 Firefox를 엽니다. 개발사 공식 웹사이트 `https://safing.io`로 이동하여 Debian/Ubuntu 시스템용 `.deb` 형식의 Portmaster v2 전체 오프라인 설치 파일을 다운로드합니다. 다운로드가 성공적으로 완료되면 Firefox를 완전히 닫습니다.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ 2026년 11월 17일 기준 유효한 직접 링크 (2026년 11월 릴리스).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ 2026년 11월 20일 기준 유효한 직접 링크 (2026년 11월 릴리스).
 ```
 
 **2.** 호스트 터미널을 엽니다. 초기 구조를 배포하기 위해 Safing 업데이트 서버에서 구버전의 공식 안정화 `.deb` 설치 파일을 다운로드합니다:

@@ -3060,7 +3060,7 @@ Para desplegar la versión actual de Portmaster sin fallos en cascada del kernel
 
 **1.** Abrimos nuestro Firefox ya configurado. Accedemos al sitio oficial de los desarrolladores `https://safing.io`. Descargamos el instalador completo offline de Portmaster v2 en formato `.deb` (para sistemas Debian/Ubuntu). Una vez finalizada correctamente la descarga, cerramos Firefox por completo.
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb  \\ Enlace directo vigente a 16 de noviembre de 2026 (versión de noviembre de 2026).
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb  \\ Enlace directo vigente a 20 de noviembre de 2026 (versión de noviembre de 2026).
 ```
 
 **2.** Abrimos la terminal del host. Descargamos el instalador oficial estable `.deb` de la versión anterior desde los servidores de actualizaciones de Safing para desplegar las estructuras iniciales:

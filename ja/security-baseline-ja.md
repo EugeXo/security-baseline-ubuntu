@@ -3033,7 +3033,7 @@ JavaScript をブロックすると、スクリプト過多な現代の Web サ�
 
 **1.** 先ほど設定した `Firefox` を開く。開発元の公式サイト `https://safing.io` へアクセスし、Linux（Debian/Ubuntu システム向け）の `.deb` 形式の `Portmaster v2` フルオフラインインストーラをダウンロードする。ダウンロードが正常に完了したら、`Firefox` を完全に閉じる。
 ```text
-https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ 2026年11月17日時点の最新ダイレクトリンク（2026年11月リリース版）。
+https://updates.safing.io/latest/linux_amd64/packages/Portmaster_2.2.9_amd64.deb \\ 2026年11月20日時点の最新ダイレクトリンク（2026年11月リリース版）。
 ```
 
 **2.** ホストのターミナルを開く。初期ディレクトリ構造を展開するため、Safing のアップデートサーバーから旧バージョンの公式安定版 `.deb` インストーラをダウンロードする：
