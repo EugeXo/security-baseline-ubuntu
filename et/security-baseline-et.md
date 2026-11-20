@@ -5451,9 +5451,9 @@ exec /usr/local/bin/bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --bind "HOME/.config/keepassxc" "HOME/.config/keepassxc" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --bind "$HOME/.config/keepassxc" "$HOME/.config/keepassxc" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
   --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --unshare-all \
   --die-with-parent \
@@ -5734,7 +5734,7 @@ chmod +x VSCodium.AppImage && ./VSCodium.AppImage --appimage-extract && sudo mv 
 
 **3.** Käivitame hostis käsud, et määrata sisseehitatud Chrome-*sandbox*'ile etalonõigused, ning tagastame rekursiivselt aktiivsele kasutajale õigused eranditult kõigile peidetud sisemistele failidele ja konfiguratsioonikataloogidele universaalse muutuja `$USER` abil (see välistab täielikult varjatud ligipääsuvead *EACCES: permission denied*):
 ```bash
-sudo chown root:root /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chmod u+s /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chown -R USER:USER ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
+sudo chown root:root /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chmod u+s /opt/vscodium/usr/share/codium/chrome-sandbox && sudo chown -R $USER:$USER ~/.config/VSCodium ~/.vscode-oss ~/.vscode-oss-shared
 ```
 
 #### VS Codiumi isoleerimine Firejailis:
@@ -5785,7 +5785,7 @@ mkdir -p ~/Documents/VSCodium_Projects
 
 **7.** Määrame kausta `Documents` omaniku ja ligipääsuõigused:
 ```bash
-sudo chown USER:USER "\(HOME/Documents" && chmod 700 "\)HOME/Documents"
+sudo chown $USER:$USER "$HOME/Documents" && chmod 700 "$HOME/Documents"
 ```
 
 **8.** Käivitame koodiredaktori terminali tavapärases interaktiivses režiimis. Keerukate Electronil põhinevate IDE-de isoleerimiseks on see meetod etaloniks:
@@ -5802,7 +5802,7 @@ cat <<EOF > ~/.local/share/applications/vscodium-offline.desktop
 [Desktop Entry]
 Name=VS Codium (Offline IDE)
 Comment=Code Editing without Network Access
-Exec=firejail --net=none --profile=HOME/.config/firejail/vscodium.profile --whitelist={HOME}/Documents /opt/vscodium/AppRun --no-sandbox
+Exec=firejail --net=none --profile=$HOME/.config/firejail/vscodium.profile --whitelist=${HOME}/Documents /opt/vscodium/AppRun --no-sandbox
 Icon=/home/$USER/.local/share/icons/256x256@2x/vscodium-offline.png
 Terminal=false
 Type=Application
@@ -5832,7 +5832,7 @@ EOF
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-online.sh
 #!/bin/bash
-mkdir -p "$HOME/.config/VSCodium" "HOME/.vscode-oss" "HOME/.vscode-oss-shared"
+mkdir -p "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -5847,13 +5847,13 @@ exec bwrap \
   --tmpfs /tmp \
   --tmpfs "$HOME" \
   --share-net \
-  --bind "HOME/.config/VSCodium" "HOME/.config/VSCodium" \
-  --bind "HOME/.vscode-oss" "HOME/.vscode-oss" \
-  --bind "HOME/.vscode-oss-shared" "HOME/.vscode-oss-shared" \
+  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
+  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
+  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
   --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
   -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
@@ -5880,7 +5880,7 @@ chmod 644 ~/.local/share/applications/codium-online.desktop
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/codium-offline.sh
 #!/bin/bash
-mkdir -p "HOME/Documents" "HOME/.config/VSCodium" "HOME/.vscode-oss" "HOME/.vscode-oss-shared"
+mkdir -p "HOME/Documents" "$HOME/.config/VSCodium" "$HOME/.vscode-oss" "$HOME/.vscode-oss-shared"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -5896,13 +5896,13 @@ exec bwrap \
   --tmpfs "$HOME" \
   --unshare-net \
   --bind "HOME/Documents" "HOME/Documents" \
-  --bind "HOME/.config/VSCodium" "HOME/.config/VSCodium" \
-  --bind "HOME/.vscode-oss" "HOME/.vscode-oss" \
-  --bind "HOME/.vscode-oss-shared" "HOME/.vscode-oss-shared" \
+  --bind "$HOME/.config/VSCodium" "$HOME/.config/VSCodium" \
+  --bind "$HOME/.vscode-oss" "$HOME/.vscode-oss" \
+  --bind "$HOME/.vscode-oss-shared" "$HOME/.vscode-oss-shared" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
   --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv GDK_BACKEND "wayland" \
   -- /opt/vscodium/bin/codium --no-sandbox --ozone-platform=wayland "$@"
@@ -6775,7 +6775,7 @@ EOF
 ```bash
 sudo bash -c 'cat << "EOF" > /usr/local/bin/thunderbird-bwrap.sh
 #!/bin/bash
-mkdir -p "\(HOME/Downloads/Mail_Attachments" "\)HOME/.thunderbird"
+mkdir -p "$HOME/Downloads/Mail_Attachments" "$HOME/.thunderbird"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -6788,25 +6788,25 @@ exec bwrap \
   --dev /dev \
   --proc /proc \
   --tmpfs /tmp \
-  --tmpfs "\$HOME" \
+  --tmpfs "$HOME" \
   --share-net \
-  --bind "\(HOME/Downloads/Mail_Attachments" "\)HOME/Downloads/Mail_Attachments" \
-  --bind "HOME/.thunderbird" "HOME/.thunderbird" \
-  --bind-try "HOME/.gnupg" "HOME/.gnupg" \
+  --bind "$HOME/Downloads/Mail_Attachments" "$HOME/Downloads/Mail_Attachments" \
+  --bind "$HOME/.thunderbird" "$HOME/.thunderbird" \
+  --bind-try "$HOME/.gnupg" "$HOME/.gnupg" \
   --ro-bind-try /sys /sys \
   --ro-bind-try /dev/dri /dev/dri \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/wayland-0" "\)XDG_RUNTIME_DIR/wayland-0" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/bus" "\)XDG_RUNTIME_DIR/bus" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/pulse" "\)XDG_RUNTIME_DIR/pulse" \
-  --ro-bind-try "\(XDG_RUNTIME_DIR/pipewire-0" "\)XDG_RUNTIME_DIR/pipewire-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/wayland-0" "$XDG_RUNTIME_DIR/wayland-0" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/bus" "$XDG_RUNTIME_DIR/bus" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pulse" "$XDG_RUNTIME_DIR/pulse" \
+  --ro-bind-try "$XDG_RUNTIME_DIR/pipewire-0" "$XDG_RUNTIME_DIR/pipewire-0" \
   --ro-bind-try /tmp/.X11-unix /tmp/.X11-unix \
   --ro-bind-try "XAUTHORITY:-HOME/.Xauthority}" "XAUTHORITY:-HOME/.Xauthority}" \
-  --setenv DISPLAY "\${DISPLAY:-:0}" \
+  --setenv DISPLAY "${DISPLAY:-:0}" \
   --setenv XAUTHORITY "XAUTHORITY:-HOME/.Xauthority}" \
-  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=\$XDG_RUNTIME_DIR/bus" \
+  --setenv DBUS_SESSION_BUS_ADDRESS "unix:path=$XDG_RUNTIME_DIR/bus" \
   --setenv MOZ_ENABLE_WAYLAND "1" \
   --die-with-parent \
-  -- /usr/bin/thunderbird "\$@"
+  -- /usr/bin/thunderbird "$@"
 EOF' && sudo chmod 755 /usr/local/bin/thunderbird-bwrap.sh
 ```
 
@@ -6817,7 +6817,7 @@ cat <<EOF > ~/.local/share/applications/thunderbird-bwrap.desktop
 Name=Thunderbird (Hardened Sandbox)
 Comment=Hardened Mail Client inside Bubblewrap
 Exec=/usr/local/bin/thunderbird-bwrap.sh %u
-Icon=/home/\$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
+Icon=/home/$USER/.local/share/icons/256x256@2x/thunderbird-secure.png
 Terminal=false
 Type=Application
 Categories=Network;Email;
@@ -7807,6 +7807,7 @@ skip-test=PKGS-7396
 
 # Lülitame välja ettepaneku seadistada debsumsi käivitamine ajakava järgi cronis
 skip-test=PKGS-7370
+```
 
 > [!NOTE]
 > Esitatud Lynise erandite konfiguratsioonifail on asjatundlikult kohandatud töölauasüsteemile, mis kasutab YubiKeyd ja LUKS-krüpteerimist. Serverinõuete (paroolide rotatsioon, USB blokeerimine) ja audititeenuste kontrollide väljalülitamine võimaldab keskenduda kohaliku masina tegelikele haavatavustele.
